@@ -1,0 +1,117 @@
+/*h1 {*/
+    /*margin-bottom: 1em;*/
+/*}*/
+
+/*div.tabs {*/
+    /*background: #999;*/
+    /*padding: 1em;*/
+/*}*/
+
+/*div.container {*/
+    /*margin: auto;*/
+    /*width: 90%;*/
+    /*margin-bottom: 10px;*/
+/*}*/
+
+/*ul.tabNavigation {*/
+    /*list-style: none;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+/*}*/
+
+/*ul.tabNavigation li {*/
+    /*display: inline;*/
+/*}*/
+
+/*ul.tabNavigation li a {*/
+    /*padding: 3px 9px;*/
+    /*background-color: #666;*/
+    /*color: #000;*/
+    /*text-decoration: none;*/
+/*}*/
+
+/*ul.tabNavigation li a.selected,*/
+    /*ul.tabNavigation li a.selected:hover {*/
+    /*background: #ccc;*/
+    /*color: #000;*/
+/*}*/
+
+/*ul.tabNavigation li a:hover {*/
+    /*background: #ccc;*/
+    /*color: #000;*/
+/*}*/
+
+/*ul.tabNavigation li a:focus {*/
+    /*outline: 0;*/
+/*}*/
+
+/*div.tabs div {*/
+    /*padding: 5px;*/
+    /*margin-top: 3px;*/
+    /*border: 1px solid #FFF;*/
+    /*background: #ccc;*/
+/*}*/
+
+/*div.tabs div h2 {*/
+    /*margin-top: 0;*/
+/*}*/
+
+
+       div.tabs {
+            background: #fff;
+            padding: 20px 20px 10px 20px;
+            /*height: 651px;*/
+        }
+
+        ul.tabNavigation {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        ul.tabNavigation li {
+            display: inline;
+        }
+
+        ul.tabNavigation li a {
+            -moz-border-radius-topleft: 4px /*{cornerRadius}*/;
+            -webkit-border-top-left-radius: 4px /*{cornerRadius}*/;
+            border-top-left-radius: 4px /*{cornerRadius}*/;
+            -moz-border-radius-topright: 4px /*{cornerRadius}*/;
+            -webkit-border-top-right-radius: 4px /*{cornerRadius}*/;
+            border-top-right-radius: 4px /*{cornerRadius}*/;
+            padding: 3px 9px;
+            background-color: #666;
+            color: #000;
+            text-decoration: none;
+        }
+
+        ul.tabNavigation li a.selected,
+            ul.tabNavigation li a.selected:hover {
+            background: #ddd;
+            color: #000;
+        }
+
+        ul.tabNavigation li a:hover {
+            background: #ccc;
+            color: #000;
+        }
+
+        ul.tabNavigation li a:focus {
+            outline: 0;
+        }
+
+        div.tabs div {
+            /*overflow-y: scroll; *//* Добавляем полосы прокрутки */
+            /*height: 600px;*/
+
+            visibility:hidden;
+            padding: 5px;
+            margin-top: 3px;
+            border: 1px solid #ddd;
+            background: #ddd;
+        }
+
+        div.tabs div h2 {
+            margin-top: 0;
+        }
