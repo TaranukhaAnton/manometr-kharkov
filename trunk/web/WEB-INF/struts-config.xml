@@ -81,6 +81,7 @@
             <forward name="addAoForm" path="addAoForm"/>
             <forward name="addOpForm" path="addOpForm"/>
             <forward name="addListForm" path="addListForm"/>
+            <forward name="addListFormExt" path="addListFormExt"/>
 
             <!--<forward name="redactPrice" path="redactPrice"/>-->
             <!--<forward name="viewPriceList" path="viewPriceList"/>-->

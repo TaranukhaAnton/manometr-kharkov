@@ -4,11 +4,6 @@
         "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
         "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
 
-
-<!--
-        This is a blank Tiles definition file with a commented example.
-    -->
-
 <tiles-definitions>
 
 
@@ -25,30 +20,30 @@
 
 
     <definition name="userForm" extends="baseLayout">
-        <put name="title" value="Login form"/>
+        <put name="title" value="Редактирование/добавление пользователя"/>
         <put name="body" value="/pages/users/userForm.jsp"/>
     </definition>
     <definition name="users" extends="baseLayout">
-        <put name="title" value="Login form"/>
+        <put name="title" value="Пользователи"/>
         <put name="body" value="/pages/users/users.jsp"/>
     </definition>
 
     <definition name="customerForm" extends="baseLayout">
-        <put name="title" value="Login form"/>
+        <put name="title" value="Редактирование/добавление заказчика"/>
         <put name="body" value="/pages/customers/customerForm.jsp"/>
     </definition>
     <definition name="customers" extends="baseLayout">
-        <put name="title" value="Login form"/>
+        <put name="title" value="Заказчики"/>
         <put name="body" value="/pages/customers/customers.jsp"/>
     </definition>
 
     <definition name="contactForm" extends="baseLayout">
-        <put name="title" value="Login form"/>
+        <put name="title" value="Редактирование/добавление котнакта"/>
         <put name="body" value="/pages/contacts/contactForm.jsp"/>
     </definition>
 
     <definition name="contacts" extends="baseLayout">
-        <put name="title" value="Login form"/>
+        <put name="title" value="Контакты"/>
         <put name="body" value="/pages/contacts/contacts.jsp"/>
     </definition>
 
@@ -72,18 +67,22 @@
         <put name="body" value="/pages/addProduction/addOpForm.jsp"/>
     </definition>
     <definition name="addListForm" extends="baseLayout">
-        <put name="title" value="Login form"/>
+        <put name="title" value="Добавить продукцию"/>
         <put name="body" value="/pages/addProduction/addListProduction.jsp"/>
+    </definition>
+    <definition name="addListFormExt" extends="baseLayout">
+        <put name="title" value="Добавить продукцию"/>
+        <put name="body" value="/pages/addProduction/addListProductionExt.jsp"/>
     </definition>
 
 
     <definition name="redactAoCompatibility" extends="baseLayout">
-        <put name="title" value="Login form"/>
+        <put name="title" value="редактировать АО датчик"/>
         <put name="body" value="/pages/redactMD/redactAoCompatibility.jsp"/>
     </definition>
 
     <definition name="redactOpCompatibility" extends="baseLayout">
-        <put name="title" value="Login form"/>
+        <put name="title" value="Редактировать ОП датчик"/>
         <put name="body" value="/pages/redactMD/redactOpCompatibility.jsp"/>
     </definition>
     <definition name="result" extends="baseLayout">
