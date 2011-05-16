@@ -68,14 +68,20 @@ public class TestAction extends DispatchAction {
     public ActionForward addListForm(ActionMapping mapping, ActionForm form,
                                      HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        return mapping.findForward("addListForm");
+        return mapping.findForward("addListFormExt");
+    }
+
+    public ActionForward addListFormExt(ActionMapping mapping, ActionForm form,
+                                        HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        return mapping.findForward("addListFormExt");
     }
 
 
     public ActionForward addList(ActionMapping mapping, ActionForm form,
                                  HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        //    printProps(request);
+        printProps(request);
         // добавляем списочную продукцию
         String invoiceId = request.getParameter("invoiceId");
         String productionId = request.getParameter("productionId");
@@ -97,72 +103,7 @@ public class TestAction extends DispatchAction {
             production.setupMoneyFields(new BigDecimal("1.3"));
 
 
-            Integer count;
-            switch (type) {
-                case 3:
-                    count = i.getT0();
-                    if (count == null) {
-                        count = 1;
-                    } else {
-                        count += 1;
-                    }
-                    i.setT0(count);
-                    break;
-
-
-                case 4:
-                    count = i.getT1();
-                    if (count == null) {
-                        count = 1;
-                    } else {
-                        count += 1;
-                    }
-                    i.setT1(count);
-                    break;
-
-
-                case 5:
-                    count = i.getT3();
-                    if (count == null) {
-                        count = 1;
-                    } else {
-                        count += 1;
-                    }
-                    i.setT3(count);
-                    break;
-                case 6:
-                    count = i.getT2();
-                    if (count == null) {
-                        count = 1;
-                    } else {
-                        count += 1;
-                    }
-                    i.setT2(count);
-                    break;
-                case 7:
-                case 8:
-                    count = i.getT4();
-                    if (count == null) {
-                        count = 1;
-                    } else {
-                        count += 1;
-                    }
-                    i.setT4(count);
-                    break;
-
-
-                case 9:
-                    count = i.getT5();
-                    if (count == null) {
-                        count = 1;
-                    } else {
-                        count += 1;
-                    }
-                    i.setT5(count);
-                    break;
-
-
-            }
+            updateCounters(type, i);
 
 
             Factory.getInvoiceItemDAO().makePersistent(production);
@@ -175,6 +116,117 @@ public class TestAction extends DispatchAction {
         actionForward.setPath("/invoiceAction.do?method=viewInvoice&id=" + invoiceId);
         actionForward.setRedirect(true);
         return actionForward;
+
+    }
+
+    private void updateCounters(Integer type, Invoice i) {
+        Integer count;
+        switch (type) {
+            case 3:
+                count = i.getT0();
+                if (count == null) {
+                    count = 1;
+                } else {
+                    count += 1;
+                }
+                i.setT0(count);
+                break;
+
+
+            case 4:
+                count = i.getT1();
+                if (count == null) {
+                    count = 1;
+                } else {
+                    count += 1;
+                }
+                i.setT1(count);
+                break;
+
+
+            case 5:
+                count = i.getT3();
+                if (count == null) {
+                    count = 1;
+                } else {
+                    count += 1;
+                }
+                i.setT3(count);
+                break;
+            case 6:
+                count = i.getT2();
+                if (count == null) {
+                    count = 1;
+                } else {
+                    count += 1;
+                }
+                i.setT2(count);
+                break;
+            case 7:
+            case 8:
+                count = i.getT4();
+                if (count == null) {
+                    count = 1;
+                } else {
+                    count += 1;
+                }
+                i.setT4(count);
+                break;
+
+
+            case 9:
+                count = i.getT5();
+                if (count == null) {
+                    count = 1;
+                } else {
+                    count += 1;
+                }
+                i.setT5(count);
+                break;
+
+
+        }
+    }
+
+    public ActionForward addListExt(ActionMapping mapping, ActionForm form,
+                                    HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        printProps(request);
+        // добавляем списочную продукцию
+        /*    String invoiceId = request.getParameter("invoiceId");
+       Integer type = new Integer(request.getParameter("type"));
+       String name = request.getParameter("invoiceId");
+
+       Boolean addToList = request.getParameter("addToList") != null;
+       BigDecimal cost = new BigDecimal(request.getParameter("cost"));
+       BigDecimal price = new BigDecimal(request.getParameter("price"));
+
+       if (invoiceId != null) {
+           Production production = new Production();
+           Invoice i = Factory.getInvoiceDAO().findById(new Long(invoiceId));
+           //ProductionPrice productionPrice = Factory.getProductionDAO().findById(new Long(productionId));
+           production.setName(name);
+           production.setCost(cost);
+           production.setPrice(price);
+           production.setQuantity(1);
+           production.setDeliveryTime(45);
+           production.setType(type);
+           production.setInvoice(i);
+           production.setTransportationCost(new BigDecimal("0"));
+           production.setAdditionalCost(new BigDecimal("0"));
+           production.setupMoneyFields(new BigDecimal("1.3"));
+           updateCounters(type, i);
+           Factory.getInvoiceItemDAO().makePersistent(production);
+           i.addInvoiceItems(production);
+           Factory.getInvoiceDAO().makePersistent(i);
+       }
+
+
+       ActionForward actionForward = new ActionForward();
+       actionForward.setPath("/invoiceAction.do?method=viewInvoice&id=" + invoiceId);
+       actionForward.setRedirect(true);
+       return actionForward;*/
+        return mapping.findForward("addListFormExt");
 
     }
 
@@ -199,7 +251,7 @@ public class TestAction extends DispatchAction {
     public ActionForward addPressureSensor(ActionMapping mapping, ActionForm form,
                                            HttpServletRequest request, HttpServletResponse response) {
 
-     //   printProps(request);
+        //   printProps(request);
 //        System.out.println("*****************************");
         String invoiceId = request.getParameter("invoiceId").trim();
         String invoiceItemId = request.getParameter("invoiceItemId").trim();
@@ -948,7 +1000,7 @@ public class TestAction extends DispatchAction {
         Enumeration<String> en = request.getParameterNames();
         while (en.hasMoreElements()) {
             String param = en.nextElement();
-            System.out.print("P " + param + " -- ");
+            System.out.print(param + " -- ");
             System.out.println(request.getParameter(param));
         }
     }
