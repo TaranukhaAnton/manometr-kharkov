@@ -30,11 +30,61 @@
 
     <script type="text/javascript">
         $(function() {
-            $("#tabs").tabs();
+            $("#tabs").tabs({
+		});
+
         });
         function cancel() {
             var str = "invoiceAction.do?method=viewInvoice&id=" + $('#invoiceId').val();
             location.replace(str);
+        }
+        function checkForm() {
+            var name = $("#name");
+            var cost = $("#cost");
+            var price = $("#price");
+            var bValid = true;
+            name.removeClass('ui-state-error');
+            cost.removeClass('ui-state-error');
+            price.removeClass('ui-state-error');
+
+            bValid = bValid && checkLength(name, 5, 500);
+            bValid = bValid && checkRegexp(cost, /^(?:[+\-](?:[ ])?)?\d+(?:[\.,]\d+)?$/, "неверное число");
+            bValid = bValid && checkRegexp(cost, /^[0-9]+[\.,]?[0-9]?[0-9]?$/, "много знаков после зпт");
+            bValid = bValid && checkRegexp(price, /^(?:[+\-](?:[ ])?)?\d+(?:[\.,]\d+)?$/, "неверное число");
+            bValid = bValid && checkRegexp(price, /^[0-9]+[\.,]?[0-9]?[0-9]?$/, "много знаков после зпт");
+
+            return bValid;
+
+        }
+        function updateTips(t) {
+            $(".validateTips").text(t).addClass('ui-state-highlight');
+            setTimeout(function() {
+                tips.removeClass('ui-state-highlight', 1500);
+            }, 500);
+        }
+
+        function checkLength(o, min, max) {
+
+            if (o.val().length > max || o.val().length < min) {
+                o.addClass('ui-state-error');
+                updateTips("Длина поля должна быть больше " + min + " и меньше " + max + " символов.");
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+
+        function checkRegexp(o, regexp, n) {
+
+            if (!( regexp.test(o.val()) )) {
+                o.addClass('ui-state-error');
+                updateTips(n);
+                return false;
+            } else {
+                return true;
+            }
+
         }
 
     </script>
@@ -85,7 +135,7 @@
         /*top: 630px;*/
         /*left: 200px;*/
         /*border: none;*/
-            background-color: #7fffd4;
+            /*background-color: #7fffd4;*/
         }
 
         #container {
@@ -132,7 +182,8 @@
 <body>
 
 <div id="bodyDiv">
-
+     <% String[] arr = {"датчик давления специальный", "блок питания", "измерительный блок", "диаф. кам.", "проч продукция", "вычислитель", "продукцию сторонних производителей"};%>
+        <h2 align="center">Добавить <%=arr[new Integer(request.getParameter("type"))-3]%></h2>
 
     <div id="tabs">
         <ul>
@@ -143,9 +194,7 @@
             <form action="testAction.do">
                 <input type="hidden" name="invoiceId" id="invoiceId" value="<%=request.getParameter("invoiceId")%>">
                 <input type="hidden" name="type" value="<%=request.getParameter("type")%>">
-                <% String[] arr = {"датчик давления специальный", "блок питания", "измерительный блок", "диаф. кам.", "проч продукция", "вычислитель", "продукцию сторонних производителей"};
-                %>
-                <%--<h2 align="center">Добавить <%=arr[new Integer(request.getParameter("type"))-3]%> </h2>--%>
+
                 <div id="tableDiv">
                     <%
                         GenericHibernateDAO<ProductionPrice> dao = Factory.getProductionDAO();
@@ -192,13 +241,13 @@
             </form>
         </div>
         <div id="tabs-2" class="tabdiv">
-            <form action="testAction.do">
+            <form action="testAction.do" onsubmit="return checkForm();">
                 <div id="container">
                     <p class="validateTips">Все поля должны быть заполненны.</p>
                     <fieldset>
-                        <input type="hidden" name="invoiceId"  value="<%=request.getParameter("invoiceId")%>">
+                        <input type="hidden" name="invoiceId" value="<%=request.getParameter("invoiceId")%>">
                         <input type="hidden" name="type" value="<%=request.getParameter("type")%>">
-                         <input type="hidden" name="type" value="<%=request.getParameter("type")%>">
+                        <input type="hidden" name="type" value="<%=request.getParameter("type")%>">
                         <label for="name">Название</label>
                         <textarea rows="4" cols="50" name="name" id="name"></textarea><br><br>
                         <label for="cost">Себестоимость</label>
@@ -206,7 +255,8 @@
                         <label for="price">Цена</label>
                         <input type="text" name="price" id="price" class="text ui-widget-content ui-corner-all"/>
                         <label for="addToList">Добавлять в список</label>
-                        <input type="checkbox" name="addToList" id="addToList" class="text ui-widget-content ui-corner-all"/>
+                        <input type="checkbox" name="addToList" id="addToList"
+                               class="text ui-widget-content ui-corner-all"/>
                     </fieldset>
                     <input type="hidden" value="addListExt" name="method">
                 </div>

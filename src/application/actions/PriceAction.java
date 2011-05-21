@@ -14,6 +14,8 @@ import org.apache.struts.actions.DispatchAction;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.text.StringCharacterIterator;
 import java.util.*;
 
 /**
@@ -56,32 +58,28 @@ public class PriceAction extends DispatchAction {
         try {
             //  Long id = new Long(request.getParameter("id"));
             Map<String, Object> param = new HashMap();
-            param.put("type",new Integer(request.getParameter("type")));
-            param.put("isp",new Integer(request.getParameter("isp")));
-            param.put("param",request.getParameter("param"));
+            param.put("type", new Integer(request.getParameter("type")));
+            param.put("isp", new Integer(request.getParameter("isp")));
+            param.put("param", request.getParameter("param"));
 
 
-           List<OptionsPrice> res = dao.findByExample(param);
-           String result ="";
-           if(!res.isEmpty())
-           {
-               OptionsPrice p =res.get(0); //new OptionsPrice();
-            p.setCost(new BigDecimal(request.getParameter("cost")));
-            p.setPrice(new BigDecimal(request.getParameter("price")));
+            List<OptionsPrice> res = dao.findByExample(param);
+            String result = "";
+            if (!res.isEmpty()) {
+                OptionsPrice p = res.get(0); //new OptionsPrice();
+                p.setCost(new BigDecimal(request.getParameter("cost")));
+                p.setPrice(new BigDecimal(request.getParameter("price")));
 //            p.setType(new Integer(request.getParameter("type")));
 //            p.setIsp(new Integer(request.getParameter("isp")));
 //            p.setParam(request.getParameter("param"));
-            dao.makePersistent(p);
+                dao.makePersistent(p);
 
-            result = "{\"isp\":\"" + p.getIsp() + "\",";
-            result += "\"type\":\"" + p.getType() + "\",";
-            result += "\"param\":\"" + p.getParam() + "\",";
-            result += "\"cost\":\"" + p.getCost() + "\",";
-            result += "\"price\":\"" + p.getPrice() + "\"}";
-           }
-
-
-
+                result = "{\"isp\":\"" + p.getIsp() + "\",";
+                result += "\"type\":\"" + p.getType() + "\",";
+                result += "\"param\":\"" + p.getParam() + "\",";
+                result += "\"cost\":\"" + p.getCost() + "\",";
+                result += "\"price\":\"" + p.getPrice() + "\"}";
+            }
 
 
 //            System.out.println("PriceAction.addListItem");
@@ -147,7 +145,7 @@ public class PriceAction extends DispatchAction {
             ProductionPrice item = dao.findById(id);
             String res = "{\"id\":\"" + item.getId() + "\",";
             res += "\"type\":\"" + item.getType() + "\",";
-            res += "\"name\":\"" + item.getName() + "\",";
+            res += "\"name\":\"" +forJSON(item.getName()) + "\",";
             res += "\"cost\":\"" + item.getCost() + "\",";
             res += "\"price\":\"" + item.getPrice() + "\"}";
 
@@ -294,7 +292,7 @@ public class PriceAction extends DispatchAction {
 
     public ActionForward applayTmpValues(ActionMapping mapping, ActionForm form,
                                          HttpServletRequest request, HttpServletResponse response) {
-      //  System.out.println("PriceAction.applayTmpValues");
+        //  System.out.println("PriceAction.applayTmpValues");
         Factory.getPriceFirstDAO().applayTmpValues();
 
         return null;
@@ -315,5 +313,37 @@ public class PriceAction extends DispatchAction {
             System.out.print(param + " -- ");
             System.out.println(request.getParameter(param));
         }
+    }
+
+
+    public static String forJSON(String aText) {
+        final StringBuilder result = new StringBuilder();
+        StringCharacterIterator iterator = new StringCharacterIterator(aText);
+        char character = iterator.current();
+        while (character != StringCharacterIterator.DONE) {
+            if (character == '\"') {
+                result.append("\\\"");
+            } else if (character == '\\') {
+                result.append("\\\\");
+            } else if (character == '/') {
+                result.append("\\/");
+            } else if (character == '\b') {
+                result.append("\\b");
+            } else if (character == '\f') {
+                result.append("\\f");
+            } else if (character == '\n') {
+                result.append("\\n");
+            } else if (character == '\r') {
+                result.append("\\r");
+            } else if (character == '\t') {
+                result.append("\\t");
+            } else {
+                //the char is not a special one
+                //add it to the result as is
+                result.append(character);
+            }
+            character = iterator.next();
+        }
+        return result.toString();
     }
 }

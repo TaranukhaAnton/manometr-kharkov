@@ -79,64 +79,6 @@
         height: 651px;
     }
 
-    <%--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@--%>
-    /*h1 {*/
-    /*margin-bottom: 1em;*/
-    /*}*/
-
-    /*div.tabs {*/
-    /*background: #333;*/
-    /*padding: 1em;*/
-    /*}*/
-
-    /*div.container {*/
-    /*margin: auto;*/
-    /*width: 90%;*/
-    /*margin-bottom: 10px;*/
-    /*}*/
-
-    /*ul.tabNavigation {*/
-    /*list-style: none;*/
-    /*margin: 0;*/
-    /*padding: 0;*/
-    /*}*/
-
-    /*ul.tabNavigation li {*/
-    /*display: inline;*/
-    /*}*/
-
-    /*ul.tabNavigation li a {*/
-    /*padding: 3px 9px;*/
-    /*background-color: #666;*/
-    /*color: #000;*/
-    /*text-decoration: none;*/
-    /*}*/
-
-    /*ul.tabNavigation li a.selected,*/
-    /*ul.tabNavigation li a.selected:hover {*/
-    /*background: #FFF;*/
-    /*color: #000;*/
-    /*}*/
-
-    /*ul.tabNavigation li a:hover {*/
-    /*background: #ccc;*/
-    /*color: #000;*/
-    /*}*/
-
-    /*ul.tabNavigation li a:focus {*/
-    /*outline: 0;*/
-    /*}*/
-
-    /*div.tabs div {*/
-    /*padding: 5px;*/
-    /*margin-top: 3px;*/
-    /*border: 1px solid #FFF;*/
-    /*background: #FFF;*/
-    /*}*/
-
-    /*div.tabs div h2 {*/
-    /*margin-top: 0;*/
-    /*}*/
 
 
 </style>
@@ -253,8 +195,7 @@
                     
                     $("#id").val(response.id);
                     $("#type").val(response.type);
-                    $("#name").val(response.name);
-                    //  alert(response.name);
+                    $("#name").val(decodeURI(response.name));
                     $("#price").val(response.price);
                     $("#cost").val(response.cost);
                 }
