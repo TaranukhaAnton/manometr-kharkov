@@ -103,8 +103,7 @@
         <input type="hidden" name="type" id="type" value="<%=request.getParameter("type")%>">
         <% String[] arr = {"датчик давления специальный", "блок питания", "измерительный блок", "диаф. кам.", "проч продукция", "вычислитель", "продукцию сторонних производителей"};
         %>
-        <h2 align="center">Добавить <%=arr[new Integer(request.getParameter("type"))-3]%>
-        </h2>
+        <h2 align="center">Добавить <%=arr[new Integer(request.getParameter("type"))-3]%></h2>
         <div id="tableDiv">
             <%
                 GenericHibernateDAO<ProductionPrice> dao = Factory.getProductionDAO();

@@ -68,7 +68,7 @@ public class TestAction extends DispatchAction {
     public ActionForward addListForm(ActionMapping mapping, ActionForm form,
                                      HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        return mapping.findForward("addListFormExt");
+        return mapping.findForward("addListForm");
     }
 
     public ActionForward addListFormExt(ActionMapping mapping, ActionForm form,
@@ -193,40 +193,40 @@ public class TestAction extends DispatchAction {
             throws Exception {
         printProps(request);
         // добавляем списочную продукцию
-        /*    String invoiceId = request.getParameter("invoiceId");
-       Integer type = new Integer(request.getParameter("type"));
-       String name = request.getParameter("invoiceId");
+        String invoiceId = request.getParameter("invoiceId");
+        Integer type = new Integer(request.getParameter("type"));
+        String name = request.getParameter("name");
 
-       Boolean addToList = request.getParameter("addToList") != null;
-       BigDecimal cost = new BigDecimal(request.getParameter("cost"));
-       BigDecimal price = new BigDecimal(request.getParameter("price"));
+        Boolean addToList = request.getParameter("addToList") != null;
+        BigDecimal cost = new BigDecimal(request.getParameter("cost"));
+        BigDecimal price = new BigDecimal(request.getParameter("price"));
 
-       if (invoiceId != null) {
-           Production production = new Production();
-           Invoice i = Factory.getInvoiceDAO().findById(new Long(invoiceId));
-           //ProductionPrice productionPrice = Factory.getProductionDAO().findById(new Long(productionId));
-           production.setName(name);
-           production.setCost(cost);
-           production.setPrice(price);
-           production.setQuantity(1);
-           production.setDeliveryTime(45);
-           production.setType(type);
-           production.setInvoice(i);
-           production.setTransportationCost(new BigDecimal("0"));
-           production.setAdditionalCost(new BigDecimal("0"));
-           production.setupMoneyFields(new BigDecimal("1.3"));
-           updateCounters(type, i);
-           Factory.getInvoiceItemDAO().makePersistent(production);
-           i.addInvoiceItems(production);
-           Factory.getInvoiceDAO().makePersistent(i);
-       }
+        if (invoiceId != null) {
+            Production production = new Production();
+            Invoice i = Factory.getInvoiceDAO().findById(new Long(invoiceId));
+            //ProductionPrice productionPrice = Factory.getProductionDAO().findById(new Long(productionId));
+            production.setName(name);
+            production.setCost(cost);
+            production.setPrice(price);
+            production.setQuantity(1);
+            production.setDeliveryTime(45);
+            production.setType(type);
+            production.setInvoice(i);
+            production.setTransportationCost(new BigDecimal("0"));
+            production.setAdditionalCost(new BigDecimal("0"));
+            production.setupMoneyFields(new BigDecimal("1.3"));
+            updateCounters(type, i);
+            Factory.getInvoiceItemDAO().makePersistent(production);
+            i.addInvoiceItems(production);
+            Factory.getInvoiceDAO().makePersistent(i);
+        }
 
 
-       ActionForward actionForward = new ActionForward();
-       actionForward.setPath("/invoiceAction.do?method=viewInvoice&id=" + invoiceId);
-       actionForward.setRedirect(true);
-       return actionForward;*/
-        return mapping.findForward("addListFormExt");
+        ActionForward actionForward = new ActionForward();
+        actionForward.setPath("/invoiceAction.do?method=viewInvoice&id=" + invoiceId);
+        actionForward.setRedirect(true);
+        return actionForward;
+        // return mapping.findForward("addListFormExt");
 
     }
 

@@ -670,7 +670,7 @@
         датчик АО</a> <br>
     <a href="testAction.do?method=addOpForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&invoiceItemId=0">
         датчик ОП</a> <br>
-    <a href="testAction.do?method=addListForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=3">
+    <a href="testAction.do?method=addListFormExt&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=3">
         д.д. спец</a> <br>
     <a href="testAction.do?method=addListForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=4">
         блок питания</a> <br>
@@ -678,11 +678,11 @@
         ИБ</a> <br>
     <a href="testAction.do?method=addListForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=6">
         диаф. кам.</a> <br>
-    <a href="testAction.do?method=addListForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=7">
+    <a href="testAction.do?method=addListFormExt&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=7">
         проч продукция</a> <br>
     <a href="testAction.do?method=addListForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=8">
         вычислитель</a> <br>
-    <a href="testAction.do?method=addListForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=9">
+    <a href="testAction.do?method=addListFormExt&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=9">
         прод. сторон. произв.</a> <br>
 
 </div>

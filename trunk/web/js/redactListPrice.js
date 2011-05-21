@@ -107,7 +107,7 @@ function view(type, id)
                         type = $("#type");
                 id.val(response.id);
                 type.val(response.type);
-                name.text(response.name);
+                name.text(decodeURI(response.name));
                 price.val(response.price);
                 cost.val(response.cost);
 
