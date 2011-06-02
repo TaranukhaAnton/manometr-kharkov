@@ -633,8 +633,10 @@
     <%
         }
         if (invoice.getBooking() != null)
-            if (((invoice.getPurpose().equals(Invoice.PURPOSE_POSTAVKA)) || (invoice.getPurpose().equals(Invoice.PURPOSE_ISPIT))) && (!invoice.getBooking().getCurrentState().equals(Booking.STATE_CHERN)) && (invoice.isInvoice()) && (invoice.getCurrentState().equals(Invoice.STATE_ZAK)
-                    || invoice.getCurrentState().equals(Invoice.STATE_ISP))) {
+            if (((invoice.getPurpose().equals(Invoice.PURPOSE_POSTAVKA)) || (invoice.getPurpose().equals(Invoice.PURPOSE_ISPIT)))
+                    && (!invoice.getBooking().getCurrentState().equals(Booking.STATE_CHERN))
+                    && (invoice.isInvoice())
+                    && (invoice.getCurrentState().equals(Invoice.STATE_ZAK) || invoice.getCurrentState().equals(Invoice.STATE_ISP))) {
     %>
     <input type="button" value="Отгрузки"
            onclick="location.href='invoiceAction.do?method=viewShipments&invoiceId=<%=((Invoice) request.getAttribute("invoice")).getId()%>'"
