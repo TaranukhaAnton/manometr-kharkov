@@ -201,6 +201,7 @@
 <%
     Invoice invoice = (Invoice) request.getAttribute("invoice");
     Booking booking = invoice.getBooking();
+    SimpleDateFormat simpleDateFormat =    new SimpleDateFormat("dd.MM.yy");
 %>
 
 <div id="content">
@@ -219,8 +220,9 @@
             </a>
         </td>
         <td class="width230">
-            от <%= (new SimpleDateFormat("dd.MM.yy")).format(invoice.getDate()) %>
-            &nbsp;изм.<%= (new SimpleDateFormat("dd.MM.yy")).format(invoice.getChangeDate()) %>
+            от <%= simpleDateFormat.format(invoice.getDate()) %>
+            <% if (invoice.getChangeDate()!=null) {out.print("&nbsp; изм."+simpleDateFormat.format(invoice.getChangeDate()));     }   %>
+
         </td>
         <td></td>
         <td class="width80"></td>

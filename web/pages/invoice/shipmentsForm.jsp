@@ -51,8 +51,7 @@
             bodyResize(115);
         })
 
-        function toggleWidth(element)
-        {
+        function toggleWidth(element) {
             $(".shipColumn").css("width", "30px").text("*");
             if (element) {
                 var elem = $(element);
@@ -62,8 +61,7 @@
 
         }
 
-        function paramChange(param)
-        {
+        function paramChange(param) {
             if ($(param).attr("onkeypressEn") == 'true') {
                 $(param).attr("onkeypressEn", "false");
 
@@ -78,8 +76,7 @@
 
 
         }
-        function addShipmentFunc()
-        {
+        function addShipmentFunc() {
             if ($('#shipmentNum').val().length == 0) {
                 $('#shipmentNum').addClass('ui-state-error');
                 return;
@@ -87,8 +84,7 @@
 
             location.replace("invoiceAction.do?method=addShipment&" + $('#addShipment').serialize());
         }
-        function bodyResize(height)
-        {
+        function bodyResize(height) {
             var winHeight = $("body").height();
             var footerHeight = $("#total").height();
             var IICheight = (winHeight < 600) ? 210 : winHeight - 389 - $("#toptable").height();
@@ -117,8 +113,8 @@
 
 
         /*#invItems {*/
-            /*overflow-y: auto;*/
-            /*height: 405px;*/
+        /*overflow-y: auto;*/
+        /*height: 405px;*/
         /*}*/
 
         #invItems {
@@ -138,6 +134,7 @@
     df.setMaximumFractionDigits(2);
     Integer livel = (Integer) request.getSession().getAttribute("livel");
     boolean changesAllowed = (User.LIVEL_ECONOMIST.equals(livel) || User.LIVEL_ADMINISTRATOR.equals(livel)) && (!invoice.getCurrentState().equals(Invoice.STATE_ISP));
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy");
 
 %>
 
@@ -160,8 +157,10 @@
             </a>
         </td>
         <td class="width230">
-            от <%= (new SimpleDateFormat("dd.MM.yy")).format(invoice.getDate()) %>
-            &nbsp;изм.<%= (new SimpleDateFormat("dd.MM.yy")).format(invoice.getChangeDate()) %>
+            от <%= simpleDateFormat.format(invoice.getDate()) %>
+            <% if (invoice.getChangeDate() != null) {
+                out.print("&nbsp; изм." + simpleDateFormat.format(invoice.getChangeDate()));
+            } %>
         </td>
         <td></td>
         <td class="width80"></td>
@@ -178,7 +177,7 @@
     <tr>
 
         <td>
-            <% if (booking!=null){ %>
+            <% if (booking != null) { %>
             З.Н. &nbsp;
             <a href="invoiceAction.do?method=viewBooking&id=<%=booking.getId()%>">
                 <b>
@@ -188,7 +187,7 @@
             </a>
             <%}%>
         </td>
-        <td> <% if (booking!=null){ %> от <%= (new SimpleDateFormat("dd.MM.yy")).format(booking.getDate()) %>  <%}%>
+        <td><% if (booking != null) { %> от <%= (new SimpleDateFormat("dd.MM.yy")).format(booking.getDate()) %>  <%}%>
         </td>
         <td></td>
         <td></td>
