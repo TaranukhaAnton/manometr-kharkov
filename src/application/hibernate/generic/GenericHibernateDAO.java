@@ -285,7 +285,7 @@ public class GenericHibernateDAO<T>
 //        }
     }
 
-    public void flush() {
+/*    public void flush() {
         getSession().flush();
     }
 
@@ -296,7 +296,7 @@ public class GenericHibernateDAO<T>
     public void evict() {
         HibernateSessionFactory.getSessionFactory().evict(getPersistentClass());
 //        getSession().evict(ent);
-    }
+    }*/
 
     /**
      * Use this inside subclasses as a convenience method.
