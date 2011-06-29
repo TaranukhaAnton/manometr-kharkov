@@ -18,13 +18,7 @@ import java.net.URLEncoder;
 import java.text.StringCharacterIterator;
 import java.util.*;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Anton
- * Date: 22.01.2010
- * Time: 19:23:26
- * To change this template use File | Settings | File Templates.
- */
+
 public class PriceAction extends DispatchAction {
     public ActionForward redactMatrixPriceForward(ActionMapping mapping, ActionForm form,
                                                   HttpServletRequest request, HttpServletResponse response)
@@ -52,7 +46,7 @@ public class PriceAction extends DispatchAction {
             throws Exception {
 
 
-        printProps(request);
+     //   printProps(request);
         GenericHibernateDAO<OptionsPrice> dao = Factory.getOptionsPriceDAO();
 
         try {

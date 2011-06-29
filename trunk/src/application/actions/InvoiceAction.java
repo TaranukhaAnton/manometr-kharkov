@@ -1108,12 +1108,12 @@ public class InvoiceAction extends DispatchAction {
             parameters.put("sum", invoice.getSum());
             parameters.put("nds", invoice.getNDS());
 
-            parameters.put("strTotal", (new jAmount(invoice.getSupplier().getCurrency().getId().intValue()
+            parameters.put("strTotal", (new JAmount(invoice.getSupplier().getCurrency().getId().intValue()
                     , invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP).toString())).toString());
 
-            parameters.put("paymentTerms", (new jAmount(1, invoice.getTotal().toString())).toString());
-            parameters.put("deliveryTerms", (new jAmount(1, invoice.getTotal().toString())).toString());
-            parameters.put("delivery", (new jAmount(1, invoice.getTotal().toString())).toString());
+            parameters.put("paymentTerms", (new JAmount(1, invoice.getTotal().toString())).toString());
+            parameters.put("deliveryTerms", (new JAmount(1, invoice.getTotal().toString())).toString());
+            parameters.put("delivery", (new JAmount(1, invoice.getTotal().toString())).toString());
             parameters.put("invoice", invoice);
             parameters.put("path", context.getRealPath("/images/reportImages/"));
             parameters.put("city", Factory.getCityDAO().findById(invoice.getEmploer().getCity()).getName());

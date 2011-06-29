@@ -262,8 +262,8 @@
 
 </head>
 <body>
-<% User u = Factory.getUserDAO().findById((Long) request.getSession().getAttribute("logonUserId"));
-    request.setAttribute("invoices", (u == null) ? Factory.getInvoiceDAO().findAll() : (u.getInvoiceFilter() != null) ? u.getInvoiceFilter().doFilter() : Factory.getInvoiceDAO().findAll());
+<% //User u = Factory.getUserDAO().findById((Long) request.getSession().getAttribute("logonUserId"));
+   // request.setAttribute("invoices", (u == null) ? Factory.getInvoiceDAO().findAll() : (u.getInvoiceFilter() != null) ? u.getInvoiceFilter().doFilter() : Factory.getInvoiceDAO().findAll());
     NumberFormat df = NumberFormat.getInstance();
     df.setMinimumFractionDigits(2);
     df.setMaximumFractionDigits(2);

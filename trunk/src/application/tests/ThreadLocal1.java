@@ -31,9 +31,6 @@ public class ThreadLocal1 {
                     inv.addShipment(shipping);
                     //Factory.getShipmentDAO().makePersistent(shipping);
                     Factory.getInvoiceDAO().makePersistent(inv);
-                    Factory.getInvoiceDAO().evict();
-                    Factory.getInvoiceDAO().flush();
-                    Factory.getInvoiceDAO().clear();
                     System.out.println("#" + inv.getShipments().size());
                     try {
                         Thread.sleep(1000);
@@ -51,11 +48,10 @@ public class ThreadLocal1 {
         Runnable runner2 = new Runnable() {
             public void run() {
                 for (int i = 0; i < 12; i++) {
-                    Factory.getInvoiceDAO().flush();
-                    Factory.getInvoiceDAO().clear();
+                  //  Factory.getInvoiceDAO().flush();
+                   // Factory.getInvoiceDAO().clear();
 
                     Invoice inv = Factory.getInvoiceDAO().findById(10L);
-                    Factory.getInvoiceDAO().evict();
                     inv = Factory.getInvoiceDAO().findById(10L);
                     System.out.println("      *" + inv.getShipments().size());
                     try {
