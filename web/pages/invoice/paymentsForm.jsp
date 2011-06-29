@@ -89,8 +89,7 @@
             bodyResize(24);
 
         })
-        function digInput(evt, input)
-        {
+        function digInput(evt, input) {
             var theEvent = evt || window.event;
             var key = theEvent.keyCode || theEvent.which;
 
@@ -121,8 +120,7 @@
         }
 
 
-        function getCaretPos(obj)
-        {
+        function getCaretPos(obj) {
             obj.focus();
 
             if (obj.selectionStart) return obj.selectionStart;//Gecko
@@ -138,10 +136,9 @@
 
             return 0;
         }
-        function bodyResize(height)
-        {
+        function bodyResize(height) {
             var winHeight = $("body").height();
-            var footerHeight =  $("#total").height();
+            var footerHeight = $("#total").height();
             var IICheight = (winHeight < 600) ? 210 : winHeight - 389 - $("#toptable").height();
             var sc = (winHeight < 600) ? "visible" : "hidden";
             IICheight += height;
@@ -156,7 +153,6 @@
 //
 //
 //        $("#console").text(text);
-
 
 
             $("#variableHeightElement").css("height", IICheight + "px");
@@ -201,7 +197,7 @@
 <%
     Invoice invoice = (Invoice) request.getAttribute("invoice");
     Booking booking = invoice.getBooking();
-    SimpleDateFormat simpleDateFormat =    new SimpleDateFormat("dd.MM.yy");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy");
 %>
 
 <div id="content">
@@ -221,7 +217,9 @@
         </td>
         <td class="width230">
             от <%= simpleDateFormat.format(invoice.getDate()) %>
-            <% if (invoice.getChangeDate()!=null) {out.print("&nbsp; изм."+simpleDateFormat.format(invoice.getChangeDate()));     }   %>
+            <% if (invoice.getChangeDate() != null) {
+                out.print("&nbsp; изм." + simpleDateFormat.format(invoice.getChangeDate()));
+            } %>
 
         </td>
         <td></td>
@@ -238,8 +236,8 @@
     </tr>
     <tr>
 
-         <td>
-            <% if (booking!=null){ %>
+        <td>
+            <% if (booking != null) { %>
             З.Н. &nbsp;
             <a href="invoiceAction.do?method=viewBooking&id=<%=booking.getId()%>">
                 <b>
@@ -249,7 +247,7 @@
             </a>
             <%}%>
         </td>
-        <td> <% if (booking!=null){ %> от <%= (new SimpleDateFormat("dd.MM.yy")).format(booking.getDate()) %>  <%}%>
+        <td><% if (booking != null) { %> от <%= (new SimpleDateFormat("dd.MM.yy")).format(booking.getDate()) %>  <%}%>
         </td>
         <td></td>
         <td></td>
@@ -340,6 +338,7 @@
                     df.setMaximumFractionDigits(2);
 
                     if ((invoice.getPayments() == null) || (invoice.getPayments().isEmpty())) {
+                        for (int i = 0; i < 20; i++) {
                 %>
                 <tr>
                     <td class="width25">&nbsp;</td>
@@ -350,6 +349,7 @@
                     <td class="width90">&nbsp;</td>
                 </tr>
                 <%
+                    }
                 } else {
 
 
@@ -379,11 +379,22 @@
                 </tr>
 
                 <% }
-                }
-
+                    if (invoice.getPayments().size() < 20) {
+                        for (int i = 0; i < (20 - invoice.getPayments().size()); i++) {
                 %>
-
-
+                <tr>
+                    <td class="width25">&nbsp;</td>
+                    <td class="width90">&nbsp;</td>
+                    <td class="width140">&nbsp;</td>
+                    <td class="width90">&nbsp;</td>
+                    <td class="width90">&nbsp;</td>
+                    <td class="width90">&nbsp;</td>
+                </tr>
+                <%
+                            }
+                        }
+                    }
+                %>
             </table>
         </div>
     </div>

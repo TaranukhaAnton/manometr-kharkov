@@ -143,5 +143,10 @@
         <put name="body" value="/pages/invoice/paymentsForm.jsp"/>
     </definition>
 
+    <definition name="paymentArrears" extends="baseLayout">
+        <put name="title" value="Задолженности по оплате"/>
+        <put name="body" value="/pages/statistic/paymentArrears.jsp"/>
+    </definition>
+
 
 </tiles-definitions>
