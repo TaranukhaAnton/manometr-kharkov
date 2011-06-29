@@ -10,15 +10,15 @@ import java.util.Date;
 
 @Entity
 public class Booking {
-    public static final Integer STATE_CHERN=0;
-    public static final Integer STATE_PROIZV=1;
-    public static final Integer STATE_SKLAD=2;
-    public static final Integer STATE_CH_OTGR=3;
-    public static final Integer STATE_OTGR=4;
-    public static final Integer STATE_ISP=5;
-    public static final Integer STATE_PRIOST=6;
-    public static final Integer STATE_ANN=7;
-     public static final String[] curStateAlias = {"черн", "про", "склад", "ч.отгр", "отгр", "исп", "приос", "анн"}; 
+    public static final Integer STATE_CHERN = 0;
+    public static final Integer STATE_PROIZV = 1;
+    public static final Integer STATE_SKLAD = 2;
+    public static final Integer STATE_CH_OTGR = 3;
+    public static final Integer STATE_OTGR = 4;
+    public static final Integer STATE_ISP = 5;
+    public static final Integer STATE_PRIOST = 6;
+    public static final Integer STATE_ANN = 7;
+    public static final String[] curStateAlias = {"черн", "про", "склад", "ч.отгр", "отгр", "исп", "приос", "анн"};
     @Id
     @GeneratedValue()
 
@@ -37,8 +37,10 @@ public class Booking {
     private String notes;  //примечания
     private String comments;  //комментарий
 
+    private Date dateOfNoticeOpening;
+    private Date dateOfDeviveryMade;
+
     public Long getId() {
-      
         return id;
     }
 
@@ -117,5 +119,21 @@ public class Booking {
 
     public void setSupplierObligations2(Date supplierObligations2) {
         this.supplierObligations2 = supplierObligations2;
+    }
+
+    public Date getDateOfNoticeOpening() {
+        return dateOfNoticeOpening;
+    }
+
+    public void setDateOfNoticeOpening(Date dateOfNoticeOpening) {
+        this.dateOfNoticeOpening = dateOfNoticeOpening;
+    }
+
+    public Date getDateOfDeviveryMade() {
+        return dateOfDeviveryMade;
+    }
+
+    public void setDateOfDeviveryMade(Date dateOfDeviveryMade) {
+        this.dateOfDeviveryMade = dateOfDeviveryMade;
     }
 }

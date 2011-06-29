@@ -107,6 +107,12 @@
                         <LI><A href="testAction.do?method=redactAoForward">АО</A></LI>
                     </UL>
                 </LI>
+                <LI><A href="#">Статистика</A>
+                    <UL >
+                        <LI><A href="statisticAction.do?method=viewPaymentArrears">Задолженности по оплате</A></LI>
+
+                    </UL>
+                </LI>
                 <%--<li><a href="priceAction.do?method=redactMatrixPriceForward">Ред матр. прайс.</a></li>--%>
                 <%--<li><a href="priceAction.do?method=redactListPriceForward">Ред сп. прайс.</a>--%>
                 <%--<li><a href="priceAction.do?method=redactOptionPriceForward">Ред оп. прайс.</a></li>--%>

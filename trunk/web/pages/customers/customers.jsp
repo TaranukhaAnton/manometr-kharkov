@@ -28,7 +28,7 @@
 		<display:table name="customers" id="row"
 			requestURI="CustomerProcess.do?method=getCustomers"
 			excludedParams="method" requestURIcontext="false" pagesize="24"
-			sort="list" class="simple">
+			sort="list" class="simple" defaultsort="3" >
 
             
 			<%--<display:column property="registrationNumber" title="ID"--%>
@@ -38,7 +38,7 @@
 					<img src="images/bullet_done.png" />
 				</c:if>
 			</display:column>
-            <display:column title="Нов" sortable="true" class="bool2">
+            <display:column title="Нов" sortable="true" class="bool2" >
 				<c:if test="${row.new}">
 					<img src="images/bullet_done.png" />
 				</c:if>

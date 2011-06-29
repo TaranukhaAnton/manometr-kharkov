@@ -28,13 +28,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Anton
- * Date: 16.02.2010
- * Time: 14:14:34
- * To change this template use File | Settings | File Templates.
- */
+
 public class InvoiceAction extends DispatchAction {
 
     public ActionForward setupFilter(ActionMapping mapping, ActionForm form,
@@ -1264,13 +1258,14 @@ public class InvoiceAction extends DispatchAction {
 
             if (invoice.isDeliveryMade()) {
                 invoice.getBooking().setCurrentState(Booking.STATE_OTGR);
+                invoice.getBooking().setDateOfDeviveryMade(new Date());
                 if (invoice.isPaymentMade()) {
                     invoice.getBooking().setCurrentState(Booking.STATE_ISP);
                     invoice.setCurrentState(Invoice.STATE_ISP);
                 }
             }
 
-
+            Factory.getBookingDAO().makePersistent(invoice.getBooking());
             Factory.getInvoiceDAO().makePersistent(invoice);
 
 
@@ -1419,6 +1414,9 @@ public class InvoiceAction extends DispatchAction {
                             booking.setSupplierObligations1(set.first());
                             booking.setSupplierObligations2(set.last());
                             break;
+                        case 2:
+                            booking.setDateOfNoticeOpening(new Date());
+                            break;
                         case 6:
 
                             if (!(
@@ -1444,7 +1442,6 @@ public class InvoiceAction extends DispatchAction {
                         booking.setCurrentState(state);
                         response.getWriter().write("{\"res\":\"ok\"}");
                         Factory.getBookingDAO().makePersistent(booking);
-                        System.out.println("tut");
                     }
 
                 }

@@ -578,6 +578,14 @@ public class Invoice {
         return result;
     }
 
+
+    @PreUpdate
+    @PostLoad
+    public void init() {
+        System.out.println("Invoice.init. ");
+    }
+
+
     public Boolean isAnyGoodsNotShipped() {
         Boolean result = true;
         for (InvoiceItem item : invoiceItems) {

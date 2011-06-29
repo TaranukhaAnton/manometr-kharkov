@@ -99,30 +99,28 @@
         </action>
 
         <action path="/supplierAction" parameter="method"
-                type="application.actions.SupplierAction" >
+                type="application.actions.SupplierAction">
             <forward name="ok" path="/supplierAction.do?method=viewSuppliers" redirect="true"/>
             <forward name="suppliers" path="suppliers" redirect="true"/>
             <forward name="edit" path="supplierForm"/>
 
         </action>
         <action path="/invoiceAction" parameter="method"
-                type="application.actions.InvoiceAction" >
+                type="application.actions.InvoiceAction">
             <forward name="ok" path="/invoiceAction.do?method=viewInvoices" redirect="true"/>
-            <forward name="invoices" path="invoices" />
+            <forward name="invoices" path="invoices"/>
             <forward name="edit" path="invoiceForm"/>
-            <forward name="bookings" path="bookings" />
+            <forward name="bookings" path="bookings"/>
             <forward name="bookingForm" path="bookingForm" redirect="true"/>
             <forward name="paymentsForm" path="paymentsForm" redirect="true"/>
             <forward name="shipmentsForm" path="shipmentsForm" redirect="true"/>
-
-
         </action>
 
 
-        <!--        <action path="/addCoAction" parameter="method"
-                type="application.actions.TestAction" >
-            <forward name="addCoForm" path="addCoForm"/>
-        </action>-->
+        <action path="/statisticAction" parameter="method"
+                type="application.actions.StatisticAction">
+            <forward name="paymentArrears" path="paymentArrears"/>
+        </action>
 
     </action-mappings>
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
@@ -131,7 +129,7 @@
     <plug-in className="org.apache.struts.tiles.TilesPlugin">
         <set-property value="/WEB-INF/tiles-defs.xml" property="definitions-config"/>
     </plug-in>
-     <!--<plug-in className="application.HibernatePlugIn"/>-->
+    <!--<plug-in className="application.HibernatePlugIn"/>-->
     <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
         <set-property value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml" property="pathnames"/>
     </plug-in>
