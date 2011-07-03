@@ -300,7 +300,7 @@ public class CustomerAction extends DispatchAction {
     public ActionForward insertOrUpdate(ActionMapping mapping, ActionForm form,
                                         HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        printProps(request);
+        //printProps(request);
 
 
         CustomerForm customerForm = (CustomerForm) form;
@@ -716,14 +716,7 @@ public class CustomerAction extends DispatchAction {
 
     }
 
-    private void printProps(HttpServletRequest request) {
-        Enumeration<String> en = request.getParameterNames();
-        while (en.hasMoreElements()) {
-            String param = en.nextElement();
-            System.out.print(param + " -- ");
-            System.out.println(request.getParameter(param));
-        }
-    }
+
 
     private String decode(String s) {
         String result = null;

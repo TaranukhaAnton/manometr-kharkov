@@ -28,6 +28,8 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static application.utils.CommonUtils.getCurrentDate;
+
 
 public class InvoiceAction extends DispatchAction {
 
@@ -998,16 +1000,7 @@ public class InvoiceAction extends DispatchAction {
         return forward;
     }
 
-    private void printProps(HttpServletRequest request) {
-        Enumeration<String> en = request.getParameterNames();
-        while (en.hasMoreElements()) {
-            String param = en.nextElement();
-            // System.out.print(param + " -- ");
-            // System.out.println(request.getParameter(param));
-            for (String s : request.getParameterValues(param))
-                System.out.println(param + " = " + s);
-        }
-    }
+
 
     public ActionForward findCustomers(ActionMapping mapping, ActionForm form,
                                        HttpServletRequest request, HttpServletResponse response)
@@ -1258,7 +1251,10 @@ public class InvoiceAction extends DispatchAction {
 
             if (invoice.isDeliveryMade()) {
                 invoice.getBooking().setCurrentState(Booking.STATE_OTGR);
-                invoice.getBooking().setDateOfDeviveryMade(new Date());
+
+
+
+                invoice.getBooking().setDateOfDeviveryMade(getCurrentDate());
                 if (invoice.isPaymentMade()) {
                     invoice.getBooking().setCurrentState(Booking.STATE_ISP);
                     invoice.setCurrentState(Invoice.STATE_ISP);
@@ -1415,7 +1411,7 @@ public class InvoiceAction extends DispatchAction {
                             booking.setSupplierObligations2(set.last());
                             break;
                         case 2:
-                            booking.setDateOfNoticeOpening(new Date());
+                            booking.setDateOfNoticeOpening(getCurrentDate());
                             break;
                         case 6:
 

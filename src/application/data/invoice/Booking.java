@@ -5,7 +5,8 @@ import org.hibernate.validator.NotNull;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -39,6 +40,7 @@ public class Booking {
 
     private Date dateOfNoticeOpening;
     private Date dateOfDeviveryMade;
+
 
     public Long getId() {
         return id;
@@ -136,4 +138,6 @@ public class Booking {
     public void setDateOfDeviveryMade(Date dateOfDeviveryMade) {
         this.dateOfDeviveryMade = dateOfDeviveryMade;
     }
+
+
 }

@@ -120,6 +120,11 @@ public class Invoice {
     private Integer t4;
     private Integer t5;
 
+    @Transient
+    private BigDecimal debt;
+
+    @Transient
+    private BigDecimal debtPercent;
 
     public List<Payment> getPayments() {
         return payments;
@@ -519,6 +524,22 @@ public class Invoice {
         this.t5 = t5;
     }
 
+    public BigDecimal getDebt() {
+        return debt;
+    }
+
+    public void setDebt(BigDecimal debt) {
+        this.debt = debt;
+    }
+
+
+    public BigDecimal getDebtPercent() {
+        return debtPercent;
+    }
+
+    public void setDebtPercent(BigDecimal debtPercent) {
+        this.debtPercent = debtPercent;
+    }
 
     public BigDecimal getTotalPayments() {
         BigDecimal sumOfPayments = new BigDecimal("0");
@@ -579,13 +600,6 @@ public class Invoice {
     }
 
 
-    @PreUpdate
-    @PostLoad
-    public void init() {
-        System.out.println("Invoice.init. ");
-    }
-
-
     public Boolean isAnyGoodsNotShipped() {
         Boolean result = true;
         for (InvoiceItem item : invoiceItems) {
@@ -606,17 +620,5 @@ public class Invoice {
 
         return result;
     }
-
-
-//    public BigDecimal getTotalSum() {
-//        BigDecimal result = new BigDecimal("0");
-//        for (InvoiceItem invoiceItem : invoiceItems) {
-//            result.add(invoiceItem.getSellingPrice());
-//        }
-//        return result;
-//
-//
-//    }
-
 
 }
