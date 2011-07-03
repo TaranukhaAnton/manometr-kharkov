@@ -15,17 +15,21 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static application.utils.CommonUtils.getCurrentDate;
+import static application.utils.InvoiceUtils.filterInvoicesWithDebts;
+
 
 public class StatisticAction extends DispatchAction {
-    public ActionForward viewPaymentArrears(ActionMapping mapping, ActionForm form,
-                                            HttpServletRequest request, HttpServletResponse response)
+    public ActionForward viewInvoicesWithDebts(ActionMapping mapping, ActionForm form,
+                                               HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         GenericHibernateDAO<Invoice> factory = Factory.getInvoiceDAO();
         Map<String, List> query = new HashMap();
         List<Integer> values = new LinkedList<Integer>();
         values.add(Invoice.STATE_ACT);
-        query.put("currentState",values);
+        query.put("currentState", values);
         List<Invoice> result = factory.findByQuery(new HashMap(), new HashMap(), new HashMap(), query);
+        result = filterInvoicesWithDebts(result, getCurrentDate());
         request.setAttribute("invoices", result);
         return mapping.findForward("paymentArrears");
     }

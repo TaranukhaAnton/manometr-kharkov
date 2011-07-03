@@ -359,14 +359,7 @@ public class ContactAction extends DispatchAction {
 
     }
 
-    private void printProps(HttpServletRequest request) {
-        Enumeration<String> en = request.getParameterNames();
-        while (en.hasMoreElements()) {
-            String param = en.nextElement();
-            System.out.print(param + " -- ");
-            System.out.println(request.getParameter(param));
-        }
-    }
+
 
     private String decode(String s) {
         String result = null;

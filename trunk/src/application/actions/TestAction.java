@@ -21,6 +21,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import static application.utils.CommonUtils.*;
+
 public class TestAction extends DispatchAction {
     String[] isp = {"общ.", "вн", "Ex", "AC", "К"};
 
@@ -933,90 +935,4 @@ public class TestAction extends DispatchAction {
         response.getWriter().write((result.getPrice().compareTo(new BigDecimal("0")) == 1) ? "true" : "false");
         return null;
     }
-
-
-//    public ActionForward testForFL(ActionMapping mapping, ActionForm form,
-//                                   HttpServletRequest request, HttpServletResponse response) {
-//        printProps(request);
-//        printHeaders(request);
-//
-//
-////        System.out.println("TestAction.testForFL");
-////        System.out.println("Session id = " + request.getSession().getId());
-//
-//
-////        Cookie[] c= request.getCookies();
-////
-////        for(Cookie co:c)
-////        {
-////            System.out.print("Value = " + co.getValue());
-////            System.out.print(" Name  = " + co.getName());
-////            System.out.println(" Domain  = " + co.getDomain());
-////        }
-//
-//
-////        System.out.println("############################");
-////        System.out.println("");
-//        try {
-//            response.setContentType("text/html; charset=UTF-8");
-//            //String result = "{\"total_summa\":10,\"total_items\":20}";
-//            String result = "\n<div> hello" +
-//                    "</div>\n" +
-//                    "</td>\n" +
-//                    "<td width=\"240\" style=\"padding-top: 15px;\">\n" +
-//                    "<div class=\"sale\">\n" +
-//                    "<h3>Корзина заказов</h3>\n" +
-//                    "<!--start--><div id=\"bid\"> \n" +
-//                    "<table class=\"table-basket-line\" style=\"font: 8pt Tahoma;\">\n" +
-//                    "\t\t\t<tr>\n" +
-//                    "\t\t\t<td><a href=\"/personal/cart/\" class=\"basket-line-basket\"></a></td>\n" +
-//                    "\t\t\t<td><a href=\"/personal/cart/\">В вашей корзине <b>2</b> товара</a></td>\n" +
-//                    "\n" +
-//                    "\t\t</tr>\n" +
-//                    "\t\t\t\t<tr>\n" +
-//                    "\t\t\t<td><a href=\"/personal/\" class=\"basket-line-personal\"></a></td>\n" +
-//                    "\t\t\t<td><a href=\"/personal/\">Персональный раздел</a></td>\n" +
-//                    "\t\t</tr>\n" +
-//                    "\t\t</table></div><!--end--> \n" +
-//                    "\n" +
-//                    "</div>\n" +
-//                    "</td>\n" +
-//                    "</tr>\n" +
-//                    "</table>\n" +
-//                    "\n" +
-//                    "<h1>Игры-забавы</h1>\n" +
-//                    "<p>";
-//
-//
-//            response.getWriter().write(result);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-
-
-    private void printProps(HttpServletRequest request) {
-        Enumeration<String> en = request.getParameterNames();
-        while (en.hasMoreElements()) {
-            String param = en.nextElement();
-            System.out.print(param + " -- ");
-            System.out.println(request.getParameter(param));
-        }
-    }
-
-
-//    private void printHeaders(HttpServletRequest request) {
-//        Enumeration<String> en = request.getHeaderNames();
-//        while (en.hasMoreElements()) {
-//            String attribute = en.nextElement();
-//            System.out.print("H " + attribute + " -- ");
-//            System.out.println(request.getHeader(attribute));
-//        }
-//        System.out.println("ContentType" + request.getContentType());
-//        System.out.println("ContentLength" + request.getContentLength());
-//
-//    }
-
-
 }

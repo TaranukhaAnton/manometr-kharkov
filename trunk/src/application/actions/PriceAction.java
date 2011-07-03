@@ -300,14 +300,7 @@ public class PriceAction extends DispatchAction {
         return null;
     }
 
-    private void printProps(HttpServletRequest request) {
-        Enumeration<String> en = request.getParameterNames();
-        while (en.hasMoreElements()) {
-            String param = en.nextElement();
-            System.out.print(param + " -- ");
-            System.out.println(request.getParameter(param));
-        }
-    }
+
 
 
     public static String forJSON(String aText) {

@@ -102,16 +102,4 @@ public class SupplierAction extends DispatchAction {
 
         return mapping.findForward("ok");
     }
-
-
-    private void printProps(HttpServletRequest request) {
-        Enumeration<String> en = request.getParameterNames();
-        while (en.hasMoreElements()) {
-            String param = en.nextElement();
-            System.out.print(param + " -- ");
-            System.out.println(request.getParameter(param));
-        }
-    }
-
-
 }
