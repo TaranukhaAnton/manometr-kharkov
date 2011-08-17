@@ -44,7 +44,8 @@ public class InvoiceAction extends DispatchAction {
             // User u = Factory.getUserDAO().findById(((User) request.getSession().getAttribute("logonUser")).getId());
             User u = Factory.getUserDAO().findById((Long) request.getSession().getAttribute("logonUserId"));
             if (u == null) return null;
-            InvoiceFilter filter = (u.getInvoiceFilter() == null) ? (new InvoiceFilter()) : u.getInvoiceFilter();
+            //todo
+            InvoiceFilter filter =null;// (u.getInvoiceFilter() == null) ? (new InvoiceFilter()) : u.getInvoiceFilter();
             filter.setF0((request.getParameter("f0") == null) ? 0 : new Integer(request.getParameter("f0")));
             filter.setF1((request.getParameter("f1") == null) ? 0 : new Integer(request.getParameter("f1")));
             filter.setF2((request.getParameter("f2") == null) ? 0 : new Integer(request.getParameter("f2")));
@@ -94,8 +95,8 @@ public class InvoiceAction extends DispatchAction {
                 filter.setUsers(new Long[]{((User) request.getSession().getAttribute("logonUser")).getId()});
             }
 
-
-            u.setInvoiceFilter(filter);
+           //todo
+         //   u.setInvoiceFilter(filter);
             Factory.getUserDAO().makePersistent(u);
 
 //            String res = "{\"f0\":0,\"f1\":0,\"f2\":0}";
@@ -118,7 +119,8 @@ public class InvoiceAction extends DispatchAction {
         try {
             User u = (User) request.getSession().getAttribute("logonUser");
             if (u == null) return null;
-            InvoiceFilter filter = (u.getInvoiceFilter() == null) ? (new InvoiceFilter()) : u.getInvoiceFilter();
+            //todo
+            InvoiceFilter filter =null;// (u.getInvoiceFilter() == null) ? (new InvoiceFilter()) : u.getInvoiceFilter();
 
             // request.get
             // String res = "{\"f0\":0,\"f1\":0,\"f2\":1}";
