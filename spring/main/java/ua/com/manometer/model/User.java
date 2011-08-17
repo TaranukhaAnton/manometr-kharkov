@@ -8,10 +8,10 @@ import java.util.Date;
 
 @Entity
 public class User {
-    public static Integer LIVEL_USER = 1;
-    public static Integer LIVEL_MANAGER = 2;
-    public static Integer LIVEL_ECONOMIST = 3;
-    public static Integer LIVEL_ADMINISTRATOR = 4;
+    public static Integer LEVEL_USER = 1;
+    public static Integer LEVEL_MANAGER = 2;
+    public static Integer LEVEL_ECONOMIST = 3;
+    public static Integer LEVEL_ADMINISTRATOR = 4;
 
 
     private Long id;
@@ -19,7 +19,7 @@ public class User {
     private String patronymic; // отчество
     private String lastName; // фамилия
     private String position; // должность
-    private Date receptionoOnWorkDate; // дата приёма на работу
+    private Date receptionOnWorkDate; // дата приёма на работу
     private Date dischargingDate; // дата увольнения
     private String tel;// телефон
     private String telMob; // телефон мобильный
@@ -27,17 +27,17 @@ public class User {
     private String login; // логин
     private String pass;// пароль
 
-    private InvoiceFilter invoiceFilter;
+   // private InvoiceFilter invoiceFilter;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "invoicefilter_fk", nullable = true)
-    public InvoiceFilter getInvoiceFilter() {
-        return invoiceFilter;
-    }
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "invoicefilter_fk", nullable = true)
+//    public InvoiceFilter getInvoiceFilter() {
+//        return invoiceFilter;
+//    }
 
-    public void setInvoiceFilter(InvoiceFilter invoiceFilter) {
-        this.invoiceFilter = invoiceFilter;
-    }
+//    public void setInvoiceFilter(InvoiceFilter invoiceFilter) {
+//        this.invoiceFilter = invoiceFilter;
+//    }
 
     @Override
     public String toString() {
@@ -74,8 +74,8 @@ public class User {
     }
 
 
-    public Date getReceptionoOnWorkDate() {
-        return receptionoOnWorkDate;
+    public Date getReceptionOnWorkDate() {
+        return receptionOnWorkDate;
     }
 
 
@@ -139,8 +139,8 @@ public class User {
     }
 
 
-    public void setReceptionoOnWorkDate(Date receptionoOnWorkDate) {
-        this.receptionoOnWorkDate = receptionoOnWorkDate;
+    public void setReceptionOnWorkDate(Date receptionOnWorkDate) {
+        this.receptionOnWorkDate = receptionOnWorkDate;
     }
 
 

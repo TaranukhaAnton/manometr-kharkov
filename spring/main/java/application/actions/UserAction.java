@@ -198,9 +198,9 @@ public class UserAction extends DispatchAction {
         user.setPosition(userForm.getPosition());
 
         try {
-            if (userForm.getReceptionoOnWorkDate() != "")
-                user.setReceptionoOnWorkDate(f.parse(userForm
-                        .getReceptionoOnWorkDate()));
+            if (userForm.getReceptionOnWorkDate() != "")
+                user.setReceptionOnWorkDate(f.parse(userForm
+                        .getReceptionOnWorkDate()));
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -234,9 +234,9 @@ public class UserAction extends DispatchAction {
         userForm.setName(user.getName());
         userForm.setPatronymic(user.getPatronymic());
         userForm.setPosition(user.getPosition());
-        if (user.getReceptionoOnWorkDate() != null)
-            userForm.setReceptionoOnWorkDate(f.format(user
-                    .getReceptionoOnWorkDate()));
+        if (user.getReceptionOnWorkDate() != null)
+            userForm.setReceptionOnWorkDate(f.format(user
+                    .getReceptionOnWorkDate()));
         if (user.getDischargingDate() != null)
             userForm.setDischargingDate(f.format(user.getDischargingDate()));
         userForm.setTel(user.getTel());
