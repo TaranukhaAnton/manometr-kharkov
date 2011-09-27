@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import br.com.javacoder.contact.model.Contact;
 import br.com.javacoder.contact.service.ContactService;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.annotation.Resource;
 
 @Controller
 public class ContactController {
@@ -84,12 +82,10 @@ public class ContactController {
         // System.out.println(context.getRealPath("/report/Report.jrxml"));
         // String type = request.getParameter("type");
         try {
-//            System.out.println("context.getRealPath(\"/disign/invoice2.jrxml\") =" + context.getRealPath("/disign/invoice2.jrxml"));
-//            JasperReport report = JasperCompileManager.compileReport(context.getRealPath("/disign/invoice2.jrxml"));
-            JasperReport report = JasperCompileManager.compileReport("D:\\projects\\SHM\\report\\Report.jrxml");
+            JasperReport report = JasperCompileManager.compileReport("/home/anton/Projects/st/SHM/report/MarkupReport.jrxml");
             Map parameters = new HashMap();
-
-            parameters.put("sss", "str");
+            parameters.put("RtfText", "zxcv");
+            parameters.put("HtmlText", "asdfasdfsdfasd");
 
 
             // OutputStream out = response.getOutputStream();
@@ -99,7 +95,6 @@ public class ContactController {
             //  response.setHeader("Content-Disposition", "attachment;filename=invoice.pdf");
             JasperExportManager.exportReportToPdfStream(jasperPrint, out);
 
-            JasperExportManager.exportReportToPdfFile(jasperPrint, "C://pdf.pdf");
 
             out.flush();
             out.close();
