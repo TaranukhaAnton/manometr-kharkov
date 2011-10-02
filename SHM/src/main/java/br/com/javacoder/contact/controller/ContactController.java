@@ -8,9 +8,11 @@ import java.util.Map;
 
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -22,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import br.com.javacoder.contact.model.Contact;
 import br.com.javacoder.contact.service.ContactService;
 
-import javax.annotation.Resource;
 
 @Controller
 public class ContactController {
@@ -82,10 +83,18 @@ public class ContactController {
         // System.out.println(context.getRealPath("/report/Report.jrxml"));
         // String type = request.getParameter("type");
         try {
-            JasperReport report = JasperCompileManager.compileReport("/home/anton/Projects/st/SHM/report/MarkupReport.jrxml");
+
+            InputStream reportStream = this.getClass().getResourceAsStream("/Report.jrxml");
+
+// Retrieve our report template
+            JasperDesign jd = JRXmlLoader.load(reportStream);
+            JasperReport report = JasperCompileManager.compileReport(jd);
+//            System.out.println("context.getRealPath(\"/disign/invoice2.jrxml\") =" + context.getRealPath("/disign/invoice2.jrxml"));
+//            JasperReport report = JasperCompileManager.compileReport(context.getRealPath("/disign/invoice2.jrxml"));
+            // JasperReport report = JasperCompileManager.compileReport("D:\\projects\\SHM\\report\\Report.jrxml");
             Map parameters = new HashMap();
-            parameters.put("RtfText", "zxcv");
-            parameters.put("HtmlText", "asdfasdfsdfasd");
+
+            parameters.put("sss", "str");
 
 
             // OutputStream out = response.getOutputStream();
@@ -95,6 +104,7 @@ public class ContactController {
             //  response.setHeader("Content-Disposition", "attachment;filename=invoice.pdf");
             JasperExportManager.exportReportToPdfStream(jasperPrint, out);
 
+            JasperExportManager.exportReportToPdfFile(jasperPrint, "C://pdf.pdf");
 
             out.flush();
             out.close();
