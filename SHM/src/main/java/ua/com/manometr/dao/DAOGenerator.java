@@ -10,14 +10,18 @@ package ua.com.manometr.dao;
 public class DAOGenerator {
 
     public static void main(String[] args) {
-        generateIterface("Supplier", "supplier");
+        String className = "Contact";
+
+        generateIterface(className, className.toLowerCase());
         System.out.println();
+        System.out.println("----------------------------------------");
         System.out.println();
-        generateImplementation("Supplier", "supplier");
+        generateImplementation(className, className.toLowerCase());
     }
 
     public static void generateIterface(String className, String fieldName) {
-        System.out.println("public interface " + className + "DAO {\n" +
+        System.out.println("import java.util.List;\n" +
+                "public interface " + className + "DAO {\n" +
                 "\n" +
                 "\tpublic void add" + className + "(" + className + " " + fieldName + ");\n" +
                 "\n" +
@@ -32,7 +36,8 @@ public class DAOGenerator {
     public static void generateImplementation(String className, String fieldName) {
         System.out.println("import org.hibernate.SessionFactory;\n" +
                 "import org.springframework.beans.factory.annotation.Autowired;\n" +
-                "import org.springframework.stereotype.Repository;" +
+                "import org.springframework.stereotype.Repository;\n" +
+                "import java.util.List;\n" +
                 "@Repository\n" +
                 "public class " + className + "DAOImpl implements " + className + "DAO {\n" +
                 "\n" +
@@ -52,7 +57,7 @@ public class DAOGenerator {
                 "\n" +
                 "    @Override\n" +
                 "    public void remove" + className + "(Long id) {\n" +
-                "        " + className + " " + fieldName + " = (Contact) sessionFactory.getCurrentSession().load(" + className + ".class, id);\n" +
+                "        " + className + " " + fieldName + " = (" + className + ") sessionFactory.getCurrentSession().load(" + className + ".class, id);\n" +
                 "        if (" + fieldName + " != null) {\n" +
                 "            sessionFactory.getCurrentSession().delete(" + fieldName + ");\n" +
                 "        }\n" +
