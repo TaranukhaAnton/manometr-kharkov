@@ -5,14 +5,6 @@ import javax.persistence.Entity;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Anton
- * Date: 17.02.2010
- * Time: 20:22:44
- * To change this template use File | Settings | File Templates.
- */
-
 @Entity
 @DiscriminatorValue("ProductionPrice")
 public class Production extends InvoiceItem {
