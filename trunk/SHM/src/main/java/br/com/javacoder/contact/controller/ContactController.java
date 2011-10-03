@@ -1,17 +1,10 @@
 package br.com.javacoder.contact.controller;
 
-import java.io.*;
-import java.math.RoundingMode;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
-
+import br.com.javacoder.contact.model.Contact;
+import br.com.javacoder.contact.service.ContactService;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
-import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
-import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.javacoder.contact.model.Contact;
-import br.com.javacoder.contact.service.ContactService;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
