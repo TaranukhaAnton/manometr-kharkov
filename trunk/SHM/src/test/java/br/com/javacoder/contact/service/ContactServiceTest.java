@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 
 @ContextConfiguration(locations = {"classpath:spring-servlet.xml"})
-public class ContactServiceImplTest extends AbstractJUnit4SpringContextTests {
+public class ContactServiceTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
     private ContactService contactService;

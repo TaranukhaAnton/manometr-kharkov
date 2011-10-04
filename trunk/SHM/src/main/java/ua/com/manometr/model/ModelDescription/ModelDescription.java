@@ -1,4 +1,4 @@
-package ua.com.manometr.model.ModelDescription;
+package ua.com.manometr.model.modeldescription;
 
 import org.hibernate.annotations.Type;
 
