@@ -13,12 +13,6 @@ import java.math.BigDecimal;
 @Entity
 @IdClass(ua.com.manometr.model.price.IdPrice.class)
 public class PriceFirstPart {
-
-
-
-
-
-
     @Id
     private Long model;
 
