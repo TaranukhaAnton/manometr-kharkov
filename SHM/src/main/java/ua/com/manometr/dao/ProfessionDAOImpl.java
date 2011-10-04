@@ -4,6 +4,7 @@ import br.com.javacoder.contact.model.Contact;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ua.com.manometr.model.Profession;
 
 import java.util.List;
 
@@ -14,23 +15,23 @@ public class ProfessionDAOImpl implements ProfessionDAO {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public void addContact(Contact contact) {
-		sessionFactory.getCurrentSession().save(contact);
+	public void addProfession(Profession profession) {
+		sessionFactory.getCurrentSession().save(profession);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Contact> listContact() {
-		return sessionFactory.getCurrentSession().createQuery("from Contact")
+	public List<Profession> listProfession() {
+		return sessionFactory.getCurrentSession().createQuery("from Profession")
 				.list();
 	}
 
 	@Override
-	public void removeContact(Long id) {
-		Contact contact = (Contact) sessionFactory.getCurrentSession().load(
-				Contact.class, id);
-		if (contact != null) {
-			sessionFactory.getCurrentSession().delete(contact);
+	public void removeProfession(Long id) {
+		Profession profession = (Profession) sessionFactory.getCurrentSession().load(
+				Profession.class, id);
+		if (profession != null) {
+			sessionFactory.getCurrentSession().delete(profession);
 		}
 	}
 
