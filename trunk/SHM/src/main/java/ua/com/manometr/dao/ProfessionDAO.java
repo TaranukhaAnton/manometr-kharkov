@@ -1,15 +1,16 @@
 package ua.com.manometr.dao;
 
 import br.com.javacoder.contact.model.Contact;
+import ua.com.manometr.model.Profession;
 
 import java.util.List;
 
 public interface ProfessionDAO {
 
-	public void addContact(Contact contact);
+	public void addProfession(Profession profession);
 
-	public List<Contact> listContact();
+	public List<Profession> listProfession();
 
-	public void removeContact(Long id);
+	public void removeProfession(Long id);
 
 }
