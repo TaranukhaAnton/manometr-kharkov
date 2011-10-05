@@ -7,7 +7,10 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +29,7 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
-    @RequestMapping("/")
+    @RequestMapping("/get")
     public String listContacts(Map<String, Object> map) {
         map.put("contact", new Contact());
         map.put("contactList", contactService.listContact());
@@ -108,6 +111,45 @@ public class ContactController {
             e.printStackTrace();
         }
 
+    }
+
+
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+    public String printWelcome(ModelMap model) {
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = user.getUsername();
+
+        model.addAttribute("username", name);
+        model.addAttribute("message", "Spring Security login + database example");
+        return "hello";
+
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(ModelMap model) {
+
+        return "login";
+
+    }
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String friends(ModelMap model) {
+        return "index";
+
+    }
+
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    public String loginerror(ModelMap model) {
+
+
+        return "info/about";
+
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(ModelMap model) {
+
+        return "login";
     }
 
 
