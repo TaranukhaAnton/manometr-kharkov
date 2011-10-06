@@ -15,9 +15,15 @@
 
     <context:annotation-config/>
     <context:component-scan base-package="br.com.javacoder.contact"/>
-    <bean id="tilesConfigurer"
-          class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
-          p:definitions="/WEB-INF/tiles-defs/templates.xml" />
+    <!--<bean id="tilesConfigurer"-->
+    <!--class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"-->
+    <!--p:definitions="/WEB-INF/tiles-defs/templates.xml"/>-->
+
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+        <property name="definitions" value="/WEB-INF/tiles-defs/templates.xml"/>
+        <property name="preparerFactoryClass"
+                  value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory"/>
+    </bean>
 
     <bean id="jspViewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -25,14 +31,18 @@
                   value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
-        <property name="order" value="1"/>
-
+         <property name="order" value="1"/>
     </bean>
 
-	<bean id="tilesViewResolver"
-		  class="org.springframework.web.servlet.view.UrlBasedViewResolver"
-		  p:viewClass="org.springframework.web.servlet.view.tiles2.TilesView" p:order="0" />
+    <!--<bean id="tilesViewResolver"-->
+    <!--class="org.springframework.web.servlet.view.UrlBasedViewResolver"-->
+    <!--p:viewClass="org.springframework.web.servlet.view.tiles2.TilesView"  />-->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.tiles2.TilesViewResolver">
+        <property name="requestContextAttribute" value="requestContext"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+        <property name="order" value="0"/>
 
+    </bean>
 
     <bean id="messageSource"
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource">

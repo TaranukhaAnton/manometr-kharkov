@@ -8,7 +8,9 @@
 	<http auto-config="true">
 		<intercept-url pattern="/get*" access="ROLE_USER" />
 		<intercept-url pattern="/friends*" access="ROLE_USER" />
-		<form-login login-page="/login" default-target-url="/welcome"
+		<intercept-url pattern="/index*" access="ROLE_USER" />
+
+		<form-login login-page="/login" default-target-url="/index"
 			authentication-failure-url="/loginfailed" />
 		<logout logout-success-url="/logout" />
 	</http>
