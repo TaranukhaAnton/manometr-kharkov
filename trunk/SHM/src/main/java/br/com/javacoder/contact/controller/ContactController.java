@@ -1,7 +1,7 @@
 package br.com.javacoder.contact.controller;
 
-import br.com.javacoder.contact.model.Contact;
-import br.com.javacoder.contact.service.ContactService;
+import br.com.javacoder.contact.model.ContactBr;
+import br.com.javacoder.contact.service.ContactServiceBr;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -27,25 +27,25 @@ import java.util.Map;
 public class ContactController {
 
     @Autowired
-    private ContactService contactService;
+    private ContactServiceBr contactServiceBr;
 
     @RequestMapping("/get")
     public String listContacts(Map<String, Object> map) {
-        map.put("contact", new Contact());
-        map.put("contactList", contactService.listContact());
+        map.put("contactBr", new ContactBr());
+        map.put("contactList", contactServiceBr.listContact());
         return "contact";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addContact(@ModelAttribute("contact") Contact contact,
+    public String addContact(@ModelAttribute("contact") ContactBr contactBr,
                              BindingResult result) {
-        contactService.addContact(contact);
+        contactServiceBr.addContact(contactBr);
         return "redirect:/";
     }
 
     @RequestMapping("/delete/{contactId}")
     public String deleteContact(@PathVariable("contactId") Long contactId) {
-        contactService.removeContact(contactId);
+        contactServiceBr.removeContact(contactId);
         return "redirect:/";
     }
 

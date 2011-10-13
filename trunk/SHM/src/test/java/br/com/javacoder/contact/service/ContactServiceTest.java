@@ -1,6 +1,6 @@
 package br.com.javacoder.contact.service;
 
-import br.com.javacoder.contact.model.Contact;
+import br.com.javacoder.contact.model.ContactBr;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -11,11 +11,11 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 public class ContactServiceTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
-    private ContactService contactService;
+    private ContactServiceBr contactServiceBr;
 
     @Test
     public void testAddContact() throws Exception {
-        contactService.addContact(new Contact());
+        contactServiceBr.addContact(new ContactBr());
     }
 
     @Test

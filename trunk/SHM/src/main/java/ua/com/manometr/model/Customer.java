@@ -24,7 +24,7 @@ public class Customer {
     private String name;
     private String shortName;
     private String stateProperty;
-    private Branch branch;
+    private String branch;
 
     private boolean purposeForItself;
     private boolean purposeIntermediary;
@@ -38,7 +38,7 @@ public class Customer {
 
     private Integer nomList;
     private boolean New;
-    private Prospect prospect;
+    private String prospect;
 
     private Long country;
     private Long city;
@@ -79,12 +79,7 @@ public class Customer {
         return shortName;
     }
 
-    @Column(columnDefinition = "integer", nullable = true)
-    @Type(type = "application.hibernate.GenericEnumUserType", parameters = {
-            @Parameter(name = "enumClass", value = "application.data.Customer$Branch"),
-            @Parameter(name = "identifierMethod", value = "toInt"),
-            @Parameter(name = "valueOfMethod", value = "fromInt")})
-    public Branch getBranch() {
+    public String getBranch() {
         return branch;
     }
 
@@ -158,12 +153,8 @@ public class Customer {
         return New;
     }
 
-    @Column(columnDefinition = "integer", nullable = true)
-    @Type(type = "application.hibernate.GenericEnumUserType", parameters = {
-            @Parameter(name = "enumClass", value = "application.data.Customer$Prospect"),
-            @Parameter(name = "identifierMethod", value = "toInt"),
-            @Parameter(name = "valueOfMethod", value = "fromInt")})
-    public Prospect getProspect() {
+
+    public String getProspect() {
         return prospect;
     }
 
@@ -265,7 +256,7 @@ public class Customer {
         this.shortName = shortName;
     }
 
-    public void setBranch(Branch branch) {
+    public void setBranch(String branch) {
         this.branch = branch;
     }
 
@@ -317,7 +308,7 @@ public class Customer {
         New = new1;
     }
 
-    public void setProspect(Prospect prospect) {
+    public void setProspect(String prospect) {
         this.prospect = prospect;
     }
 
@@ -407,123 +398,6 @@ public class Customer {
 
     public void setLocalityType(Long localityType) {
         this.localityType = localityType;
-    }
-
-    public enum Branch {
-        про(1), аэс(2), энр(3), мет(4), доб(5), нгу(6), хим(7), маш(8), стр(9), ком(
-                10);
-        private int value;
-
-        Branch(int value) {
-            this.value = value;
-        }
-
-        // the identifierMethod
-        public int toInt() {
-            return value;
-        }
-
-        // the valueOfMethod
-        public static Branch fromInt(int value) {
-            switch (value) {
-                case 1:
-                    return про;
-                case 2:
-                    return аэс;
-                case 3:
-                    return энр;
-                case 4:
-                    return мет;
-                case 5:
-                    return доб;
-                case 6:
-                    return нгу;
-                case 7:
-                    return хим;
-                case 8:
-                    return маш;
-                case 9:
-                    return стр;
-                case 10:
-                    return ком;
-
-                default:
-                    return про;
-            }
-        }
-
-        public String toString() {
-            switch (this) {
-                case про:
-                    return "про";
-                case аэс:
-                    return "аэс";
-                case энр:
-                    return "энр";
-                case мет:
-                    return "мет";
-                case доб:
-                    return "доб";
-                case нгу:
-                    return "нгу";
-                case хим:
-                    return "хим";
-                case маш:
-                    return "маш";
-                case стр:
-                    return "стр";
-                case ком:
-                    return "ком";
-
-                default:
-                    return "про";
-            }
-
-        }
-    }
-
-
-    public enum Prospect {
-        A(1), B(2), C(3);
-
-        private int value;
-
-        Prospect(int value) {
-            this.value = value;
-        }
-
-        // the identifierMethod
-        public int toInt() {
-            return value;
-        }
-
-        // the valueOfMethod
-        public static Prospect fromInt(int value) {
-            switch (value) {
-                case 1:
-                    return A;
-                case 2:
-                    return B;
-                case 3:
-                    return C;
-                default:
-                    return A;
-            }
-        }
-
-        public String toString() {
-            switch (this) {
-                case A:
-                    return "A";
-                case B:
-                    return "B";
-                case C:
-                    return "C";
-                default:
-                    return "A";
-            }
-
-        }
     }
 
 }

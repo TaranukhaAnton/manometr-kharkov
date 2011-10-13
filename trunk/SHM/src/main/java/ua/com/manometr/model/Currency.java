@@ -14,7 +14,7 @@ public class Currency {
 
     private Long id;
     private String name;
-    @Type(type = "application.hibernate.MyBigDecimalType")
+    @Type(type = "ua.com.manometr.util.MyBigDecimalType")
     private BigDecimal exchangeRate;
 
     public Long getId() {
