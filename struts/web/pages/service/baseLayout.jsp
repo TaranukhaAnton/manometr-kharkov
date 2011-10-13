@@ -14,7 +14,8 @@
         <tiles:insertAttribute value="${item}" flush="true"/>
 
     </c:forEach>
-
+     <%--<link type="text/css" rel="stylesheet"--%>
+    <%--href="<tiles:getAsString name="IDENTIFIER_HERE"/>"/>--%>
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/main.css"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/smartTable.css"/>"/>
