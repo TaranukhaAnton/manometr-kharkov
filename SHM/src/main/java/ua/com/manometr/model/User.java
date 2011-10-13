@@ -25,21 +25,21 @@ public class User {
     private Date dischargingDate; // дата увольнения
     private String tel;// телефон
     private String telMob; // телефон мобильный
-    private PowersLivel powersLivel; // уровень полномочий
+    private String powersLivel; // уровень полномочий
     private String login; // логин
     private String pass;// пароль
 
-    private InvoiceFilter invoiceFilter;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "invoicefilter_fk", nullable = true)
-    public InvoiceFilter getInvoiceFilter() {
-        return invoiceFilter;
-    }
-
-    public void setInvoiceFilter(InvoiceFilter invoiceFilter) {
-        this.invoiceFilter = invoiceFilter;
-    }
+//    private InvoiceFilter invoiceFilter;
+//
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "invoicefilter_fk", nullable = true)
+//    public InvoiceFilter getInvoiceFilter() {
+//        return invoiceFilter;
+//    }
+//
+//    public void setInvoiceFilter(InvoiceFilter invoiceFilter) {
+//        this.invoiceFilter = invoiceFilter;
+//    }
 
 
     //    @OneToOne(cascade = CascadeType.ALL)
@@ -109,12 +109,7 @@ public class User {
     }
 
 
-    @Column(columnDefinition = "integer", nullable = true)
-    @Type(type = "application.hibernate.GenericEnumUserType", parameters = {
-            @org.hibernate.annotations.Parameter(name = "enumClass", value = "application.data.User$PowersLivel"),
-            @org.hibernate.annotations.Parameter(name = "identifierMethod", value = "toInt"),
-            @org.hibernate.annotations.Parameter(name = "valueOfMethod", value = "fromInt")})
-    public PowersLivel getPowersLivel() {
+    public String getPowersLivel() {
         return powersLivel;
     }
 
@@ -179,7 +174,7 @@ public class User {
     }
 
 
-    public void setPowersLivel(PowersLivel powersLivel) {
+    public void setPowersLivel(String powersLivel) {
         this.powersLivel = powersLivel;
     }
 
@@ -197,65 +192,5 @@ public class User {
     public void setPass(String pass) {
         this.pass = pass;
     }
-
-
-    public enum PowersLivel {
-
-
-        Пользователь(1),
-        Менеджер(2),
-        Экономист(3),
-        Администратор(4);
-
-        private int value;
-
-        PowersLivel(int value) {
-            this.value = value;
-        }
-
-        // the identifierMethod
-        public int toInt() {
-            return value;
-        }
-
-        // the valueOfMethod
-        public static PowersLivel fromInt(int value) {
-            switch (value) {
-
-                case 1:
-                    return Пользователь;
-                case 2:
-                    return Менеджер;
-                case 3:
-                    return Экономист;
-                case 4:
-                    return Администратор;
-
-                default:
-                    return Пользователь;
-            }
-        }
-
-        public String toString() {
-            switch (this) {
-
-                case Пользователь:
-                    return "Пользователь";
-                case Администратор:
-                    return "Администратор";
-                case Менеджер:
-                    return "Менеджер";
-                case Экономист:
-                    return "Экономист";
-
-
-                default:
-                    return "Пользователь";
-            }
-
-        }
-    }
-
-
 }
 

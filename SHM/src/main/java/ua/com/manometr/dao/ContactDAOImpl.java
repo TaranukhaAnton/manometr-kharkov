@@ -21,7 +21,7 @@ public class ContactDAOImpl implements ContactDAO {
     @SuppressWarnings("unchecked")
     @Override
     public List<Contact> listContact() {
-        return sessionFactory.getCurrentSession().createQuery("from Contact").list();
+        return sessionFactory.getCurrentSession().createQuery("from ContactBr").list();
     }
 
     @Override
