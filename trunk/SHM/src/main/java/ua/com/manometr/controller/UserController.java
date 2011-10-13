@@ -1,4 +1,4 @@
-package br.com.javacoder.contact.controller;
+package ua.com.manometr.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +18,6 @@ public class UserController {
     public String listContacts(Map<String, Object> map) {
         map.put("user", new User());
         map.put("userList", userService.listUser());
-        return "userList";
+        return "users";
     }
 }

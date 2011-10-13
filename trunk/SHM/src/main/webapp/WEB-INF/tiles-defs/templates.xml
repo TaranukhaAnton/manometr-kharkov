@@ -32,6 +32,11 @@
         <put-attribute name="menu" value="/WEB-INF/pages/service/menu.jsp"/>
         <put-attribute name="body" value="/WEB-INF/pages/body.jsp"/>
         <put-attribute name="footer" value="/WEB-INF/pages/service/footer.jsp"/>
+        <put-list-attribute name="items">
+            <add-attribute value="bla"/>
+            <add-attribute value="lab"/>
+        </put-list-attribute>
+
     </definition>
     <definition name="users" extends="baseLayout">
         <put-attribute name="title" value="Пользователи"/>

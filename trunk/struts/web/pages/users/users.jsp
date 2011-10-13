@@ -1,33 +1,17 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@taglib uri="/WEB-INF/displaytag.tld" prefix="display" %>
-
-<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
-<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
-<%@ taglib prefix="c" uri="/WEB-INF/c.tld" %>
-
-
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP Page</title>
-
-    <link href="css/smartTable.css" rel="stylesheet" type="text/css"/>
-
-</head>
-<body>
-
-
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>--%>
+<%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
 
 <a href="UserSetUp.do?method=setUpForInsertOrUpdate">Добавить пользователя</a>
-<br/>
-<br/>
 
-<display:table name="users" requestURI="UserProcess.do?method=getUsers" excludedParams="method"
-               requestURIcontext="false" pagesize="20" sort="list"
+
+<display:table name="userList"
+               requestURI="UserProcess.do?method=getUsers"
+               excludedParams="method"
+               requestURIcontext="false"
+               pagesize="20" sort="list"
                class="simple">
-    <display:column property="id" title="ID" sortable="true"
-                    url="/UserSetUp.do?method=setUpForInsertOrUpdate" paramId="id" class="col1"/>
+    <display:column property="id" title="ID" sortable="true"    url="/UserSetUp.do?method=setUpForInsertOrUpdate" paramId="id" class="col1"/>
     <display:column property="lastName" title="Фамилия" sortable="true" maxLength="10" class="col2"/>
     <display:column property="name" title="Имя" maxLength="8" class="col3"/>
     <display:column property="patronymic" title="Отчество" maxLength="8" class="col4"/>
@@ -49,7 +33,3 @@
              border="0"/>
     </display:column>
 </display:table>
-
-
-</body>
-</html>
