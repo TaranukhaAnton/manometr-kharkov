@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+
+
+
+    <definition name="baseLayout" template="/pages/service/baseLayout.jsp">
+        <put-attribute name="title" value="Tiles Example"/>
+        <put-attribute name="header" value="/WEB-INF/pages/service/header.jsp"/>
+
+        <put-attribute name="menu" value="/WEB-INF/pages/service/menu.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/pages/body.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/pages/service/footer.jsp"/>
+    </definition>
+
+
+    <definition name="userForm" extends="baseLayout">
+        <put-attribute name="title" value="Редактирование/добавление пользователя"/>
+        <put-attribute name="body" value="/WEB-INF/pages/users/userForm.jsp"/>
+    </definition>
+    <definition name="users" extends="baseLayout">
+        <put-attribute name="title" value="Пользователи"/>
+        <put-attribute name="body" value="/WEB-INF/pages/users/users.jsp"/>
+    </definition>
+
+    <definition name="customerForm" extends="baseLayout">
+        <put-attribute name="title" value="Редактирование/добавление заказчика"/>
+        <put-attribute name="body" value="/WEB-INF/pages/customers/customerForm.jsp"/>
+    </definition>
+    <definition name="customers" extends="baseLayout">
+        <put-attribute name="title" value="Заказчики"/>
+        <put-attribute name="body" value="/WEB-INF/pages/customers/customers.jsp"/>
+    </definition>
+
+    <definition name="contactForm" extends="baseLayout">
+        <put-attribute name="title" value="Редактирование/добавление котнакта"/>
+        <put-attribute name="body" value="/WEB-INF/pages/contacts/contactForm.jsp"/>
+    </definition>
+
+    <definition name="contacts" extends="baseLayout">
+        <put-attribute name="title" value="Контакты"/>
+        <put-attribute name="body" value="/WEB-INF/pages/contacts/contacts.jsp"/>
+    </definition>
+
+    <definition name="redactCoCompatibility" extends="baseLayout">
+        <put-attribute name="title" value="Редактирование таблицы совместимости ЦО"/>
+        <put-attribute name="body" value="/WEB-INF/pages/redactMD/redactCoCompatibility.jsp"/>
+    </definition>
+
+
+    <definition name="addCoForm" extends="baseLayout">
+        <put-attribute name="title" value="Добавить датчик ЦО"/>
+        <put-attribute name="body" value="/WEB-INF/pages/addProduction/addCoForm.jsp"/>
+    </definition>
+    <definition name="addAoForm" extends="baseLayout">
+        <put-attribute name="title" value="Добавить датчик АО"/>
+        <put-attribute name="body" value="/WEB-INF/pages/addProduction/addAoForm.jsp"/>
+    </definition>
+
+    <definition name="addOpForm" extends="baseLayout">
+        <put-attribute name="title" value="Добавить датчик ОП"/>
+        <put-attribute name="body" value="/WEB-INF/pages/addProduction/addOpForm.jsp"/>
+    </definition>
+    <definition name="addListForm" extends="baseLayout">
+        <put-attribute name="title" value="Добавить продукцию"/>
+        <put-attribute name="body" value="/WEB-INF/pages/addProduction/addListProduction.jsp"/>
+    </definition>
+    <definition name="addListFormExt" extends="baseLayout">
+        <put-attribute name="title" value="Добавить продукцию"/>
+        <put-attribute name="body" value="/WEB-INF/pages/addProduction/addListProductionExt.jsp"/>
+    </definition>
+
+
+    <definition name="redactAoCompatibility" extends="baseLayout">
+        <put-attribute name="title" value="редактировать АО датчик"/>
+        <put-attribute name="body" value="/WEB-INF/pages/redactMD/redactAoCompatibility.jsp"/>
+    </definition>
+
+    <definition name="redactOpCompatibility" extends="baseLayout">
+        <put-attribute name="title" value="Редактировать ОП датчик"/>
+        <put-attribute name="body" value="/WEB-INF/pages/redactMD/redactOpCompatibility.jsp"/>
+    </definition>
+    <definition name="result" extends="baseLayout">
+        <put-attribute name="title" value="результат"/>
+        <put-attribute name="body" value="/WEB-INF/pages/garbage/result.jsp"/>
+    </definition>
+    <definition name="redactMatrixPrice" extends="baseLayout">
+        <put-attribute name="title" value="Редактор матричных прайс листов"/>
+        <put-attribute name="body" value="/WEB-INF/pages/priceRedactor/redactMatrixPrice.jsp"/>
+    </definition>
+    <definition name="redactListPrice" extends="baseLayout">
+        <put-attribute name="title" value="Редактор прайс листов типа список"/>
+        <put-attribute name="body" value="/WEB-INF/pages/priceRedactor/redactListPrice.jsp"/>
+    </definition>
+    <definition name="redactOptionsPrice" extends="baseLayout">
+        <put-attribute name="title" value="Редактор прайс листов опций"/>
+        <put-attribute name="body" value="/WEB-INF/pages/priceRedactor/redactOptionsPrice.jsp"/>
+    </definition>
+
+    <definition name="supplierForm" extends="baseLayout">
+        <put-attribute name="title" value="Добавить или редактировать поставщика"/>
+        <put-attribute name="body" value="/WEB-INF/pages/supplier/supplierForm.jsp"/>
+    </definition>
+    <definition name="suppliers" extends="baseLayout">
+        <put-attribute name="title" value="Поставщики"/>
+        <put-attribute name="body" value="/WEB-INF/pages/supplier/suppliers.jsp"/>
+    </definition>
+
+
+    <definition name="invoiceForm" extends="baseLayout">
+        <put-attribute name="title" value="Редактировать счет"/>
+        <put-attribute name="body" value="/WEB-INF/pages/invoice/invoiceForm.jsp"/>
+    </definition>
+
+
+    <definition name="invoices" extends="baseLayout">
+        <put-attribute name="title" value="Счета и к.п."/>
+        <put-attribute name="body" value="/WEB-INF/pages/invoice/invoices.jsp"/>
+    </definition>
+
+    <definition name="bookingForm" extends="baseLayout">
+        <put-attribute name="title" value="Заказ-наряд"/>
+        <put-attribute name="body" value="/WEB-INF/pages/invoice/bookingForm.jsp"/>
+    </definition>
+
+
+    <definition name="bookings" extends="baseLayout">
+        <put-attribute name="title" value="Заказ-наряды"/>
+        <put-attribute name="body" value="/WEB-INF/pages/invoice/bookings.jsp"/>
+    </definition>
+
+    <definition name="shipmentsForm" extends="baseLayout">
+        <put-attribute name="title" value="Отгрузки"/>
+        <put-attribute name="body" value="/WEB-INF/pages/invoice/shipmentsForm.jsp"/>
+    </definition>
+    <definition name="paymentsForm" extends="baseLayout">
+        <put-attribute name="title" value="Оплаты"/>
+        <put-attribute name="body" value="/WEB-INF/pages/invoice/paymentsForm.jsp"/>
+    </definition>
+
+    <definition name="paymentArrears" extends="baseLayout">
+        <put-attribute name="title" value="Задолженности по оплате"/>
+        <put-attribute name="body" value="/WEB-INF/pages/statistic/paymentArrears.jsp"/>
+    </definition>
+
+
+</tiles-definitions>

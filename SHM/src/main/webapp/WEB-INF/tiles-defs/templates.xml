@@ -32,10 +32,14 @@
         <put-attribute name="menu" value="/WEB-INF/pages/service/menu.jsp"/>
         <put-attribute name="body" value="/WEB-INF/pages/body.jsp"/>
         <put-attribute name="footer" value="/WEB-INF/pages/service/footer.jsp"/>
-        <put-list-attribute name="items">
-            <add-attribute value="bla"/>
-            <add-attribute value="lab"/>
+        <put-list-attribute name="cssItems">
+            <add-attribute value="/css/main.css"/>
+            <add-attribute value="/css/smartTable.css"/>
+            <add-attribute value="/css/menu.css"/>
         </put-list-attribute>
+        <!--<put-list-attribute name="jsItems">-->
+            <!--<add-attribute value="/js/menu.js"/>-->
+        <!--</put-list-attribute>-->
 
     </definition>
     <definition name="users" extends="baseLayout">

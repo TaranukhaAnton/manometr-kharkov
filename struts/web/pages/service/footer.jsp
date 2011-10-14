@@ -1,19 +1,10 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 
-<html>
-	<head>
-	</head>
-	<body>
+<div align="left">
+    Здравствуйте
+    <bean:write name="logonUser" property="login"/>
+</div>
 
-			<div align="left">
-				Здравствуйте
-				<bean:write name="logonUser" property="login" />
-			</div>
-
-			<div align="left">
-				Здравствуйте гость.
-			</div>
-	</body>
-</html>
+<div align="left">
+    Здравствуйте гость.
+</div>
