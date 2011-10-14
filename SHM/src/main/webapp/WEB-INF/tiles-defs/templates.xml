@@ -36,6 +36,8 @@
             <add-attribute value="/css/main.css"/>
             <add-attribute value="/css/smartTable.css"/>
             <add-attribute value="/css/menu.css"/>
+            <add-attribute value="/js/jquery-1.6.4.js"/>
+            <add-attribute value="/js/menu.js"/>
         </put-list-attribute>
         <!--<put-list-attribute name="jsItems">-->
             <!--<add-attribute value="/js/menu.js"/>-->
