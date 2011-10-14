@@ -6,7 +6,7 @@
 
 
 <display:table name="userList"
-               requestURI="UserProcess.do?method=getUsers"
+               requestURI="/shm/users/"
                excludedParams="method"
                requestURIcontext="false"
                pagesize="20" sort="list"

@@ -9,16 +9,23 @@
 <head>
     <title><tiles:getAsString name="title" ignore="true"/></title>
 
-    <tiles:useAttribute id="list" name="items" classname="java.util.List"/>
+    <tiles:useAttribute id="list" name="cssItems" classname="java.util.List"/>
     <c:forEach var="item" items="${list}">
-        <tiles:insertAttribute value="${item}" flush="true"/>
-
+        <link rel="stylesheet" type="text/css" href="<c:url value="${item}"/>"/>
     </c:forEach>
-     <%--<link type="text/css" rel="stylesheet"--%>
+
+    <%--<tiles:useAttribute id="jsList" name="jsItems" classname="java.util.List"/>--%>
+    <%--<c:forEach var="jsItem" items="${jsList}">--%>
+        <%--<script type="text/javascript" src="<c:url value="${jsItem}"/>"/>--%>
+    <%--</c:forEach>--%>
+
+    <%--<link type="text/css" rel="stylesheet"--%>
     <%--href="<tiles:getAsString name="IDENTIFIER_HERE"/>"/>--%>
 
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/main.css"/>"/>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/smartTable.css"/>"/>
+    <%--<link rel="stylesheet" type="text/css" href="<c:url value="/css/main.css"/>"/>--%>
+
+    <%--<link rel="stylesheet" type="text/css" href="<c:url value="/css/menu.css"/>"/>--%>
+    <%--<link rel="stylesheet" type="text/css" href="<c:url value="/css/smartTable.css"/>"/>--%>
 </head>
 <body>
 
