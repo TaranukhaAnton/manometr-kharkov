@@ -24,16 +24,16 @@ public class InvoiceFilter {
     Date f2From;
     Date f2To;
 
-    @Type(type = "application.hibernate.LongArrayCustomType")
+    @Type(type = "ua.com.manometr.util.LongArrayCustomType")
     Long[] users;
 
-    @Type(type = "application.hibernate.LongArrayCustomType")
+    @Type(type = "ua.com.manometr.util.LongArrayCustomType")
     Long[] purposeFilter;
 
-    @Type(type = "application.hibernate.LongArrayCustomType")
+    @Type(type = "ua.com.manometr.util.LongArrayCustomType")
     Long[] stateFilter;
 
-    @Type(type = "application.hibernate.LongArrayCustomType")
+    @Type(type = "ua.com.manometr.util.LongArrayCustomType")
     Long[] currencyFilter;
 
 
@@ -205,7 +205,7 @@ public class InvoiceFilter {
     }*/
 
 
-    public String toJSONString() {
+   /* public String toJSONString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         StringBuilder result = new StringBuilder();
         result.append("{");
@@ -247,6 +247,6 @@ public class InvoiceFilter {
         //   System.out.println(result);
         return result.toString();
 
-    }
+    }*/
 
 }

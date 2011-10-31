@@ -6,7 +6,6 @@
 <hibernate-configuration>
 	<session-factory>
 		<!-- Entidades mapeadas -->
-		<mapping class="br.com.javacoder.contact.model.ContactBr" />
 		<mapping class="ua.com.manometr.model.User" />
 		<mapping class="ua.com.manometr.model.Supplier" />
 		<mapping class="ua.com.manometr.model.Profession" />
@@ -14,6 +13,10 @@
 		<mapping class="ua.com.manometr.model.Currency" />
 		<mapping class="ua.com.manometr.model.Customer" />
 		<mapping class="ua.com.manometr.model.OrgForm" />
+
+        <mapping class="ua.com.manometr.model.invoice.InvoiceFilter" />
+
+
 
 
 	</session-factory>
