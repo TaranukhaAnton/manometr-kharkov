@@ -44,6 +44,12 @@
         <!--</put-list-attribute>-->
 
     </definition>
+
+    <definition name="editUser" extends="baseLayout">
+        <put-attribute name="title" value="Пользователи"/>
+        <put-attribute name="body" value="/WEB-INF/pages/users/newUserForm.jsp"/>
+    </definition>
+
     <definition name="users" extends="baseLayout">
         <put-attribute name="title" value="Пользователи"/>
         <put-attribute name="body" value="/WEB-INF/pages/users/users.jsp"/>

@@ -29,18 +29,16 @@ public class User {
     private String login; // логин
     private String pass;// пароль
 
-//    private InvoiceFilter invoiceFilter;
-//
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "invoicefilter_fk", nullable = true)
-//    public InvoiceFilter getInvoiceFilter() {
-//        return invoiceFilter;
-//    }
-//
-//    public void setInvoiceFilter(InvoiceFilter invoiceFilter) {
-//        this.invoiceFilter = invoiceFilter;
-//    }
+    private InvoiceFilter invoiceFilter;
 
+    @OneToOne
+    public InvoiceFilter getInvoiceFilter() {
+        return invoiceFilter;
+    }
+
+    public void setInvoiceFilter(InvoiceFilter invoiceFilter) {
+        this.invoiceFilter = invoiceFilter;
+    }
 
     //    @OneToOne(cascade = CascadeType.ALL)
 //    @PrimaryKeyJoinColumn

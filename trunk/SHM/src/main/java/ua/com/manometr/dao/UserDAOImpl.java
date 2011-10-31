@@ -15,7 +15,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void addUser(User user) {
-        sessionFactory.getCurrentSession().save(user);
+        sessionFactory.getCurrentSession().saveOrUpdate(user);
     }
 
     @SuppressWarnings("unchecked")
