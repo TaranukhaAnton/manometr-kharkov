@@ -52,12 +52,6 @@ public class User {
 //        this.invoiceFilter = invoiceFilter;
 //    }
 
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return login;
-    }
-
 
     @Id
     @GeneratedValue

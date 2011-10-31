@@ -32,4 +32,11 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    @Override
+    public User getUser(Long id) {
+        User user = (User) sessionFactory.getCurrentSession().load(User.class, id);
+        return user;
+    }
+
+
 }
