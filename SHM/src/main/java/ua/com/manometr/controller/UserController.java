@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
-import ua.com.manometr.model.User;
 import ua.com.manometr.service.UserService;
+import ua.com.manometr.webbeans.User;
 
-import javax.xml.ws.RequestWrapper;
 import java.util.Map;
 
 @Controller
@@ -22,16 +21,21 @@ public class UserController {
 
     @RequestMapping("/")
     public String populateUsers(Map<String, Object> map) {
-        map.put("user", new User());
+
+//        map.put("user", new User());
         map.put("userList", userService.listUser());
         return "users";
     }
 
     @RequestMapping("/edit")
-    public String setupForm(@RequestParam("id") Long id, ModelMap model) {
+    public String setupForm(@RequestParam(value = "id", required = false) Long id, ModelMap model) {
+
+
         System.out.println("id = " + id);
+
         if (id != null) {
-            User user = userService.listUser().get(0);
+            User user = userService.getUser(id);
+            System.out.println("@@user = " + user.getName());
             model.put("user", user);
         } else {
             model.put("user", new User());
@@ -52,6 +56,8 @@ public class UserController {
     @RequestMapping("/add")
     public String processSubmit(@ModelAttribute("user") User user, BindingResult result, SessionStatus status) {
         boolean hasError = false;
+
+        System.out.println("user = " + user.getName());
         //  new PetValidator().validate(pet, result);
         if (hasError) {
             return "editUser";
