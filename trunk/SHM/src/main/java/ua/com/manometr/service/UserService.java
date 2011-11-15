@@ -1,6 +1,7 @@
 package ua.com.manometr.service;
 
-import ua.com.manometr.model.User;
+
+import ua.com.manometr.webbeans.User;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
 package ua.com.manometr.dao;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.com.manometr.model.User;
@@ -26,7 +27,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void removeUser(Long id) {
-        User user = (User) sessionFactory.getCurrentSession().load(User.class, id);
+        Session currentSession = sessionFactory.getCurrentSession();
+        User user = (User) currentSession.load(User.class, id);
         if (user != null) {
             sessionFactory.getCurrentSession().delete(user);
         }
@@ -34,7 +36,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUser(Long id) {
-        User user = (User) sessionFactory.getCurrentSession().load(User.class, id);
+        User user = (User) sessionFactory.getCurrentSession().get(User.class, id);
         return user;
     }
 

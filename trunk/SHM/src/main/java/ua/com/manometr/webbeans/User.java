@@ -4,7 +4,10 @@ package ua.com.manometr.webbeans;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import org.apache.commons.lang.StringUtils;
+
 public class User {
+    public static String[] POWER_LEVELS = {"пользователь", "менеджер", "экономист", "администратор"};
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     private Long id;
     private String name; // имя
@@ -19,32 +22,44 @@ public class User {
     private String login; // логин
     private String pass;// пароль
 
+    public User() {
+    }
+
+    public User(ua.com.manometr.model.User user) {
+        fromDBUser(user);
+    }
+
     public ua.com.manometr.model.User toDBUser(ua.com.manometr.model.User user) throws ParseException {
         user.setName(name);
         user.setPatronymic(patronymic);
         user.setLastName(lastName);
         user.setPosition(position);
-        user.setReceptionoOnWorkDate(sdf.parse(receptionOnWorkDate));
-        user.setDischargingDate(sdf.parse(dischargingDate));
+        if (StringUtils.isNotEmpty(receptionOnWorkDate))
+            user.setReceptionOnWorkDate(sdf.parse(receptionOnWorkDate));
+        if (StringUtils.isNotEmpty(dischargingDate))
+            user.setDischargingDate(sdf.parse(dischargingDate));
         user.setTel(tel);
         user.setTelMob(telMob);
-        user.setPowersLivel(powersLevel);
+        user.setPowersLevel(powersLevel);
         user.setLogin(login);
         user.setPass(pass);
         return user;
     }
 
-    public void fromDBUser(ua.com.manometr.model.User user) throws ParseException {
+    public void fromDBUser(ua.com.manometr.model.User user) {
         id = user.getId();
         name = user.getName();
         patronymic = user.getPatronymic();
         lastName = user.getLastName();
         position = user.getPosition();
-        receptionOnWorkDate = sdf.format(user.getReceptionoOnWorkDate());
-        dischargingDate = sdf.format(user.getDischargingDate());
+
+        if (user.getReceptionOnWorkDate() != null)
+            receptionOnWorkDate = sdf.format(user.getReceptionOnWorkDate());
+        if (user.getDischargingDate() != null)
+            dischargingDate = sdf.format(user.getDischargingDate());
         tel = user.getTel();
         telMob = user.getTelMob();
-        powersLevel = user.getPowersLivel();
+        powersLevel = user.getPowersLevel();
         login = user.getLogin();
         pass = user.getPass();
     }
@@ -118,8 +133,8 @@ public class User {
         this.position = position;
     }
 
-    public void setReceptionOnWorkDate(String receptionoOnWorkDate) {
-        this.receptionOnWorkDate = receptionoOnWorkDate;
+    public void setReceptionOnWorkDate(String receptionOnWorkDate) {
+        this.receptionOnWorkDate = receptionOnWorkDate;
     }
 
     public void setDischargingDate(String dischargingDate) {

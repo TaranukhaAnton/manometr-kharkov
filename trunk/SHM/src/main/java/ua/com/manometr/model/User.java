@@ -1,6 +1,5 @@
 package ua.com.manometr.model;
 
-import org.hibernate.annotations.Type;
 import ua.com.manometr.model.invoice.InvoiceFilter;
 
 import javax.persistence.*;
@@ -10,22 +9,16 @@ import java.util.Date;
 
 
 public class User {
-    public static Integer LIVEL_USER = 1;
-    public static Integer LIVEL_MANAGER = 2;
-    public static Integer LIVEL_ECONOMIST = 3;
-    public static Integer LIVEL_ADMINISTRATOR = 4;
-
-
     private Long id;
     private String name; // имя
     private String patronymic; // отчество
     private String lastName; // фамилия
     private String position; // должность
-    private Date receptionoOnWorkDate; // дата приёма на работу
+    private Date receptionOnWorkDate; // дата приёма на работу
     private Date dischargingDate; // дата увольнения
     private String tel;// телефон
     private String telMob; // телефон мобильный
-    private String powersLivel; // уровень полномочий
+    private String powersLevel; // уровень полномочий
     private String login; // логин
     private String pass;// пароль
 
@@ -81,8 +74,8 @@ public class User {
     }
 
 
-    public Date getReceptionoOnWorkDate() {
-        return receptionoOnWorkDate;
+    public Date getReceptionOnWorkDate() {
+        return receptionOnWorkDate;
     }
 
 
@@ -101,8 +94,8 @@ public class User {
     }
 
 
-    public String getPowersLivel() {
-        return powersLivel;
+    public String getPowersLevel() {
+        return powersLevel;
     }
 
 
@@ -146,8 +139,8 @@ public class User {
     }
 
 
-    public void setReceptionoOnWorkDate(Date receptionoOnWorkDate) {
-        this.receptionoOnWorkDate = receptionoOnWorkDate;
+    public void setReceptionOnWorkDate(Date receptionOnWorkDate) {
+        this.receptionOnWorkDate = receptionOnWorkDate;
     }
 
 
@@ -166,8 +159,8 @@ public class User {
     }
 
 
-    public void setPowersLivel(String powersLivel) {
-        this.powersLivel = powersLivel;
+    public void setPowersLevel(String powersLevel) {
+        this.powersLevel = powersLevel;
     }
 
 
