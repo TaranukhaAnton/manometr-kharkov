@@ -29,7 +29,7 @@
                 <prop key="hibernate.dialect">${jdbc.dialect}</prop>
                 <prop key="hibernate.show_sql">false</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
-                 <prop key="hibernate.default_schema">${hibernate.schema}</prop>
+                 <!--<prop key="hibernate.default_schema">${hibernate.schema}</prop>-->
             </props>
         </property>
     </bean>

@@ -2,11 +2,11 @@
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>--%>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
 
-<a href="/shm/users/edit?id=0">Добавить пользователя</a>
+<a href="edit">Добавить пользователя</a>
 
 
 <display:table name="userList"
-               requestURI="/shm/users/"
+               requestURI="./"
                excludedParams="method"
                requestURIcontext="false"
                pagesize="20" sort="list"

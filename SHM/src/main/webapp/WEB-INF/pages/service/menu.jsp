@@ -46,7 +46,7 @@
         <li><a href="ContactShow.do?method=getContacts&show=all">Конт. лица</a></li>
 
 
-        <li><a href="UserProcess.do?method=getUsers">Пользователи</a></li>
+        <li><a href="../users/">Пользователи</a></li>
         <li><a href="userLogin.do?method=logof">Выход</a></li>
     </ul>
 </div>

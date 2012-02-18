@@ -167,17 +167,25 @@
         <!--TILES-->
         <dependency>
             <groupId>org.apache.tiles</groupId>
-            <artifactId>com.springsource.org.apache.tiles</artifactId>
+            <artifactId>tiles-api</artifactId>
+            <version>${tiles.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging-api</artifactId>
+                </exclusion>
+            </exclusions>
+
+
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-core</artifactId>
             <version>${tiles.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
-            <artifactId>com.springsource.org.apache.tiles.core</artifactId>
-            <version>${tiles.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tiles</groupId>
-            <artifactId>com.springsource.org.apache.tiles.jsp</artifactId>
+            <artifactId>tiles-jsp</artifactId>
             <version>${tiles.version}</version>
         </dependency>
 
