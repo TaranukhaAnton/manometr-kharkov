@@ -45,6 +45,15 @@
 
     </definition>
 
+    <definition name="editContacts" extends="baseLayout">
+        <put-attribute name="title" value="Пользователи"/>
+        <put-attribute name="body" value="/WEB-INF/pages/contacts/contactForm.jsp"/>
+    </definition>
+    <definition name="contacts" extends="baseLayout">
+        <put-attribute name="title" value="Пользователи"/>
+        <put-attribute name="body" value="/WEB-INF/pages/contacts/contacts.jsp"/>
+    </definition>
+
     <definition name="editUser" extends="baseLayout">
         <put-attribute name="title" value="Пользователи"/>
         <put-attribute name="body" value="/WEB-INF/pages/users/newUserForm.jsp"/>
