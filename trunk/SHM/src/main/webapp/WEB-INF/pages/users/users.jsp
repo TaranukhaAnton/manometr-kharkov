@@ -24,7 +24,7 @@
     <display:column property="login" title="Логин  "     sortable="true"/>
     <display:column title="" url="/UserProcess.do?method=deleteUser"
                     paramId="id" paramProperty="id" class="col12">
-        <img src="/shm/images/delete.gif" width="18" height="18" hspace="4"
+        <img src="../images/delete.gif" width="18" height="18" hspace="4"
              border="0"/>
     </display:column>
 </display:table>
