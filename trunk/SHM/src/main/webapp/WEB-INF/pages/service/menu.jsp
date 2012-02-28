@@ -42,8 +42,8 @@
         <%--<li><a href="testAction.do?method=redactAoForward">Таб. аo совм.</a></li>--%>
 
 
-        <li><a href="CustomerProcess.do?method=getCustomers">Предприятия</a></li>
-        <li><a href="ContactShow.do?method=getContacts&show=all">Конт. лица</a></li>
+        <li><a href="../customers/">Предприятия</a></li>
+        <li><a href="../contacts/">Конт. лица</a></li>
 
 
         <li><a href="../users/">Пользователи</a></li>

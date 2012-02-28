@@ -9,6 +9,8 @@ import java.util.Date;
 
 
 public class User {
+    @Id
+    @GeneratedValue
     private Long id;
     private String name; // имя
     private String patronymic; // отчество
@@ -21,10 +23,10 @@ public class User {
     private String powersLevel; // уровень полномочий
     private String login; // логин
     private String pass;// пароль
-
+    @OneToOne
     private InvoiceFilter invoiceFilter;
 
-    @OneToOne
+
     public InvoiceFilter getInvoiceFilter() {
         return invoiceFilter;
     }
@@ -45,9 +47,6 @@ public class User {
 //        this.invoiceFilter = invoiceFilter;
 //    }
 
-
-    @Id
-    @GeneratedValue
 
     public Long getId() {
         return id;

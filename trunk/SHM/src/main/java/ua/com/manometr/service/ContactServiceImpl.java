@@ -14,7 +14,13 @@ public class ContactServiceImpl implements ContactService {
 	@Autowired
 	private ContactDAO contactDAO;
 
-	@Override
+    @Override
+    @Transactional
+    public Contact getContact(Long userId) {
+        return contactDAO.getContact(userId);
+    }
+
+    @Override
 	@Transactional
 	public void addContact(Contact contact) {
 		contactDAO.addContact(contact);
