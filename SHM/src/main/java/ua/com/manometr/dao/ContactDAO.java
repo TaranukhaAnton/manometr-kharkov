@@ -1,13 +1,17 @@
 package ua.com.manometr.dao;
+
 import ua.com.manometr.model.Contact;
 
 import java.util.List;
+
 public interface ContactDAO {
 
-	public void addContact(Contact contact);
+    public Contact getContact(Long id);
 
-	public List<Contact> listContact();
+    public void addContact(Contact contact);
 
-	public void removeContact(Long id);
+    public List<Contact> listContact();
+
+    public void removeContact(Long id);
 
 }

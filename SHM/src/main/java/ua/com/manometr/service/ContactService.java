@@ -1,15 +1,18 @@
 package ua.com.manometr.service;
 
 import ua.com.manometr.model.Contact;
+import ua.com.manometr.webbeans.User;
 
 import java.util.List;
 
 public interface ContactService {
 
-	public void addContact(Contact contact);
+    public Contact getContact(Long userId);
 
-	public List<Contact> listContact();
+    public void addContact(Contact contact);
 
-	public void removeContact(Long id);
+    public List<Contact> listContact();
+
+    public void removeContact(Long id);
 
 }

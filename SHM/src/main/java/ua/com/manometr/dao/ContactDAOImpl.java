@@ -14,6 +14,11 @@ public class ContactDAOImpl implements ContactDAO {
     private SessionFactory sessionFactory;
 
     @Override
+    public Contact getContact(Long id) {
+        return (Contact) sessionFactory.getCurrentSession().get(Contact.class, id);
+    }
+
+    @Override
     public void addContact(Contact contact) {
         sessionFactory.getCurrentSession().save(contact);
     }
@@ -21,7 +26,7 @@ public class ContactDAOImpl implements ContactDAO {
     @SuppressWarnings("unchecked")
     @Override
     public List<Contact> listContact() {
-        return sessionFactory.getCurrentSession().createQuery("from ContactBr").list();
+        return sessionFactory.getCurrentSession().createQuery("from Contact").list();
     }
 
     @Override

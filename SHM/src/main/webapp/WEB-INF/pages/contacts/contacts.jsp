@@ -1,37 +1,13 @@
-<%@ page import="java.util.List" %>
+
 <%@ page contentType="text/html;charset=UTF-8"%>
 
-<%@taglib uri="/WEB-INF/displaytag.tld" prefix="display"%>
-<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
-<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
-<%@ taglib prefix="c" uri="/WEB-INF/c.tld"%>
+<%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
  
 
-<html>
-	<head>
-        
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>JSP Page</title>
-
-		<link href="css/style.css" rel="stylesheet" type="text/css" />
-        <link href="css/smartTable.css" rel="stylesheet" type="text/css"/>
-
-	</head>
-	<body>
 
 
 
-        <%
-
-		Boolean isEmpt = ((List) request.getAttribute("contacts")).isEmpty();
-		pageContext.setAttribute("isEmpt", isEmpt);
-		pageContext.setAttribute("url", "ContactSaveOrUpdate.do?method=setUpForInsertOrUpdate");
-
-%>
-
-
-
-<c:if test="${!empty customer}">
+<%--<c:if test="${!empty customer}">
 <h2 align="center">Контактные лица предприятия&nbsp;&nbsp;&nbsp;
 <c:out value='${customer.name}' />	<br />	<br />
 </h2>
@@ -39,11 +15,11 @@
 
 
 
-</c:if>
+</c:if>--%>
 
 
 
-<a href="${url}" >Добавить	контакт</a>
+<a href="edit" >Добавить	контакт</a>
 
 
 
@@ -51,32 +27,30 @@
 		
 			
 			
-		<br />
-		<br />
 
-		<c:if test="${! isEmpt}">
-			<table class="simple">
-				<tr>
-					<td>
+		<%--<c:if test="${! isEmpt}">--%>
+			<%--<table class="simple">--%>
+				<%--<tr>--%>
+					<%--<td>--%>
 
-					</td>
-					<td style="width: 123px; text-align: center;">
-						Группа
-					</td>
-					<td style="width: 35px;">
+					<%--</td>--%>
+					<%--<td style="width: 123px; text-align: center;">--%>
+						<%--Группа--%>
+					<%--</td>--%>
+					<%--<td style="width: 35px;">--%>
 
-					</td>
-					<td style="width: 194px; text-align: center;">
-						Роль в закупках
-					</td>
-				</tr>
+					<%--</td>--%>
+					<%--<td style="width: 194px; text-align: center;">--%>
+						<%--Роль в закупках--%>
+					<%--</td>--%>
+				<%--</tr>--%>
 
-			</table>
-		</c:if>
+			<%--</table>--%>
+		<%--</c:if>--%>
 
 
-		<display:table name="contacts" id="row"
-			requestURI="ContactShow.do?method=getContacts"
+		<display:table name="listContact" id="row"
+			requestURI="./"
 			excludedParams="method" requestURIcontext="false" pagesize="20"
 			sort="list" class="simple">
 
@@ -155,7 +129,3 @@
 
 		</display:table>
 
-
-
-	</body>
-</html>
