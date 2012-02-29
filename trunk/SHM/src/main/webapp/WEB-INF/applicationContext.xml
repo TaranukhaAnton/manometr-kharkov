@@ -22,4 +22,14 @@
 	<mvc:annotation-driven />
 
 	<import resource="spring-database.xml" />
+
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+                <entry key="ua.com.manometr.model.Profession">
+                    <bean class="ua.com.manometr.util.customTypeEditors.ProfessionTypeEditor"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
 </beans>

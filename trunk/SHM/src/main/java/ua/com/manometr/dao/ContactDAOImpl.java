@@ -20,7 +20,7 @@ public class ContactDAOImpl implements ContactDAO {
 
     @Override
     public void addContact(Contact contact) {
-        sessionFactory.getCurrentSession().save(contact);
+        sessionFactory.getCurrentSession().saveOrUpdate(contact);
     }
 
     @SuppressWarnings("unchecked")
