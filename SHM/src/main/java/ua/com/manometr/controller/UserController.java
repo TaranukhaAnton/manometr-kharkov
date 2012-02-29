@@ -35,7 +35,7 @@ public class UserController {
 
         if (id != null) {
             User user = userService.getUser(id);
-            System.out.println("@@user = " + user.getName());
+
             model.put("user", user);
         } else {
             model.put("user", new User());

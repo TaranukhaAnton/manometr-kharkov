@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface ProfessionService {
 
+    public Profession getProfession(Long professionId);
+
 	public void addProfession(Profession profession);
 
 	public List<Profession> listProfession();

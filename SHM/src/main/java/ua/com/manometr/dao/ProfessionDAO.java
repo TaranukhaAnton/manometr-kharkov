@@ -12,4 +12,5 @@ public interface ProfessionDAO {
 
 	public void removeProfession(Long id);
 
+    Profession getProfession(Long id);
 }

@@ -13,9 +13,10 @@ public class ProfessionDAOImpl implements ProfessionDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+
 	@Override
 	public void addProfession(Profession profession) {
-		sessionFactory.getCurrentSession().save(profession);
+		sessionFactory.getCurrentSession().saveOrUpdate(profession);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -33,5 +34,11 @@ public class ProfessionDAOImpl implements ProfessionDAO {
 			sessionFactory.getCurrentSession().delete(profession);
 		}
 	}
+
+    @Override
+    public Profession getProfession(Long id) {
+        Profession profession = (Profession) sessionFactory.getCurrentSession().get(Profession.class, id);
+        return profession;
+    }
 
 }

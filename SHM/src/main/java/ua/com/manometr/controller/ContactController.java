@@ -9,11 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import ua.com.manometr.model.Contact;
+import ua.com.manometr.model.Customer;
+import ua.com.manometr.model.Profession;
 import ua.com.manometr.service.ContactService;
 import ua.com.manometr.service.UserService;
 import ua.com.manometr.webbeans.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.Enumeration;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/contacts")
@@ -32,17 +39,11 @@ public class ContactController {
     @RequestMapping("/edit")
     public String setupForm(@RequestParam(value = "id", required = false) Long id, ModelMap model) {
 
-
-
-
-        if (id != null) {
-            Contact contact = contactService.getContact(id);
-
-            model.put("contact", contact);
+        if (id == null) {
+            model.put("contact", new Contact());
+        } else {
+            model.put("contact", contactService.getContact(id));
         }
-        //else {
-        //    model.put("contact", new Contact());
-       // }
         return "editContact";
     }
 
@@ -57,9 +58,14 @@ public class ContactController {
 //    }
 
     @RequestMapping("/add")
-    public String processSubmit(ModelMap model) {
+    public String processSubmit(@ModelAttribute("contact") Contact contact) {
+       if (contact.getProfession().getId() ==null){
+           System.out.println("profession error");
+           contact.setProfession(null);
+       }
 
-
-            return "redirect:/contacts/";
+        contact.setOldRecord(null);
+        contactService.addContact(contact);
+        return "redirect:/contacts/";
     }
 }
