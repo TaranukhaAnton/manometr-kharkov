@@ -1,6 +1,5 @@
 package ua.com.manometr.model;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -28,8 +27,8 @@ public class Customer {
 
     private boolean purposeForItself;
     private boolean purposeIntermediary;
-    private boolean purposeSuply;
-    private boolean purposeInstalation;
+    private boolean purposeSupply;
+    private boolean purposeInstallation;
 
     private boolean applicationProcess;
     private boolean applicationProduction;
@@ -58,7 +57,7 @@ public class Customer {
     private Customer oldRecord;
     private User person;
     private Date dateOfRecord;
-    private Date dateLastCorrrection;
+    private Date dateLastCorrection;
     private String codeOKPO;
     private String requisite;
     private String registrationNumber;
@@ -109,14 +108,14 @@ public class Customer {
 
     @Column(nullable = false, length = 1)
     @Type(type = "yes_no")
-    public boolean isPurposeSuply() {
-        return purposeSuply;
+    public boolean isPurposeSupply() {
+        return purposeSupply;
     }
 
     @Column(nullable = false, length = 1)
     @Type(type = "yes_no")
-    public boolean isPurposeInstalation() {
-        return purposeInstalation;
+    public boolean isPurposeInstallation() {
+        return purposeInstallation;
     }
 
     @Column(nullable = false, length = 1)
@@ -220,8 +219,8 @@ public class Customer {
         return dateOfRecord;
     }
 
-    public Date getDateLastCorrrection() {
-        return dateLastCorrrection;
+    public Date getDateLastCorrection() {
+        return dateLastCorrection;
     }
 
     public String getCodeOKPO() {
@@ -276,12 +275,12 @@ public class Customer {
         this.purposeIntermediary = purposeIntermediary;
     }
 
-    public void setPurposeSuply(boolean purposeSuply) {
-        this.purposeSuply = purposeSuply;
+    public void setPurposeSupply(boolean purposeSupply) {
+        this.purposeSupply = purposeSupply;
     }
 
-    public void setPurposeInstalation(boolean purposeInstalation) {
-        this.purposeInstalation = purposeInstalation;
+    public void setPurposeInstallation(boolean purposeInstallation) {
+        this.purposeInstallation = purposeInstallation;
     }
 
     public void setApplicationProcess(boolean applicationProcess) {
@@ -368,8 +367,8 @@ public class Customer {
         this.dateOfRecord = dateOfRecord;
     }
 
-    public void setDateLastCorrrection(Date dateLastCorrrection) {
-        this.dateLastCorrrection = dateLastCorrrection;
+    public void setDateLastCorrection(Date dateLastCorrection) {
+        this.dateLastCorrection = dateLastCorrection;
     }
 
     public void setCodeOKPO(String codeOKPO) {

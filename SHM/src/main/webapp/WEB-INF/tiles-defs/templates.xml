@@ -45,6 +45,16 @@
 
     </definition>
 
+    <definition name="editCustomer" extends="baseLayout">
+        <put-attribute name="title" value="Пользователи"/>
+        <put-attribute name="body" value="/WEB-INF/pages/customers/customerFormNew.jsp"/>
+    </definition>
+    <definition name="customers" extends="baseLayout">
+        <put-attribute name="title" value="Пользователи"/>
+        <put-attribute name="body" value="/WEB-INF/pages/customers/customers.jsp"/>
+    </definition>
+
+
     <definition name="editContact" extends="baseLayout">
         <put-attribute name="title" value="Пользователи"/>
         <put-attribute name="body" value="/WEB-INF/pages/contacts/contactFormNew.jsp"/>

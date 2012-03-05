@@ -4,6 +4,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.com.manometr.model.Customer;
+import ua.com.manometr.model.User;
 
 import java.util.List;
 
@@ -31,5 +32,12 @@ public class CustomerDAOImpl implements CustomerDAO {
             sessionFactory.getCurrentSession().delete(customer);
         }
     }
+
+    @Override
+    public Customer getCustomer(Long id) {
+        Customer customer = (Customer) sessionFactory.getCurrentSession().get(Customer.class, id);
+        return customer;
+    }
+
 
 }
