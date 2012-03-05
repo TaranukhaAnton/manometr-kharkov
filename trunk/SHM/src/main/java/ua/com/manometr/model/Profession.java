@@ -7,19 +7,17 @@ import javax.persistence.Id;
 
 @Entity
 public class Profession {
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
 
     public Profession() {
     }
 
-    public Profession(String name) {
-        this.name = name;
-    }
 
 
-    @Id
-    @GeneratedValue
+
     public Long getId() {
         return id;
     }

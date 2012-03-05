@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
  */
 public class Generator {
     public static void main(String[] args) {
-        Class cl = ua.com.manometr.model.Contact.class;
+        Class cl = ua.com.manometr.model.Customer.class;
         // выводим поля класса
         Field[] fields = cl.getDeclaredFields();
         for (Field field : fields) {

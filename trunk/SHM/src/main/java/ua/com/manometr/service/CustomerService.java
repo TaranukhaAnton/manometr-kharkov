@@ -12,4 +12,5 @@ public interface CustomerService {
 
 	public void removeCustomer(Long id);
 
+    public  Customer getCustomer(Long id);
 }
