@@ -1,3 +1,4 @@
+<%@ page import="java.util.Enumeration" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,6 +12,8 @@
     <title><tiles:getAsString name="title" ignore="true"/></title>
 
     <tiles:useAttribute id="list" name="cssItems" classname="java.util.List"/>
+    <tiles:useAttribute id="ppp" name="ppp" classname="java.util.List"/>
+
     <c:forEach var="item" items="${list}">
         <c:if test="${fn:startsWith(item, '/css')}">
             <link rel="stylesheet" type="text/css" href="<c:url value="${item}"/>"/>
@@ -19,6 +22,18 @@
             <script src="<c:url value="${item}"/>" type="text/javascript"></script>
         </c:if>
     </c:forEach>
+
+
+    <c:forEach var="item" items="${ppp}">
+        <c:if test="${fn:startsWith(item, '/css')}">
+            <link rel="stylesheet" type="text/css" href="<c:url value="${item}"/>"/>
+        </c:if>
+        <c:if test="${fn:startsWith(item, '/js')}">
+            <script src="<c:url value="${item}"/>" type="text/javascript"></script>
+        </c:if>
+    </c:forEach>
+
+
 
 </head>
 <body>
