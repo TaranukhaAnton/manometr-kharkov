@@ -57,7 +57,7 @@
 
 			<display:column property="lastName" title="Фамилия" sortable="true"
 				maxLength="10"
-				url="/ContactSaveOrUpdate.do?method=setUpForInsertOrUpdate"
+				url="/contacts/edit"
 				paramId="id" paramProperty="id" />
 			<display:column property="customer" title="Предприятие" maxLength="10"/>
 			<display:column property="profession" title="Должность" />
