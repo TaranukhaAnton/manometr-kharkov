@@ -38,12 +38,23 @@
                 <form:input path="lastName" size="40"/>
             </td>
         </tr>
+        <%--<tr>--%>
+            <%--<td class="tdLabel">--%>
+                <%--profession--%>
+            <%--</td>--%>
+            <%--<td>--%>
+                <%--<form:input path="profession.id" size="40"/>--%>
+            <%--</td>--%>
+        <%--</tr>--%>
+
         <tr>
             <td class="tdLabel">
                 profession
             </td>
             <td>
-                <form:input path="profession" size="40"/>
+                <form:select path="profession.id">
+                    <form:options items="${professions}" itemValue="id" itemLabel="name"/>
+                </form:select>
             </td>
         </tr>
         <tr>

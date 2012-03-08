@@ -12,6 +12,7 @@ import ua.com.manometr.model.Contact;
 import ua.com.manometr.model.Customer;
 import ua.com.manometr.model.Profession;
 import ua.com.manometr.service.ContactService;
+import ua.com.manometr.service.ProfessionService;
 import ua.com.manometr.service.UserService;
 import ua.com.manometr.webbeans.User;
 
@@ -27,6 +28,8 @@ import java.util.Set;
 public class ContactController {
     @Autowired
     private ContactService contactService;
+    @Autowired
+    private ProfessionService professionService;
 
     @RequestMapping("/")
     public String populateContacts(Map<String, Object> map) {
@@ -39,8 +42,14 @@ public class ContactController {
     @RequestMapping("/edit")
     public String setupForm(@RequestParam(value = "id", required = false) Long id, ModelMap model) {
 
+        model.put("professions", professionService.listProfession());
+
         if (id == null) {
-            model.put("contact", new Contact());
+            final Contact contact = new Contact();
+            final Profession profession = new Profession();
+            profession.setId(0L);
+            contact.setProfession(profession);
+            model.put("contact", contact);
         } else {
             model.put("contact", contactService.getContact(id));
         }
@@ -59,10 +68,10 @@ public class ContactController {
 
     @RequestMapping("/add")
     public String processSubmit(@ModelAttribute("contact") Contact contact) {
-       if (contact.getProfession().getId() ==null){
-           System.out.println("profession error");
-           contact.setProfession(null);
-       }
+        if (contact.getProfession().getId() == null) {
+            System.out.println("profession error");
+            contact.setProfession(null);
+        }
 
         contact.setOldRecord(null);
         contactService.addContact(contact);
