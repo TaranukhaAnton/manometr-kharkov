@@ -12,4 +12,5 @@ public interface OrgFormDAO {
 
 	public void removeOrgForm(Long id);
 
+    public OrgForm getOrgForm(Long id);
 }

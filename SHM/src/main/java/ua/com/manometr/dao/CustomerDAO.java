@@ -12,4 +12,8 @@ public interface CustomerDAO {
 	public void removeCustomer(Long id);
 
     public Customer getCustomer(Long id);
+
+    public List<Customer> findByShortNameExample(String customerTemplate);
+
+    public Customer getCustomerByShortName(String shortName);
 }

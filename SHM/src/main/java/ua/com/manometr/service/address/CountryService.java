@@ -12,4 +12,5 @@ public interface CountryService {
 
 	public void removeCountry(Long id);
 
+    public  Country getCountry(Long countryId);
 }

@@ -12,4 +12,5 @@ public interface CityService {
 
 	public void removeCity(Long id);
 
+    public  List<City> listCityForArea(Long areaId);
 }

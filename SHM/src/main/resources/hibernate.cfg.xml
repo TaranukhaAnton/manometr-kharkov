@@ -14,8 +14,13 @@
 		<mapping class="ua.com.manometr.model.Customer" />
 		<mapping class="ua.com.manometr.model.OrgForm" />
 
+		<mapping class="ua.com.manometr.model.address.Region" />
+		<mapping class="ua.com.manometr.model.address.Area" />
+		<mapping class="ua.com.manometr.model.address.City" />
+		<mapping class="ua.com.manometr.model.address.Country" />
+<!---->
         <mapping class="ua.com.manometr.model.invoice.InvoiceFilter" />
-
+        <!--<property name="packagesToScan" />-->
 
 
 

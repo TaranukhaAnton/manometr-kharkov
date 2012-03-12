@@ -97,6 +97,14 @@
             <version>8.4-701.jdbc4</version>
         </dependency>
 
+        <!-- Jackson JSON Mapper -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.6.4</version>
+        </dependency>
+
+
 
         <!-- Spring dependencies -->
         <dependency>

@@ -33,4 +33,10 @@ public class OrgFormDAOImpl implements OrgFormDAO {
         }
     }
 
+    @Override
+    public OrgForm getOrgForm(Long id) {
+        OrgForm orgForm = (OrgForm) sessionFactory.getCurrentSession().get(OrgForm.class, id);
+        return orgForm;
+    }
+
 }

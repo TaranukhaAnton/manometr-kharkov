@@ -11,4 +11,5 @@ public interface CityDAO {
 
 	public void removeCity(Long id);
 
+    public  List<City> listCityForArea(Long areaId);
 }

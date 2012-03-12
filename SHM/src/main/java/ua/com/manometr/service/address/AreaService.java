@@ -12,4 +12,5 @@ public interface AreaService {
 
 	public void removeArea(Long id);
 
+    List<Area> listAreaForCountry(Long countryId);
 }

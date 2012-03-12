@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.manometr.dao.address.AreaDAO;
 import ua.com.manometr.model.address.Area;
+import ua.com.manometr.model.address.Country;
 
 import java.util.List;
 
@@ -13,6 +14,10 @@ public class AreaServiceImpl implements AreaService {
 
 	@Autowired
 	private AreaDAO areaDAO;
+	@Autowired
+	private CountryService countryService;
+
+
 
 	@Override
 	@Transactional
@@ -31,5 +36,12 @@ public class AreaServiceImpl implements AreaService {
 	public void removeArea(Long id) {
 		areaDAO.removeArea(id);
 	}
+
+    @Override
+    @Transactional
+    public List<Area> listAreaForCountry(Long countryId) {
+        return areaDAO.listAreaForCountry(countryId);
+    }
+
 
 }

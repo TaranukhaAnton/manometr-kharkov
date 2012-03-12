@@ -6,16 +6,6 @@ import java.util.List;
 
 @Entity
 public class City {
-        public static final List params;
-
-    static {
-        params = new LinkedList();
-        params.add("id");
-        params.add("name");
-        params.add("area");
-    }
-
-
 	private Long id;
 	private String name;
 	private Area area;
