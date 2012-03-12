@@ -1,4 +1,6 @@
 package ua.com.manometr.dao.address;
+
+import org.hibernate.criterion.Restrictions;
 import ua.com.manometr.model.address.Area;
 
 import org.hibernate.SessionFactory;
@@ -30,6 +32,12 @@ public class AreaDAOImpl implements AreaDAO {
         if (area != null) {
             sessionFactory.getCurrentSession().delete(area);
         }
+    }
+
+    @Override
+    public List<Area> listAreaForCountry(Long countryId) {
+        return sessionFactory.getCurrentSession().createCriteria(Area.class).
+                add(Restrictions.eq("country.id", countryId)).list();
     }
 
 }

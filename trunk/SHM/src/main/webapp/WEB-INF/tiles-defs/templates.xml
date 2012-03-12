@@ -25,13 +25,20 @@
     <definition name="editCustomer" extends="baseLayout">
         <put-attribute name="title" value="Пользователи"/>
         <put-attribute name="body" value="/WEB-INF/pages/customers/customerFormNew.jsp"/>
+        <put-list-attribute name="ppp" >
+            <add-attribute value="/js/select-chain.js"/>
+            <add-attribute value="/js/jquery.autocomplete.js"/>
+            <add-attribute value="/js/customer.js"/>
+            <add-attribute value="/js/jquery.validate.js"/>
+            <add-attribute value="/css/jquery.autocomplete.css"/>
+        </put-list-attribute>
     </definition>
     <definition name="customers" extends="baseLayout">
         <put-attribute name="title" value="Пользователи"/>
         <put-attribute name="body" value="/WEB-INF/pages/customers/customers.jsp"/>
 
         <put-list-attribute name="ppp" >
-            <add-attribute value="/css/mzcain.css"/>
+            <add-attribute value="/js/json.js"/>
         </put-list-attribute>
 
     </definition>

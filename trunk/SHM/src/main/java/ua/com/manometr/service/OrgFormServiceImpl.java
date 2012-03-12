@@ -14,7 +14,13 @@ public class OrgFormServiceImpl implements OrgFormService {
 	@Autowired
 	private OrgFormDAO orgformDAO;
 
-	@Override
+
+    @Override
+    public OrgForm getOrgForm(Long id) {
+       return orgformDAO.getOrgForm( id);
+    }
+
+    @Override
 	@Transactional
 	public void addOrgForm(OrgForm orgform) {
 		orgformDAO.addOrgForm(orgform);

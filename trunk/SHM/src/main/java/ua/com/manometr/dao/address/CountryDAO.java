@@ -11,4 +11,5 @@ public interface CountryDAO {
 
 	public void removeCountry(Long id);
 
+    public Country getCountry(Long countryId);
 }

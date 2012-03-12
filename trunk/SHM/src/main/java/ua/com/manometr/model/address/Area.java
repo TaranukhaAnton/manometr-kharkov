@@ -7,14 +7,7 @@ import java.util.List;
 
 @Entity
 public class Area {
-    public static final List params;
 
-    static {
-        params = new LinkedList();
-        params.add("id");
-        params.add("name");
-        params.add("country");
-    }
 
     private Long id;
     private String name;

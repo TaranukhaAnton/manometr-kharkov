@@ -38,13 +38,13 @@ table.rootTable tr.footer {
     height: 50px;
 }
 
-#menu {
+#menuTD {
     width: 150px; /*background-color: red;*/
 }
 
 #contentTD {
 /*background-color: #93caff;*/
-    background-color: expression((document.body.clientHeight > 700)? "blue" : "red");
+    /*background-color: expression((document.body.clientHeight > 700)? "blue" : "red");*/
     width: 1070px; /*height: 650px;  */
 
 }

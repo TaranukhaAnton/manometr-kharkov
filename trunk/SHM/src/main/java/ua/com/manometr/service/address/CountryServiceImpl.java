@@ -32,4 +32,11 @@ public class CountryServiceImpl implements CountryService {
 		countryDAO.removeCountry(id);
 	}
 
+    @Override
+    @Transactional
+    public Country getCountry(Long countryId) {
+        return countryDAO.getCountry( countryId);
+    }
+
+
 }

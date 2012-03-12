@@ -36,8 +36,8 @@
 
 
 </head>
-<body>
-
+<body  >
+<%--onresize="bodyResize();"--%>
 <div id="mainDiv">
     <table border="1" class="rootTable" align="center">
         <tr class="header">
@@ -46,7 +46,7 @@
             </td>
         </tr>
         <tr class="body">
-            <td id="menu" valign="top">
+            <td id="menuTD" valign="top">
                 <tiles:insertAttribute name="menu"/>
             </td>
             <td valign="top" id="contentTD">

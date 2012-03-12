@@ -13,4 +13,6 @@ public interface CustomerService {
 	public void removeCustomer(Long id);
 
     public  Customer getCustomer(Long id);
+
+    public List<Customer> findByShortNameExample(String customerTemplate);
 }

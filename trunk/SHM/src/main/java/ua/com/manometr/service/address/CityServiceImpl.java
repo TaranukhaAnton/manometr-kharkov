@@ -32,4 +32,11 @@ public class CityServiceImpl implements CityService {
 		cityDAO.removeCity(id);
 	}
 
+    @Override
+    @Transactional
+    public List<City> listCityForArea(Long areaId) {
+       return cityDAO.listCityForArea(areaId);
+    }
+
+
 }

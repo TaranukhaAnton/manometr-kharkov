@@ -1,10 +1,14 @@
 package ua.com.manometr.dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.com.manometr.model.Customer;
 import ua.com.manometr.model.User;
+import ua.com.manometr.model.address.Area;
 
 import java.util.List;
 
@@ -16,7 +20,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void addCustomer(Customer customer) {
-        sessionFactory.getCurrentSession().save(customer);
+        sessionFactory.getCurrentSession().saveOrUpdate(customer);
     }
 
     @SuppressWarnings("unchecked")
@@ -37,6 +41,20 @@ public class CustomerDAOImpl implements CustomerDAO {
     public Customer getCustomer(Long id) {
         Customer customer = (Customer) sessionFactory.getCurrentSession().get(Customer.class, id);
         return customer;
+    }
+
+    @Override
+    public List<Customer> findByShortNameExample(String customerTemplate) {
+
+        return sessionFactory.getCurrentSession().createCriteria(Customer.class).
+                add(Restrictions.eq("status", true)).add(Restrictions.like("shortName", customerTemplate + "%")).list();
+
+    }
+
+    @Override
+    public Customer getCustomerByShortName(String shortName) {
+        return (Customer) sessionFactory.getCurrentSession().createCriteria(Customer.class).
+                add(Restrictions.eq("status", true)).add(Restrictions.eq("shortName", shortName)).uniqueResult();
     }
 
 

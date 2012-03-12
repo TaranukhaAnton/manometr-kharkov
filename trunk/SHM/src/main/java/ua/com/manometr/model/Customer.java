@@ -1,6 +1,7 @@
 package ua.com.manometr.model;
 
 import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,7 +10,8 @@ import java.util.Date;
 @Entity
 
 public class Customer {
-    public static String[] localityTypeAlias = {"г.", "пгт", "пос.","с."};
+    public static String[] localityTypeAlias = {"г.", "пгт", "пос.", "с."};
+    public static String[] branchValues = {"про", "аэс", "энр", "мет", "доб", "нгу", "хим", "маш", "стр", "ком"};
 
 
     @Override
@@ -51,12 +53,15 @@ public class Customer {
     private String address3;
 
     private Customer headCustomer;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date mergeData;
     private String questionnaire;
     private boolean status;
     private Customer oldRecord;
     private User person;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date dateOfRecord;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date dateLastCorrection;
     private String codeOKPO;
     private String requisite;
