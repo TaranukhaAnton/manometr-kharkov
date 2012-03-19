@@ -200,26 +200,26 @@
 </tr>
 <tr>
     <td class="tdLabel">
-
+        address1
     </td>
     <td>
-        <form:input path="address1" size="40"/>
+        <form:input path="address1" size="40" cssClass="fillone"/>
     </td>
 </tr>
 <tr>
     <td class="tdLabel">
-
+        address2
     </td>
     <td>
-        <form:input path="address2" size="40"/>
+        <form:input path="address2" size="40" cssClass="fillone"/>
     </td>
 </tr>
 <tr>
     <td class="tdLabel">
-
+        address3
     </td>
     <td>
-        <form:input path="address3" size="40"/>
+        <form:input path="address3" size="40" cssClass="fillone"/>
     </td>
 </tr>
 <%--<tr>--%>
