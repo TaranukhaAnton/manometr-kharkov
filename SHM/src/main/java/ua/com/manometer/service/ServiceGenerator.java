@@ -30,7 +30,7 @@ public class ServiceGenerator {
 
     private static void print(String className, String package_slesh, String package_dot, String class_lower) {
         try {
-            File f = new File("D:\\projects\\~SPRING\\SHM\\src\\main\\java\\ua\\com\\manometr\\service" + package_slesh + "\\" + className + "Service.java");
+            File f = new File("D:\\projects\\~SPRING\\SHM\\src\\main\\java\\ua\\com\\manometer\\service" + package_slesh + "\\" + className + "Service.java");
             PrintWriter out = new PrintWriter(new FileWriter(f));
             out.println("package ua.com.manometr.service" + package_dot + ";\n" +
                     "\n" +
@@ -52,7 +52,7 @@ public class ServiceGenerator {
 
 
         try {
-            File f = new File("D:\\projects\\~SPRING\\SHM\\src\\main\\java\\ua\\com\\manometr\\service" + package_slesh + "\\" + className + "ServiceImpl.java");
+            File f = new File("D:\\projects\\~SPRING\\SHM\\src\\main\\java\\ua\\com\\manometer\\service" + package_slesh + "\\" + className + "ServiceImpl.java");
             PrintWriter out = new PrintWriter(new FileWriter(f));
             out.println("package ua.com.manometr.service" + package_dot + ";\n" +
                     "\n" +
