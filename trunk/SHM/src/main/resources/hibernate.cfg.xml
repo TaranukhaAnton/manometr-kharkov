@@ -6,20 +6,20 @@
 <hibernate-configuration>
 	<session-factory>
 		<!-- Entidades mapeadas -->
-		<mapping class="ua.com.manometr.model.User" />
-		<mapping class="ua.com.manometr.model.Supplier" />
-		<mapping class="ua.com.manometr.model.Profession" />
-		<mapping class="ua.com.manometr.model.Contact" />
-		<mapping class="ua.com.manometr.model.Currency" />
-		<mapping class="ua.com.manometr.model.Customer" />
-		<mapping class="ua.com.manometr.model.OrgForm" />
+		<mapping class="ua.com.manometer.model.User" />
+		<mapping class="ua.com.manometer.model.Supplier" />
+		<mapping class="ua.com.manometer.model.Profession" />
+		<mapping class="ua.com.manometer.model.Contact" />
+		<mapping class="ua.com.manometer.model.Currency" />
+		<mapping class="ua.com.manometer.model.Customer" />
+		<mapping class="ua.com.manometer.model.OrgForm" />
 
-		<mapping class="ua.com.manometr.model.address.Region" />
-		<mapping class="ua.com.manometr.model.address.Area" />
-		<mapping class="ua.com.manometr.model.address.City" />
-		<mapping class="ua.com.manometr.model.address.Country" />
+		<mapping class="ua.com.manometer.model.address.Region" />
+		<mapping class="ua.com.manometer.model.address.Area" />
+		<mapping class="ua.com.manometer.model.address.City" />
+		<mapping class="ua.com.manometer.model.address.Country" />
 <!---->
-        <mapping class="ua.com.manometr.model.invoice.InvoiceFilter" />
+        <mapping class="ua.com.manometer.model.invoice.InvoiceFilter" />
         <!--<property name="packagesToScan" />-->
 
 

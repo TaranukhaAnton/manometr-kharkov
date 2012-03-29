@@ -34,7 +34,7 @@ public class DAOGenerator {
 
 
         try {
-            File f = new File("D:\\projects\\~SPRING\\SHM\\src\\main\\java\\ua\\com\\manometr\\dao" + package_slesh + "\\" + className + "DAO.java");
+            File f = new File("D:\\projects\\~SPRING\\SHM\\src\\main\\java\\ua\\com\\manometer\\dao" + package_slesh + "\\" + className + "DAO.java");
             PrintWriter out = new PrintWriter(new FileWriter(f));
             out.println("package ua.com.manometr.dao" + package_dot + ";\n" +
                     "import ua.com.manometr.model" + package_dot + "." + className + ";\n" +
@@ -58,7 +58,7 @@ public class DAOGenerator {
 
     public static void print2(String className, String package_slesh, String package_dot, String class_lower) {
         try {
-            File f = new File("D:\\projects\\~SPRING\\SHM\\src\\main\\java\\ua\\com\\manometr\\dao" + package_slesh + "\\" + className + "DAOImpl.java");
+            File f = new File("D:\\projects\\~SPRING\\SHM\\src\\main\\java\\ua\\com\\manometer\\dao" + package_slesh + "\\" + className + "DAOImpl.java");
             PrintWriter out = new PrintWriter(new FileWriter(f));
             out.println("package ua.com.manometr.dao" + package_dot + ";\n" +
                     "import ua.com.manometr.model" + package_dot + "." + className + ";\n" +
@@ -103,7 +103,7 @@ public class DAOGenerator {
 
     private static void print(String className, String package_slesh, String package_dot, String class_lower) {
         try {
-            File f = new File("D:\\projects\\~SPRING\\SHM\\src\\main\\java\\ua\\com\\manometr\\service" + package_slesh + "\\" + className + "Service.java");
+            File f = new File("D:\\projects\\~SPRING\\SHM\\src\\main\\java\\ua\\com\\manometer\\service" + package_slesh + "\\" + className + "Service.java");
             PrintWriter out = new PrintWriter(new FileWriter(f));
             out.println("package ua.com.manometr.service" + package_dot + ";\n" +
                     "\n" +
@@ -125,7 +125,7 @@ public class DAOGenerator {
 
 
         try {
-            File f = new File("D:\\projects\\~SPRING\\SHM\\src\\main\\java\\ua\\com\\manometr\\service" + package_slesh + "\\" + className + "ServiceImpl.java");
+            File f = new File("D:\\projects\\~SPRING\\SHM\\src\\main\\java\\ua\\com\\manometer\\service" + package_slesh + "\\" + className + "ServiceImpl.java");
             PrintWriter out = new PrintWriter(new FileWriter(f));
             out.println("package ua.com.manometr.service" + package_dot + ";\n" +
                     "\n" +
