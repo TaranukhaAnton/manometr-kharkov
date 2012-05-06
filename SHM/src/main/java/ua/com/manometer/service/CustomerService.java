@@ -15,4 +15,6 @@ public interface CustomerService {
     public  Customer getCustomer(Long id);
 
     public List<Customer> findByShortNameExample(String customerTemplate);
+
+    public  Customer getCustomerByShortName(String shortName);
 }

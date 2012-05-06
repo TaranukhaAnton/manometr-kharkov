@@ -9,21 +9,18 @@ import ua.com.manometer.model.User;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 @Entity
 
 public class Invoice {
-    //    public static final String[] purposeAlias = {"пос", "исп", "гар", "рез", "прч"};/
     public static final String[] purposeAlias = {"пос", "исп", "гар", "рез", "прч"};
     public static final String[] purposeAliasFull = {"поставка", "испытания", "гарантия", "резерв", "прочее"};
-
-    // public static final String[] bookingAlias = {"зав", "скл", "ч/и", "исп", "ост", "анн"};
     public static final String[] curStateAlias = {"черн", "акт", "мод", "отл", "изм", "анн", "зак", "исп"};
+
+
+
     public static final Integer STATE_CHERN = 0;
     public static final Integer STATE_ACT = 1;
     public static final Integer STATE_MOD = 2;
@@ -53,7 +50,7 @@ public class Invoice {
     @ManyToOne
     private Supplier supplier;
     @ManyToOne
-    private Customer emploer;
+    private Customer employer;
     @ManyToOne
     private Customer consumer;
 
@@ -72,12 +69,9 @@ public class Invoice {
 
 
     private Integer purpose; //назначение
-    @Type(type = "application.hibernate.MyBigDecimalType")
     private BigDecimal prepayment; //предоплата
-    @Type(type = "application.hibernate.MyBigDecimalType")
     private BigDecimal paymentOnTheNitice; //по извещению
-    @Type(type = "application.hibernate.MyBigDecimalType")
-    private BigDecimal postpay; //по факту
+    private BigDecimal postPay; //по факту
 
 
     private Integer daysAfterDelivery;
@@ -86,9 +80,7 @@ public class Invoice {
     private Date awaitingDelivery; //ож. поставки
 
     private Integer probabilityOfPayment;//вероятность оплаты
-    @Type(type = "application.hibernate.MyBigDecimalType")
     private BigDecimal NDS;
-    @Type(type = "application.hibernate.MyBigDecimalType")
     private BigDecimal exchangeRate;
 
 
@@ -96,7 +88,7 @@ public class Invoice {
     @JoinColumn(name = "INVOICE_ID")
     @IndexColumn(name = "orders_index", base = 0)
 
-    private List<InvoiceItem> invoiceItems;
+    private Set<InvoiceItem> invoiceItems;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_id", nullable = true)
@@ -106,11 +98,11 @@ public class Invoice {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "INVOICE_ID")
 
-    private List<Shipment> shipments;
+    private Set<Shipment> shipments;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "INVOICE_ID")
-    private List<Payment> payments;
+    private Set<Payment> payments;
 
 
     private Integer t0;
@@ -126,29 +118,29 @@ public class Invoice {
     @Transient
     private BigDecimal debtPercent;
 
-    public List<Payment> getPayments() {
+    public Set<Payment> getPayments() {
         return payments;
     }
 
-    public void setPayments(List<Payment> payments) {
+    public void setPayments(Set<Payment> payments) {
         this.payments = payments;
     }
 
-    public List<Shipment> getShipments() {
+    public Set<Shipment> getShipments() {
         return shipments;
     }
 
-    public void setShipments(List<Shipment> shipments) {
+    public void setShipments(Set<Shipment> shipments) {
         this.shipments = shipments;
     }
 
     public void addShipment(Shipment shipping) {
-        if (shipments == null) shipments = new LinkedList();
+        if (shipments == null) shipments = new HashSet<Shipment>();
         shipments.add(shipping);
     }
 
     public void addPayment(Payment payment) {
-        if (payments == null) payments = new LinkedList<Payment>();
+        if (payments == null) payments = new HashSet<Payment>();
         payments.add(payment);
     }
 
@@ -196,12 +188,12 @@ public class Invoice {
     }
 
 
-    public Customer getEmploer() {
-        return emploer;
+    public Customer getEmployer() {
+        return employer;
     }
 
-    public void setEmploer(Customer emploer) {
-        this.emploer = emploer;
+    public void setEmployer(Customer employer) {
+        this.employer = employer;
     }
 
     public Customer getConsumer() {
@@ -236,17 +228,17 @@ public class Invoice {
         this.executor = executor;
     }
 
-    public List<InvoiceItem> getInvoiceItems() {
+    public Set<InvoiceItem> getInvoiceItems() {
         return invoiceItems;
     }
 
-    public void setInvoiceItems(List<InvoiceItem> invoiceItems) {
+    public void setInvoiceItems(Set<InvoiceItem> invoiceItems) {
         this.invoiceItems = invoiceItems;
     }
 
     public void addInvoiceItems(InvoiceItem invoiceItem) {
         if (invoiceItems == null)
-            invoiceItems = new ArrayList<InvoiceItem>();
+            invoiceItems = new HashSet<InvoiceItem>();
 
         invoiceItems.add(invoiceItem);
     }
@@ -269,20 +261,20 @@ public class Invoice {
         this.prepayment = prepayment;
     }
 
-    public BigDecimal getPaymentOnTheNitice() {
+    public BigDecimal getPaymentOnTheNotice() {
         return paymentOnTheNitice;
     }
 
-    public void setPaymentOnTheNitice(BigDecimal paymentOnTheNitice) {
-        this.paymentOnTheNitice = paymentOnTheNitice;
+    public void setPaymentOnTheNotice(BigDecimal paymentOnTheNotice) {
+        this.paymentOnTheNitice = paymentOnTheNotice;
     }
 
-    public BigDecimal getPostpay() {
-        return postpay;
+    public BigDecimal getPostPay() {
+        return postPay;
     }
 
-    public void setPostpay(BigDecimal postpay) {
-        this.postpay = postpay;
+    public void setPostPay(BigDecimal postPay) {
+        this.postPay = postPay;
     }
 
     public Integer getDaysAfterDelivery() {

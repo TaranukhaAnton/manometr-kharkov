@@ -15,9 +15,7 @@ public class ProductionPrice {
     Long id;
     String name;
     Integer type;
-    @Type(type = "application.hibernate.MyBigDecimalType")
     private BigDecimal cost;
-    @Type(type = "application.hibernate.MyBigDecimalType")
     private BigDecimal price;
 
 

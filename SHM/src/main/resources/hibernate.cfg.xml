@@ -20,6 +20,28 @@
 		<mapping class="ua.com.manometer.model.address.Country" />
 <!---->
         <mapping class="ua.com.manometer.model.invoice.InvoiceFilter" />
+        <mapping class="ua.com.manometer.model.invoice.Invoice" />
+        <mapping class="ua.com.manometer.model.invoice.Booking" />
+        <mapping class="ua.com.manometer.model.invoice.Shipment" />
+        <mapping class="ua.com.manometer.model.invoice.InvoiceItem" />
+        <mapping class="ua.com.manometer.model.invoice.Payment" />
+        <mapping class="ua.com.manometer.model.invoice.PressureSensor" />
+        <mapping class="ua.com.manometer.model.invoice.Production" />
+        <mapping class="ua.com.manometer.model.invoice.ShipmentMediator" />
+
+        <mapping class="ua.com.manometer.model.modeldescription.ModelDescription" />
+
+        <mapping class="ua.com.manometer.model.price.OptionsPrice" />
+        <mapping class="ua.com.manometer.model.price.PriceFirstPart" />
+        <mapping class="ua.com.manometer.model.price.ProductionPrice" />
+
+
+
+
+        <mapping class="ua.com.manometer.model.test.Test1" />
+        <mapping class="ua.com.manometer.model.test.Test2" />
+
+
         <!--<property name="packagesToScan" />-->
 
 

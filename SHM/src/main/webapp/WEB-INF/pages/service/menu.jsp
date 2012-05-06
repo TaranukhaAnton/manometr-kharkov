@@ -4,7 +4,7 @@
 
 <div id="menu">
     <ul id="sidebarmenu1">
-        <li><a href="invoiceAction.do?method=viewInvoices">Счета и к.п.</a></li>
+        <li><a href="../invoices/">Счета и к.п.</a></li>
         <li><a href="invoiceAction.do?method=viewBookings">Заказ-наряды</a></li>
 
 

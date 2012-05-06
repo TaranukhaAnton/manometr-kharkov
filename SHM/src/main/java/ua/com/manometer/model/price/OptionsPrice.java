@@ -18,9 +18,7 @@ public class OptionsPrice {
     private Integer isp;
     @Id
     private String param;
-    @Type(type = "application.hibernate.MyBigDecimalType")
     private BigDecimal cost;
-    @Type(type = "application.hibernate.MyBigDecimalType")
     private BigDecimal price;
 
 

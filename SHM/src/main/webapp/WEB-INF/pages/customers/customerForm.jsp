@@ -5,7 +5,7 @@
 
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
-<%@ taglib prefix="c" uri="/WEB-INF/c.tld" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="actual"
        value="${!empty customerForm.status && customerForm.status ?'false':'true'}"

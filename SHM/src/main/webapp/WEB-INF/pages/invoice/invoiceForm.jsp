@@ -1,6 +1,6 @@
 <%@ taglib prefix="logic" uri="http://struts.apache.org/tags-logic" %>
 <%@ taglib prefix="bean" uri="http://jakarta.apache.org/struts/tags-bean" %>
-<%@ taglib prefix="c" uri="/WEB-INF/c.tld" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="html" uri="http://jakarta.apache.org/struts/tags-html" %>
 <%@ page import="application.data.Supplier" %>
 <%@ page import="application.data.invoice.Invoice" %>
@@ -119,7 +119,7 @@
     </td>
     <td colspan="3"><input type="text"  <%= changesAllowed ? "" : textFieldDisab %>
                            value="<%= (invoice.getEmploer() ==null)?"":invoice.getEmploer().getShortName()%>"
-                           id="emploer" name="emploer" onkeypressEn="true"
+                           id="employer" name="employer" onkeypressEn="true"
                            onblur="paramChange('emploer','any',customerSetup);"/>
     </td>
     <td>
@@ -785,7 +785,7 @@
     <form action="#" id="invFromKP_form">
         <table>
             <input type="hidden" name="isInvoice" value="true"/>
-            <input type="hidden" id="emploer_invFromKP" name="emploer"/>
+            <input type="hidden" id="emploer_invFromKP" name="employer"/>
             <input type="hidden" id="consumer_invFromKP" name="consumer"/>
             <input type="hidden" name="parentID" value="<%=invoice.getId()%>"/>
             <tr>
@@ -862,8 +862,8 @@
             </tr>
 
             <tr>
-                <td><label for="emploer">Заказчик</label></td>
-                <td><input type="text"  name="emploer" onclick="removeErrorClass()"
+                <td><label for="employer">Заказчик</label></td>
+                <td><input type="text"  name="employer" onclick="removeErrorClass()"
                            class="text ui-widget-content ui-corner-all"/>
                 </td>
             </tr>

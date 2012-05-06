@@ -25,14 +25,9 @@ public class PriceFirstPart {
     @Id
     private Integer err;
 
-    @Type(type = "application.hibernate.MyBigDecimalType")
     private BigDecimal cost;
-    @Type(type = "application.hibernate.MyBigDecimalType")
     private BigDecimal price;
-
-    @Type(type = "application.hibernate.MyBigDecimalType")
     private BigDecimal costTmp;
-    @Type(type = "application.hibernate.MyBigDecimalType")
     private BigDecimal priceTmp;
 
     public PriceFirstPart(Long model, Integer isp, Integer mat, Integer klim, Integer err) {
