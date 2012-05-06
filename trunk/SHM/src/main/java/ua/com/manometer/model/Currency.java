@@ -14,7 +14,6 @@ public class Currency {
 
     private Long id;
     private String name;
-    @Type(type = "ua.com.manometer.util.MyBigDecimalType")
     private BigDecimal exchangeRate;
 
     public Long getId() {

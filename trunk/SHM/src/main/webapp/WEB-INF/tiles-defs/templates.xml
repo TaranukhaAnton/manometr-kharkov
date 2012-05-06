@@ -16,10 +16,37 @@
             <add-attribute value="/css/smartTable.css"/>
             <add-attribute value="/css/menu.css"/>
             <add-attribute value="/js/jquery-1.6.4.js"/>
-            <add-attribute value="/js/menu.js"/>
+            <add-attribute value="/js/local/menu.js"/>
         </put-list-attribute>
         <put-list-attribute name="ppp" />
 
+    </definition>
+
+    <definition name="invoices" extends="baseLayout">
+        <put-attribute name="title" value="Счета"/>
+        <put-attribute name="body" value="/WEB-INF/pages/invoice/invoices.jsp"/>
+        <put-list-attribute name="ppp" >
+            <add-attribute value="/css/jquery.autocomplete.css"/>
+            <add-attribute value="/css/jqueryStyles/jquery.ui.all.css"/>
+            <add-attribute value="/js/select-chain.js"/>
+           <add-attribute value="/js/ui/jquery-ui.js"/>
+           <add-attribute value="/js/ui/jquery.bgiframe-2.1.1.js"/>
+           <add-attribute value="/js/ui/jquery.ui.core.js"/>
+           <add-attribute value="/js/ui/jquery.ui.widget.js"/>
+           <add-attribute value="/js/ui/jquery.ui.mouse.js"/>
+           <add-attribute value="/js/ui/jquery.ui.button.js"/>
+           <add-attribute value="/js/ui/jquery.ui.draggable.js"/>
+           <add-attribute value="/js/ui/jquery.ui.position.js"/>
+           <add-attribute value="/js/ui/jquery.ui.resizable.js"/>
+           <add-attribute value="/js/ui/jquery.ui.dialog.js"/>
+           <add-attribute value="/js/ui/jquery.effects.core.js"/>
+           <add-attribute value="/js/jquery.deserialize.js"/>
+           <add-attribute value="/js/jquery.autocomplete.js"/>
+           <add-attribute value="/js/ui/i18n/jquery.ui.datepicker-ru.js"/>
+           <add-attribute value="/js/ui/jquery.ui.datepicker.js"/>
+            <add-attribute value="/js/local/invoices.js"/>
+
+        </put-list-attribute>
     </definition>
 
     <definition name="editCustomer" extends="baseLayout">
@@ -28,7 +55,7 @@
         <put-list-attribute name="ppp" >
             <add-attribute value="/js/select-chain.js"/>
             <add-attribute value="/js/jquery.autocomplete.js"/>
-            <add-attribute value="/js/customer.js"/>
+            <add-attribute value="/js/local/customer.js"/>
             <add-attribute value="/js/jquery.validate.js"/>
             <add-attribute value="/js/additional-methods.min.js"/>
             <add-attribute value="/css/jquery.autocomplete.css"/>

@@ -17,7 +17,7 @@ public class HibernateSchemaExporter {
     private static final String CREATE_SCHEMA_FILE = "src/test/resources/sql/generated-schema.sql";
 
     public static void main(String[] args) throws IOException {
-        FileSystemXmlApplicationContext context = new FileSystemXmlApplicationContext("src/test/resources/spring-servlet.xml");
+        FileSystemXmlApplicationContext context = new FileSystemXmlApplicationContext("src/test/resources/spring-servlet-tst.xml");
         LocalSessionFactoryBean sessionFactory = (LocalSessionFactoryBean) context.getBean("&sessionFactory");
         Configuration configuration = sessionFactory.getConfiguration();
         File file = new File(CREATE_SCHEMA_FILE);

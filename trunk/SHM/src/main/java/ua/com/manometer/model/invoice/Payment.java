@@ -20,11 +20,9 @@ public class Payment {
     @ManyToOne
     @JoinColumn(name = "INVOICE_ID", nullable = true)
     private Invoice invoice;
-
-    @Type(type = "application.hibernate.MyBigDecimalType")
+    @Column ( name="amount", precision = 8, scale = 6 )
     private BigDecimal exchangeRate;
 
-    @Type(type = "application.hibernate.MyBigDecimalType")
     private BigDecimal paymentSum;
 
 

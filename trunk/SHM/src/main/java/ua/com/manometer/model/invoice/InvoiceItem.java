@@ -21,15 +21,10 @@ public abstract class InvoiceItem {
 
     private Integer type;
 
-    @Type(type = "application.hibernate.MyBigDecimalType")
     protected BigDecimal price;
-    @Type(type = "application.hibernate.MyBigDecimalType")
     protected BigDecimal cost;
-    @Type(type = "application.hibernate.MyBigDecimalType")
     protected BigDecimal sellingPrice;
-    @Type(type = "application.hibernate.MyBigDecimalType")
     protected BigDecimal additionalCost;
-    @Type(type = "application.hibernate.MyBigDecimalType")
     protected BigDecimal transportationCost;
 
     private Integer deliveryTime;

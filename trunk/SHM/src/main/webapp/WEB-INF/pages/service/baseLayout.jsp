@@ -19,7 +19,7 @@
             <link rel="stylesheet" type="text/css" href="<c:url value="${item}"/>"/>
         </c:if>
         <c:if test="${fn:startsWith(item, '/js')}">
-            <script src="<c:url value="${item}"/>" type="text/javascript"></script>
+            <script type="text/javascript" src="<c:url value="${item}"/>" ></script>
         </c:if>
     </c:forEach>
 
@@ -29,7 +29,7 @@
             <link rel="stylesheet" type="text/css" href="<c:url value="${item}"/>"/>
         </c:if>
         <c:if test="${fn:startsWith(item, '/js')}">
-            <script src="<c:url value="${item}"/>" type="text/javascript"></script>
+            <script type="text/javascript" src="<c:url value="${item}"/>" ></script>
         </c:if>
     </c:forEach>
 

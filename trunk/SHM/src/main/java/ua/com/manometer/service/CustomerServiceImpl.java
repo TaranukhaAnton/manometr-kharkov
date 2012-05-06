@@ -23,13 +23,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public void addCustomer(Customer customer) {
 
-        if (StringUtils.isNotEmpty(customer.getHeadCustomer().getShortName())) {
+        if ((customer.getHeadCustomer()!=null)&&( StringUtils.isNotEmpty(customer.getHeadCustomer().getShortName()))) {
             Customer headCustomer = customerDAO.getCustomerByShortName(customer.getHeadCustomer().getShortName());
             customer.setHeadCustomer(headCustomer);
         } else {
             customer.setHeadCustomer(null);
         }
-        if (StringUtils.isNotEmpty(customer.getOldRecord().getShortName())) {
+        if ((customer.getOldRecord()!=null)&&(StringUtils.isNotEmpty(customer.getOldRecord().getShortName()))) {
             Customer oldRecord = customerDAO.getCustomerByShortName(customer.getOldRecord().getShortName());
             customer.setOldRecord(oldRecord);
         } else {
@@ -37,9 +37,11 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         //todo
+        if (customer.getOrgForm()!=null){
+            final OrgForm orgForm = orgFormDAO.getOrgForm(customer.getOrgForm().getId());
+            customer.setOrgForm(orgForm);
+        }
 
-        final OrgForm orgForm = orgFormDAO.getOrgForm(customer.getOrgForm().getId());
-        customer.setOrgForm(orgForm);
 
         customerDAO.addCustomer(customer);
     }
@@ -67,6 +69,12 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> findByShortNameExample(String customerTemplate) {
         return customerDAO.findByShortNameExample(customerTemplate);
 
+    }
+
+    @Override
+    @Transactional
+    public Customer getCustomerByShortName(String shortName) {
+        return customerDAO.getCustomerByShortName(shortName);
     }
 
 

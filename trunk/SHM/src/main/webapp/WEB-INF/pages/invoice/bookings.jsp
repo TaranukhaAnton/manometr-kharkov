@@ -152,7 +152,7 @@
         <display:column title="Назн">
             <%= Invoice.purposeAlias[((Booking) pageContext.getAttribute("booking")).getInvoice().getPurpose()] %>
         </display:column>
-        <display:column property="invoice.emploer.shortName" title="заказчик"/>
+        <display:column property="invoice.employer.shortName" title="заказчик"/>
 
         <display:column property="invoice.executor" title="спец<br>ОСО"/>
         <display:column property="invoice.t0" class="col30 center" title="ДД"/>
