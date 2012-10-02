@@ -1,0 +1,45 @@
+table.models {
+    border: 1px solid black;
+
+    margin-top: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #fff;
+
+}
+
+TD.silver {
+    border: 1px solid silver;
+}
+
+TD.silver_r {
+    border: 1px solid silver;
+    border-right: 1px solid black;
+}
+
+TD.silver_rb {
+    border: 1px solid silver;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+TD.silver_b {
+    border: 1px solid silver;
+
+    border-bottom: 1px solid black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
