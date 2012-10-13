@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+  <title>Дочерние селекторы</title>
+  <style type="text/css">
+   UL#menu > LI {
+    list-style: none; /* Убираем маркеры списка */
+    width: 120px; /* Ширина элемента в пикселах */
+    background: #ddd; /* Цвет фона */
+    color: maroon; /* Цвет текста */
+    padding: 5px; /* Поля вокруг текста */
+    font-family: Arial, sans-serif; /* Рубленый шрифт */
+    font-size: 90%; /* Размер шрифта */
+    font-weight: bold; /* Жирное начертание */
+    float: left; /* Располагаем элементы по горизонтали */
+   }
+   LI > UL {
+    list-style: none; /* Убираем маркеры списка */
+    padding: 0px; /* Убираем отступы вокруг элементов списка */
+    padding-top: 5px; /* Добавляем отступ сверху */
+   }
+   LI > A {
+    display: block; /* Ссылки отображаются в виде блока */
+    font-weight: normal; /* Нормальное начертание текста */
+    font-size: 90%; /* Размер шрифта */
+    background: #fff; /* Цвет фона */
+    border: 1px solid #666; /* Параметры рамки */
+    padding: 5px; /* Поля вокруг текста */
+   }
+  </style>
+ </head>
+ <body>
+  <ul id="menu">
+   <li>Редактор</li>
+   <li>Правка
+    <ul>
+     <li><a href="undo.html">Отменить</a></li>
+     <li><a href="cut.html">Вырезать</a></li>
+     <li><a href="copy.html">Копировать</a></li>
+     <li><a href="paste.html">Вставить</a></li>
+    </ul>
+   </li>
+   <li>Начертание
+    <ul>
+     <li><a href="bold.html">Жирное</a></li>
+     <li><a href="italic.html">Курсивное</a></li>
+     <li><a href="emphasis.html">Приятное</a></li>
+    </ul>
+   </li>
+   <li>Размер
+    <ul>
+     <li><a href="small.html">Так себе</a></li>
+     <li><a href="normal.html">Нормальный</a></li>
+     <li><a href="middle.html">Средний</a></li>
+     <li><a href="big.html">Недетский</a></li>
+    </ul>
+   </li>
+  </ul>
+ </body>
+</html>
