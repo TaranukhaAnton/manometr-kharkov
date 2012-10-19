@@ -11,6 +11,10 @@ import java.util.Date;
 
 public class User {
     public static String[] POWER_LEVELS = {"пользователь", "менеджер", "экономист", "администратор"};
+    public static Integer LEVEL_USER = 1;
+    public static Integer LEVEL_MANAGER = 2;
+    public static Integer LEVEL_ECONOMIST = 3;
+    public static Integer LEVEL_ADMINISTRATOR = 4;
 
     @Id
     @GeneratedValue
@@ -25,12 +29,13 @@ public class User {
     private Date dischargingDate; // дата увольнения
     private String tel;// телефон
     private String telMob; // телефон мобильный
-    private String powersLevel; // уровень полномочий
+    private Integer powersLevel; // уровень полномочий
     private String login; // логин
     private String pass;// пароль
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "invoicefilter_fk")
     private InvoiceFilter invoiceFilter;
-
+    private String fioUkr;
 
     public InvoiceFilter getInvoiceFilter() {
         return invoiceFilter;
@@ -39,19 +44,6 @@ public class User {
     public void setInvoiceFilter(InvoiceFilter invoiceFilter) {
         this.invoiceFilter = invoiceFilter;
     }
-
-    //    @OneToOne(cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private InvoiceFilter invoiceFilter;
-//
-//    public InvoiceFilter getInvoiceFilter() {
-//        return invoiceFilter;
-//    }
-//
-//    public void setInvoiceFilter(InvoiceFilter invoiceFilter) {
-//        this.invoiceFilter = invoiceFilter;
-//    }
-
 
     public Long getId() {
         return id;
@@ -98,14 +90,11 @@ public class User {
     }
 
 
-    public String getPowersLevel() {
+    public Integer getPowersLevel() {
         return powersLevel;
     }
 
 
-//	public String getNickName() {
-//		return nickName;
-//	}
 
 
     public String getLogin() {
@@ -163,14 +152,9 @@ public class User {
     }
 
 
-    public void setPowersLevel(String powersLevel) {
+    public void setPowersLevel(Integer powersLevel) {
         this.powersLevel = powersLevel;
     }
-
-
-//	public void setNickName(String nickName) {
-//		this.nickName = nickName;
-//	}
 
 
     public void setLogin(String login) {
@@ -180,6 +164,50 @@ public class User {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+
+    public String getFioUkr() {
+        return fioUkr;
+    }
+
+    public void setFioUkr(String fioUkr) {
+        this.fioUkr = fioUkr;
+    }
+
+    @Transient
+    public String getPowLevStr() {
+
+        if (powersLevel == 1) {
+            return "Пользователь";
+        }
+        if (powersLevel == 2) {
+            return "Менеджер";
+        }
+        if (powersLevel == 3) {
+            return "Экономист";
+        }
+        return "Администратор";
+    }
+
+    @Transient
+    public boolean isUser() {
+        return 1 == powersLevel;
+    }
+
+    @Transient
+    public boolean isManager() {
+        return 2 == powersLevel;
+    }
+
+    @Transient
+    public boolean isEconomist() {
+        return 3 == powersLevel;
+    }
+
+    @Transient
+    public boolean isAdmin() {
+        return 4 == powersLevel;
     }
 }
 

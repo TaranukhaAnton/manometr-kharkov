@@ -84,6 +84,11 @@
     <definition name="editUser" extends="baseLayout">
         <put-attribute name="title" value="Пользователи"/>
         <put-attribute name="body" value="/WEB-INF/pages/users/newUserForm.jsp"/>
+        <put-list-attribute name="ppp" >
+            <add-attribute value="/js/ui/i18n/jquery.ui.datepicker-ru.js"/>
+            <add-attribute value="/js/ui/jquery.ui.datepicker.js"/>
+            <add-attribute value="/css/jqueryStyles/jquery.ui.all.css"  />
+        </put-list-attribute>
     </definition>
 
     <definition name="users" extends="baseLayout">
