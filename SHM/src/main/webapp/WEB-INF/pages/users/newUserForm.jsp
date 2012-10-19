@@ -1,48 +1,31 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--
-<form:form modelAttribute="user" action="add" method="post">
-    <fieldset>
-        <legend>Account Fields</legend>
-        <p>
-
-            <form:hidden path="id"/>
-        </p>
-
-        <p>
-
-            <form:input path="name"/>
-        </p>
-
-        <p>
-
-            <form:input path="patronymic"/>
-        </p>
-
-        <p>
+<script type="text/javascript">
 
 
-            <form:input path="lastName"/>
-        </p>
-
-        <p>
-
-
-        </p>
-
-
-        <p>
-            <input type="submit"/>
-        </p>
-    </fieldset>
-</form:form>
---%>
+$(function() {
+    $("#dischargingDate").datepicker({
+        showOn: 'button',
+        buttonImage: '../images/datepicker.jpg',
+        buttonImageOnly: true
+    });
+    $("#receptionOnWorkDate").datepicker({
+        showOn: 'button',
+        buttonImage: '../images/datepicker.jpg',
+        buttonImageOnly: true
+    });
+}  );
+</script>
 
 
 
 <form:form modelAttribute="user" action="add" method="post">
     <form:hidden path="id"/>
+    <form:hidden path="invoiceFilter.id"/>
+
     <table>
 
         <tr>
@@ -69,7 +52,7 @@
                 Отчество
             </td>
             <td>
-                 <form:input path="patronymic" size="40"/>
+                <form:input path="patronymic" size="40"/>
             </td>
         </tr>
 
@@ -89,9 +72,6 @@
             </td>
             <td>
                 <form:input path="receptionOnWorkDate" size="20"/>
-
-                <html:img src="images/datepicker.jpg"
-                          onclick="displayDatePicker('receptionOnWorkDate', false, 'dmy', '.');"/>
             </td>
         </tr>
         <tr>
@@ -99,9 +79,7 @@
                 Дата увольнения
             </td>
             <td>
-                <form:input path="dischargingDate" size="20"/>
-                <html:img src="images/datepicker.jpg"
-                          onclick="displayDatePicker('dischargingDate', false, 'dmy', '.');"/>
+                <form:input path="dischargingDate" size="20" />
             </td>
         </tr>
 
@@ -128,12 +106,12 @@
             </td>
             <td>
                 <form:select path="powersLevel">
-                    <form:option value="пользователь"/>
-                    <form:option value="менеджер"/>
-                    <form:option value="экономист"/>
-                    <form:option value="администратор"/>
-                    <%--<form:options items="${user.POWER_LEVELS}" />--%>
+                    <form:option value="1" label="пользователь"/>
+                    <form:option value="2" label="менеджер"/>
+                    <form:option value="3" label="экономист"/>
+                    <form:option value="4" label="администратор"/>
                 </form:select>
+
             </td>
         </tr>
 

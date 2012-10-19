@@ -26,20 +26,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void addUser(User user) {
-        if (user.getId() == null) {
-            user.setInvoiceFilter(new InvoiceFilter());
-        } else {
-            final InvoiceFilter invoiceFilter = userDAO.getUser(user.getId()).getInvoiceFilter();
-            user.setInvoiceFilter(invoiceFilter);
-        }
         userDAO.addUser(user);
     }
 
     @Override
     @Transactional
     public List<User> listUser() {
-
-
         return userDAO.listUser();
     }
 
