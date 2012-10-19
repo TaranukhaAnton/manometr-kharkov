@@ -3,206 +3,152 @@
 
 
 <form:form modelAttribute="contact" action="add" method="post">
-    <%--<form:hidden path="id"/>--%>
-    <table>
-                <form:hidden path="id" size="40"/>
-        <tr>
-            <td class="tdLabel">
+<%--<form:hidden path="id"/>--%>
+<table>
+    <form:hidden path="id"/>
+    <form:hidden path="oldRecord.id"/>
+    <form:hidden path="method"/>
 
-            </td>
-            <td>
-                <form:input path="customer" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
-               Имя
-            </td>
-            <td>
-                <form:input path="name" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+    <tr>
+        <td class="tdLabel">
+            Имя
+        </td>
+        <td>
+            <form:input path="name" size="40"/>
+        </td>
+    </tr>
 
-            </td>
-            <td>
-                <form:input path="patronymic" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+    <tr>
+        <td class="tdLabel">
+            Отчество
+        </td>
+        <td>
+            <form:input path="patronymic" size="40"/>
+        </td>
+    </tr>
 
-            </td>
-            <td>
-                <form:input path="lastName" size="40"/>
-            </td>
-        </tr>
-        <%--<tr>--%>
-            <%--<td class="tdLabel">--%>
-                <%--profession--%>
-            <%--</td>--%>
-            <%--<td>--%>
-                <%--<form:input path="profession.id" size="40"/>--%>
-            <%--</td>--%>
-        <%--</tr>--%>
+    <tr>
+        <td class="tdLabel">
+            Фамилия
+        </td>
+        <td>
+            <form:input path="lastName" size="40"/>
+        </td>
+    </tr>
 
-        <tr>
-            <td class="tdLabel">
-                profession
-            </td>
-            <td>
-                <form:select path="profession.id">
-                    <form:options items="${professions}" itemValue="id" itemLabel="name"/>
-                </form:select>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+    <tr>
+        <td class="tdLabel">
+            Место работы
+        </td>
+        <td>
+            <form:input path="customer" size="40"/>
+        </td>
+    </tr>
 
-            </td>
-            <td>
-                <form:input path="subdivision" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+    <tr>
+        <td class="tdLabel">
+            Должность
+        </td>
+        <td>
+            <form:select path="profession.id">
+                <form:options items="${professions}" itemValue="id" itemLabel="name"/>
+            </form:select>
+        </td>
+    </tr>
 
-            </td>
-            <td>
-                <form:input path="group1" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+    <tr>
+        <td class="tdLabel">
+            Подразделение
+        </td>
+        <td>
+            <form:input path="subdivision" size="40"/>
+        </td>
+    </tr>
 
-            </td>
-            <td>
-                <form:input path="group2" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+    <tr>
+        <td class="tdLabel">
 
-            </td>
-            <td>
-                <form:input path="group3" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+        </td>
+        <td>
+            <fieldset style="">
+                <legend>
+                    Группа
+                </legend>
+                <form:checkbox path="group1"/> - Техническая <br>
+                <form:checkbox path="group2"/> - Снабжение <br>
+                <form:checkbox path="group3"/> - Руководитель <br>
+            </fieldset>
+        </td>
+    </tr>
 
-            </td>
-            <td>
-                <form:input path="tel" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+    <tr>
+        <td class="tdLabel">
+            Телефон
+        </td>
+        <td>
+            <form:input path="tel" size="40"/>
+        </td>
+    </tr>
 
-            </td>
-            <td>
-                <form:input path="fax" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+    <tr>
+        <td class="tdLabel">
+            Факс
+        </td>
+        <td>
+            <form:input path="fax" size="40"/>
+        </td>
+    </tr>
 
-            </td>
-            <td>
-                <form:input path="mobTel" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+    <tr>
+        <td class="tdLabel">
+            Мобильный
+        </td>
+        <td>
+            <form:input path="mobTel" size="40"/>
+        </td>
+    </tr>
 
-            </td>
-            <td>
-                <form:input path="eMail" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+    <tr>
+        <td class="tdLabel">
+            e-mail
+        </td>
+        <td>
+            <form:input path="eMail" size="40"/>
+        </td>
+    </tr>
 
-            </td>
-            <td>
-                <form:input path="purchaseRole1" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+    <tr>
+        <td class="tdLabel">
 
-            </td>
-            <td>
-                <form:input path="purchaseRole2" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+        </td>
+        <td>
+            <fieldset style="">
+                <legend>
+                    Роль в закупках
+                </legend>
+                <form:checkbox path="purchaseRole1"/> - Клерк (техническая работа) <br>
+                <form:checkbox path="purchaseRole2"/> - Влияет на техническую оценку продукции <br>
+                <form:checkbox path="purchaseRole3"/> - Влияет на коммерческую оценку предложения <br>
+                <form:checkbox path="purchaseRole4"/> - Формирует техническую политику <br>
+                <form:checkbox path="purchaseRole5"/> - Формирует политику закупок <br>
+                <form:checkbox path="purchaseRole6"/> - Член тендерного комитета <br>
+                <form:checkbox path="purchaseRole7"/> - Единолично принимает решение <br>
+            </fieldset>
 
-            </td>
-            <td>
-                <form:input path="purchaseRole3" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+        </td>
+    </tr>
 
-            </td>
-            <td>
-                <form:input path="purchaseRole4" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
+    <tr>
+        <td class="tdLabel">
+            Актуальность записи
+        </td>
+        <td>
+            <form:checkbox path="status" size="40"/>
+        </td>
+    </tr>
 
-            </td>
-            <td>
-                <form:input path="purchaseRole5" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
-
-            </td>
-            <td>
-                <form:input path="purchaseRole6" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
-
-            </td>
-            <td>
-                <form:input path="purchaseRole7" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
-
-            </td>
-            <td>
-                <form:input path="status" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
-
-            </td>
-            <td>
-                <form:input path="oldRecord" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="tdLabel">
-
-            </td>
-            <td>
-                <form:input path="method" size="40"/>
-            </td>
-        </tr>
-    </table>
-    <input type="submit"/>
+</table>
+<input type="submit"/>
 
 
 </form:form>

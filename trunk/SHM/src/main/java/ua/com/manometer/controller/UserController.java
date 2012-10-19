@@ -21,21 +21,14 @@ public class UserController {
 
     @RequestMapping("/")
     public String populateUsers(Map<String, Object> map) {
-
-//        map.put("user", new User());
         map.put("userList", userService.listUser());
         return "users";
     }
 
     @RequestMapping("/edit")
     public String setupForm(@RequestParam(value = "id", required = false) Long id, ModelMap model) {
-
-
-        System.out.println("id = " + id);
-
         if (id != null) {
             User user = userService.getUser(id);
-
             model.put("user", user);
         } else {
             model.put("user", new User());
@@ -44,21 +37,10 @@ public class UserController {
     }
 
 
-//    @RequestMapping("/add")
-//    public String editContacts(@ModelAttribute("user") User user, Map<String, Object> map) {
-//        System.out.println(user);
-//        userService.addUser(user);
-//
-//        map.put("userList", userService.listUser());
-//        return "redirect:/users/";
-//    }
-
     @RequestMapping("/add")
-    public String processSubmit(@ModelAttribute("user") User user, BindingResult result, SessionStatus status) {
+    public String processSubmit(@ModelAttribute("user") User user,  SessionStatus status) {
         boolean hasError = false;
 
-        System.out.println("user = " + user.getName());
-        //  new PetValidator().validate(pet, result);
         if (hasError) {
             return "editUser";
         } else {
