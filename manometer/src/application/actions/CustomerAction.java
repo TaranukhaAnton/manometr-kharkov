@@ -34,8 +34,8 @@ public class CustomerAction extends DispatchAction {
     public ActionForward getCustomers(ActionMapping mapping, ActionForm form,
                                       HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-//        Integer livel = (Integer) request.getSession().getAttribute("livel");
-//        if (livel == null)
+//        Integer level = (Integer) request.getSession().getAttribute("level");
+//        if (level == null)
 //            return mapping.findForward("enter");
 
         logger.debug("getUsers");
@@ -46,8 +46,8 @@ public class CustomerAction extends DispatchAction {
     public ActionForward changeCustomer(ActionMapping mapping, ActionForm form,
                                         HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-//        Integer livel = (Integer) request.getSession().getAttribute("livel");
-//        if (livel == null)
+//        Integer level = (Integer) request.getSession().getAttribute("level");
+//        if (level == null)
 //            return mapping.findForward("enter");
 
         CustomerForm customerForm = (CustomerForm) form;
@@ -233,8 +233,8 @@ public class CustomerAction extends DispatchAction {
     public ActionForward findContacts(ActionMapping mapping, ActionForm form,
                                       HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-//        Integer livel = (Integer) request.getSession().getAttribute("livel");
-//        if (livel == null)
+//        Integer level = (Integer) request.getSession().getAttribute("level");
+//        if (level == null)
 //            return mapping.findForward("enter");
         logger.debug("findContacts");
         CustomerForm customerForm = (CustomerForm) form;
@@ -251,8 +251,8 @@ public class CustomerAction extends DispatchAction {
     public ActionForward findCustomers(ActionMapping mapping, ActionForm form,
                                        HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-//        Integer livel = (Integer) request.getSession().getAttribute("livel");
-//        if (livel == null)
+//        Integer level = (Integer) request.getSession().getAttribute("level");
+//        if (level == null)
 //            return mapping.findForward("enter");
 
         logger.debug("getUsers");
@@ -362,8 +362,8 @@ public class CustomerAction extends DispatchAction {
     public ActionForward setUpForInsertOrUpdate(ActionMapping mapping,
                                                 ActionForm form, HttpServletRequest request,
                                                 HttpServletResponse response) throws Exception {
-//        Integer livel = (Integer) request.getSession().getAttribute("livel");
-//        if (livel == null)
+//        Integer level = (Integer) request.getSession().getAttribute("level");
+//        if (level == null)
 //            return mapping.findForward("enter");
 
         logger.debug("setUpForInsertOrUpdate");

@@ -28,8 +28,8 @@ public class ContactAction extends DispatchAction {
     public ActionForward getContacts(ActionMapping mapping, ActionForm form,
                                      HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-//        Integer livel = (Integer) request.getSession().getAttribute("livel");
-//        if (livel == null)
+//        Integer level = (Integer) request.getSession().getAttribute("level");
+//        if (level == null)
 //            return mapping.findForward("enter");
 
 
@@ -120,8 +120,8 @@ public class ContactAction extends DispatchAction {
     public ActionForward insertOrUpdate(ActionMapping mapping, ActionForm form,
                                         HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-//        Integer livel = (Integer) request.getSession().getAttribute("livel");
-//        if (livel == null)
+//        Integer level = (Integer) request.getSession().getAttribute("level");
+//        if (level == null)
 //            return mapping.findForward("enter");
 
         ContactForm contactForm = (ContactForm) form;
@@ -172,8 +172,8 @@ public class ContactAction extends DispatchAction {
     public ActionForward setUpForInsertOrUpdate(ActionMapping mapping,
                                                 ActionForm form, HttpServletRequest request,
                                                 HttpServletResponse response) throws Exception {
-//        Integer livel = (Integer) request.getSession().getAttribute("livel");
-//        if (livel == null)
+//        Integer level = (Integer) request.getSession().getAttribute("level");
+//        if (level == null)
 //            return mapping.findForward("enter");
 
         logger.debug("setUpForInsertOrUpdate");

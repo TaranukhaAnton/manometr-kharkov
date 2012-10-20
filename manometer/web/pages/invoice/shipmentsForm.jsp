@@ -132,8 +132,8 @@
     NumberFormat df = NumberFormat.getInstance();
     df.setMinimumFractionDigits(2);
     df.setMaximumFractionDigits(2);
-    Integer livel = (Integer) request.getSession().getAttribute("livel");
-    boolean changesAllowed = (User.LIVEL_ECONOMIST.equals(livel) || User.LIVEL_ADMINISTRATOR.equals(livel)) && (!invoice.getCurrentState().equals(Invoice.STATE_ISP));
+    Integer level = (Integer) request.getSession().getAttribute("level");
+    boolean changesAllowed = (User.LEVEL_ECONOMIST.equals(level) || User.LEVEL_ADMINISTRATOR.equals(level)) && (!invoice.getCurrentState().equals(Invoice.STATE_ISP));
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy");
 
 %>

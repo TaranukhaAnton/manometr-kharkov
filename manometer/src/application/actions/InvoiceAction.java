@@ -65,7 +65,7 @@ public class InvoiceAction extends DispatchAction {
             if (!request.getParameter("f2_from").isEmpty())
                 filter.setF2From(sdf.parse(request.getParameter("f2_from")));
 
-            // System.out.println("livel "+request.getSession().getAttribute("livel"));
+            // System.out.println("level "+request.getSession().getAttribute("level"));
             String[] strPurpose = request.getParameterValues("purpose");
             List<Long> selectedPurpose = new LinkedList<Long>();
             if (strPurpose != null)
@@ -88,7 +88,7 @@ public class InvoiceAction extends DispatchAction {
             filter.setCurrencyFilter(selectedCurrency.toArray(new Long[selectedCurrency.size()]));
 
 
-            if (((Integer) request.getSession().getAttribute("livel")) > 2) {
+            if (((Integer) request.getSession().getAttribute("level")) > 2) {
 
                 String[] strUserId = request.getParameterValues("user");
                 List<Long> selectedUsers = new LinkedList<Long>();

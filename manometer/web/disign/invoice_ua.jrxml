@@ -334,9 +334,8 @@
 						<font fontName="Times New Roman" pdfFontName="times.ttf" size="12" isPdfEmbedded ="true" pdfEncoding ="Cp1251"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["Виконавець: "
-
-+$P{invoice}.getExecutor().getLastName()+" "+$P{invoice}.getExecutor().getName()+" "
-+$P{invoice}.getExecutor().getPatronymic()+    (($P{invoice}.isInvoice())?( ", тел. "+$P{invoice}.getExecutor().getTel()):"")]]></textFieldExpression>
++$P{invoice}.getExecutor().getFioUkr()+ 
+(($P{invoice}.isInvoice())?( ", тел. "+$P{invoice}.getExecutor().getTel()):"")]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

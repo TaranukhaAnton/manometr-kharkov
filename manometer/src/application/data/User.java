@@ -14,10 +14,10 @@ import java.util.List;
 
 
 public class User {
-public static Integer LIVEL_USER=1;
-public static Integer LIVEL_MANAGER=2;
-public static Integer LIVEL_ECONOMIST=3;
-public static Integer LIVEL_ADMINISTRATOR=4;
+    public static Integer LEVEL_USER = 1;
+    public static Integer LEVEL_MANAGER = 2;
+    public static Integer LEVEL_ECONOMIST = 3;
+    public static Integer LEVEL_ADMINISTRATOR = 4;
 
 
     private Long id;
@@ -25,13 +25,15 @@ public static Integer LIVEL_ADMINISTRATOR=4;
     private String patronymic; // отчество
     private String lastName; // фамилия
     private String position; // должность
-    private Date receptionoOnWorkDate; // дата приёма на работу
+    private Date receptionOnWorkDate; // дата приёма на работу
     private Date dischargingDate; // дата увольнения
     private String tel;// телефон
     private String telMob; // телефон мобильный
-    private PowersLivel powersLivel; // уровень полномочий
+    private Integer powersLevel; // уровень полномочий
     private String login; // логин
     private String pass;// пароль
+    private String fioUkr;
+
 
     private InvoiceFilter invoiceFilter;
 
@@ -46,21 +48,8 @@ public static Integer LIVEL_ADMINISTRATOR=4;
     }
 
 
-    //    @OneToOne(cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private InvoiceFilter invoiceFilter;
-//
-//    public InvoiceFilter getInvoiceFilter() {
-//        return invoiceFilter;
-//    }
-//
-//    public void setInvoiceFilter(InvoiceFilter invoiceFilter) {
-//        this.invoiceFilter = invoiceFilter;
-//    }
-
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return login;
     }
 
@@ -93,8 +82,8 @@ public static Integer LIVEL_ADMINISTRATOR=4;
     }
 
 
-    public Date getReceptionoOnWorkDate() {
-        return receptionoOnWorkDate;
+    public Date getReceptionOnWorkDate() {
+        return receptionOnWorkDate;
     }
 
 
@@ -113,13 +102,13 @@ public static Integer LIVEL_ADMINISTRATOR=4;
     }
 
 
-    @Column(columnDefinition = "integer", nullable = true)
-    @Type(type = "application.hibernate.GenericEnumUserType", parameters = {
-            @Parameter(name = "enumClass", value = "application.data.User$PowersLivel"),
-            @Parameter(name = "identifierMethod", value = "toInt"),
-            @Parameter(name = "valueOfMethod", value = "fromInt")})
-    public PowersLivel getPowersLivel() {
-        return powersLivel;
+    //    @Column(columnDefinition = "integer", nullable = true)
+//    @Type(type = "application.hibernate.GenericEnumUserType", parameters = {
+//            @Parameter(name = "enumClass", value = "application.data.User$PowersLivel"),
+//            @Parameter(name = "identifierMethod", value = "toInt"),
+//            @Parameter(name = "valueOfMethod", value = "fromInt")})
+    public Integer getPowersLevel() {
+        return powersLevel;
     }
 
 
@@ -163,8 +152,8 @@ public static Integer LIVEL_ADMINISTRATOR=4;
     }
 
 
-    public void setReceptionoOnWorkDate(Date receptionoOnWorkDate) {
-        this.receptionoOnWorkDate = receptionoOnWorkDate;
+    public void setReceptionOnWorkDate(Date receptionOnWorkDate) {
+        this.receptionOnWorkDate = receptionOnWorkDate;
     }
 
 
@@ -183,8 +172,8 @@ public static Integer LIVEL_ADMINISTRATOR=4;
     }
 
 
-    public void setPowersLivel(PowersLivel powersLivel) {
-        this.powersLivel = powersLivel;
+    public void setPowersLevel(Integer powersLevel) {
+        this.powersLevel = powersLevel;
     }
 
 
@@ -202,62 +191,47 @@ public static Integer LIVEL_ADMINISTRATOR=4;
         this.pass = pass;
     }
 
+    public String getFioUkr() {
+        return fioUkr;
+    }
 
-    public enum PowersLivel {
+    public void setFioUkr(String fioUkr) {
+        this.fioUkr = fioUkr;
+    }
 
+    @Transient
+    public String getPowLevStr() {
 
-        Пользователь(1),
-        Менеджер(2),
-        Экономист(3),
-        Администратор(4);
-
-        private int value;
-
-        PowersLivel(int value) {
-            this.value = value;
+        if (powersLevel == 1) {
+            return "Пользователь";
         }
-
-        // the identifierMethod
-        public int toInt() {
-            return value;
+        if (powersLevel == 2) {
+            return "Менеджер";
         }
-
-        // the valueOfMethod
-        public static PowersLivel fromInt(int value) {
-            switch (value) {
-
-                case 1:
-                    return Пользователь;
-                case 2:
-                    return Менеджер;
-                case 3:
-                    return Экономист;
-                case 4:
-                    return Администратор;
-
-                default:
-                    return Пользователь;
-            }
+        if (powersLevel == 3) {
+            return "Экономист";
         }
+        return "Администратор";
+    }
 
-        public String toString() {
-            switch (this) {
+    @Transient
+    public boolean isUser() {
+        return 1 == powersLevel;
+    }
 
-                case Пользователь:
-                    return "Пользователь";
-                case Администратор:
-                    return "Администратор";
-                case Менеджер:
-                    return "Менеджер";
-                case Экономист:
-                    return "Экономист";
+    @Transient
+    public boolean isManager() {
+        return 2 == powersLevel;
+    }
 
+    @Transient
+    public boolean isEconomist() {
+        return 3 == powersLevel;
+    }
 
-                default:
-                    return "Пользователь";
-            }
-
-        }
+    @Transient
+    public boolean isAdmin() {
+        return 4 == powersLevel;
     }
 
 

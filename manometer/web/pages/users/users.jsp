@@ -32,13 +32,13 @@
     <display:column property="name" title="Имя" maxLength="8" class="col3"/>
     <display:column property="patronymic" title="Отчество" maxLength="8" class="col4"/>
     <display:column property="position" title="Должность" class="col5" maxLength="8"/>
-    <display:column property="receptionoOnWorkDate" title="Дата пр."
+    <display:column property="receptionOnWorkDate" title="Дата пр."
                     format="{0,date,dd.MM.yyyy}" class="col6"/>
     <display:column property="dischargingDate" title="Дата ув."
                     format="{0,date,dd.MM.yyyy}" class="col7"/>
     <display:column property="tel" title="Телефон" class="col8"/>
     <display:column property="telMob" title="Моб. тел." maxLength="10" class="col9"/>
-    <display:column property="powersLivel" title="Ур. полн."
+    <display:column property="powLevStr" title="Ур. полн."
                     sortable="true" class="col10"/>
     <display:column property="login" title="Логин  "
                     sortable="true"/>

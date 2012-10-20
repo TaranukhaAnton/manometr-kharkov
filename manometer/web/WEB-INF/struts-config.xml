@@ -5,7 +5,9 @@
 <struts-config>
     <form-beans>
         <form-bean name="userLoginForm" type="application.actionForms.UserLoginForm"/>
-        <form-bean name="userForm" type="application.actionForms.UserForm"/>
+        <form-bean name="userForm" type="application.actionForms.UserForm">
+            <form-property name="fioUkr" type=""/>
+        </form-bean>
         <form-bean name="customerForm" type="application.actionForms.CustomerForm"/>
         <form-bean name="contactForm" type="application.actionForms.ContactForm"/>
         <form-bean name="testForm" type="application.actionForms.TestForm"/>

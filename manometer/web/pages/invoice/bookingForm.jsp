@@ -337,38 +337,38 @@
            onclick="location.href='invoiceAction.do?method=viewInvoice&id=<%=invoice.getId()%>'" class="butt">
 
     <%
-         Integer livel = (Integer) request.getSession().getAttribute("livel");
+         Integer level = (Integer) request.getSession().getAttribute("level");
         Integer st = booking.getCurrentState();
-        if (st.equals(Booking.STATE_CHERN)&(User.LIVEL_ECONOMIST.equals(livel)||User.LIVEL_ADMINISTRATOR.equals(livel))) {%>
+        if (st.equals(Booking.STATE_CHERN)&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {%>
     <input type="button" value="Запрет изм." onclick="changeBookingState(<%=Booking.STATE_PROIZV%>);" class="butt">
     <%
         }
         if ((st.equals(Booking.STATE_CHERN) ||
                 st.equals(Booking.STATE_PROIZV) ||
                 st.equals(Booking.STATE_SKLAD) ||
-                st.equals(Booking.STATE_PRIOST))&(User.LIVEL_ECONOMIST.equals(livel)||User.LIVEL_ADMINISTRATOR.equals(livel))) {
+                st.equals(Booking.STATE_PRIOST))&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {
     %>
     <input type="button" value="Аннулировать" onclick="changeBookingState(<%=Booking.STATE_ANN%>);" class="butt">
     <%
         }
         if ((st.equals(Booking.STATE_PROIZV) ||
-                st.equals(Booking.STATE_SKLAD))&(User.LIVEL_ECONOMIST.equals(livel)||User.LIVEL_ADMINISTRATOR.equals(livel))) {
+                st.equals(Booking.STATE_SKLAD))&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {
     %>
     <input type="button" value="Приостановить" onclick="changeBookingState(<%=Booking.STATE_PRIOST%>);" class="butt">
     <%
         }
-        if ((st.equals(Booking.STATE_PRIOST))&(User.LIVEL_ECONOMIST.equals(livel)||User.LIVEL_ADMINISTRATOR.equals(livel))) {
+        if ((st.equals(Booking.STATE_PRIOST))&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {
     %>
     <input type="button" value="Возобновить" onclick="changeBookingState(<%=Booking.STATE_CHERN%>);" class="butt">
     <%
         }
-        if ((st.equals(Booking.STATE_PROIZV))&(User.LIVEL_ECONOMIST.equals(livel)||User.LIVEL_ADMINISTRATOR.equals(livel))) {
+        if ((st.equals(Booking.STATE_PROIZV))&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {
     %>
     <input type="button" value="Склад" onclick="changeBookingState(<%=Booking.STATE_SKLAD%>);" class="butt">
     <%--<input type="button" value="Отгрузка" onclick="changeBookingState(<%=Booking.STATE_ANN%>);" class="butt">--%>
         <%
         }
-        if ((!st.equals(Booking.STATE_CHERN))&(!User.LIVEL_USER.equals(livel))) {
+        if ((!st.equals(Booking.STATE_CHERN))&(!User.LEVEL_USER.equals(level))) {
     %>
 
     <input type="button" value="Печать"
