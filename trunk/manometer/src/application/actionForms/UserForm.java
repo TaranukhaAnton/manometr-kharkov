@@ -16,14 +16,15 @@ public class UserForm extends ActionForm{
 	private String patronymic;
 	private String lastName;
 	private String position;
-	private String receptionoOnWorkDate;
+	private String receptionOnWorkDate;
 	private String dischargingDate;
 	private String tel;
 	private String telMob;
-	private String powersLivel;
+	private Integer powersLevel;
 	private String nickName;
 	private String login;
 	private String pass;
+    private String fioUKR;
 	
 	
 	
@@ -31,14 +32,6 @@ public class UserForm extends ActionForm{
 	
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
-//        if (userName == null || userName.length() < 1) {
-//            errors.add("userName", new ActionMessage("error.name.required"));
-//            // TODO: add 'error.name.required' key to your resourceserrors.name.required
-//        }
-//        if (password == null || password.length() < 1) {
-//            errors.add("password", new ActionMessage("error.password.required"));
-//            // TODO: add 'error.name.required' key to your resources
-//        }
         return errors;
     }
 	
@@ -57,8 +50,8 @@ public class UserForm extends ActionForm{
 	public String getPosition() {
 		return position;
 	}
-	public String getReceptionoOnWorkDate() {
-		return receptionoOnWorkDate;
+	public String getReceptionOnWorkDate() {
+		return receptionOnWorkDate;
 	}
 	public String getDischargingDate() {
 		return dischargingDate;
@@ -69,8 +62,8 @@ public class UserForm extends ActionForm{
 	public String getTelMob() {
 		return telMob;
 	}
-	public String getPowersLivel() {
-		return powersLivel;
+	public Integer getPowersLevel() {
+		return powersLevel;
 	}
 	public String getNickName() {
 		return nickName;
@@ -96,8 +89,8 @@ public class UserForm extends ActionForm{
 	public void setPosition(String position) {
 		this.position = position;
 	}
-	public void setReceptionoOnWorkDate(String receptionoOnWorkDate) {
-		this.receptionoOnWorkDate = receptionoOnWorkDate;
+	public void setReceptionOnWorkDate(String receptionOnWorkDate) {
+		this.receptionOnWorkDate = receptionOnWorkDate;
 	}
 	public void setDischargingDate(String dischargingDate) {
 		this.dischargingDate = dischargingDate;
@@ -108,8 +101,8 @@ public class UserForm extends ActionForm{
 	public void setTelMob(String telMob) {
 		this.telMob = telMob;
 	}
-	public void setPowersLivel(String powersLivel) {
-		this.powersLivel = powersLivel;
+	public void setPowersLevel(Integer powersLevel) {
+		this.powersLevel = powersLevel;
 	}
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
@@ -120,7 +113,16 @@ public class UserForm extends ActionForm{
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
-	@Override
+
+    public String getFioUKR() {
+        return fioUKR;
+    }
+
+    public void setFioUKR(String fioUKR) {
+        this.fioUKR = fioUKR;
+    }
+
+    @Override
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 		
 		  id =null;
@@ -128,11 +130,11 @@ public class UserForm extends ActionForm{
 		  patronymic=null; // ��������
 		  lastName=null; // �������
 		  position=null; // ���������
-		  receptionoOnWorkDate=null; // ���� ����� �� ������
+		  receptionOnWorkDate =null; // ���� ����� �� ������
 		  dischargingDate=null; // ���� ����������
 		  tel=null;// �������
 		  telMob=null; // ������� ���������
-		  powersLivel=null; // ������� ����������
+		  powersLevel=null; // ������� ����������
 		  nickName=null; // �������� ���
 		  login=null; // �����
 		  pass=null;// ������

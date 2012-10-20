@@ -9,9 +9,9 @@
        value="${!empty userForm.id && userForm.id != 0 ?'Редактировать личные данные пользователя':'Добавить пользователя'}"/>
 
 
-<%
-    request.setAttribute("powersLivels", User.PowersLivel.values());
-%>
+<%--<%--%>
+    <%--request.setAttribute("powersLevels", User.PowersLivel.values());--%>
+<%--%>--%>
 
 <html>
 <head>
@@ -60,6 +60,14 @@
                 <html:text property="patronymic" size="40"/>
             </td>
         </tr>
+        <tr>
+            <td class="tdLabel">
+                ФИО укр
+            </td>
+            <td>
+                <html:text property="fioUKR" size="100"/>
+            </td>
+        </tr>
 
         <tr>
             <td class="tdLabel">
@@ -76,10 +84,10 @@
                 Дата приёма
             </td>
             <td>
-                <html:text property="receptionoOnWorkDate" size="20"/>
+                <html:text property="receptionOnWorkDate" size="20"/>
                 <html:img src="images/datepicker.jpg"
-                          onclick="displayDatePicker('receptionoOnWorkDate', false, 'dmy', '.');"/>
-                <html:errors property="receptionoOnWorkDate"/>
+                          onclick="displayDatePicker('receptionOnWorkDate', false, 'dmy', '.');"/>
+                <html:errors property="receptionOnWorkDate"/>
             </td>
         </tr>
         <tr>
@@ -117,8 +125,18 @@
                 Уровень полномочий
             </td>
             <td>
-                <html:select property="powersLivel" size="1">
-                    <html:options name="powersLivels"/>
+                <%--<select   name="powersLevel">--%>
+                    <%--<option value="1">Пользователь</option>--%>
+                    <%--<option value="2">Менеджер</option>--%>
+                    <%--<option value="3">Экономист</option>--%>
+                    <%--<option value="4">Администратор</option>--%>
+                <%--</select>--%>
+
+                <html:select property="powersLevel" size="1">
+                    <html:option key="user" value="1" />
+                    <html:option key="manager" value="2"/>
+                    <html:option key="economist" value="3"/>
+                    <html:option key="admin" value="4"/>
                 </html:select>
 
             </td>

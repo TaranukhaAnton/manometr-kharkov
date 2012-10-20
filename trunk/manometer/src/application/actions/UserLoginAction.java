@@ -51,7 +51,7 @@ public class UserLoginAction extends DispatchAction {
 
                 request.getSession().setAttribute("logonUser", u);
                 request.getSession().setAttribute("logonUserId", 1L);
-                request.getSession().setAttribute("livel", 4);
+                request.getSession().setAttribute("level", 4);
 
 
                 return mapping.findForward("success");
@@ -88,8 +88,7 @@ public class UserLoginAction extends DispatchAction {
                     User u = result.get(0);
                     request.getSession().setAttribute("logonUser", u);
                     request.getSession().setAttribute("logonUserId", u.getId());
-                    request.getSession().setAttribute("livel",
-                            u.getPowersLivel().toInt());
+                    request.getSession().setAttribute("level", u.getPowersLevel());
                     return mapping.findForward(SUCCESS);
                 }
 
@@ -106,7 +105,7 @@ public class UserLoginAction extends DispatchAction {
             throws Exception {
         HttpSession session = request.getSession();
         session.removeAttribute("logonUser");
-        session.removeAttribute("livel");
+        session.removeAttribute("level");
 
 
         ActionForward forward = new ActionForward();
@@ -122,7 +121,7 @@ public class UserLoginAction extends DispatchAction {
             throws Exception {
         HttpSession session = request.getSession();
 //		session.removeAttribute("logonUser");
-//		session.removeAttribute("livel");
+//		session.removeAttribute("level");
         System.out.println("UserLoginAction.logon");
 
 

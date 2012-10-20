@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +27,8 @@ public class UserAction extends DispatchAction {
     public ActionForward getUsers(ActionMapping mapping, ActionForm form,
                                   HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-//        Integer livel = (Integer) request.getSession().getAttribute("livel");
-//        if (livel == null || livel != 4)
+//        Integer level = (Integer) request.getSession().getAttribute("level");
+//        if (level == null || level != 4)
 //            return mapping.findForward("enter");
 
         logger.debug("getUsers");
@@ -40,8 +39,8 @@ public class UserAction extends DispatchAction {
     public ActionForward deleteUser(ActionMapping mapping, ActionForm form,
                                     HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-//        Integer livel = (Integer) request.getSession().getAttribute("livel");
-//        if (livel == null || livel != 4)
+//        Integer level = (Integer) request.getSession().getAttribute("level");
+//        if (level == null || level != 4)
 //            return mapping.findForward("enter");
 
         logger.debug("delete user");
@@ -102,8 +101,8 @@ public class UserAction extends DispatchAction {
     public ActionForward setUpForInsertOrUpdate(ActionMapping mapping,
                                                 ActionForm form, HttpServletRequest request,
                                                 HttpServletResponse response) throws Exception {
-//        Integer livel = (Integer) request.getSession().getAttribute("livel");
-//        if (livel == null || livel != 4)
+//        Integer level = (Integer) request.getSession().getAttribute("level");
+//        if (level == null || level != 4)
 //            return mapping.findForward("enter");
 //        logger.debug("setUpForInsertOrUpdate");
         //  System.out.println("UserAction.setUpForInsertOrUpdate");
@@ -194,13 +193,12 @@ public class UserAction extends DispatchAction {
         user.setName(userForm.getName());
         user.setPatronymic(userForm.getPatronymic());
         user.setPosition(userForm.getPosition());
-
+        user.setFioUkr(userForm.getFioUKR());
         try {
-            if (userForm.getReceptionoOnWorkDate() != "")
-                user.setReceptionoOnWorkDate(f.parse(userForm
-                        .getReceptionoOnWorkDate()));
+            if (userForm.getReceptionOnWorkDate() != "")
+                user.setReceptionOnWorkDate(f.parse(userForm
+                        .getReceptionOnWorkDate()));
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -208,7 +206,6 @@ public class UserAction extends DispatchAction {
             if (userForm.getDischargingDate() != "")
                 user.setDischargingDate(f.parse(userForm.getDischargingDate()));
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -216,9 +213,7 @@ public class UserAction extends DispatchAction {
         user.setTelMob(userForm.getTelMob());
         //   System.out.println(userForm.getPowersLivel());
 
-        user
-                .setPowersLivel(User.PowersLivel.valueOf(userForm
-                        .getPowersLivel()));
+        user.setPowersLevel(userForm.getPowersLevel());
         //   user.setNickName(userForm.getNickName());
         user.setLogin(userForm.getLogin());
         user.setPass(userForm.getPass());
@@ -232,20 +227,20 @@ public class UserAction extends DispatchAction {
         userForm.setName(user.getName());
         userForm.setPatronymic(user.getPatronymic());
         userForm.setPosition(user.getPosition());
-        if (user.getReceptionoOnWorkDate() != null)
-            userForm.setReceptionoOnWorkDate(f.format(user
-                    .getReceptionoOnWorkDate()));
+        if (user.getReceptionOnWorkDate() != null)
+            userForm.setReceptionOnWorkDate(f.format(user
+                    .getReceptionOnWorkDate()));
         if (user.getDischargingDate() != null)
             userForm.setDischargingDate(f.format(user.getDischargingDate()));
         userForm.setTel(user.getTel());
         userForm.setTelMob(user.getTelMob());
-        userForm.setPowersLivel(user.getPowersLivel().toString());
+        userForm.setPowersLevel(user.getPowersLevel());
         //  userForm.setNickName(user.getNickName());
         userForm.setLogin(user.getLogin());
         userForm.setPass(user.getPass());
+        userForm.setFioUKR(user.getFioUkr());
 
     }
-
 
 
 }

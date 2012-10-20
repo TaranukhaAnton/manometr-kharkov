@@ -301,7 +301,7 @@
     <%--<c:set var="uri" value="<%=request.getRequestURI() %>" />--%>
     <%--<x:out select="$bookshelf/sape/page[@uri =$uri ]" escapeXml="false"/>--%>
 
-    <% if (((Integer) session.getAttribute("livel")) > 2) {%>
+    <% if (((Integer) session.getAttribute("level")) > 2) {%>
     <a href="javascript:void($('#newInvoice-div').dialog('open'))">Добавить</a><br>
     <% } %>
 
@@ -375,7 +375,7 @@
         </display:column>
 
 
-        <% if (((Integer) session.getAttribute("livel")) > 2) {%>
+        <% if (((Integer) session.getAttribute("level")) > 2) {%>
 
 
         <display:column title="">
@@ -454,7 +454,7 @@
             <li><a href="#tabs-4">Назначение</a></li>
             <li><a href="#tabs-5">Состояние</a></li>
             <li><a href="#tabs-6">Валюта</a></li>
-            <% if (((Integer) session.getAttribute("livel")) > 2) {%>
+            <% if (((Integer) session.getAttribute("level")) > 2) {%>
             <li><a href="#tabs-7">Спец. ОСО</a></li>
             <% } %>
         </ul>
@@ -553,7 +553,7 @@
 
                 </table>
             </div>
-            <% if (((Integer) session.getAttribute("livel")) > 2) {%>
+            <% if (((Integer) session.getAttribute("level")) > 2) {%>
             <div id="tabs-7" class="tabdiv">
 
                 <%--<div id="users">--%>

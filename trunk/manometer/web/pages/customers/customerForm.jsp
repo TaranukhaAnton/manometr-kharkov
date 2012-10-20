@@ -213,6 +213,29 @@
         <font color="#ff0000"><html:errors property="shortName"/>
         </font>
     </td>
+    <td  rowspan="15">
+        <div id="text" style="background-color: #ff8c00; ">
+        Короткое название используется для отображения, поиска и обработки информации, <br/>
+        во избежание дублирования записей, при формировании короткого имени  <br/>
+        придерживаться следующих правил: <br/>
+        1. Использовать русский язык («Энергоучет» а не Енергооблік), за исключением  <br/>
+        общепринятых наименований (напр., «Нафтогаз») или случаев, когда перевод <br/>
+        существенно отличается (напр., «Бджілка»). <br/>
+        2. Короткое название должно начинаться с: <br/>
+        a) Уникального имени или общепринятой аббревиатуры (напр., «Стирол» или «ДМКД»); <br/>
+        b) Фамилии в названии (напр. «Фрунзе НПО»); <br/>
+        c) Географического названия.  <br/>
+        3. Сокращения типа НПФ, ИТЦ и пр. помещать в конце.<br/>
+        4. В коротком названии допускаются (поощряются) интуитивно понятные  <br/>
+        сокращения, например, ТепКомЭн или ТеплоКЭ (для теплокоммунэнерго).  <br/>
+        5. Если есть несколько однотипных имен (Азот, горгаз и пр.) в коротком имени   <br/>
+        использовать сокращенную ссылку на местность (например: Азот, Свдн; Азот, Чркс). <br/>
+            <br/>
+        Полное название заполнять с учетом того, что на документах (счет, кп) к полному  <br/>
+        названию будет добавляться организационная форма. Для красивых кавычек   <br/>
+        используйте alt+0171 и alt+0187.   <br/>
+    </div>
+    </td>
 </tr>
 
 
@@ -479,36 +502,42 @@
     <td class="tdLabel">
         Адрес дирекции
     </td>
-    <td>
+    <td colspan="2">
         <html:text property="address1"  disabled="${actual}" styleClass="width600"/>
         <font color="#ff0000"><html:errors property="address"/> </font>
     </td>
+
+
 </tr>
 
 <tr>
     <td class="tdLabel">
         Адрес комер. службы
     </td>
-    <td>
+    <td colspan="2">
         <html:text property="address2" size="40" disabled="${actual}" styleClass="width600"/>
         <font color="#ff0000"><html:errors property="address"/> </font>
     </td>
+
+
 </tr>
 
 <tr>
     <td class="tdLabel">
         Адрес тех службы
     </td>
-    <td>
+    <td colspan="2">
         <html:text property="address3" size="40" disabled="${actual}" styleClass="width600"/>
         <font color="#ff0000"><html:errors property="address"/> </font>
     </td>
+
+
 </tr>
 <tr>
     <td class="tdLabel">
         Головное предприятие
     </td>
-    <td>
+    <td colspan="2">
 
 
         <html:text property="headCustomer" size="20" disabled="${actual}"
@@ -517,12 +546,14 @@
         <font color="#ff0000"><html:errors property="headCustomer"/>
         </font>
     </td>
+
+
 </tr>
 <tr>
     <td class="tdLabel">
         Дата поглощения
     </td>
-    <td>
+    <td colspan="2">
         <html:text property="mergeData" size="20" readonly="true" disabled="${actual}"/>
         <c:if test="${actual}">
             <html:img src="images/datepicker.jpg"
@@ -534,26 +565,26 @@
     <td class="tdLabel">
         Актуальность записи
     </td>
-    <td>
+    <td colspan="2">
         <html:checkbox property="status" disabled="${actual}" styleClass="width600"/>
     </td>
+
+
 </tr>
 
 <tr>
     <td class="tdLabel">
         Старая запись
     </td>
-    <td>
-
+    <td colspan="2">
         <html:text property="oldRecord" size="20" disabled="${actual}"
                    styleId="oldRecord" styleClass="width600"/>
-
-
         <font color="#ff0000"><html:errors property="oldRecord"/>
         </font>
 
 
     </td>
+
 </tr>
 
 
@@ -561,7 +592,7 @@
     <td class="tdLabel">
         Спец. ОСО
     </td>
-    <td>
+    <td colspan="2">
         <html:select property="person" size="1" disabled="${actual}">
 
             <html:options collection="users" property="id"
@@ -575,23 +606,26 @@
     <td class="tdLabel">
         сайт
     </td>
-    <td>
+    <td colspan="2">
         <html:text property="site" size="40" disabled="${actual}" styleClass="width600"/>
     </td>
+    <td></td>
+
 </tr>
 <tr>
     <td class="tdLabel">
         реквизиты
     </td>
-    <td>
+    <td colspan="2">
         <html:text property="requisite" size="40" disabled="${actual}" styleClass="width600"/>
     </td>
 </tr>
+
 <tr>
     <td class="tdLabel">
         Новое предприятие
     </td>
-    <td>
+    <td colspan="2">
          <html:checkbox property="new" />
 
     </td>
@@ -601,7 +635,7 @@
     <td class="tdLabel">
         раск.инф
     </td>
-    <td>
+    <td colspan="2" >
         <html:text property="moreInformation" size="40"
                    disabled="${actual}" styleClass="width600"/>
     </td>

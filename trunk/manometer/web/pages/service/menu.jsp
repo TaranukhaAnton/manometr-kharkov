@@ -83,12 +83,12 @@
 <body>
 <div id="menu">
     <ul id="sidebarmenu1">
-        <logic:present name="livel" scope="session">
+        <logic:present name="level" scope="session">
             <li><a href="invoiceAction.do?method=viewInvoices">Счета и к.п.</a></li>
             <li><a href="invoiceAction.do?method=viewBookings">Заказ-наряды</a></li>
 
 
-            <logic:equal value="4" name="livel">
+            <logic:equal value="4" name="level">
                 <li><a href="supplierAction.do?method=viewSuppliers">Поставщики</a></li>
 
 
@@ -129,8 +129,8 @@
         <li><a href="ContactShow.do?method=getContacts&show=all">Конт. лица</a></li>
 
 
-        <logic:present name="livel" scope="session">
-            <logic:equal value="4" name="livel">
+        <logic:present name="level" scope="session">
+            <logic:equal value="4" name="level">
                 <li><a href="UserProcess.do?method=getUsers">Пользователи</a></li>
             </logic:equal>
         </logic:present>

@@ -452,8 +452,8 @@
            onclick="location.href='invoiceAction.do?method=viewInvoice&id=<%=invoice.getId()%>'" class="butt">
 
     <%
-        Integer livel = (Integer) request.getSession().getAttribute("livel");
-        if ((User.LIVEL_ECONOMIST.equals(livel) || User.LIVEL_ADMINISTRATOR.equals(livel)) && (!invoice.getCurrentState().equals(Invoice.STATE_ISP))) {%>
+        Integer level = (Integer) request.getSession().getAttribute("level");
+        if ((User.LEVEL_ECONOMIST.equals(level) || User.LEVEL_ADMINISTRATOR.equals(level)) && (!invoice.getCurrentState().equals(Invoice.STATE_ISP))) {%>
     <input type="button" value="Добавить" onclick="javascript:void($('#addPayment').dialog('open'))" class="butt">
     <%} %>
 
