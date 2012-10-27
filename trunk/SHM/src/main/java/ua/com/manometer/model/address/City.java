@@ -6,6 +6,8 @@ import javax.persistence.*;
 public class City {
 	private Long id;
 	private String name;
+    private String nameUkr;
+    private String nameEn;
 	private Area area;
 
 	public City() {
@@ -45,7 +47,23 @@ public class City {
 		this.area = area;
 	}
 
-	@Override
+    public String getNameUkr() {
+        return nameUkr;
+    }
+
+    public void setNameUkr(String nameUkr) {
+        this.nameUkr = nameUkr;
+    }
+
+    public String getNameEn() {
+        return nameEn;
+    }
+
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
+    }
+
+    @Override
 	public String toString() {
 
 		return "{\"id\":" + id + ",\"label\":\"" + name + "\"}";

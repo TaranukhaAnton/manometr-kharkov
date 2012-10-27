@@ -95,6 +95,19 @@
         <put-attribute name="title" value="Пользователи"/>
         <put-attribute name="body" value="/WEB-INF/pages/users/users.jsp"/>
     </definition>
+
+
+    <definition name="editMatrixPrice" extends="baseLayout">
+        <put-attribute name="title" value="Редактирование матричного прайса"/>
+        <put-attribute name="body" value="/WEB-INF/pages/price/redactMatrixPrice.jsp"/>
+        <put-list-attribute name="ppp" >
+            <add-attribute value="/js/local/matrixPrice.js"/>
+            <add-attribute value="/css/redactMatrixPrice.css"  />
+            <add-attribute value="/css/jqueryStyles/jquery.ui.all.css"  />
+        </put-list-attribute>
+    </definition>
+
+
     <definition name="index" extends="baseLayout">
         <put-attribute name="title" value="Пользователи"/>
         <put-attribute name="body" value="/WEB-INF/pages/users/users.jsp"/>

@@ -23,6 +23,7 @@ public class Customer {
     private Long id;
     private OrgForm orgForm;
     private String name;
+    private String nameUkr;
     private String shortName;
     private String stateProperty;
     private String branch;
@@ -39,7 +40,7 @@ public class Customer {
 
     private Integer nomList;
     private boolean New;
-    private String prospect;
+    private Integer prospect;
 
     private Long country;
     private Long city;
@@ -158,7 +159,7 @@ public class Customer {
     }
 
 
-    public String getProspect() {
+    public Integer getProspect() {
         return prospect;
     }
 
@@ -312,7 +313,7 @@ public class Customer {
         New = new1;
     }
 
-    public void setProspect(String prospect) {
+    public void setProspect(Integer prospect) {
         this.prospect = prospect;
     }
 
@@ -404,4 +405,11 @@ public class Customer {
         this.localityType = localityType;
     }
 
+    public String getNameUkr() {
+        return nameUkr;
+    }
+
+    public void setNameUkr(String nameUkr) {
+        this.nameUkr = nameUkr;
+    }
 }
