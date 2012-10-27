@@ -1,7 +1,5 @@
 package ua.com.manometer.model.price;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,8 +12,7 @@ import java.math.BigDecimal;
 @IdClass(IdPrice.class)
 public class PriceFirstPart {
     @Id
-    private Long model;
-
+    private Integer model;
     @Id
     private Integer isp;
     @Id
@@ -30,7 +27,7 @@ public class PriceFirstPart {
     private BigDecimal costTmp;
     private BigDecimal priceTmp;
 
-    public PriceFirstPart(Long model, Integer isp, Integer mat, Integer klim, Integer err) {
+    public PriceFirstPart(Integer model, Integer isp, Integer mat, Integer klim, Integer err) {
         this.model = model;
         this.isp = isp;
         this.mat = mat;
@@ -42,11 +39,11 @@ public class PriceFirstPart {
 
     }
 
-    public Long getId() {
+    public Integer getId() {
         return model;
     }
 
-    public void setModel(Long model) {
+    public void setModel(Integer model) {
         this.model = model;
     }
 
@@ -125,8 +122,7 @@ public class PriceFirstPart {
 
 @Embeddable
  class IdPrice implements Serializable {
-    private Long model;
-
+    private Integer model;
 
     private Integer isp;
 
@@ -136,11 +132,11 @@ public class PriceFirstPart {
 
     private Integer err;
 
-    public Long getModel() {
+    public Integer getModel() {
         return model;
     }
 
-    public void setModel(Long model) {
+    public void setModel(Integer model) {
         this.model = model;
     }
 
@@ -173,7 +169,6 @@ public class PriceFirstPart {
     }
 
     public void setErr(Integer err) {
-
         this.err = err;
     }
 

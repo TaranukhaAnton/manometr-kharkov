@@ -1,14 +1,22 @@
 package ua.com.manometer.dao.price;
+
 import ua.com.manometer.model.price.PriceFirstPart;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface PriceFirstPartDAO {
 
-	public void addPriceFirstPart(PriceFirstPart pricefirstpart);
 
-	public List<PriceFirstPart> listPriceFirstPart();
+    public List<PriceFirstPart> getItems(List<Integer> models, List<Integer> err, List<Integer> mat, List<Integer> clime, List<Integer> isp);
 
-	public void removePriceFirstPart(Long id);
+    public void setPrice(BigDecimal cost, BigDecimal prise, List<Integer> models,
+                         List<Integer> err, List<Integer> mat, List<Integer> klim, List<Integer> isp);
+
+    public void applyTmpValues();
+
+    public void resetTmpValues();
+
+    public void priceValuesToTmp();
 
 }
