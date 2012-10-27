@@ -1,0 +1,97 @@
+table.models {
+    border: 1px solid black;
+
+    margin-top: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #fff;
+
+}
+
+TD.silver {
+    border: 1px solid silver;
+}
+
+TD.silver_r {
+    border: 1px solid silver;
+    border-right: 1px solid black;
+}
+
+TD.silver_rb {
+    border: 1px solid silver;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+TD.silver_b {
+    border: 1px solid silver;
+
+    border-bottom: 1px solid black;
+}
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+
+#header {
+    /*position: absolute;*/
+    /*background: #fff;*/
+    /*position: relative; *//*border: solid 1px black;*/
+    height: 20px; /*display: inline;*/
+}
+
+
+
+#query {
+    /*position: relative;*/
+    background: #fff; /*border: solid 1px black;*/
+    height: 450px;
+
+    background: #fff;
+}
+
+#error, #materials, #ispolnenie, #klimat, #inpCena {
+    /*position: absolute; *//*margin-top: 5px; *//**//*margin-right: auto;*/
+    /*margin-left: auto;*/
+    width: 170px; /*padding: 10px;*/
+    height: 210px; /*background: #ccc;*/
+    /*top: 240px;*/
+    /**/
+    border: none;
+}
+
+
+
+#inpCena {
+
+    width: 220px;
+}
+
+#result {
+
+    overflow-y: scroll;
+    visibility: hidden;
+    height: 205px;
+    padding: 5px;
+    border: solid 1px black;
+
+}
+
+table.result {
+    border-collapse: collapse;
+}
+
+.result   th {
+    background: #ccc;
+    text-align: left;
+}
+
+.result   td, th {
+    border: 1px solid #800;
+    padding: 4px;
+}
+
+td.money {
+    width:100px;
+}
+
+
+
