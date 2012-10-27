@@ -13,9 +13,9 @@
 
         <LI><A href="#">Прайс</A>
             <UL>
-                <LI><A href="priceAction.do?method=redactMatrixPriceForward">Матричный</A></LI>
-                <LI><A href="priceAction.do?method=redactListPriceForward">Список</A></LI>
-                <LI><A href="priceAction.do?method=redactOptionPriceForward">Опции</A></LI>
+                <LI><A href="../price/matrix_price">Матричный</A></LI>
+                <LI><A href="../price/list_price">Список</A></LI>
+                <LI><A href="../price/option_price">Опции</A></LI>
             </UL>
         </LI>
 

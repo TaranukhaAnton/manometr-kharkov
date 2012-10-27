@@ -8,12 +8,11 @@
 <br>
 <br>
 
-<script type="text/javascript">
+<%--<script type="text/javascript">--%>
 
-</script>
+<%--</script>--%>
 
-<a href="#" onclick="
-testJson();">fson</a>
+<a href="#" onclick="testJson();">fson</a>
 
 
 <display:table name="listCustomer" id="row"

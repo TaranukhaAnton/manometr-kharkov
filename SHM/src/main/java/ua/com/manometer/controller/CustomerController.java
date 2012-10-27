@@ -79,8 +79,10 @@ public class CustomerController {
         } else {
 
             final Customer customer = customerService.getCustomer(id);
-            model.put("areas", areaService.listAreaForCountry(customer.getCountry()));
-            model.put("cities", cityService.listCityForArea(customer.getArea()));
+            List<Area> areas = areaService.listAreaForCountry(customer.getCountry());
+            model.put("areas", areas);
+            List<City> cities = cityService.listCityForArea(customer.getArea());
+            model.put("cities", cities);
             if (customer.getOldRecord()==null){
                 customer.setOldRecord(new Customer());
             }
@@ -92,15 +94,6 @@ public class CustomerController {
         return "editCustomer";
     }
 
-
-//    @RequestMapping("/add")
-//    public String editCustomers(@ModelAttribute("user") User user, Map<String, Object> map) {
-//        System.out.println(user);
-//        userService.addUser(user);
-//
-//        map.put("userList", userService.listUser());
-//        return "redirect:/users/";
-//    }
 
     @RequestMapping("/add")
     public String processSubmit(@ModelAttribute("customer") Customer customer) {
@@ -130,4 +123,7 @@ public class CustomerController {
     List<Area> listArea(@RequestParam("country") Long countryId) {
         return areaService.listAreaForCountry(countryId);
     }
+
+
+
 }

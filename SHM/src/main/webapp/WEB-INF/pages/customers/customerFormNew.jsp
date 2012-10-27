@@ -53,6 +53,14 @@
         <form:input path="name" size="40"/>
     </td>
 </tr>
+<tr>
+    <td class="tdLabel">
+        Полное название укр.
+    </td>
+    <td>
+        <form:input path="nameUkr" size="40"/>
+    </td>
+</tr>
 
 <tr>
     <td class="tdLabel">
@@ -62,6 +70,16 @@
         <form:input path="stateProperty" size="40"/>
     </td>
 </tr>
+
+<tr>
+    <td class="tdLabel">
+        Код ОКПО
+    </td>
+    <td>
+        <form:input path="codeOKPO" size="40"/>
+    </td>
+</tr>
+
 <tr>
     <td class="tdLabel">
       Отрасль
@@ -78,8 +96,6 @@
 
     </td>
     <td>
-        <%--<form:input path="purposeForItself" size="40"/>--%>
-
 
             <fieldset >
                 <legend>
@@ -136,52 +152,32 @@
 </tr>
 
 <tr>
-    <td class="tdLabel">nomList</td>
+    <td class="tdLabel">Номер списка</td>
     <td>
-        <form:input path="nomList" size="40"/>
-    </td>
-</tr>
-<tr>
-    <td class="tdLabel">New</td>
-    <td>
-        <form:input path="New" size="40"/>
-    </td>
-</tr>
-<tr>
-    <td class="tdLabel">prospect</td>
-    <td>
-        <form:input path="prospect" size="40"/>
-    </td>
-</tr>
-<tr>
-    <td class="tdLabel">country</td>
-    <td>
-        <form:select path="country" id="country">
-            <form:options items="${countries}" itemValue="id" itemLabel="name"/>
-        </form:select>
-    </td>
-</tr>
-<tr>
-    <td class="tdLabel">area</td>
-    <td>
-        <form:select path="area" id="area">
-            <form:options items="${areas}" itemValue="id" itemLabel="name"/>
-        </form:select>
-    </td>
-</tr>
-<tr>
-    <td class="tdLabel">city</td>
-    <td>
-        <form:select path="city" id="city">
-            <form:options items="${cities}" itemValue="id" itemLabel="name"/>
-        </form:select>
 
+        <form:select path="nomList">
+            <form:option value="1" />
+            <form:option value="2" />
+            <form:option value="3" />
+            <form:option value="4" />
+        </form:select>
+    </td>
+</tr>
+
+<tr>
+    <td class="tdLabel">Перспектива</td>
+    <td>
+        <form:select path="prospect">
+            <form:option value="1" label="A"/>
+            <form:option value="2" label="B"/>
+            <form:option value="3" label="C"/>
+        </form:select>
     </td>
 </tr>
 
 <tr>
     <td class="tdLabel">
-     Регион
+        Регион
     </td>
     <td>
         <form:select path="region">
@@ -190,17 +186,42 @@
 
     </td>
 </tr>
+
 <tr>
-    <td class="tdLabel">
-        localityType
-    </td>
+    <td class="tdLabel">Страна</td>
     <td>
-        <form:input path="localityType" size="40"/>
+        <form:select path="country" id="country">
+            <form:options items="${countries}" itemValue="id" itemLabel="name"/>
+        </form:select>
+    </td>
+</tr>
+<tr>
+    <td class="tdLabel">Область</td>
+    <td>
+        <form:select path="area" id="area">
+            <form:options items="${areas}" itemValue="id" itemLabel="name"/>
+        </form:select>
     </td>
 </tr>
 <tr>
     <td class="tdLabel">
-        address1
+        <form:select path="localityType">
+            <form:option value="0" label="Город"/>
+            <form:option value="1" label="ПГТ"/>
+            <form:option value="2" label="Пос."/>
+            <form:option value="3" label="Село"/>
+        </form:select>
+    </td>
+    <td>
+        <form:select path="city" id="city">
+            <form:options items="${cities}" itemValue="id" itemLabel="name"/>
+        </form:select>
+    </td>
+</tr>
+
+<tr>
+    <td class="tdLabel">
+        Адрес дирекции
     </td>
     <td>
         <form:input path="address1" size="40" cssClass="fillone"/>
@@ -208,7 +229,7 @@
 </tr>
 <tr>
     <td class="tdLabel">
-        address2
+        Адрес комер. службы
     </td>
     <td>
         <form:input path="address2" size="40" cssClass="fillone"/>
@@ -216,7 +237,7 @@
 </tr>
 <tr>
     <td class="tdLabel">
-        address3
+        Адрес тех службы
     </td>
     <td>
         <form:input path="address3" size="40" cssClass="fillone"/>
@@ -232,26 +253,26 @@
 <%--</tr>--%>
 <tr>
     <td class="tdLabel">
-
+        Дата поглощения
     </td>
     <td>
         <form:input path="mergeData" size="40"/>
     </td>
 </tr>
+<%--<tr>--%>
+    <%--<td class="tdLabel">--%>
+
+    <%--</td>--%>
+    <%--<td>--%>
+        <%--<form:input path="questionnaire" size="40"/>--%>
+    <%--</td>--%>
+<%--</tr>--%>
 <tr>
     <td class="tdLabel">
-
+        Актуальность записи
     </td>
     <td>
-        <form:input path="questionnaire" size="40"/>
-    </td>
-</tr>
-<tr>
-    <td class="tdLabel">
-
-    </td>
-    <td>
-        <form:input path="status" size="40"/>
+        <form:checkbox path="status" />
     </td>
 </tr>
 
@@ -288,14 +309,7 @@
         <form:input path="dateLastCorrection" size="40"/>
     </td>
 </tr>
-<tr>
-    <td class="tdLabel">
-        Код ОКПО
-    </td>
-    <td>
-        <form:input path="codeOKPO" size="40"/>
-    </td>
-</tr>
+
 <tr>
     <td class="tdLabel">requisite</td>
     <td>
@@ -312,6 +326,12 @@
     <td class="tdLabel">site</td>
     <td>
         <form:input path="site" size="40"/>
+    </td>
+</tr>
+<tr>
+    <td class="tdLabel">New</td>
+    <td>
+        <form:input path="New" size="40"/>
     </td>
 </tr>
 <tr>
