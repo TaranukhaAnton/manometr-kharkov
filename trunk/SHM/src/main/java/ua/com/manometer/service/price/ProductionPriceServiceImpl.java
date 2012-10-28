@@ -22,8 +22,8 @@ public class ProductionPriceServiceImpl implements ProductionPriceService {
 
 	@Override
 	@Transactional
-	public List<ProductionPrice> listProductionPrice() {
-		return productionpriceDAO.listProductionPrice();
+	public List<ProductionPrice> listProductionPriceByType(Integer type) {
+		return productionpriceDAO.listProductionPriceByType(type);
 	}
 
 	@Override

@@ -8,8 +8,10 @@ public interface ProductionPriceService {
 
 	public void addProductionPrice(ProductionPrice productionprice);
 
-	public List<ProductionPrice> listProductionPrice();
+	public List<ProductionPrice> listProductionPriceByType(Integer type);
 
 	public void removeProductionPrice(Long id);
+
+
 
 }

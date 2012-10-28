@@ -1,4 +1,8 @@
 package ua.com.manometer.dao.price;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+import ua.com.manometer.model.price.PriceFirstPart;
 import ua.com.manometer.model.price.ProductionPrice;
 
 import org.hibernate.SessionFactory;
@@ -15,13 +19,13 @@ public class ProductionPriceDAOImpl implements ProductionPriceDAO {
 
     @Override
     public void addProductionPrice(ProductionPrice productionprice) {
-        sessionFactory.getCurrentSession().save(productionprice);
+        sessionFactory.getCurrentSession().saveOrUpdate(productionprice);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<ProductionPrice> listProductionPrice() {
-        return sessionFactory.getCurrentSession().createQuery("from ProductionPrice").list();
+    public List<ProductionPrice> listProductionPriceByType(Integer type) {
+        return sessionFactory.getCurrentSession().createCriteria(ProductionPrice.class).add(Restrictions.eq("type", type)).list();
     }
 
     @Override

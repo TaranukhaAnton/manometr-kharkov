@@ -234,6 +234,8 @@
     request.setAttribute("list5", dao.findListByParameter("type", 8));
     request.setAttribute("list6", dao.findListByParameter("type", 9));
 %>
+
+
 <div class="tabs">
     <ul class="tabNavigation">
         <li><a class="" href="#id0">д.д. спец.</a></li>

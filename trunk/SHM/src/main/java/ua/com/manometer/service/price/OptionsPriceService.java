@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface OptionsPriceService {
 
-	public void addOptionsPrice(OptionsPrice optionsprice);
+	public OptionsPrice getOptionsPrice(Integer type, Integer isp, String param );
 
 	public List<OptionsPrice> listOptionsPrice();
 
-	public void removeOptionsPrice(Long id);
+	public void updateOptionsPrice(OptionsPrice optionsPrice );
 
 }

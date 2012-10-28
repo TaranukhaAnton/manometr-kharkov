@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import java.util.List;
 
 @Repository
@@ -14,22 +15,19 @@ public class OptionsPriceDAOImpl implements OptionsPriceDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public void addOptionsPrice(OptionsPrice optionsprice) {
-        sessionFactory.getCurrentSession().save(optionsprice);
+    public OptionsPrice getOptionsPrice(Integer type, Integer isp, String param) {
+        return (OptionsPrice)sessionFactory.getCurrentSession().createCriteria(OptionsPrice.class).list().get(0);
     }
 
-    @SuppressWarnings("unchecked")
+
     @Override
     public List<OptionsPrice> listOptionsPrice() {
-        return sessionFactory.getCurrentSession().createQuery("from OptionsPrice").list();
+        return sessionFactory.getCurrentSession().createCriteria(OptionsPrice.class).list();
     }
 
     @Override
-    public void removeOptionsPrice(Long id) {
-        OptionsPrice optionsprice = (OptionsPrice) sessionFactory.getCurrentSession().load(OptionsPrice.class, id);
-        if (optionsprice != null) {
-            sessionFactory.getCurrentSession().delete(optionsprice);
-        }
+    public void updateOptionsPrice(OptionsPrice optionsPrice) {
+            sessionFactory.getCurrentSession().update(optionsPrice);
     }
 
 }

@@ -14,13 +14,13 @@ public class OptionsPriceServiceImpl implements OptionsPriceService {
 	@Autowired
 	private OptionsPriceDAO optionspriceDAO;
 
-	@Override
-	@Transactional
-	public void addOptionsPrice(OptionsPrice optionsprice) {
-		optionspriceDAO.addOptionsPrice(optionsprice);
-	}
 
-	@Override
+    @Override
+    public OptionsPrice getOptionsPrice(Integer type, Integer isp, String param) {
+        return   optionspriceDAO.getOptionsPrice(type, isp, param);
+    }
+
+    @Override
 	@Transactional
 	public List<OptionsPrice> listOptionsPrice() {
 		return optionspriceDAO.listOptionsPrice();
@@ -28,8 +28,8 @@ public class OptionsPriceServiceImpl implements OptionsPriceService {
 
 	@Override
 	@Transactional
-	public void removeOptionsPrice(Long id) {
-		optionspriceDAO.removeOptionsPrice(id);
+	public void updateOptionsPrice(OptionsPrice optionsPrice ) {
+		optionspriceDAO.updateOptionsPrice(optionsPrice);
 	}
 
 }
