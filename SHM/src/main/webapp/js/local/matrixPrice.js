@@ -264,7 +264,7 @@ function okFunk() {
         return;
     }
 
-    $.post("redact_matrix_price", queryString);
+    $.post("redact", queryString);
 }
 
 function okFunk2() {

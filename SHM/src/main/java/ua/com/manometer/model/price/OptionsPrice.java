@@ -1,12 +1,12 @@
 package ua.com.manometer.model.price;
 
-import org.hibernate.annotations.Type;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import java.math.BigDecimal;
-
 
 
 @Entity
@@ -19,6 +19,7 @@ public class OptionsPrice {
     @Id
     private String param;
     private BigDecimal cost;
+
     private BigDecimal price;
 
 
@@ -71,13 +72,32 @@ public class OptionsPrice {
         this.price = price;
     }
 
-    public String toString()
-    {
-        return "isp= " +isp+" type= "+type+" param= "+param+" cost= "+cost+" price= "+price;
+    public String toString() {
+        return "isp= " + isp + " type= " + type + " param= " + param + " cost= " + cost + " price= " + price;
     }
 
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(isp)
+                .append(type)
+                .append(param)
+                .toHashCode();
+    }
 
-
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj instanceof OptionsPrice) {
+            final OptionsPrice other = (OptionsPrice) obj;
+            return new EqualsBuilder()
+                    .append(isp, other.isp)
+                    .append(type, other.type)
+                    .append(param, other.param)
+                    .isEquals();
+        } else {
+            return false;
+        }
+    }
 }
 
 //@Embeddable
