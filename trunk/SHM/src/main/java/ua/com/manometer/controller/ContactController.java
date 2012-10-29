@@ -23,8 +23,6 @@ public class ContactController {
 
     @RequestMapping("/")
     public String populateContacts(Map<String, Object> map) {
-        //contactService.addContact(new Contact());
-//        map.put("user", new User());
         map.put("listContact", contactService.listContact());
         return "contacts";
     }
