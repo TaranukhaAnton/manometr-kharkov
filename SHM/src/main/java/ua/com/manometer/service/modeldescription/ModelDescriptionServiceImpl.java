@@ -16,8 +16,8 @@ public class ModelDescriptionServiceImpl implements ModelDescriptionService {
 
 	@Override
 	@Transactional
-	public void addModelDescription(ModelDescription modeldescription) {
-		modeldescriptionDAO.addModelDescription(modeldescription);
+	public void updateDescription(ModelDescription modeldescription) {
+		modeldescriptionDAO.updateDescription(modeldescription);
 	}
 
 	@Override
@@ -31,5 +31,12 @@ public class ModelDescriptionServiceImpl implements ModelDescriptionService {
 	public void removeModelDescription(Long id) {
 		modeldescriptionDAO.removeModelDescription(id);
 	}
+
+    @Override
+    @Transactional
+    public List<ModelDescription> findListByIds(List<Long> modelIds) {
+        return  modeldescriptionDAO.findListByIds(modelIds);
+    }
+
 
 }

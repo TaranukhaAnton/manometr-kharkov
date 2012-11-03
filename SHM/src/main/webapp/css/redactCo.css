@@ -1,0 +1,121 @@
+html, body {
+    /*overflow-y: hidden;*/
+}
+
+table.lim {
+
+    border: 1px solid black;
+
+}
+
+table.models {
+    border: 1px solid black;
+
+    margin-top: 5px;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+TD.silver {
+    border: 1px solid silver;
+}
+
+TD.silver_r {
+    border: 1px solid silver;
+    border-right-color: black;
+}
+
+TD.silver_rb {
+    border: 1px solid silver;
+    border-right-color: black;
+    border-bottom-color: black;
+}
+
+TD.silver_b {
+    border: 1px solid silver;
+
+    border-bottom-color: black;
+}
+
+#error, #materials, #ispolnenie, #stat, #output, #DU, #limits, #KMCH, #VM {
+    margin-top: 5px;
+    margin-right: auto;
+    margin-left: auto;
+
+    padding: 10px;
+}
+
+#error, #materials, #ispolnenie, #stat, #output, #DU, #VM {
+    width: 200px;
+}
+
+#buttons {
+
+    margin-right: auto;
+    margin-left: auto;
+    width: 800px;
+}
+
+#downButtons {
+
+    /*position:absolute;*/
+    /*top:650px;*/
+    /*left:150px;*/
+    /*width:800px;*/
+    height: 30px;
+
+    padding-left:20px;
+
+}
+
+#limits {
+
+    width: 790px;
+
+}
+
+#KMCH {
+
+    width: 735px;
+
+}
+
+.but {
+    width: 80px;
+    margin-left: 5px;
+}
+
+.okbut {
+    width: 80px;
+    margin-left: 10px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+TD.limits {
+    padding: 0px;
+
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+#parent {
+
+    margin: 10px;
+    height: 639px;
+
+}
+
+
+
+
+
+
+
+
+
+

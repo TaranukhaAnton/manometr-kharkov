@@ -5,10 +5,11 @@ import java.util.List;
 
 public interface ModelDescriptionDAO {
 
-	public void addModelDescription(ModelDescription modeldescription);
+	public void updateDescription(ModelDescription modeldescription);
 
 	public List<ModelDescription> listModelDescription();
 
 	public void removeModelDescription(Long id);
 
+    public  List<ModelDescription> findListByIds(List<Long> modelIds);
 }

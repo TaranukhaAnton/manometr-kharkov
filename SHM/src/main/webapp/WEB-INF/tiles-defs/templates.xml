@@ -131,6 +131,48 @@
             <add-attribute value="/css/smoothness/jquery-ui-1.8.24.custom.css"/>
         </put-list-attribute>
     </definition>
+
+    <definition name="redactAo" extends="baseLayout">
+        <put-attribute name="title" value="Редактор прайс листов типа список"/>
+        <put-attribute name="body" value="/WEB-INF/pages/compatibility/redactAoCompatibility.jsp"/>
+        <put-list-attribute name="ppp">
+            <add-attribute value="/js/local/compatibility/ao.js"/>
+
+
+            <add-attribute value="/js/jquery-ui-1.9.1.custom/jquery-ui-1.9.1.custom.min.js"/>
+            <add-attribute value="/css/smoothness/jquery-ui-1.8.24.custom.css"/>
+        </put-list-attribute>
+    </definition>
+
+    <definition name="redactCo" extends="baseLayout">
+        <put-attribute name="title" value="Редактор прайс листов типа список"/>
+        <put-attribute name="body" value="/WEB-INF/pages/compatibility/redactCoCompatibility.jsp"/>
+        <put-list-attribute name="ppp">
+            <add-attribute value="/js/local/compatibility/co.js"/>
+            <add-attribute value="/css/redactCo.css"/>
+
+            <add-attribute value="/js/jquery-ui-1.9.1.custom/jquery-ui-1.9.1.custom.min.js"/>
+            <add-attribute value="/css/smoothness/jquery-ui-1.8.24.custom.css"/>
+        </put-list-attribute>
+    </definition>
+
+    <definition name="redactOp" extends="baseLayout">
+        <put-attribute name="title" value="Редактор прайс листов типа список"/>
+        <put-attribute name="body" value="/WEB-INF/pages/compatibility/redactOpCompatibility.jsp"/>
+        <put-list-attribute name="ppp">
+            <add-attribute value="/js/local/compatibility/op.js"/>
+            <add-attribute value="/css/redactCo.css"/>
+
+            <add-attribute value="/js/jquery-ui-1.9.1.custom/jquery-ui-1.9.1.custom.min.js"/>
+            <add-attribute value="/css/smoothness/jquery-ui-1.8.24.custom.css"/>
+        </put-list-attribute>
+    </definition>
+
+
+
+
+
+
     <!--<add-attribute value="/js/jquery.deserialize.js"/>-->
 
     <definition name="index" extends="baseLayout">
