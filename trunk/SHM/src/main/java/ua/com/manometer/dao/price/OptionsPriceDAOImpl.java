@@ -16,6 +16,7 @@ public class OptionsPriceDAOImpl implements OptionsPriceDAO {
 
     @Override
     public OptionsPrice getOptionsPrice(Integer type, Integer isp, String param) {
+        //todo!!!!!!!!!!!!!!!!!!
         return (OptionsPrice)sessionFactory.getCurrentSession().createCriteria(OptionsPrice.class).list().get(0);
     }
 

@@ -21,9 +21,9 @@
 
         <LI><A href="#">Таб. совм.</A>
             <UL>
-                <LI><A href="testAction.do?method=redactCoForward">ЦО</A></LI>
-                <LI><A href="testAction.do?method=redactOpForward">ОП</A></LI>
-                <LI><A href="testAction.do?method=redactAoForward">АО</A></LI>
+                <LI><A href="../compatibility/co">ЦО</A></LI>
+                <LI><A href="../compatibility/op">ОП</A></LI>
+                <LI><A href="../compatibility/ao">АО</A></LI>
             </UL>
         </LI>
         <LI><A href="#">Статистика</A>

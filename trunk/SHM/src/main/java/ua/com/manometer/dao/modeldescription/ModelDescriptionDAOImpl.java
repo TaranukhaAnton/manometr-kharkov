@@ -1,4 +1,6 @@
 package ua.com.manometer.dao.modeldescription;
+
+import org.hibernate.criterion.Restrictions;
 import ua.com.manometer.model.modeldescription.ModelDescription;
 
 import org.hibernate.SessionFactory;
@@ -14,8 +16,8 @@ public class ModelDescriptionDAOImpl implements ModelDescriptionDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public void addModelDescription(ModelDescription modeldescription) {
-        sessionFactory.getCurrentSession().save(modeldescription);
+    public void updateDescription(ModelDescription modeldescription) {
+        sessionFactory.getCurrentSession().update(modeldescription);
     }
 
     @SuppressWarnings("unchecked")
@@ -31,5 +33,11 @@ public class ModelDescriptionDAOImpl implements ModelDescriptionDAO {
             sessionFactory.getCurrentSession().delete(modeldescription);
         }
     }
+
+    @Override
+    public List<ModelDescription> findListByIds(List<Long> modelIds) {
+        return sessionFactory.getCurrentSession().createCriteria(ModelDescription.class).add(Restrictions.in("id", modelIds)).list();
+    }
+
 
 }
