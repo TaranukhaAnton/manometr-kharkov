@@ -3,145 +3,146 @@ $().ready(
 //        $("#loLimTR").buttonset( { icons: {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'} } );
 //        $("#hiLimTR").buttonset( { icons: {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'} } );
 
-        $("input:radio[name=loLim]").click(function() {
-            var value = $(this).val();
-            alert(value);
+
+
+//        $("#limits").hide();
+//        $("#limButton").click(function() {
+//            $('#limits').show(1000);
+//            $('#materials').hide();
+//            $('#error').hide();
+//            $('#ispolnenie').hide();
+//            $('#stat').hide();
+//            $('#output').hide();
+//            $('#DU').hide();
+//            $('#KMCH').hide();
+//            $('#VM').hide();
+//            return false;
+//        });
+//
+//        $("#materials").hide();
+//        $("#matButton").click(function() {
+//            $('#materials').show(1000);
+//            $('#limits').hide();
+//            $('#error').hide();
+//            $('#ispolnenie').hide();
+//            $('#stat').hide();
+//            $('#output').hide();
+//            $('#DU').hide();
+//            $('#KMCH').hide();
+//            $('#VM').hide();
+//            return false;
+//        });
+//
+//        $("#error").hide();
+//        $("#pogButton").click(function() {
+//            $('#error').show(1000);
+//            $('#limits').hide();
+//            $('#materials').hide();
+//            $('#ispolnenie').hide();
+//            $('#stat').hide();
+//            $('#output').hide();
+//            $('#DU').hide();
+//            $('#KMCH').hide();
+//            $('#VM').hide();
+//            return false;
+//        });
+//        $("#ispolnenie").hide();
+//        $("#ispButton").click(function() {
+//
+//            $('#ispolnenie').show(1000);
+//            $('#error').hide();
+//            $('#limits').hide();
+//            $('#materials').hide();
+//            $('#stat').hide();
+//            $('#output').hide();
+//            $('#DU').hide();
+//            $('#KMCH').hide();
+//            $('#VM').hide();
+//            return false;
+//        });
+//
+//
+//        $("#stat").hide();
+//        $("#statButton").click(function() {
+//
+//            $('#stat').show(1000);
+//            $('#ispolnenie').hide();
+//            $('#error').hide();
+//            $('#limits').hide();
+//            $('#materials').hide();
+//            $('#output').hide();
+//            $('#DU').hide();
+//            $('#KMCH').hide();
+//            $('#VM').hide();
+//            return false;
+//        });
+//
+//        $("#output").hide();
+//        $("#vsButton").click(function() {
+//
+//            $('#output').show(1000);
+//            $('#ispolnenie').hide();
+//            $('#error').hide();
+//            $('#limits').hide();
+//            $('#materials').hide();
+//            $('#stat').hide();
+//            $('#DU').hide();
+//            $('#KMCH').hide();
+//            $('#VM').hide();
+//            return false;
+//        });
+//
+//        $("#DU").hide();
+//        $("#duButton").click(function() {
+//
+//            $('#DU').show(1000);
+//            $('#ispolnenie').hide();
+//            $('#error').hide();
+//            $('#limits').hide();
+//            $('#materials').hide();
+//            $('#stat').hide();
+//            $('#output').hide();
+//            $('#KMCH').hide();
+//            $('#VM').hide();
+//            return false;
+//        });
+//
+//        $("#KMCH").hide();
+//        $("#kmchButton").click(function() {
+//
+//            $('#KMCH').show(1000);
+//            $('#ispolnenie').hide();
+//            $('#error').hide();
+//            $('#limits').hide();
+//            $('#materials').hide();
+//            $('#stat').hide();
+//            $('#output').hide();
+//            $('#DU').hide();
+//            $('#VM').hide();
+//            return false;
+//        });
+//
+//
+//        $("#VM").hide();
+//        $("#vmButton").click(function() {
+//
+//            $('#VM').show(1000);
+//            $('#KMCH').hide();
+//            $('#ispolnenie').hide();
+//            $('#error').hide();
+//            $('#limits').hide();
+//            $('#materials').hide();
+//            $('#stat').hide();
+//            $('#output').hide();
+//            $('#DU').hide();
+//
+//            return false;
+//        });
+
+        $("#tabs").tabs();
+        $('select').selectToUISlider({
+            labels: 7
         });
-
-        $("#limits").hide();
-        $("#limButton").click(function() {
-            $('#limits').show(1000);
-            $('#materials').hide();
-            $('#error').hide();
-            $('#ispolnenie').hide();
-            $('#stat').hide();
-            $('#output').hide();
-            $('#DU').hide();
-            $('#KMCH').hide();
-            $('#VM').hide();
-            return false;
-        });
-
-        $("#materials").hide();
-        $("#matButton").click(function() {
-            $('#materials').show(1000);
-            $('#limits').hide();
-            $('#error').hide();
-            $('#ispolnenie').hide();
-            $('#stat').hide();
-            $('#output').hide();
-            $('#DU').hide();
-            $('#KMCH').hide();
-            $('#VM').hide();
-            return false;
-        });
-
-        $("#error").hide();
-        $("#pogButton").click(function() {
-            $('#error').show(1000);
-            $('#limits').hide();
-            $('#materials').hide();
-            $('#ispolnenie').hide();
-            $('#stat').hide();
-            $('#output').hide();
-            $('#DU').hide();
-            $('#KMCH').hide();
-            $('#VM').hide();
-            return false;
-        });
-        $("#ispolnenie").hide();
-        $("#ispButton").click(function() {
-
-            $('#ispolnenie').show(1000);
-            $('#error').hide();
-            $('#limits').hide();
-            $('#materials').hide();
-            $('#stat').hide();
-            $('#output').hide();
-            $('#DU').hide();
-            $('#KMCH').hide();
-            $('#VM').hide();
-            return false;
-        });
-
-
-        $("#stat").hide();
-        $("#statButton").click(function() {
-
-            $('#stat').show(1000);
-            $('#ispolnenie').hide();
-            $('#error').hide();
-            $('#limits').hide();
-            $('#materials').hide();
-            $('#output').hide();
-            $('#DU').hide();
-            $('#KMCH').hide();
-            $('#VM').hide();
-            return false;
-        });
-
-        $("#output").hide();
-        $("#vsButton").click(function() {
-
-            $('#output').show(1000);
-            $('#ispolnenie').hide();
-            $('#error').hide();
-            $('#limits').hide();
-            $('#materials').hide();
-            $('#stat').hide();
-            $('#DU').hide();
-            $('#KMCH').hide();
-            $('#VM').hide();
-            return false;
-        });
-
-        $("#DU").hide();
-        $("#duButton").click(function() {
-
-            $('#DU').show(1000);
-            $('#ispolnenie').hide();
-            $('#error').hide();
-            $('#limits').hide();
-            $('#materials').hide();
-            $('#stat').hide();
-            $('#output').hide();
-            $('#KMCH').hide();
-            $('#VM').hide();
-            return false;
-        });
-
-        $("#KMCH").hide();
-        $("#kmchButton").click(function() {
-
-            $('#KMCH').show(1000);
-            $('#ispolnenie').hide();
-            $('#error').hide();
-            $('#limits').hide();
-            $('#materials').hide();
-            $('#stat').hide();
-            $('#output').hide();
-            $('#DU').hide();
-            $('#VM').hide();
-            return false;
-        });
-
-
-        $("#VM").hide();
-        $("#vmButton").click(function() {
-
-            $('#VM').show(1000);
-            $('#KMCH').hide();
-            $('#ispolnenie').hide();
-            $('#error').hide();
-            $('#limits').hide();
-            $('#materials').hide();
-            $('#stat').hide();
-            $('#output').hide();
-            $('#DU').hide();
-
-            return false;
-        });
-
 
     });
 

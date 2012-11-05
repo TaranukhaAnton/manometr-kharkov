@@ -5,7 +5,7 @@
 
  <div id="parent">
 <form action="#">
-<table class="models"  cellspacing="0" > <tr> <td  class="silver_rb" >  <img src="../images/delete.gif" width="18" height="18" onclick="clearTable();" hspace="4"
+    <table class="models"  cellspacing="0" > <tr> <td  class="silver_rb" >  <img src="../images/delete.gif" width="18" height="18" onclick="clearTable();" hspace="4"
                                                                              border="0"/></td>
     <td class="silver_b" >..01</td>
     <td class="silver_b" >..10</td>
@@ -228,7 +228,20 @@
 </form>
 
 
-<div id="buttons">
+<div id="tabs">
+    <ul>
+    <li><a href="#first">Пределы</a></li>
+    <%--<li><a href="#limits">Пределы</a></li>--%>
+    <li><a href="#ispolnenie">Исполнения</a></li>
+    <li><a href="#materials">Материалы</a></li>
+    <li><a href="#error">Погрешность</a></li>
+    <li><a href="#stat">Стат.</a></li>
+    <li><a href="#output">Выходы</a></li>
+    <li><a href="#DU">ДУ</a></li>
+    <li><a href="#KMCH">КМЧ</a></li>
+    <li><a href="#VM">ВМ</a></li>
+</ul>
+<%--<div id="buttons">
     <input type="button" id="limButton" value="Пределы" class="but"/>
     <input type="button" id="ispButton" value="Исп." class="but"/>
     <input type="button" id="matButton" value="Мат." class="but"/>
@@ -238,52 +251,137 @@
     <input type="button" id="duButton" value="ДУ" class="but"/>
     <input type="button" id="kmchButton" value="КМЧ" class="but"/>
     <input type="button" id="vmButton" value="ВМ" class="but"/>
-</div>
+</div>--%>
+    <div id="first" style="height: 400px;">
+        <fieldset>
+            <label for="valueA">Start Date:</label>
+            <select name="valueA" id="valueA">
+                <optgroup label="КПа">
+                    <option value="0,04">0,04</option>
+                    <option value="0,063">0,063</option>
+                    <option value="0,10">0,10</option>
+                    <option value="0,16">0,16</option>
+                    <option value="0,25">0,25</option>
+                    <option value="0,40" selected="selected">0,40</option>
+                    <option value="0,63">0,63</option>
+                    <option value="1,0" >1,0</option>
+                    <option value="1,6">1,6</option>
+                    <option value="2,5">2,5</option>
+                    <option value="4,0">4,0</option>
+                    <option value="6,3">6,3</option>
+                    <option value="10">10</option>
+                    <option value="16">16</option>
+                    <option value="25">25</option>
+                    <option value="40">40</option>
+                    <option value="63">63</option>
+                    <option value="100">100</option>
+                    <option value="160">160</option>
+                    <option value="250">250</option>
+                    <option value="400">400</option>
+                    <option value="630">630</option>
+                </optgroup>
+                <optgroup label="МПа">
+                    <option value="1,0" >1,0</option>
+                    <option value="1,6">1,6</option>
+                    <option value="2,5">2,5</option>
+                    <option value="4,0">4,0</option>
+                    <option value="6,3">6,3</option>
+                    <option value="10">10</option>
+                    <option value="16">16</option>
+                    <option value="25">25</option>
+                    <option value="40">40</option>
+                    <option value="63">63</option>
+                    <option value="100">100</option>
+
+                </optgroup>
+
+            </select>
+
+            <label for="valueB">End Date:</label>
+            <select name="valueB" id="valueB">
+                <optgroup label="КПа">
+                    <option value="0,04">0,04</option>
+                    <option value="0,063">0,063</option>
+                    <option value="0,10">0,10</option>
+                    <option value="0,16">0,16</option>
+                    <option value="0,25">0,25</option>
+                    <option value="0,40" >0,40</option>
+                    <option value="0,63">0,63</option>
+                    <option value="1,0" >1,0</option>
+                    <option value="1,6">1,6</option>
+                    <option value="2,5">2,5</option>
+                    <option value="4,0">4,0</option>
+                    <option value="6,3">6,3</option>
+                    <option value="10">10</option>
+                    <option value="16">16</option>
+                    <option value="25">25</option>
+                    <option value="40">40</option>
+                    <option value="63">63</option>
+                    <option value="100">100</option>
+                    <option value="160">160</option>
+                    <option value="250">250</option>
+                    <option value="400">400</option>
+                    <option value="630">630</option>
+                </optgroup>
+                <optgroup label="МПа">
+                    <option value="1,0" >1,0</option>
+                    <option value="1,6">1,6</option>
+                    <option value="2,5" selected="selected">2,5</option>
+                    <option value="4,0">4,0</option>
+                    <option value="6,3">6,3</option>
+                    <option value="10">10</option>
+                    <option value="16">16</option>
+                    <option value="25">25</option>
+                    <option value="40">40</option>
+                    <option value="63">63</option>
+                    <option value="100">100</option>
+
+                </optgroup>
+            </select>
+        </fieldset>
+    </div>
+    <%--<div id="limits">--%>
+
+    <%--<fieldset>--%>
+        <%--<legend>--%>
+            <%--Пределы--%>
+        <%--</legend>--%>
+
+        <%--<%--%>
+            <%--String[] ar3 = {"0,04", "0,063", "0,10", "0,16", "0,25", "0,40", "0,63", "1,0", "1,6", "2,5", "4,0", "6,3", "10", "16", "25", "40", "63", "100", "160", "250", "400", "630", "1,0", "1,6", "2,5", "4,0", "6,3", "10", "16", "25", "40", "63", "100"};--%>
+            <%--out.print("<table id= \"limTamle\" class=\"lim\" border=\"0\" cellspacing=\"0\"   ><tr> <td class=\"limits\">&nbsp;</td>");--%>
+            <%--StringBuilder sb1 = new StringBuilder();--%>
+            <%--StringBuilder sb2 = new StringBuilder();--%>
+            <%--StringBuilder sb3 = new StringBuilder();--%>
+            <%--for (int i = 0; i < ar3.length; i++) {--%>
+                <%--if ((i % 2) == 0) {--%>
+                    <%--out.print(" <td class=\"limits\"   bgcolor=\"#C5C5C5\">" + ar3[i] + "</td>");--%>
+                    <%--sb1.append("<td class=\"limits\"  bgcolor=\"#C5C5C5\"><input type=\"radio\" name=\"loLim\" value=\"" + (i + 1) + "\"/></td>");--%>
+                    <%--sb2.append("<td class=\"limits\"  bgcolor=\"#C5C5C5\"><input type=\"radio\" name=\"hiLim\" value=\"" + (i + 1) + "\"/></td>");--%>
+                    <%--sb3.append(" <td class=\"limits\" bgcolor=\"#C5C5C5\">&nbsp;</td>");--%>
+
+                <%--} else {--%>
+                    <%--out.print(" <td class=\"limits\">&nbsp;</td>");--%>
+                    <%--sb1.append("<td class=\"limits\"><input type=\"radio\" name=\"loLim\" value=\"" + (i + 1) + "\"/></td>");--%>
+                    <%--sb2.append("<td class=\"limits\"><input type=\"radio\" name=\"hiLim\" value=\"" + (i + 1) + "\"/></td>");--%>
+                    <%--sb3.append(" <td class=\"limits\"  >" + ar3[i] + "</td>");--%>
+
+                <%--}--%>
+            <%--}--%>
+            <%--out.print("</tr><tr id = \"loLimTR\"> <td class=\"limits\">мин</td>" + sb1.toString());--%>
+            <%--out.print("</tr><tr id = \"hiLimTR\"> <td class=\"limits\">макс</td>" + sb2.toString());--%>
+            <%--out.print("</tr><tr> <td class=\"limits\">&nbsp;</td>" + sb3.toString());--%>
+            <%--out.println("</tr></table>");--%>
+        <%--%>--%>
 
 
-<div id="limits">
+        <%--<input type="button" id="okLimits" value="Применить" class="okbut" onclick="setLimits();"/>--%>
 
-    <fieldset>
-        <legend>
-            Пределы
-        </legend>
-
-        <%
-            String[] ar3 = {"0,04", "0,063", "0,10", "0,16", "0,25", "0,40", "0,63", "1,0", "1,6", "2,5", "4,0", "6,3", "10", "16", "25", "40", "63", "100", "160", "250", "400", "630", "1,0", "1,6", "2,5", "4,0", "6,3", "10", "16", "25", "40", "63", "100"};
-            out.print("<table id= \"limTamle\" class=\"lim\" border=\"0\" cellspacing=\"0\"   ><tr> <td class=\"limits\">&nbsp;</td>");
-            StringBuilder sb1 = new StringBuilder();
-            StringBuilder sb2 = new StringBuilder();
-            StringBuilder sb3 = new StringBuilder();
-            for (int i = 0; i < ar3.length; i++) {
-                if ((i % 2) == 0) {
-                    out.print(" <td class=\"limits\"   bgcolor=\"#C5C5C5\">" + ar3[i] + "</td>");
-                    sb1.append("<td class=\"limits\"  bgcolor=\"#C5C5C5\"><input type=\"radio\" name=\"loLim\" value=\"" + (i + 1) + "\"/></td>");
-                    sb2.append("<td class=\"limits\"  bgcolor=\"#C5C5C5\"><input type=\"radio\" name=\"hiLim\" value=\"" + (i + 1) + "\"/></td>");
-                    sb3.append(" <td class=\"limits\" bgcolor=\"#C5C5C5\">&nbsp;</td>");
-
-                } else {
-                    out.print(" <td class=\"limits\">&nbsp;</td>");
-                    sb1.append("<td class=\"limits\"><input type=\"radio\" name=\"loLim\" value=\"" + (i + 1) + "\"/></td>");
-                    sb2.append("<td class=\"limits\"><input type=\"radio\" name=\"hiLim\" value=\"" + (i + 1) + "\"/></td>");
-                    sb3.append(" <td class=\"limits\"  >" + ar3[i] + "</td>");
-
-                }
-            }
-            out.print("</tr><tr id = \"loLimTR\"> <td class=\"limits\">мин</td>" + sb1.toString());
-            out.print("</tr><tr id = \"hiLimTR\"> <td class=\"limits\">макс</td>" + sb2.toString());
-            out.print("</tr><tr> <td class=\"limits\">&nbsp;</td>" + sb3.toString());
-            out.println("</tr></table>");
-        %>
+    <%--</fieldset>--%>
 
 
-        <input type="button" id="okLimits" value="Применить" class="okbut" onclick="setLimits();"/>
-
-    </fieldset>
-
-
-</div>
-
-<div id="ispolnenie">
+<%--</div>--%>
+    <div id="ispolnenie">
     <form name="isp">
         <fieldset>
             <legend>
@@ -300,9 +398,7 @@
         </fieldset>
     </form>
 </div>
-
-
-<div id="materials">
+    <div id="materials">
     <form name="Mat">
         <fieldset>
             <legend>
@@ -320,8 +416,7 @@
         </fieldset>
     </form>
 </div>
-
-<div id="error">
+    <div id="error">
     <form name="err">
         <fieldset>
             <legend>
@@ -337,9 +432,7 @@
         </fieldset>
     </form>
 </div>
-
-
-<div id="stat">
+    <div id="stat">
     <form name="st">
         <fieldset>
             <legend>
@@ -362,9 +455,7 @@
         </fieldset>
     </form>
 </div>
-
-
-<div id="output">
+    <div id="output">
     <form name="ou">
         <fieldset>
             <legend>
@@ -383,9 +474,7 @@
         </fieldset>
     </form>
 </div>
-
-
-<div id="DU">
+    <div id="DU">
     <form name="du">
         <fieldset>
             <legend>
@@ -398,14 +487,15 @@
         </fieldset>
     </form>
 </div>
-
-<div id="KMCH">
+    <div id="KMCH">
     <form>
         <fieldset>
             <legend>
                 КМЧ
             </legend>
-            <%
+            <%!
+                private StringBuilder sb1;
+            %><%
                 sb1 = new StringBuilder();
                 out.print("<table class=\"lim\" border=\"0\" cellspacing=\"0\"   ><tr> ");
 
@@ -423,9 +513,7 @@
         </fieldset>
     </form>
 </div>
-
-
-<div id="VM">
+    <div id="VM">
     <form name="VmForm">
         <fieldset>
             <legend>
@@ -437,7 +525,7 @@
         </fieldset>
     </form>
 </div>
-
+</div>
 
 
 

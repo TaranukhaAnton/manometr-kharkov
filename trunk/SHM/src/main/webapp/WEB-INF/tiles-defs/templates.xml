@@ -152,7 +152,9 @@
             <add-attribute value="/css/redactCo.css"/>
 
             <add-attribute value="/js/jquery-ui-1.9.1.custom/jquery-ui-1.9.1.custom.min.js"/>
+            <add-attribute value="/js/jquery-ui-1.9.1.custom/selectToUISlider.jQuery.js"/>
             <add-attribute value="/css/smoothness/jquery-ui-1.8.24.custom.css"/>
+            <add-attribute value="/css/ui.slider.extras.css"/>
         </put-list-attribute>
     </definition>
 
