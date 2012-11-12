@@ -2,12 +2,9 @@ package application.data;
 
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.common.util.StringHelper;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
-import java.util.LinkedList;
 
 
 @Entity
@@ -34,8 +31,8 @@ public class Customer {
 
     private boolean purposeForItself;
     private boolean purposeIntermediary;
-    private boolean purposeSuply;
-    private boolean purposeInstalation;
+    private boolean purposeSupply;
+    private boolean purposeInstallation;
 
     private boolean applicationProcess;
     private boolean applicationProduction;
@@ -128,14 +125,14 @@ public class Customer {
 
     @Column(nullable = false, length = 1)
     @Type(type = "yes_no")
-    public boolean isPurposeSuply() {
-        return purposeSuply;
+    public boolean isPurposeSupply() {
+        return purposeSupply;
     }
 
     @Column(nullable = false, length = 1)
     @Type(type = "yes_no")
-    public boolean isPurposeInstalation() {
-        return purposeInstalation;
+    public boolean isPurposeInstallation() {
+        return purposeInstallation;
     }
 
     @Column(nullable = false, length = 1)
@@ -299,12 +296,12 @@ public class Customer {
         this.purposeIntermediary = purposeIntermediary;
     }
 
-    public void setPurposeSuply(boolean purposeSuply) {
-        this.purposeSuply = purposeSuply;
+    public void setPurposeSupply(boolean purposeSupply) {
+        this.purposeSupply = purposeSupply;
     }
 
-    public void setPurposeInstalation(boolean purposeInstalation) {
-        this.purposeInstalation = purposeInstalation;
+    public void setPurposeInstallation(boolean purposeInstallation) {
+        this.purposeInstallation = purposeInstallation;
     }
 
     public void setApplicationProcess(boolean applicationProcess) {

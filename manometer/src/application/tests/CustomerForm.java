@@ -85,11 +85,11 @@ public class CustomerForm extends ActionForm {
     }
 
     public boolean getPurposeSuply() {
-        return customer.isPurposeSuply();
+        return customer.isPurposeSupply();
     }
 
     public boolean getPurposeInstalation() {
-        return customer.isPurposeInstalation();
+        return customer.isPurposeInstallation();
     }
 
     public boolean getApplicationProcess() {
@@ -229,7 +229,7 @@ public class CustomerForm extends ActionForm {
     }
 
     public void setPurposeInstalation(boolean purposeInstalation) {
-        customer.setPurposeInstalation(purposeInstalation);
+        customer.setPurposeInstallation(purposeInstalation);
     }
 
     public void setApplicationProcess(boolean applicationProcess) {
