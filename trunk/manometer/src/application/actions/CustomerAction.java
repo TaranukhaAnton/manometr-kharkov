@@ -601,11 +601,11 @@ public class CustomerAction extends DispatchAction {
         // if (customerForm.getPurposeForItself() != null)
         customer.setPurposeForItself(customerForm.getPurposeForItself());
         // if (customerForm.getPurposeInstalation() != null)
-        customer.setPurposeInstalation(customerForm.getPurposeInstalation());
+        customer.setPurposeInstallation(customerForm.getPurposeInstalation());
         // if (customerForm.getPurposeIntermediary() != null)
         customer.setPurposeIntermediary(customerForm.getPurposeIntermediary());
         // if (customerForm.getPurposeSuply() != null)
-        customer.setPurposeSuply(customerForm.getPurposeSuply());
+        customer.setPurposeSupply(customerForm.getPurposeSuply());
 
         // if (customerForm.getApplicationEngineering() != null)
         customer.setApplicationEngineering(customerForm
@@ -662,9 +662,9 @@ public class CustomerAction extends DispatchAction {
         customerForm.setBranch(customer.getBranch().toString());
 
         customerForm.setPurposeForItself(customer.isPurposeForItself());
-        customerForm.setPurposeInstalation(customer.isPurposeInstalation());
+        customerForm.setPurposeInstalation(customer.isPurposeInstallation());
         customerForm.setPurposeIntermediary(customer.isPurposeIntermediary());
-        customerForm.setPurposeSuply(customer.isPurposeSuply());
+        customerForm.setPurposeSuply(customer.isPurposeSupply());
 
         customerForm.setApplicationEngineering(customer
                 .isApplicationEngineering());

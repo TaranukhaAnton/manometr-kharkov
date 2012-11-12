@@ -15,9 +15,8 @@ import java.util.List;
  */
 public class TestBolleanFilter  {
     public static void main(String[] args) {
-        GenericHibernateDAO<Supplier> dao = new GenericHibernateDAO<Supplier>();
-        List<Supplier> def = dao.findAll();
-//        List<Supplier> def = Factory.getSupplierDAO().findListByParameter("def", true);
+       int [][] a = {{1,2,3},{4,5,6}};
+        System.out.println("a = " + a[0][1]);
 
     }
 }

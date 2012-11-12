@@ -475,21 +475,7 @@
 			</band>
 		</background>
 		<title>
-			<band height="200"  isSplitAllowed="true" >
-				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						style="Sans_Normal"
-						x="305"
-						y="116"
-						width="210"
-						height="14"
-						key="textField-16"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Times New Roman" pdfFontName="times.ttf" size="12" isBold="false" isPdfEmbedded ="false" pdfEncoding ="Cp1251"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{orgForm}+" "+$P{emploer}]]></textFieldExpression>
-				</textField>
+			<band height="158"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="305"
@@ -516,7 +502,7 @@
 					</textElement>
 				<text><![CDATA[Поставщик]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style="Sans_Normal"
 						mode="Opaque"
@@ -525,68 +511,16 @@
 						width="305"
 						height="14"
 						backcolor="#FFFFFF"
-						key="textField-17"
-						positionType="Float"
-						isRemoveLineWhenBlank="true"/>
-					<box></box>
-					<textElement>
-						<font fontName="Times New Roman" pdfFontName="times.ttf" size="12" isBold="false" isPdfEmbedded ="false" pdfEncoding ="Cp1251"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{name}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						style="Sans_Normal"
-						mode="Opaque"
-						x="0"
-						y="130"
-						width="305"
-						height="14"
-						backcolor="#FFFFFF"
-						key="textField-18"
-						positionType="Float"
-						isRemoveLineWhenBlank="true"/>
-					<box></box>
-					<textElement>
-						<font fontName="Times New Roman" pdfFontName="times.ttf" size="12" isPdfEmbedded ="false" pdfEncoding ="Cp1251"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{address}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						style="Sans_Normal"
-						mode="Opaque"
-						x="0"
-						y="144"
-						width="305"
-						height="14"
-						backcolor="#FFFFFF"
-						key="textField-21"
-						positionType="Float"
-						isRemoveLineWhenBlank="true"/>
-					<box></box>
-					<textElement>
-						<font fontName="Times New Roman" pdfFontName="times.ttf" size="12" isPdfEmbedded ="false" pdfEncoding ="Cp1251"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["тел. "+$P{phone}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						style="Sans_Normal"
-						mode="Opaque"
-						x="0"
-						y="158"
-						width="305"
-						height="14"
-						backcolor="#FFFFFF"
 						key="textField-22"
-						positionType="Float"
 						isRemoveLineWhenBlank="true"/>
 					<box></box>
 					<textElement>
 						<font fontName="Times New Roman" pdfFontName="times.ttf" size="12" isPdfEmbedded ="false" pdfEncoding ="Cp1251"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[(($P{invoice}.getSupplier().getErdpou().isEmpty())?"":("ЄДРПОУ "+$P{invoice}.getSupplier().getErdpou()+"  " ))+
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{name}+"\n"+
+"тел. "+$P{phone}+"\n"+
+$P{address}+"\n"+
+(($P{invoice}.getSupplier().getErdpou().isEmpty())?"":("ЄДРПОУ "+$P{invoice}.getSupplier().getErdpou()+"  " ))+
 (($P{invoice}.getSupplier().getInn().isEmpty())?"\n":("ИНН "+$P{invoice}.getSupplier().getInn()+"\n"))+
 (($P{invoice}.isInvoice())?(
 (($P{invoice}.getSupplier().getInnkpp().isEmpty())?"":("ИНН/КПП "+$P{invoice}.getSupplier().getInnkpp()+"\n"))+
@@ -618,7 +552,7 @@
 					<reportElement
 						style="Sans_Normal"
 						x="0"
-						y="186"
+						y="144"
 						width="370"
 						height="14"
 						key="textField-24"
@@ -642,27 +576,11 @@
 					<graphicElement stretchType="NoStretch"/>
 					<imageExpression class="java.io.File"><![CDATA[new File($P{path})]]></imageExpression>
 				</image>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						style="Sans_Normal"
-						mode="Opaque"
-						x="370"
-						y="130"
-						width="145"
-						height="14"
-						key="textField-32"
-						positionType="Float"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Times New Roman" pdfFontName="times.ttf" size="12" isPdfEmbedded ="false" pdfEncoding ="Cp1251"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{city}]]></textFieldExpression>
-				</textField>
 				<frame>					<reportElement
 						style="Sans_Normal"
 						mode="Opaque"
 						x="0"
-						y="172"
+						y="130"
 						width="515"
 						height="14"
 						forecolor="#000000"
@@ -670,7 +588,7 @@
 						key="frame-1"
 						positionType="Float"/>
 					<box></box>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style="Sans_Normal"
 						mode="Transparent"
@@ -702,7 +620,22 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["от "+$P{date}+" г"]]></textFieldExpression>
 				</textField>
-				</frame>			</band>
+				</frame>				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Sans_Normal"
+						x="305"
+						y="116"
+						width="210"
+						height="14"
+						key="textField-16"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" pdfFontName="times.ttf" size="12" isBold="false" isPdfEmbedded ="false" pdfEncoding ="Cp1251"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{orgForm}+" "+$P{emploer}+"\n"+
+$P{city}]]></textFieldExpression>
+				</textField>
+			</band>
 		</title>
 		<pageHeader>
 			<band height="0"  isSplitAllowed="true" >

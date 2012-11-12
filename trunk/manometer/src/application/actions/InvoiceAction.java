@@ -1326,8 +1326,6 @@ public class InvoiceAction extends DispatchAction {
 
             if (type.equals("xls")) {
                 pathToHeader += ".gif";
-                System.out.println("pathToHeader = " + pathToHeader);
-
                 parameters.put("path", pathToHeader);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(invoice.getInvoiceItems()));
                 response.setHeader("Content-Disposition", "attachment;filename=invoice.xls");
@@ -1340,7 +1338,6 @@ public class InvoiceAction extends DispatchAction {
 
             } else if (type.equals("odt")) {
                 pathToHeader += ".gif";
-                System.out.println("pathToHeader = " + pathToHeader);
                 parameters.put("path", pathToHeader);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(invoice.getInvoiceItems()));
                 response.setHeader("Content-Disposition", "attachment;filename=invoice.odt");
@@ -1351,7 +1348,6 @@ public class InvoiceAction extends DispatchAction {
             } else if (type.equals("pdf")) {
 //                pathToHeader+=".gif";
                 pathToHeader += ".gif";
-                System.out.println("pathToHeader = " + pathToHeader);
                 parameters.put("path", pathToHeader);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(invoice.getInvoiceItems()));
                 response.setHeader("Content-Disposition", "attachment;filename=invoice.pdf");

@@ -14,7 +14,7 @@
         <property name="hbm2ddl.auto">update</property>
 
 
-        <property name="connection.datasource">java:/comp/env/jdbc/WebForumDS</property>
+        <property name="connection.datasource">java:/comp/env/jdbc/hibernate</property>
 
         <property name="current_session_context_class">thread</property>
         <!--<property name="myeclipse.connection.profile">MySQL</property>-->
