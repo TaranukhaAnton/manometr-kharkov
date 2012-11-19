@@ -56,48 +56,39 @@
 
 
                     $("#CountryInput").hide();
-                    $("#CountryButton").hide();
+                    //$("#CountryButton").hide();
 
                     $("#RegionInput").hide();
-                    $("#RegionButton").hide();
+                    //$("#RegionButton").hide();
                     $("#AreaInput").hide();
-                    $("#AreaButton").hide();
+                   // $("#AreaButton").hide();
 
                     $("#CityInput").hide();
-                    $("#CityButton").hide();
+                   // $("#CityButton").hide();
 
                     $("#OrgFormInput").hide();
-                    $("#OrgFormButton").hide();
-                    $('#OrgFormUkrInput').hide();
-                    $('#OrgFormUkrButton').hide();
+//                    $("#OrgFormButton").hide();
+                    //$('#OrgFormUkrInput').hide();
+                   // $('#OrgFormUkrButton').hide();
 
                     $("#CountryClick").click(function() {
                         $('#CountryInput').toggle(400);
-                        $('#CountryButton').toggle(400);
-
                         return false;
                     });
                     $("#RegionClick").click(function() {
                         $('#RegionInput').toggle(400);
-                        $('#RegionButton').toggle(400);
-
                         return false;
                     });
                     $("#AreaClick").click(function() {
                         $('#AreaInput').toggle(400);
-                        $('#AreaButton').toggle(400);
-
                         return false;
                     });
                     $("#CityClick").click(function() {
                         $('#CityInput').toggle(400);
-                        $('#CityButton').toggle(400);
-
                         return false;
                     });
                     $("#OrgFormClick").click(function() {
                         $('#OrgFormInput').toggle(400);
-                        $('#OrgFormButton').toggle(400);
 
                         return false;
                     });
@@ -253,9 +244,12 @@
 
           <c:if test="${! update}">
         <a href="#" id="OrgFormClick"> <img src="images/add.gif" width="16" height="16" border="0"/></a>
-        <html:text property="newOrgForm" size="20" styleId="OrgFormInput"/>
-        <html:submit value="Добавить" onclick="document.customerForm.method.value='addOrgForm'"
-                     styleId="OrgFormButton"/>
+            <div id ="OrgFormInput">
+               рус.: <html:text property="newOrgForm" size="20"/> <br/>
+               укр.: <html:text property="newOrgFormUkr" size="20"/>
+               <html:submit value="Добавить" onclick="document.customerForm.method.value='addOrgForm'" />
+
+            </div>
         </c:if>
 
         <font color="#ff0000"><html:errors property="orgForm"/> </font>
@@ -413,9 +407,11 @@
         </html:select>
         <c:if test="${! actual}">
             <a href="#" id="RegionClick"> <img src="images/add.gif" width="16" height="16" border="0"/></a>
-            <html:text property="newRegion" size="20" styleId="RegionInput"/>
-            <html:submit value="Добавить" onclick="document.customerForm.method.value='addRegion'"
-                         styleId="RegionButton"/>
+           <div id="RegionInput">
+                Рус.:<html:text property="newRegion" size="20" /> <br/>
+                Укр.:<html:text property="newRegionUkr" size="20" />
+                <html:submit value="Добавить" onclick="document.customerForm.method.value='addRegion'"/>
+           </div>
         </c:if>
 
         <font color="#ff0000"><html:errors property="region"/> </font>
@@ -437,10 +433,12 @@
                           labelProperty="name"/>
         </html:select>
         <c:if test="${! update}">
-        <a href="#" id="CountryClick"> <img src="images/add.gif" width="16" height="16" border="0"/></a>
-        <html:text property="newCountry" size="20" styleId="CountryInput"/>
-        <html:submit value="Добавить" onclick="document.customerForm.method.value='addCountry'"
-                     styleId="CountryButton"/>
+            <a href="#" id="CountryClick"> <img src="images/add.gif" width="16" height="16" border="0"/></a>
+            <div id="CountryInput">
+                Рус.:   <html:text property="newCountry" size="20" /> <br/>
+                Укр.:   <html:text property="newCountryUkr" size="20" />
+                <html:submit value="Добавить" onclick="document.customerForm.method.value='addCountry'" />
+            </div>
          </c:if>
 
         <font color="#ff0000"><html:errors property="country"/> </font>
@@ -456,15 +454,16 @@
     <td>
         <html:select property="area" styleId="area" disabled="${update}">
             <html:option value=""></html:option>
-            <html:options collection="areas" property="id"
-                          labelProperty="name"/>
+            <html:options collection="areas" property="id" labelProperty="name"/>
 
         </html:select>
         <c:if test="${! update}">
         <a href="#" id="AreaClick"> <img src="images/add.gif" width="16" height="16" border="0"/></a>
-        <html:text property="newArea" size="20" styleId="AreaInput"/>
-        <html:submit value="Добавить" onclick="document.customerForm.method.value='addArea'"
-                     styleId="AreaButton"/>
+            <div id="AreaInput">
+                Рус.: <html:text property="newArea" size="20"/> <br/>
+                Укр.: <html:text property="newAreaUkr" size="20"/>
+                <html:submit value="Добавить" onclick="document.customerForm.method.value='addArea'" />
+            </div>
         </c:if>
         <font color="#ff0000"><html:errors property="area"/> </font>
     </td>
@@ -489,9 +488,11 @@
         </html:select>
         <c:if test="${! update}">
         <a href="#" id="CityClick"> <img src="images/add.gif" width="16" height="16" border="0"/></a>
-        <html:text property="newCity" size="20" styleId="CityInput"/>
-        <html:submit value="Добавить" onclick="document.customerForm.method.value='addCity'"
-                     styleId="CityButton"/>
+            <div id="CityInput">
+                Рус.:  <html:text property="newCity" size="20"/><br/>
+                Укр.:  <html:text property="newCityUkr" size="20"/>
+                <html:submit value="Добавить" onclick="document.customerForm.method.value='addCity'" />
+            </div>
         </c:if>
         <font color="#ff0000"><html:errors property="city"/> </font>
     </td>

@@ -18,6 +18,7 @@ public class Area {
 
     private Long id;
     private String name;
+    private String nameUkr;
     private Country country;
 
     // private List<City> cities;
@@ -58,7 +59,16 @@ public class Area {
         this.name = name;
     }
 
-// @OneToMany(fetch=FetchType.EAGER)
+    public String getNameUkr() {
+        return nameUkr;
+    }
+
+    public void setNameUkr(String nameUkr) {
+        this.nameUkr = nameUkr;
+    }
+
+
+    // @OneToMany(fetch=FetchType.EAGER)
     // @JoinColumn(name="area_id")
     // public List<City> getCities() {
     // return cities;

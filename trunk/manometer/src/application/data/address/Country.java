@@ -9,6 +9,7 @@ import javax.persistence.Id;
 public class Country {
 	private Long id;
 	private String name;
+	private String nameUkr;
 	//private List<City> regions;
 	public Country() {
 		// TODO Auto-generated constructor stub
@@ -41,4 +42,11 @@ public class Country {
 		return name;
 	}
 
+    public String getNameUkr() {
+        return nameUkr;
+    }
+
+    public void setNameUkr(String nameUkr) {
+        this.nameUkr = nameUkr;
+    }
 }

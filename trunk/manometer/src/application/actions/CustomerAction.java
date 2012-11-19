@@ -129,9 +129,10 @@ public class CustomerAction extends DispatchAction {
         //  if (parentId != null && parentId != 0) {
         //     Country country = Factory.getCountryDAO().findById(parentId);
         String newRegionName = customerForm.getNewRegion();
+        String newRegionNameUkr = customerForm.getNewRegionUkr();
         if (newRegionName != null & newRegionName.length() > 1) {
             Region region = new Region(newRegionName);
-            // region.setCountry(country);
+            region.setNameUkr(newRegionNameUkr);
             List result = Factory.getRegionDAO().findByExample(region, new LinkedList());
             if (result.isEmpty())
                 Factory.getRegionDAO().makePersistent(region);
@@ -156,8 +157,11 @@ public class CustomerAction extends DispatchAction {
         //  if (parentId != null && parentId != 0) {
         //     Country country = Factory.getCountryDAO().findById(parentId);
         String newCountryName = customerForm.getNewCountry();
+        String newCountryNameUkr = customerForm.getNewCountryUkr();
+
         if (StringUtils.isNotEmpty(newCountryName) ) {
             Country country = new Country(newCountryName);
+            country.setNameUkr(newCountryNameUkr);
             List result = Factory.getCountryDAO().findByExample(country, new LinkedList());
             if (result.isEmpty())
                 Factory.getCountryDAO().makePersistent(country);
@@ -183,10 +187,12 @@ public class CustomerAction extends DispatchAction {
 
             Country country = Factory.getCountryDAO().findById(parentId);
             String newAreaName = customerForm.getNewArea();
+            String newAreaNameUkr = customerForm.getNewAreaUkr();
             if (country != null && newAreaName != null & newAreaName.length() > 1) {
 
                 // Country country = new Country()
                 Area area = new Area(newAreaName);
+                area.setNameUkr(newAreaNameUkr);
                 area.setCountry(country);
                 List result = Factory.getAreaDAO().findByExample(area, new LinkedList());
                 if (result.isEmpty())
@@ -213,9 +219,11 @@ public class CustomerAction extends DispatchAction {
         if (parentId != null && parentId != 0) {
             Area area = Factory.getAreaDAO().findById(parentId);
             String newCityName = customerForm.getNewCity();
+            String newCityNameUkr = customerForm.getNewCityUkr();
             if (area != null && newCityName != null & newCityName.length() > 1) {
                 City city = new City(newCityName);
                 city.setArea(area);
+                city.setNameUkr(newCityNameUkr);
                 List result = Factory.getCityDAO().findByExample(city, new LinkedList());
                 if (result.isEmpty())
                     Factory.getCityDAO().makePersistent(city);
