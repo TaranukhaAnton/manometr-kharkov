@@ -84,7 +84,7 @@
 					<textElement>
 						<font size="10"/>
 					</textElement>
-				<text><![CDATA[ЗАО "Манометр-Харьков"]]></text>
+				<text><![CDATA[ЧАО "Манометр-Харьков"]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

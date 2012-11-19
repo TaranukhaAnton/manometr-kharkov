@@ -509,10 +509,6 @@ public class InvoiceAction extends DispatchAction {
                     invoice.setComments(value);
                 } else if (param.equals("deliveryTime")) {
                     invoice.setDeliveryTime(value);
-                } else if (param.equals("bookingNotes")) {
-                    invoice.getBooking().setNotes(value);
-                } else if (param.equals("bookingComments")) {
-                    invoice.getBooking().setComments(value);
                 } else if (param.equals("purpose")) {
                     invoice.setPurpose(new Integer(value));
                 } else if (param.equals("prepayment")) {
@@ -596,6 +592,7 @@ public class InvoiceAction extends DispatchAction {
                             ",\"total\":\"" + df.format(invoice.getTotal()) + "\"," +
                             "\"sum\":\"" + df.format(invoice.getSum()) +
                             "\",\"nds\":\"" + df.format(invoice.getNDSPayment()) + "\"}";
+
 
                     response.getWriter().write(resp);
 
@@ -720,7 +717,7 @@ public class InvoiceAction extends DispatchAction {
                 //#######################################
 
                 //  invoice.setChangeDate(new Date());
-                //    Factory.getBookingDAO().makePersistent(invoice.getBooking());
+                    Factory.getBookingDAO().makePersistent(invoice.getBooking());
                 Factory.getInvoiceDAO().makePersistent(invoice);
                 // Factory.getInvoiceDAO().update(invoice);
 

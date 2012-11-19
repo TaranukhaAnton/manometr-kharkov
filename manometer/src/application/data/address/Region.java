@@ -6,6 +6,7 @@ import javax.persistence.*;
 public class Region {
 	private Long id;
 	private String name;
+	private String nameUkr;
 
 	
 	public Region() {
@@ -30,8 +31,16 @@ public class Region {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	@Override
+
+    public String getNameUkr() {
+        return nameUkr;
+    }
+
+    public void setNameUkr(String nameUkr) {
+        this.nameUkr = nameUkr;
+    }
+
+    @Override
 	public String toString() {
 
 		return "{\"id\":" + id + ",\"label\":\"" + name + "\"}";

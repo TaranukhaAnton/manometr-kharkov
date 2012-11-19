@@ -353,7 +353,7 @@
 ((($P{invoice}.getPrepayment().compareTo(BigDecimal.ZERO)!=0)&&($P{invoice}.getPaymentOnTheNitice().compareTo(BigDecimal.ZERO)!=0))?", ":"")+
 (($P{invoice}.getPaymentOnTheNitice().compareTo(BigDecimal.ZERO)==0)?"":($P{invoice}.getPaymentOnTheNitice().toString() +"% — за повідомленням про готовність продукції до відвантаження"))+
 ((($P{invoice}.getPostpay().compareTo(BigDecimal.ZERO)!=0)&&(($P{invoice}.getPaymentOnTheNitice().compareTo(BigDecimal.ZERO)!=0)|| ($P{invoice}.getPrepayment().compareTo(BigDecimal.ZERO)!=0)  ))?", ":"")+
-(($P{invoice}.getPostpay().compareTo(BigDecimal.ZERO)==0)?"":($P{invoice}.getPostpay().toString() +"% — в течение "+$P{invoice}.getDaysAfterDelivery()+"  днів з моменту надходження продукції на склад Платника" ))]]></textFieldExpression>
+(($P{invoice}.getPostpay().compareTo(BigDecimal.ZERO)==0)?"":($P{invoice}.getPostpay().toString() +"% — протягом "+$P{invoice}.getDaysAfterDelivery()+"  днів з моменту надходження продукції на склад Платника" ))]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

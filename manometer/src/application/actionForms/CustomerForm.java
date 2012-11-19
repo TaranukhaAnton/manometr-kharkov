@@ -46,7 +46,15 @@ public class CustomerForm extends ActionForm {
 	private String newCity;
 	private String newArea;
 	private String newRegion;
+
+    private String newCountryUkr;
+	private String newCityUkr;
+	private String newAreaUkr;
+	private String newRegionUkr;
+
+
     private String newOrgForm;
+    private String newOrgFormUkr;
 
 
 	private String address1;
@@ -439,5 +447,45 @@ public class CustomerForm extends ActionForm {
 
     public void setLocalityType(Long localityType) {
         this.localityType = localityType;
+    }
+
+    public String getNewCountryUkr() {
+        return newCountryUkr;
+    }
+
+    public void setNewCountryUkr(String newCountryUkr) {
+        this.newCountryUkr = newCountryUkr;
+    }
+
+    public String getNewCityUkr() {
+        return newCityUkr;
+    }
+
+    public void setNewCityUkr(String newCityUkr) {
+        this.newCityUkr = newCityUkr;
+    }
+
+    public String getNewAreaUkr() {
+        return newAreaUkr;
+    }
+
+    public void setNewAreaUkr(String newAreaUkr) {
+        this.newAreaUkr = newAreaUkr;
+    }
+
+    public String getNewRegionUkr() {
+        return newRegionUkr;
+    }
+
+    public void setNewRegionUkr(String newRegionUkr) {
+        this.newRegionUkr = newRegionUkr;
+    }
+
+    public String getNewOrgFormUkr() {
+        return newOrgFormUkr;
+    }
+
+    public void setNewOrgFormUkr(String newOrgFormUkr) {
+        this.newOrgFormUkr = newOrgFormUkr;
     }
 }

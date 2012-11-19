@@ -17,19 +17,10 @@
     <%--<link rel="stylesheet" type="text/css" href="css/jquery.autocomplete.css"/>--%>
     <link rel="stylesheet" type="text/css" href="css/invoice.css"/>
     <script type="text/javascript" src="js/ui/jquery-1.4.1.js"></script>
-    <%--<script type="text/javascript" src="js/ui/jquery.bgiframe-2.1.1.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.core.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.widget.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.mouse.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.button.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.draggable.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.position.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.resizable.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.dialog.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.tabs.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.effects.core.js"></script>--%>
-    <%--<script type='text/javascript' src="js/jquery.autocomplete.js"></script>--%>
-    <%--<script type="text/javascript" src="js/editInvoice.js"></script>--%>
+
+
+    <script type="text/javascript" src="js/editBooking.js"/>
+
     <script src="js/ui/i18n/jquery.ui.datepicker-ru.js"></script>
     <script src="js/ui/jquery.ui.datepicker.js"></script>
 
@@ -315,15 +306,12 @@
     </tr>
     <tr>
         <td>
-            <textarea name="notes"
-                    <%= changesAllowed ? "" : textFieldDisab %>
+            <textarea name="notes"       <%= changesAllowed ? "" : textFieldDisab %>
                       id="bookingNotes" cols="40" rows="3" onkeypressEn="true"
-                      onkeydown="paramChange('bookingNotes','any');"><%=(booking.getNotes() == null) ? "" : booking.getNotes()%>
-            </textarea>
+                      onkeydown="paramChange('bookingNotes','any');" ><%=(booking.getNotes() == null) ? "" : booking.getNotes()%></textarea>
         <td>
             <textarea id="bookingComments" cols="40" rows="3" onkeypressEn="true"
-                      onkeydown="paramChange('bookingComments','any');"><%= (booking.getComments() == null) ? "" : booking.getComments()%>
-            </textarea>
+                      onkeydown="paramChange('bookingComments','any');"><%= (booking.getComments() == null) ? "" : booking.getComments()%></textarea>
         </td>
     </tr>
 </table>

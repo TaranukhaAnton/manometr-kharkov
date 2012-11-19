@@ -312,30 +312,24 @@
     <%--<c:br>--%>
     <display:table keepStatus="true" name="invoices" requestURI="invoiceAction.do?method=viewInvoices" excludedParams="method"
                    requestURIcontext="false" pagesize="20" sort="list"
-                   class="simple" id="invoice">
+                   class="simple" id="invoice" >
 
 
         <display:column>
             <%=(((Invoice) pageContext.getAttribute("invoice")).isInvoice()) ? "" : "к"%>
 
         </display:column>
-
-        <display:column url="/invoiceAction.do?method=viewInvoice" title="№" class="right"
-                        paramId="id" paramProperty="id">${invoice.number}
-        </display:column>
+        <%--number--%>
+        <display:column url="/invoiceAction.do?method=viewInvoice"  title="№" class="right" paramId="id" paramProperty="id" property="number" sortable="true"/>
 
         <display:column property="numberModifier" title="м" class="left"/>
 
-        <display:column title="дата">
-            <%=  (new SimpleDateFormat("dd.MM.yy")).format(((Invoice) pageContext.getAttribute("invoice")).getDate())%>
-        </display:column>
+        <display:column title="дата" sortable="true" format="{0,date,dd.MM.yyyy}" property="date" />
 
         <display:column title="Назн" class="center">
             <%= Invoice.purposeAlias[((Invoice) pageContext.getAttribute("invoice")).getPurpose()]%>
         </display:column>
-        <display:column title="заказчик" maxLength="15"><a
-                href="CustomerProcess.do?method=setUpForInsertOrUpdate&id=<%=((Invoice) pageContext.getAttribute("invoice")).getEmploer().getId()%>"><%=((Invoice) pageContext.getAttribute("invoice")).getEmploer().getShortName()%>
-        </a></display:column>
+        <display:column title="заказчик" maxLength="15" url= "/CustomerProcess.do?method=setUpForInsertOrUpdate"   paramId="id" paramProperty="emploer.id" property="emploer.shortName" />
 
         <display:column property="executor" class="center" title="спец <br> ОСО"/>
 
@@ -375,9 +369,7 @@
         </display:column>
 
 
-        <% if (((Integer) session.getAttribute("level")) > 2) {%>
-
-
+        <% if (((Integer) session.getAttribute("level")) == 4) {%>
         <display:column title="">
             <a href="javascript:  if (confirm('Удалить позицию?'))  self.location.href='invoiceAction.do?method=deleteInvoice&id=${invoice.id}'">
                 <img src="/Manometr/images/delete.gif" width="18" height="18" hspace="4" border="0"/>
