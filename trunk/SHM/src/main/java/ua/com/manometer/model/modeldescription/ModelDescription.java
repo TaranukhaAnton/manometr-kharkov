@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.List;
 import java.util.StringTokenizer;
 
 @Entity
@@ -22,13 +23,27 @@ public class ModelDescription {
     private Long id;
     private Integer loLimit;
     private Integer hiLimit;
-    private String KMCH;
-    private String isp;
-    private String materials;
-    private String errors;
-    private String staticPressures;
-    private String outputSygnals;
-    private String DU;
+
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    private List<Integer> KMCH;
+
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    private List<Integer> isp;
+
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    private List<Integer> materials;
+
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    private List<Integer> errors;
+
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    private List<Integer> staticPressures;
+
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    private List<Integer> outputs;
+
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    private List<Integer> DU;
 
     @Column(nullable = false, length = 1)
     @Type(type = "yes_no")
@@ -39,10 +54,6 @@ public class ModelDescription {
 
     }
 
-    public ModelDescription(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
     }
@@ -50,7 +61,6 @@ public class ModelDescription {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public Integer getLoLimit() {
         return loLimit;
@@ -68,59 +78,59 @@ public class ModelDescription {
         this.hiLimit = hiLimit;
     }
 
-    public String getKMCH() {
+    public List<Integer> getKMCH() {
         return KMCH;
     }
 
-    public void setKMCH(String KMCH) {
+    public void setKMCH(List<Integer> KMCH) {
         this.KMCH = KMCH;
     }
 
-    public String getIsp() {
+    public List<Integer> getIsp() {
         return isp;
     }
 
-    public void setIsp(String isp) {
+    public void setIsp(List<Integer> isp) {
         this.isp = isp;
     }
 
-    public String getMaterials() {
+    public List<Integer> getMaterials() {
         return materials;
     }
 
-    public void setMaterials(String materials) {
+    public void setMaterials(List<Integer> materials) {
         this.materials = materials;
     }
 
-    public String getErrors() {
+    public List<Integer> getErrors() {
         return errors;
     }
 
-    public void setErrors(String errors) {
+    public void setErrors(List<Integer> errors) {
         this.errors = errors;
     }
 
-    public String getStaticPressures() {
+    public List<Integer> getStaticPressures() {
         return staticPressures;
     }
 
-    public void setStaticPressures(String staticPressures) {
+    public void setStaticPressures(List<Integer> staticPressures) {
         this.staticPressures = staticPressures;
     }
 
-    public String getOutputSygnals() {
-        return outputSygnals;
+    public List<Integer> getOutputs() {
+        return outputs;
     }
 
-    public void setOutputSygnals(String outputSygnals) {
-        this.outputSygnals = outputSygnals;
+    public void setOutputs(List<Integer> outputs) {
+        this.outputs = outputs;
     }
 
-    public String getDU() {
+    public List<Integer> getDU() {
         return DU;
     }
 
-    public void setDU(String DU) {
+    public void setDU(List<Integer> DU) {
         this.DU = DU;
     }
 
@@ -132,8 +142,7 @@ public class ModelDescription {
         this.VM = VM;
     }
 
-
-    public String toJSONString() {
+    /*   public String toJSONString() {
 
         String res = "";
 
@@ -202,5 +211,5 @@ public class ModelDescription {
         res += "\"vm\":\"" + this.isVM() + "\"";
         res += "}";
         return res;
-    }
+    }*/
 }

@@ -24,6 +24,7 @@
                 <LI><A href="../compatibility/co">ЦО</A></LI>
                 <LI><A href="../compatibility/op">ОП</A></LI>
                 <LI><A href="../compatibility/ao">АО</A></LI>
+                <LI><A href="../compatibility/compatibilityTable" target="_blank">Таблица</A></LI>
             </UL>
         </LI>
         <LI><A href="#">Статистика</A>

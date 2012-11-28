@@ -1,5 +1,6 @@
 package ua.com.manometer.dao.price;
 
+import ua.com.manometer.model.price.IdPrice;
 import ua.com.manometer.model.price.PriceFirstPart;
 
 import java.math.BigDecimal;
@@ -19,4 +20,5 @@ public interface PriceFirstPartDAO {
 
     public void priceValuesToTmp();
 
+    public  PriceFirstPart getItem(IdPrice id);
 }

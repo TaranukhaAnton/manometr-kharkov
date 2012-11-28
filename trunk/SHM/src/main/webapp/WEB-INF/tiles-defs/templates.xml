@@ -22,28 +22,41 @@
 
     </definition>
 
+    <definition name="addCo" extends="baseLayout">
+        <put-attribute name="title" value="Счета"/>
+        <put-attribute name="body" value="/WEB-INF/pages/addProduction/addCoForm.jsp"/>
+    </definition>
+
+    <definition name="editInvoice" extends="baseLayout">
+        <put-attribute name="title" value="Счета"/>
+        <put-attribute name="body" value="/WEB-INF/pages/invoice/invoiceForm.jsp"/>
+    </definition>
+
     <definition name="invoices" extends="baseLayout">
         <put-attribute name="title" value="Счета"/>
         <put-attribute name="body" value="/WEB-INF/pages/invoice/invoices.jsp"/>
         <put-list-attribute name="ppp">
-            <add-attribute value="/css/jquery.autocomplete.css"/>
-            <add-attribute value="/css/jqueryStyles/jquery.ui.all.css"/>
-            <add-attribute value="/js/select-chain.js"/>
-            <add-attribute value="/js/ui/jquery-ui.js"/>
-            <add-attribute value="/js/ui/jquery.bgiframe-2.1.1.js"/>
-            <add-attribute value="/js/ui/jquery.ui.core.js"/>
-            <add-attribute value="/js/ui/jquery.ui.widget.js"/>
-            <add-attribute value="/js/ui/jquery.ui.mouse.js"/>
-            <add-attribute value="/js/ui/jquery.ui.button.js"/>
-            <add-attribute value="/js/ui/jquery.ui.draggable.js"/>
-            <add-attribute value="/js/ui/jquery.ui.position.js"/>
-            <add-attribute value="/js/ui/jquery.ui.resizable.js"/>
-            <add-attribute value="/js/ui/jquery.ui.dialog.js"/>
-            <add-attribute value="/js/ui/jquery.effects.core.js"/>
-            <add-attribute value="/js/jquery.deserialize.js"/>
-            <add-attribute value="/js/jquery.autocomplete.js"/>
+            <!--<add-attribute value="/css/jquery.autocomplete.css"/>-->
+            <!--<add-attribute value="/css/jqueryStyles/jquery.ui.all.css"/>-->
+            <!--<add-attribute value="/js/select-chain.js"/>-->
+            <!--<add-attribute value="/js/ui/jquery-ui.js"/>-->
+            <!--<add-attribute value="/js/ui/jquery.bgiframe-2.1.1.js"/>-->
+            <!--<add-attribute value="/js/ui/jquery.ui.core.js"/>-->
+            <!--<add-attribute value="/js/ui/jquery.ui.widget.js"/>-->
+            <!--<add-attribute value="/js/ui/jquery.ui.mouse.js"/>-->
+            <!--<add-attribute value="/js/ui/jquery.ui.button.js"/>-->
+            <!--<add-attribute value="/js/ui/jquery.ui.draggable.js"/>-->
+            <!--<add-attribute value="/js/ui/jquery.ui.position.js"/>-->
+            <!--<add-attribute value="/js/ui/jquery.ui.resizable.js"/>-->
+            <!--<add-attribute value="/js/ui/jquery.ui.dialog.js"/>-->
+            <!--<add-attribute value="/js/ui/jquery.effects.core.js"/>-->
+            <!--<add-attribute value="/js/jquery.deserialize.js"/>-->
+            <!--<add-attribute value="/js/jquery.autocomplete.js"/>-->
             <add-attribute value="/js/ui/i18n/jquery.ui.datepicker-ru.js"/>
-            <add-attribute value="/js/ui/jquery.ui.datepicker.js"/>
+            <!--<add-attribute value="/js/ui/jquery.ui.datepicker.js"/>-->
+            <add-attribute value="/js/jquery-ui-1.9.1.custom/jquery-ui-1.9.1.custom.min.js"/>
+            <add-attribute value="/css/smoothness/jquery-ui-1.8.24.custom.css"/>
+
             <add-attribute value="/js/local/invoices.js"/>
 
         </put-list-attribute>
@@ -51,7 +64,7 @@
 
     <definition name="editCustomer" extends="baseLayout">
         <put-attribute name="title" value="Пользователи"/>
-        <put-attribute name="body" value="/WEB-INF/pages/customers/customerFormNew.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/pages/customers/customerForm.jsp"/>
         <put-list-attribute name="ppp">
             <add-attribute value="/js/select-chain.js"/>
             <add-attribute value="/js/jquery.autocomplete.js"/>
@@ -66,7 +79,7 @@
         <put-attribute name="body" value="/WEB-INF/pages/customers/customers.jsp"/>
 
         <put-list-attribute name="ppp">
-            <add-attribute value="/js/json.js"/>
+            <!--<add-attribute value="/js/json.js"/>-->
         </put-list-attribute>
 
     </definition>
@@ -74,7 +87,7 @@
 
     <definition name="editContact" extends="baseLayout">
         <put-attribute name="title" value="Пользователи"/>
-        <put-attribute name="body" value="/WEB-INF/pages/contacts/contactFormNew.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/pages/contacts/contactForm.jsp"/>
     </definition>
     <definition name="contacts" extends="baseLayout">
         <put-attribute name="title" value="Пользователи"/>
@@ -136,11 +149,13 @@
         <put-attribute name="title" value="Редактор прайс листов типа список"/>
         <put-attribute name="body" value="/WEB-INF/pages/compatibility/redactAoCompatibility.jsp"/>
         <put-list-attribute name="ppp">
-            <add-attribute value="/js/local/compatibility/ao.js"/>
-
+            <add-attribute value="/js/local/compatibility/co.js"/>
+            <add-attribute value="/css/redactCo.css"/>
 
             <add-attribute value="/js/jquery-ui-1.9.1.custom/jquery-ui-1.9.1.custom.min.js"/>
+            <add-attribute value="/js/jquery-ui-1.9.1.custom/selectToUISlider.jQuery.js"/>
             <add-attribute value="/css/smoothness/jquery-ui-1.8.24.custom.css"/>
+            <add-attribute value="/css/ui.slider.extras.css"/>
         </put-list-attribute>
     </definition>
 
@@ -162,11 +177,13 @@
         <put-attribute name="title" value="Редактор прайс листов типа список"/>
         <put-attribute name="body" value="/WEB-INF/pages/compatibility/redactOpCompatibility.jsp"/>
         <put-list-attribute name="ppp">
-            <add-attribute value="/js/local/compatibility/op.js"/>
+            <add-attribute value="/js/local/compatibility/co.js"/>
             <add-attribute value="/css/redactCo.css"/>
 
             <add-attribute value="/js/jquery-ui-1.9.1.custom/jquery-ui-1.9.1.custom.min.js"/>
+            <add-attribute value="/js/jquery-ui-1.9.1.custom/selectToUISlider.jQuery.js"/>
             <add-attribute value="/css/smoothness/jquery-ui-1.8.24.custom.css"/>
+            <add-attribute value="/css/ui.slider.extras.css"/>
         </put-list-attribute>
     </definition>
 

@@ -60,46 +60,46 @@ public class PressureSensor extends InvoiceItem {
     private static String[] duArr = {"", "50", "80"};
     private static Integer[] koef = {1000, 1, 10, 100000, 1000, 1, 10, 100000, 10, 10000};
 
-    @Override
-    public InvoiceItem getClone() {
-        PressureSensor clone = new PressureSensor();
-
-        clone.setType(getType());
-        clone.price = price;
-        clone.cost = cost;
-        clone.sellingPrice = sellingPrice;
-        clone.additionalCost = additionalCost;
-        clone.transportationCost = transportationCost;
-        clone.setDeliveryTime(getDeliveryTime());
-        clone.setQuantity(getQuantity());
-        clone.setManufacturedDate(getManufacturedDate());
-
-        clone.setPreamble(preamble);
-        clone.setSeries(series);
-        clone.setIsp(isp);
-        clone.setModel(model);
-        clone.setP(P);
-        clone.setVM(VM);
-        clone.setMat(mat);
-        clone.setKlim(klim);
-        clone.setError(error);
-        clone.setLowLimit(lowLimit);
-        clone.setHiLimit(hiLimit);
-        clone.setEd_izm(ed_izm);
-        clone.setStat(stat);
-        clone.setOutType(outType);
-        clone.setKmch(kmch);
-        clone.setDu(du);
-        clone.setR(R);
-        clone.setI(I);
-        clone.setPI(PI);
-        clone.setHIM(HIM);
-        clone.setTU(TU);
-        clone.setAfterSpec(afterSpec);
-
-
-        return clone;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+//    @Override
+//    public InvoiceItem getClone() {
+//        PressureSensor clone = new PressureSensor();
+//
+//        clone.setType(getType());
+//        clone.price = price;
+//        clone.cost = cost;
+//        clone.sellingPrice = sellingPrice;
+//        clone.additionalCost = additionalCost;
+//        clone.transportationCost = transportationCost;
+//        clone.setDeliveryTime(getDeliveryTime());
+//        clone.setQuantity(getQuantity());
+//        clone.setManufacturedDate(getManufacturedDate());
+//
+//        clone.setPreamble(preamble);
+//        clone.setSeries(series);
+//        clone.setIsp(isp);
+//        clone.setModel(model);
+//        clone.setP(P);
+//        clone.setVM(VM);
+//        clone.setMat(mat);
+//        clone.setKlim(klim);
+//        clone.setError(error);
+//        clone.setLowLimit(lowLimit);
+//        clone.setHiLimit(hiLimit);
+//        clone.setEd_izm(ed_izm);
+//        clone.setStat(stat);
+//        clone.setOutType(outType);
+//        clone.setKmch(kmch);
+//        clone.setDu(du);
+//        clone.setR(R);
+//        clone.setI(I);
+//        clone.setPI(PI);
+//        clone.setHIM(HIM);
+//        clone.setTU(TU);
+//        clone.setAfterSpec(afterSpec);
+//
+//
+//        return clone;  //To change body of implemented methods use File | Settings | File Templates.
+//    }
 
     public String getName() {
 
@@ -351,91 +351,91 @@ public class PressureSensor extends InvoiceItem {
     }
 
 
-    /* public void setupMoneyFields(BigDecimal koef ) {
-
-
-        PriceFirstPart priceFirstPart = Factory.getPriceFirstDAO().findUniqueByExample(new PriceFirstPart(new Long(model), isp, mat, (klim < 3) ? 0 : (klim < 6) ? 1 : 2, error));
-        GenericHibernateDAO<OptionsPrice> dao = Factory.getOptionsPriceDAO();
-//        System.out.println("priceFirstPart.getCost() "+);
-//        System.out.println("model = " + model);
-//        System.out.println("isp = " + isp);
-//        System.out.println("mat = " + mat);
-//        System.out.println("klim = " + klim);
-//        System.out.println("error = " + error);
-//        System.out.println("priceFirstPart = " + priceFirstPart);
-
-        BigDecimal cost = priceFirstPart.getCost();
-        BigDecimal price = priceFirstPart.getPrice();
-
-//        System.out.println("model.charAt(0)"+model.charAt(0));
-        Integer type = (model.charAt(0) == '3') ? 2 : (model.charAt(0) == '2') ? 1 : 0;
-
-//        System.out.println("type = " + type);
-
-        OptionsPrice op = dao.findUniqueByExample(new OptionsPrice(type, isp, "ou" + outType));
-//        System.out.println("out  " + op);
-        cost = cost.add(op.getCost());
-        price = price.add(op.getPrice());
-
-
-        if (kmch != 0) {
-            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "H" + kmch));
-//            System.out.println(" kmch " + op);
-            cost = cost.add(op.getCost());
-            price = price.add(op.getPrice());
-
-
-        }
-
-        if (du != 0) {
-            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "du" + du));
-//            System.out.println("du " + op);
-            cost = cost.add(op.getCost());
-            price = price.add(op.getPrice());
-        }
-        if (I) {
-            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "I"));
-            System.out.println("I " + op);
-            cost = cost.add(op.getCost());
-            price = price.add(op.getPrice());
-        }
-        if (PI) {
-            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "PI"));
-//            System.out.println("PI " + op);
-            cost = cost.add(op.getCost());
-            price = price.add(op.getPrice());
-        }
-
-        if (VM) {
-            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "VM"));
-//            System.out.println("VM " + op);
-            cost = cost.add(op.getCost());
-            price = price.add(op.getPrice());
-        }
-
-        if (HIM) {
-            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "HIM"));
-//            System.out.println("HIM " + op);
-            cost = cost.add(op.getCost());
-            price = price.add(op.getPrice());
-        }
-        if (R) {
-            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "R"));
-            cost = cost.add(op.getCost());
-            price = price.add(op.getPrice());
-        }
-
-        op = dao.findUniqueByExample(new OptionsPrice(type, isp, "GP"));
-        cost = cost.add(op.getCost());
-        price = price.add(op.getPrice());
-        this.setCost(cost);
-        this.setPrice(price);
-
-        BigDecimal  p1 = price.divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP).add(additionalCost);
-        sellingPrice = koef.multiply(p1).add(transportationCost);
-
-      //  this.setSellingPrice(price.multiply(koef).divide(exchangeRate,2));
-    }*/
+//     public void setupMoneyFields(BigDecimal koef ) {
+//
+//
+//        PriceFirstPart priceFirstPart = Factory.getPriceFirstDAO().findUniqueByExample(new PriceFirstPart(new Long(model), isp, mat, (klim < 3) ? 0 : (klim < 6) ? 1 : 2, error));
+//        GenericHibernateDAO<OptionsPrice> dao = Factory.getOptionsPriceDAO();
+////        System.out.println("priceFirstPart.getCost() "+);
+////        System.out.println("model = " + model);
+////        System.out.println("isp = " + isp);
+////        System.out.println("mat = " + mat);
+////        System.out.println("klim = " + klim);
+////        System.out.println("error = " + error);
+////        System.out.println("priceFirstPart = " + priceFirstPart);
+//
+//        BigDecimal cost = priceFirstPart.getCost();
+//        BigDecimal price = priceFirstPart.getPrice();
+//
+////        System.out.println("model.charAt(0)"+model.charAt(0));
+//        Integer type = (model.charAt(0) == '3') ? 2 : (model.charAt(0) == '2') ? 1 : 0;
+//
+////        System.out.println("type = " + type);
+//
+//        OptionsPrice op = dao.findUniqueByExample(new OptionsPrice(type, isp, "ou" + outType));
+////        System.out.println("out  " + op);
+//        cost = cost.add(op.getCost());
+//        price = price.add(op.getPrice());
+//
+//
+//        if (kmch != 0) {
+//            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "H" + kmch));
+////            System.out.println(" kmch " + op);
+//            cost = cost.add(op.getCost());
+//            price = price.add(op.getPrice());
+//
+//
+//        }
+//
+//        if (du != 0) {
+//            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "du" + du));
+////            System.out.println("du " + op);
+//            cost = cost.add(op.getCost());
+//            price = price.add(op.getPrice());
+//        }
+//        if (I) {
+//            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "I"));
+//            System.out.println("I " + op);
+//            cost = cost.add(op.getCost());
+//            price = price.add(op.getPrice());
+//        }
+//        if (PI) {
+//            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "PI"));
+////            System.out.println("PI " + op);
+//            cost = cost.add(op.getCost());
+//            price = price.add(op.getPrice());
+//        }
+//
+//        if (VM) {
+//            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "VM"));
+////            System.out.println("VM " + op);
+//            cost = cost.add(op.getCost());
+//            price = price.add(op.getPrice());
+//        }
+//
+//        if (HIM) {
+//            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "HIM"));
+////            System.out.println("HIM " + op);
+//            cost = cost.add(op.getCost());
+//            price = price.add(op.getPrice());
+//        }
+//        if (R) {
+//            op = dao.findUniqueByExample(new OptionsPrice(type, isp, "R"));
+//            cost = cost.add(op.getCost());
+//            price = price.add(op.getPrice());
+//        }
+//
+//        op = dao.findUniqueByExample(new OptionsPrice(type, isp, "GP"));
+//        cost = cost.add(op.getCost());
+//        price = price.add(op.getPrice());
+//        this.setCost(cost);
+//        this.setPrice(price);
+//
+//        BigDecimal  p1 = price.divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP).add(additionalCost);
+//        sellingPrice = koef.multiply(p1).add(transportationCost);
+//
+//      //  this.setSellingPrice(price.multiply(koef).divide(exchangeRate,2));
+//    }
 
 
     public String toJSONString() {

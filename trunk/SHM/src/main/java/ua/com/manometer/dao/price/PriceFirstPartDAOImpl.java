@@ -2,6 +2,7 @@ package ua.com.manometer.dao.price;
 
 import org.hibernate.*;
 import org.hibernate.criterion.Expression;
+import ua.com.manometer.model.price.IdPrice;
 import ua.com.manometer.model.price.PriceFirstPart;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,4 +71,8 @@ public class PriceFirstPartDAOImpl implements PriceFirstPartDAO {
         sessionFactory.getCurrentSession().createQuery(hqlUpdate).executeUpdate();
     }
 
+    @Override
+    public PriceFirstPart getItem(IdPrice id) {
+        return (PriceFirstPart) sessionFactory.getCurrentSession().load(PriceFirstPart.class, id);
+    }
 }

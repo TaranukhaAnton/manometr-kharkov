@@ -18,45 +18,13 @@
 
 
 <a href="edit" >Добавить	контакт</a>
-
-
-
-
-		
-			
-			
-
-		<%--<c:if test="${! isEmpt}">--%>
-			<%--<table class="simple">--%>
-				<%--<tr>--%>
-					<%--<td>--%>
-
-					<%--</td>--%>
-					<%--<td style="width: 123px; text-align: center;">--%>
-						<%--Группа--%>
-					<%--</td>--%>
-					<%--<td style="width: 35px;">--%>
-
-					<%--</td>--%>
-					<%--<td style="width: 194px; text-align: center;">--%>
-						<%--Роль в закупках--%>
-					<%--</td>--%>
-				<%--</tr>--%>
-
-			<%--</table>--%>
-		<%--</c:if>--%>
-
-
 		<display:table name="listContact" id="row"
 			requestURI="./"
 			excludedParams="method" requestURIcontext="false" pagesize="20"
 			sort="list" class="simple">
 
 
-			<display:column property="lastName" title="Фамилия" sortable="true"
-				maxLength="10"
-				url="/contacts/edit"
-				paramId="id" paramProperty="id" />
+			<display:column property="lastName" title="Фамилия" sortable="true"  maxLength="10" url="/contacts/edit" paramId="id" paramProperty="id" />
 			<display:column property="customer" title="Предприятие" maxLength="10"/>
 			<display:column property="profession" title="Должность" />
 			<display:column property="subdivision" title="Подраздел"  maxLength="10"/>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.manometer.dao.price.PriceFirstPartDAO;
+import ua.com.manometer.model.price.IdPrice;
 import ua.com.manometer.model.price.PriceFirstPart;
 
 import java.math.BigDecimal;
@@ -47,4 +48,19 @@ public class PriceFirstPartServiceImpl implements PriceFirstPartService {
         pricefirstpartDAO.priceValuesToTmp();
     }
 
+    @Override
+    @Transactional
+    public PriceFirstPart getItem(IdPrice id) {
+        int klim = id.getKlim();
+        id.setKlim((klim < 3) ? 0 : (klim < 6) ? 1 : 2);
+        PriceFirstPart item = pricefirstpartDAO.getItem(id);
+        return item;
+    }
+
+    @Override
+    public Boolean modelAvailableToSell(IdPrice id) {
+        PriceFirstPart item = getItem( id);
+        // проверяет что прайс больше нуля
+        return item.getPrice().compareTo(new BigDecimal("0")) == 1;
+    }
 }

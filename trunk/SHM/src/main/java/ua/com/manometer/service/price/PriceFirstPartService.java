@@ -1,5 +1,6 @@
 package ua.com.manometer.service.price;
 
+import ua.com.manometer.model.price.IdPrice;
 import ua.com.manometer.model.price.PriceFirstPart;
 
 import java.math.BigDecimal;
@@ -17,4 +18,7 @@ public interface PriceFirstPartService {
 
     public void priceValuesToTmp();
 
+    public  PriceFirstPart getItem(IdPrice id);
+
+    public Boolean modelAvailableToSell(IdPrice item);
 }

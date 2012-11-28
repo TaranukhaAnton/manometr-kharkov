@@ -100,12 +100,12 @@
             }
         });
 
-        $("#emploer").autocomplete("invoiceAction.do?method=findCustomers", {
+        $("#emploer").autocomplete("../customers/listCustomers", {
             width :260,
             selectFirst :false
 
         });
-        $("#consumer").autocomplete("invoiceAction.do?method=findCustomers", {
+        $("#consumer").autocomplete("../customers/listCustomers", {
             width :260,
             selectFirst :false
         });

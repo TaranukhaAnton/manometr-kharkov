@@ -7,8 +7,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-
-
+<script type="text/javascript" src="../js/local/invoices.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/invoice.css"/>
 <div ID="content">
 
     <a href="javascript:void($('#newInvoice-div').dialog('open'))">Добавить</a><br>
@@ -26,22 +26,16 @@
             </c:if>
         </display:column>
 
-        <display:column url="/invoiceAction.do?method=viewInvoice" title="№" class="right"
-                        paramId="id" paramProperty="id">${invoice.number}
-        </display:column>
+        <display:column url="/invoices/view"  title="№" class="right" paramId="id" paramProperty="id" property="number" sortable="true"/>
 
         <display:column property="numberModifier" title="м" class="left"/>
 
-        <display:column title="дата" >
-            <fmt:formatDate pattern="dd.MM.yy"  value="${invoice.date}" />
-        </display:column>
+        <display:column title="дата" sortable="true" format="{0,date,dd.MM.yyyy}" property="date" />
 
         <display:column title="Назн" class="center">
             <%= Invoice.purposeAlias[((Invoice) pageContext.getAttribute("invoice")).getPurpose()]%>
         </display:column>
-        <display:column title="заказчик" maxLength="15">
-            <a   href="../customers/edit?id=<%=((Invoice) pageContext.getAttribute("invoice")).getEmployer().getId()%>"><%=((Invoice) pageContext.getAttribute("invoice")).getEmployer().getShortName()%>
-        </a></display:column>
+        <display:column title="заказчик" maxLength="15" property="employer"/>
 
         <display:column property="executor" class="center" title="спец <br> ОСО"/>
 

@@ -2,13 +2,17 @@ package ua.com.manometer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ua.com.manometer.model.modeldescription.ModelDescription;
 import ua.com.manometer.service.modeldescription.ModelDescriptionService;
 
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -17,29 +21,35 @@ import java.util.StringTokenizer;
 @Controller
 @RequestMapping("/compatibility")
 public class CompatibilityTableController {
-    @Autowired
 
+    @Autowired
     ModelDescriptionService modelDescriptionService;
 
     @RequestMapping("/co")
-    public String coForward(Map<String, Object> map) {
+    public String coForward() {
         return "redactCo";
     }
 
     @RequestMapping("/ao")
-    public String aoForward(Map<String, Object> map) {
+    public String aoForward() {
         return "redactAo";
     }
 
     @RequestMapping("/op")
-    public String opForward(Map<String, Object> map) {
+    public String opForward() {
         return "redactOp";
     }
 
-    @RequestMapping("/edit")
+    @RequestMapping("/compatibilityTable")
+    public String compatibilityTable(ModelMap model) {
+        model.put("models", modelDescriptionService.listModelDescription());
+        return "/compatibility/compatibilityTable";
+    }
+
+
+/*    @RequestMapping("/edit")
     @ResponseBody
     public String redactModelDescription(HttpServletRequest request) {
-        System.out.println("CompatibilityTableController.redactModelDescription");
         try {
             String elements = request.getParameter("elements");
             List<ModelDescription> list = getModelDescriptions(elements);
@@ -87,7 +97,7 @@ public class CompatibilityTableController {
             } else if (param.equals("Out")) {
                 String val = request.getParameter("val");
                 for (ModelDescription item : list) {
-                    item.setOutputSygnals(val);
+                    item.setOutputs(val);
                     modelDescriptionService.updateDescription(item);
                 }
             } else if (param.equals("DU")) {
@@ -114,7 +124,7 @@ public class CompatibilityTableController {
             System.err.println(e);
         }
         return null;
-    }
+    }*/
 
 
     private List<ModelDescription> getModelDescriptions(String models) {
@@ -126,6 +136,25 @@ public class CompatibilityTableController {
         }
         List<ModelDescription> result = modelDescriptionService.findListByIds(modelIds);
         return result;
+    }
+
+
+    @RequestMapping("/get_md")
+    @ResponseBody
+    public ModelDescription getModelDescription(@RequestParam("model") Long model) {
+        ModelDescription modelDescription = modelDescriptionService.getModelDescription(model);
+        return modelDescription;
+
+//        response.setCharacterEncoding( "UTF-8" );
+//        response.setHeader("Content-Type", "application/json;charset=UTF-8");
+//        try {
+//            //response.getWriter().write(modelDescription.toJSONString());
+//            response.getWriter().flush();
+//        } catch (IOException e) {
+//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//        }
+
+
     }
 
 

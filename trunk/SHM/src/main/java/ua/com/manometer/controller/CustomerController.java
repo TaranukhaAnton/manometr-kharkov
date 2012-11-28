@@ -109,11 +109,12 @@ public class CustomerController {
         return cityService.listCityForArea(areaId);
     }
 
-    @RequestMapping("/listCustomers")
+    @RequestMapping("/listCustomers" )
     public
     @ResponseBody
-    List<Customer> listCustomer(@RequestParam("q") String customerTemplate) {
-        return customerService.findByShortNameExample(customerTemplate);
+    List listCustomer(@RequestParam("term") String customerTemplate) {
+        List<String> result = customerService.findByShortNameExample(customerTemplate);
+        return result;
     }
 
 

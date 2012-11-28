@@ -38,7 +38,7 @@ public abstract class InvoiceItem {
 
     public abstract String getName();
 
-    public abstract InvoiceItem getClone();
+//    public abstract InvoiceItem getClone();
 
   //  public abstract void setupMoneyFields(BigDecimal koef);
 

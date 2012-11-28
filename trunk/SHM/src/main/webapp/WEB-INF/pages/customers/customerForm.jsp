@@ -1,197 +1,31 @@
-<%@ page import="application.data.Customer" %>
-<%@ page import="application.hibernate.Factory" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
-<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:set var="actual"
-       value="${!empty customerForm.status && customerForm.status ?'false':'true'}"
-       scope="page"/>
 
-<c:set var="update"
-       value="${!empty customerForm.id && customerForm.id!= 0 ?'true':'false'}"
-       scope="page"/>
-
-<%
-
-    request.setAttribute("contries", Factory.getCountryDAO().findAll());
-    request.setAttribute("regions",Factory.getRegionDAO().findAll());
-    request.setAttribute("users", Factory.getUserDAO().findAll());
-    request.setAttribute("branches", Customer.Branch.values());
-    request.setAttribute("prospects", Customer.Prospect.values());
-    request.setAttribute("orgForms", Factory.getOrgFormDAO().findAll());
-%>
-
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>User Details</title>
-    <%--<link href="css/style.css" rel="stylesheet" type="text/css"/>--%>
-    <link href="css/datepicker.css" rel="stylesheet" type="text/css"/>
-    <script src="js/datepicker.js" type="text/javascript"></script>
-    <script src="js/jquery.js" type="text/javascript"></script>
-    <script src="js/jquery.autocomplete.js" type='text/javascript'></script>
-    <script src="js/select-chain.js" type="text/javascript"></script>
+<style type="text/css">
 
 
-    <link rel="stylesheet" type="text/css"
-          href="css/jquery.autocomplete.css"/>
+    #variableHeightDiv {
+        overflow-y: auto;
+    }
 
-    <script type="text/javascript">
-        $().ready(
-                function() {
-                    $("#headCustomer").autocomplete(
-                            "CustomerSetUp.do?method=findCustomers", {
-                        width :260,
-                        selectFirst :false
-                    });
-                    $("#oldRecord").autocomplete(
-                            "CustomerSetUp.do?method=findCustomers", {
-                        width :260,
-                        selectFirst :false
-                    });
+    #footerButtons {
+        height: 30px;
+    }
+</style>
 
 
-                    $("#CountryInput").hide();
-                    $("#CountryButton").hide();
+<div id="bodyDiv">
 
-                    $("#RegionInput").hide();
-                    $("#RegionButton").hide();
-                    $("#AreaInput").hide();
-                    $("#AreaButton").hide();
+<c:set var="isNew" value="${false}"/>
 
-                    $("#CityInput").hide();
-                    $("#CityButton").hide();
+<form:form modelAttribute="customer" action="add" method="post" id="customerForm">
+<form:hidden path="id" size="40"/>
+<form:hidden path="oldRecord.id" size="40"/>
+<form:hidden path="headCustomer.id" size="40"/>
 
-                    $("#OrgFormInput").hide();
-                    $("#OrgFormButton").hide();
-
-                    $("#CountryClick").click(function() {
-                        $('#CountryInput').toggle(400);
-                        $('#CountryButton').toggle(400);
-
-                        return false;
-                    });
-                    $("#RegionClick").click(function() {
-                        $('#RegionInput').toggle(400);
-                        $('#RegionButton').toggle(400);
-
-                        return false;
-                    });
-                    $("#AreaClick").click(function() {
-                        $('#AreaInput').toggle(400);
-                        $('#AreaButton').toggle(400);
-
-                        return false;
-                    });
-                    $("#CityClick").click(function() {
-                        $('#CityInput').toggle(400);
-                        $('#CityButton').toggle(400);
-
-                        return false;
-                    });
-                    $("#OrgFormClick").click(function() {
-                        $('#OrgFormInput').toggle(400);
-                        $('#OrgFormButton').toggle(400);
-
-                        return false;
-                    });
-
-
-                });
-
-        $(function() {
-            var country = $('#country');
-            var area = $('#area');
-            var city = $('#city');
-
-            area.selectChain({
-                target :city,
-                url :'CustomerSetUp.do?method=address',
-                type :'post',
-                data :"ajax=true"
-            });
-
-
-
-            // note that we're assigning in reverse order
-            // to allow the chaining change trigger to work
-            country.selectChain({
-                target :area,
-                url :'CustomerSetUp.do?method=address',
-                type :'post',
-                data :"ajax=true"
-            });
-              bodyResize(160);
-
-        });
-
-
-             function bodyResize(height)
-        {
-            var winHeight = $("body").height();
-            var footerHeight =  $("#total").height();
-            var IICheight = (winHeight < 600) ? 210 : winHeight - 389 - $("#toptable").height();
-            var sc = (winHeight < 600) ? "visible" : "hidden";
-            IICheight += height;
-            $("body").css("overflow-y", sc);
-
-//                var text = "winHeihgt = " + winHeight;
-//                    text += "   IICheight = " + IICheight;
-//                    text += "   total = " + footerHeight;
-//        text += "   contentTDHeight = " + $("#contentTD").height();
-//        text += "  bodyHeight = " + $("body").height();
-//        text += "  htmlHeight = " + $("html").height();
-
-
-     //   $("#console").text(text);
-
-
-
-            $("#variableHeightElement").css("height", IICheight + "px");
-
-        }
-    </script>
-
-
-    <style type="text/css">
-        SELECT {
-            width: 200px; /* Ширина списка в пикселах */
-        }
-       .width600
-       {  width: 600px;}
-       .width200
-       {  width: 200px;}
-
-
-        #variableHeightElement
-        {
-            overflow-y:auto;
-        }
-    </style>
-
-
-</head>
-<body onResize="bodyResize(160);">
-
-<c:if test="${update}">
-
-    <h3 align="center">
-        Заведено --
-        <c:out value="${customerForm.dateOfRecord}"/>
-        Последние изменения --
-        <c:out value="${customerForm.dateLastCorrection}"/>
-    </h3>
-
-</c:if>
-
-
-<html:form action="/CustomerSetUp.do">
-
-<div id="variableHeightElement">
+<div id="variableHeightDiv">
 <table>
 
 <tr>
@@ -199,103 +33,114 @@
         Короткое название
     </td>
     <td>
-        <html:text property="shortName" size="40" disabled="${update}"/>
-        <font color="#ff0000"><html:errors property="shortName"/>
-        </font>
+        <c:if test="${isNew}">
+            <form:input path="shortName" size="40"/>
+        </c:if>
+        <c:if test="${!isNew}">
+            <form:hidden path="shortName"/>
+            <c:out value="${customer.shortName}"/>
+        </c:if>
     </td>
 </tr>
-
-
 <tr>
     <td class="tdLabel">
         Организационная форма
     </td>
     <td>
-        <html:select property="orgForm" size="1" disabled="${update}">
-            <html:options collection="orgForms" property="id"
-                          labelProperty="name"/>
-
-
-        </html:select>
-
-          <c:if test="${! update}">
-        <a href="#" id="OrgFormClick"> <img src="images/add.gif" width="16" height="16" border="0"/></a>
-        <html:text property="newOrgForm" size="20" styleId="OrgFormInput"/>
-        <html:submit value="Добавить" onclick="document.customerForm.method.value='addOrgForm'"
-                     styleId="OrgFormButton"/>
+        <c:if test="${isNew}">
+            <form:select path="orgForm.id">
+                <form:options items="${orgForms}" itemValue="id" itemLabel="name"/>
+            </form:select>
         </c:if>
-
-        <font color="#ff0000"><html:errors property="orgForm"/> </font>
+        <c:if test="${!isNew}">
+            <form:hidden path="orgForm.id"/>
+            <c:out value="${customer.orgForm.name}"/>
+        </c:if>
     </td>
 </tr>
-
-
 <tr>
     <td class="tdLabel">
         Полное название
     </td>
     <td>
-        <html:text property="name" size="40" disabled="${update}"/>
-        <font color="#ff0000"><html:errors property="name"/> </font>
+        <c:if test="${isNew}">
+            <form:input path="name" size="40"/>
+        </c:if>
+        <c:if test="${!isNew}">
+            <form:hidden path="name"/>
+            <c:out value="${customer.name}"/>
+        </c:if>
     </td>
 </tr>
+<tr>
+    <td class="tdLabel">
+        Полное название укр.
+    </td>
+    <td>
+        <c:if test="${isNew}">
+            <form:input path="nameUkr" size="40"/>
+        </c:if>
+        <c:if test="${!isNew}">
+            <form:hidden path="nameUkr"/>
+            <c:out value="${customer.nameUkr}"/>
+        </c:if>
+
+    </td>
+</tr>
+
 <tr>
     <td class="tdLabel">
         Доля госсобственности
     </td>
     <td>
-
-
-        <html:text property="stateProperty" size="20" disabled="${actual}"/>
-
-
+        <form:input path="stateProperty" size="40"/>
     </td>
 </tr>
+
 <tr>
     <td class="tdLabel">
         Код ОКПО
     </td>
     <td>
-        <html:text property="codeOKPO" size="20" disabled="${actual}"/>
-
+        <form:input path="codeOKPO" size="40"/>
     </td>
 </tr>
+
 <tr>
     <td class="tdLabel">
         Отрасль
+
     </td>
     <td>
-        <html:select property="branch" size="1" disabled="${actual}">
-            <html:options name="branches"/>
-        </html:select>
-
+        <form:select path="branch">
+            <form:options items="${branches}"/>
+        </form:select>
     </td>
 </tr>
 <tr>
-    <td>
+    <td class="tdLabel">
 
     </td>
     <td>
 
-
-        <fieldset class="width200">
+        <fieldset>
             <legend>
                 Где использует
             </legend>
-            <html:checkbox property="applicationProcess" disabled="${actual}"/>
+            <form:checkbox path="applicationProcess"/>
             - процессы
             <br>
-            <html:checkbox property="applicationProduction"
-                           disabled="${actual}"/>
+            <form:checkbox path="applicationProduction"/>
             - продукция
             <br>
-            <html:checkbox property="applicationProject" disabled="${actual}"/>
+            <form:checkbox path="applicationProject"/>
             - проекты
             <br>
-            <html:checkbox property="applicationEngineering"
-                           disabled="${actual}"/>
+            <form:checkbox path="applicationEngineering"/>
             - инжиниринг
             <br>
+
+
         </fieldset>
 
 
@@ -306,54 +151,49 @@
 
     </td>
     <td>
-        <fieldset class="width200">
+        <fieldset>
             <legend>
                 Цель покупок
             </legend>
-            <html:checkbox property="purposeForItself" disabled="${actual}"/>
+            <form:checkbox path="purposeForItself"/>
             - для себя
             <br>
-            <html:checkbox property="purposeIntermediary"
-                           disabled="${actual}"/>
+            <form:checkbox path="purposeIntermediary"/>
             - посредник
             <br>
-            <html:checkbox property="purposeSuply" disabled="${actual}"/>
+            <form:checkbox path="purposeSupply"/>
             - снабжение
             <br>
-            <html:checkbox property="purposeInstalation" disabled="${actual}"/>
+            <form:checkbox path="purposeInstallation"/>
             - монтаж
             <br>
         </fieldset>
+
+
     </td>
 </tr>
 
 <tr>
-    <td class="tdLabel">
-        Номер списка
-    </td>
+    <td class="tdLabel">Номер списка</td>
     <td>
-        <html:select property="nomList" size="1" disabled="${actual}">
-            <html:option value=""></html:option>
-            <html:option value="1">1</html:option>
-            <html:option value="2">2</html:option>
-            <html:option value="3">3</html:option>
-            <html:option value="4">4</html:option>
 
-        </html:select>
-        <font color="#ff0000"><html:errors property="nomList"/> </font>
+        <form:select path="nomList">
+            <form:option value="1"/>
+            <form:option value="2"/>
+            <form:option value="3"/>
+            <form:option value="4"/>
+        </form:select>
     </td>
 </tr>
 
 <tr>
-    <td class="tdLabel">
-        Перспектива
-    </td>
+    <td class="tdLabel">Перспектива</td>
     <td>
-        <html:select property="prospect" size="1" disabled="${actual}">
-            <html:options name="prospects"/>
-        </html:select>
-        <font color="#ff0000"><html:errors property="powersLivel"/>
-        </font>
+        <form:select path="prospect">
+            <form:option value="1" label="A"/>
+            <form:option value="2" label="B"/>
+            <form:option value="3" label="C"/>
+        </form:select>
     </td>
 </tr>
 
@@ -362,162 +202,99 @@
         Регион
     </td>
     <td>
+        <form:select path="region">
+            <form:options items="${regions}" itemValue="id" itemLabel="name"/>
+        </form:select>
 
-        <html:select property="region" styleId="region"
-                     disabled="${actual}">
-            <html:option value=""></html:option>
-
-            <html:options collection="regions" property="id"
-                          labelProperty="name"/>
-        </html:select>
-        <c:if test="${! actual}">
-            <a href="#" id="RegionClick"> <img src="images/add.gif" width="16" height="16" border="0"/></a>
-            <html:text property="newRegion" size="20" styleId="RegionInput"/>
-            <html:submit value="Добавить" onclick="document.customerForm.method.value='addRegion'"
-                         styleId="RegionButton"/>
-        </c:if>
-
-        <font color="#ff0000"><html:errors property="region"/> </font>
     </td>
 </tr>
 
 <tr>
-    <td class="tdLabel">
-        Страна
-    </td>
+    <td class="tdLabel">Страна</td>
     <td>
-
-
-        <html:select property="country" styleId="country"
-                     disabled="${update}">
-            <html:option value=""></html:option>
-
-            <html:options collection="contries" property="id"
-                          labelProperty="name"/>
-        </html:select>
-        <c:if test="${! update}">
-        <a href="#" id="CountryClick"> <img src="images/add.gif" width="16" height="16" border="0"/></a>
-        <html:text property="newCountry" size="20" styleId="CountryInput"/>
-        <html:submit value="Добавить" onclick="document.customerForm.method.value='addCountry'"
-                     styleId="CountryButton"/>
-         </c:if>
-
-        <font color="#ff0000"><html:errors property="country"/> </font>
+        <form:select path="country" id="country">
+            <form:options items="${countries}" itemValue="id" itemLabel="name"/>
+        </form:select>
     </td>
 </tr>
-
-
-
+<tr>
+    <td class="tdLabel">Область</td>
+    <td>
+        <form:select path="area" id="area">
+            <form:options items="${areas}" itemValue="id" itemLabel="name"/>
+        </form:select>
+    </td>
+</tr>
 <tr>
     <td class="tdLabel">
-        область
+        <form:select path="localityType">
+            <form:option value="0" label="Город"/>
+            <form:option value="1" label="ПГТ"/>
+            <form:option value="2" label="Пос."/>
+            <form:option value="3" label="Село"/>
+        </form:select>
     </td>
     <td>
-        <html:select property="area" styleId="area" disabled="${update}">
-            <html:option value=""></html:option>
-            <html:options collection="areas" property="id"
-                          labelProperty="name"/>
-
-        </html:select>
-        <c:if test="${! update}">
-        <a href="#" id="AreaClick"> <img src="images/add.gif" width="16" height="16" border="0"/></a>
-        <html:text property="newArea" size="20" styleId="AreaInput"/>
-        <html:submit value="Добавить" onclick="document.customerForm.method.value='addArea'"
-                     styleId="AreaButton"/>
-        </c:if>
-        <font color="#ff0000"><html:errors property="area"/> </font>
+        <form:select path="city" id="city">
+            <form:options items="${cities}" itemValue="id" itemLabel="name"/>
+        </form:select>
     </td>
 </tr>
-
-
-<tr>
-    <td class="tdLabel">
-         <html:select property="localityType" size="1" disabled="${update}">
-
-            <html:option value="0">Город</html:option>
-            <html:option value="1">ПГТ</html:option>
-            <html:option value="2">Пос.</html:option>
-            <html:option value="3">Село</html:option>
-
-        </html:select>
-    </td>
-    <td>
-        <html:select property="city" styleId="city" disabled="${update}">
-            <html:options collection="cities" property="id"
-                          labelProperty="name"/>
-        </html:select>
-        <c:if test="${! update}">
-        <a href="#" id="CityClick"> <img src="images/add.gif" width="16" height="16" border="0"/></a>
-        <html:text property="newCity" size="20" styleId="CityInput"/>
-        <html:submit value="Добавить" onclick="document.customerForm.method.value='addCity'"
-                     styleId="CityButton"/>
-        </c:if>
-        <font color="#ff0000"><html:errors property="city"/> </font>
-    </td>
-</tr>
-
 
 <tr>
     <td class="tdLabel">
         Адрес дирекции
     </td>
     <td>
-        <html:text property="address1"  disabled="${actual}" styleClass="width600"/>
-        <font color="#ff0000"><html:errors property="address"/> </font>
+        <form:input path="address1" size="40" cssClass="fillone"/>
     </td>
 </tr>
-
 <tr>
     <td class="tdLabel">
         Адрес комер. службы
     </td>
     <td>
-        <html:text property="address2" size="40" disabled="${actual}" styleClass="width600"/>
-        <font color="#ff0000"><html:errors property="address"/> </font>
+        <form:input path="address2" size="40" cssClass="fillone"/>
     </td>
 </tr>
-
 <tr>
     <td class="tdLabel">
         Адрес тех службы
     </td>
     <td>
-        <html:text property="address3" size="40" disabled="${actual}" styleClass="width600"/>
-        <font color="#ff0000"><html:errors property="address"/> </font>
+        <form:input path="address3" size="40" cssClass="fillone"/>
     </td>
 </tr>
-<tr>
-    <td class="tdLabel">
-        Головное предприятие
-    </td>
-    <td>
+    <%--<tr>--%>
+    <%--<td class="tdLabel">--%>
 
-
-        <html:text property="headCustomer" size="20" disabled="${actual}"
-                   styleId="headCustomer" styleClass="width600"/>
-
-        <font color="#ff0000"><html:errors property="headCustomer"/>
-        </font>
-    </td>
-</tr>
+    <%--</td>--%>
+    <%--<td>--%>
+    <%--<form:input path="headCustomer" size="40"/>--%>
+    <%--</td>--%>
+    <%--</tr>--%>
 <tr>
     <td class="tdLabel">
         Дата поглощения
     </td>
     <td>
-        <html:text property="mergeData" size="20" readonly="true" disabled="${actual}"/>
-        <c:if test="${actual}">
-            <html:img src="images/datepicker.jpg"
-                      onclick="displayDatePicker('mergeData', false, 'dmy', '.');"/>
-        </c:if>
+        <form:input path="mergeData" size="40"/>
     </td>
 </tr>
+    <%--<tr>--%>
+    <%--<td class="tdLabel">--%>
+
+    <%--</td>--%>
+    <%--<td>--%>
+    <%--<form:input path="questionnaire" size="40"/>--%>
+    <%--</td>--%>
+    <%--</tr>--%>
 <tr>
     <td class="tdLabel">
         Актуальность записи
     </td>
     <td>
-        <html:checkbox property="status" disabled="${actual}" styleClass="width600"/>
+        <form:checkbox path="status"/>
     </td>
 </tr>
 
@@ -526,106 +303,70 @@
         Старая запись
     </td>
     <td>
-
-        <html:text property="oldRecord" size="20" disabled="${actual}"
-                   styleId="oldRecord" styleClass="width600"/>
-
-
-        <font color="#ff0000"><html:errors property="oldRecord"/>
-        </font>
-
-
+        <form:input path="oldRecord.shortName" id="oldRecord"/>
     </td>
 </tr>
-
 
 <tr>
     <td class="tdLabel">
         Спец. ОСО
     </td>
     <td>
-        <html:select property="person" size="1" disabled="${actual}">
-
-            <html:options collection="users" property="id"
-                          labelProperty="login"/>
-        </html:select>
-    </td>
-</tr>
 
 
-<tr>
-    <td class="tdLabel">
-        сайт
-    </td>
-    <td>
-        <html:text property="site" size="40" disabled="${actual}" styleClass="width600"/>
+        <form:select path="person.id">
+            <form:options items="${users}" itemValue="id" itemLabel="login"/>
+        </form:select>
     </td>
 </tr>
 <tr>
-    <td class="tdLabel">
-        реквизиты
-    </td>
+    <td class="tdLabel">dateOfRecord</td>
     <td>
-        <html:text property="requisite" size="40" disabled="${actual}" styleClass="width600"/>
+        <form:input path="dateOfRecord" size="40"/>
     </td>
 </tr>
 <tr>
-    <td class="tdLabel">
-        Новое предприятие
-    </td>
+    <td class="tdLabel">dateLastCorrection</td>
     <td>
-         <html:checkbox property="new" />
-
+        <form:input path="dateLastCorrection" size="40"/>
     </td>
 </tr>
 
 <tr>
-    <td class="tdLabel">
-        раск.инф
-    </td>
+    <td class="tdLabel">requisite</td>
     <td>
-        <html:text property="moreInformation" size="40"
-                   disabled="${actual}" styleClass="width600"/>
+        <form:input path="requisite" size="40"/>
     </td>
 </tr>
-
-
-
+<tr>
+    <td class="tdLabel">registrationNumber</td>
+    <td>
+        <form:input path="registrationNumber" size="40"/>
+    </td>
+</tr>
+<tr>
+    <td class="tdLabel">site</td>
+    <td>
+        <form:input path="site" size="40"/>
+    </td>
+</tr>
+<tr>
+    <td class="tdLabel">New</td>
+    <td>
+        <form:input path="New" size="40"/>
+    </td>
+</tr>
+<tr>
+    <td class="tdLabel">раск.инф</td>
+    <td>
+        <form:input path="moreInformation" size="40"/>
+    </td>
+</tr>
 </table>
-   </div>
-
-<div id="downButtons">
-    <html:hidden property="id"/>
-        <input type="hidden" name="method" value="insertOrUpdate"/>
-
-        <c:if test="${! actual}">
-            <html:submit>
-                <%--Применить--%>
-                <bean:message key="button.submit"/>
-            </html:submit>
-        </c:if>
-
-        <html:cancel>
-            <%--Отменить--%>
-            <bean:message key="button.cancel"/>
-        </html:cancel>
-
-        <c:if test="${update}">
-            <input type="submit" value="Изменить"
-                   onclick="document.customerForm.method.value='changeCustomer'"/>
-        </c:if>
-
-
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <c:if test="${update}">
-            <input type="submit" value="Контактные лица"
-                   onclick="document.customerForm.method.value='findContacts'"/>
-        </c:if> 
-
-
-
 </div>
-</html:form>
 
-</body>
-</html>
+<div id="footerButtons">
+    <input type="submit"/>
+</div>
+</form:form>
+</div>

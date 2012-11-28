@@ -11,15 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Антон
- * Date: 06.07.2010
- * Time: 22:31:20
- * To change this template use File | Settings | File Templates.
- */
-public class LongArrayCustomType implements UserType {
+
+public class IntegerListCustomType implements UserType {
 
 
     private static final int[] SQL_TYPES = new int[]{Types.VARCHAR};
@@ -30,12 +27,12 @@ public class LongArrayCustomType implements UserType {
 
 
     public Class returnedClass() {
-        return Long[].class;
+        return List.class;
     }
 
 
     public boolean equals(Object x, Object y) throws HibernateException {
-        return x == y;
+        return ((List)x).equals((List)y);
     }
 
 
@@ -44,39 +41,35 @@ public class LongArrayCustomType implements UserType {
     }
 
     public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
-
-//          String value = (String) Hibernate.TEXT.nullSafeGet(rs, names,owner);
         String value = rs.getString(names[0]);
+        List<Integer> result = new LinkedList<Integer>();
         if (value == null) {
-            return new Long[0];
+            return  result;
         } else {
             String[] array = StringUtils.split(value, '|');
-            Long[] res = new Long[array.length];
-            for (int i = 0; i < array.length; i++) {
-                res[i] = new Long(array[i]);
+            for (String s : array) {
+                result.add(new Integer(s));
             }
-            return res;
-//            return null;
+            return result;
         }
     }
 
     public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
         if (value == null) {
-            Hibernate.TEXT.nullSafeSet(st, null, index);
+            st.setObject(index, null, Types.VARCHAR);
         } else {
-            Long[] array = (Long[]) value;
-            Hibernate.TEXT.nullSafeSet(st, StringUtils.join(array, '|'), index);
+            st.setObject(index, StringUtils.join((List) value, '|'), Types.VARCHAR);
         }
     }
 
 
     public Object deepCopy(Object value) throws HibernateException {
-        return value;
+        return new LinkedList((List)value);
     }
 
 
     public boolean isMutable() {
-        return false;
+        return true;
     }
 
 

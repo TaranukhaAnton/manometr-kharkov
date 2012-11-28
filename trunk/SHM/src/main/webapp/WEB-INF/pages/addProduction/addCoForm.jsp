@@ -1,223 +1,395 @@
-<%@ page import="application.data.ModelDescription.ModelDescription" %>
-<%@ page import="application.hibernate.Factory" %>
-<%@ page import="application.hibernate.generic.GenericHibernateDAO" %>
 <%request.setCharacterEncoding("UTF-8");%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<html>
-<head>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Добавить датчик давлеия ЦО.</title>
-    <link href="css/addPressureSensor.css" rel="stylesheet" type="text/css"/>
-    <script src="js/jquery.js" type="text/javascript"></script>
-    <script src="js/addCo.js" type="text/javascript"></script>
+    <link href="../css/addPressureSensor.css" rel="stylesheet" type="text/css"/>
+    <%--<script type="text/javascript" src="../js/jquery-ui-1.9.1.custom/jquery-1.8.2.js" ></script>--%>
+    <script src="../js/local/add/addCo.js" type="text/javascript"></script>
 
 
-</head>
-<body>
-<form action="testAction.do" name="mainForm" onsubmit="return  validate();">
-<div id="parent">
+<form action="add_pressure_sensor" name="mainForm" onsubmit="return  validate();">
+<div id="parent"  style="background-color: #a6c9e2; width: 1080px;">
 
 
-
-        <input type="hidden" name="invoiceId" id="invoiceId" value="<%=request.getParameter("invoiceId")%>">
-        <input type="hidden" name="invoiceItemId" id="invoiceItemId" value="<%=request.getParameter("invoiceItemId")%>">
-
-
-        <div id="head">
-            <label><input type="radio" name="typeTxt" value="0"> &quot;Сафiр М&quot;</label>
-            <label><input type="radio" name="typeTxt" value="1"> &quot;Сафiр&quot; </label>
-            <label><input type="radio" name="typeTxt" value="2"> СМХ </label>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            Перед спецификацией &nbsp;&nbsp;
-            <input type="text" name="beforeSpec" id="beforeSpec" size="40">
+<input type="hidden" name="invoice_id" id="invoice_id" value="<%=request.getParameter("invoice_id")%>">
+<input type="hidden" name="invoice_item_id" id="invoice_item_id" value="<%=request.getParameter("invoice_item_id")%>">
 
 
-        </div>
-        <div id="model">
-            <%
-                GenericHibernateDAO<ModelDescription> dao = Factory.getModelDescriptionDAO();
-
-                String[] ar1 = {"01", "10", "15", "20", "24", "30", "33", "34", "35", "40", "41", "42", "43", "44", "45", "50", "51", "52", "53", "54", "55", "60", "61", "62", "63", "64", "70", "71"};
-                String[] ar2 = {"50", "51", "52", "53", "54", "55"};
-
-                out.println("<table class=\"models\"  cellspacing=\"0\" > <tr> <td  class=\"silver_rb\" >  &nbsp;</td>");
-                for (String it1 : ar1) {
-                    String style = ((it1 == "15") || (it1 == "24") || (it1 == "35") || (it1 == "45") || (it1 == "55") || (it1 == "64")) ? "silver_rb" : "silver_b";
-                    out.println(" <td class=\"" + style + "\" >.." + it1 + "</td>");
-                }
-                out.println("</tr>");
-                for (int i = 0; i < ar2.length; i++) {
-                    String it2= ar2[i];
-
-                //}
-               // for (String it2 : ar2) {
-                    out.println("<tr>");
-                    out.println(" <td class=\"silver_r\">" + it2 + "..</td>");
-                    for (String it1 : ar1) {
-
-                        String style = ((it1 == "15") || (it1 == "24") || (it1 == "35") || (it1 == "45") || (it1 == "55") || (it1 == "64")) ? "silver_r" : "silver";
-
-                        ModelDescription result = dao.findById(new Long(it2 + it1));
-                        if (result != null) {
-                            out.println(" <td  class=\"row"+i+"  " + style + " \" ><input type=\"radio\" onclick=\"test();\" name=\"model\" value=\"" + it2 + it1 + "\"/></td>");
-                        } else {
-                            out.println(" <td  class=\"row"+i+" " + style + "\" >&nbsp;</td>");
-                        }
-
-                    }
-                    out.println("</tr>");
-                }
-
-            %>
-            </table>
-        </div>
-        <table>
-            <tr>
-                <td class="topAlig">
-                    <div id="ispolnenie"></div>
-                </td>
-                <td class="topAlig">
-                    <div id="materials"></div>
-                </td>
-                <td class="topAlig">
-                    <div id="klimat" style="visibility:hidden;">
-                        <fieldset>
-                            <legend>Климатика</legend>
-                            <input type="radio" checked name="klim" value="0"> &nbsp;УХЛ3.1* <br>
-                            <input type="radio" name="klim" value="1"> &nbsp;УХЛ3.1* (+5..+50) <br>
-                            <input type="radio" name="klim" value="2"> &nbsp;УХЛ3.1* (+5..+80) <br><br>
-                            <input type="radio" name="klim" value="3"> &nbsp;У2*<br>
-                            <input type="radio" name="klim" value="4"> &nbsp;У2* (-30..+50) <br>
-                            <input type="radio" name="klim" value="5"> &nbsp;У2* (-40..+50) <br><br>
-                            <input type="radio" name="klim" value="6"> &nbsp;Т3**<br>
-                            <input type="radio" name="klim" value="7"> &nbsp;Т3** (-5..+80) <br>
-                        </fieldset>
-                    </div>
-                </td>
-                <td class="topAlig">
-                    <div id="errors"></div>
-                </td>
-                <td class="topAlig">
-                    <div id="ed_izm" style="visibility:hidden;">
-                        <fieldset>
-                            <legend>ед. измер.</legend>
-                            <input type="radio" name="ed_izm" value="0" onclick="changeEdIzm();"> &nbsp;кПа<br>
-                            <input type="radio" name="ed_izm" value="1" onclick="changeEdIzm();"> &nbsp;МПа<br>
-                            <input type="radio" name="ed_izm" value="2" onclick="changeEdIzm();"> &nbsp;кгс/см&sup2;<br>
-                            <input type="radio" name="ed_izm" value="3" onclick="changeEdIzm();"> &nbsp;кгс/м&sup2;<br>
-                            <input type="radio" name="ed_izm" value="4" onclick="changeEdIzm();"> &nbsp;kPa <br>
-                            <input type="radio" name="ed_izm" value="5" onclick="changeEdIzm();"> &nbsp;MPa <br>
-                            <input type="radio" name="ed_izm" value="6" onclick="changeEdIzm();"> &nbsp;kgf/sm&sup2;
-                            <br>
-                            <input type="radio" name="ed_izm" value="7" onclick="changeEdIzm();">&nbsp;kgf/m&sup2; <br>
-                            <input type="radio" name="ed_izm" value="8" onclick="changeEdIzm();">&nbsp;bar <br>
-                            <input type="radio" name="ed_izm" value="9" onclick="changeEdIzm();">&nbsp;mbar <br>
-                        </fieldset>
-                    </div>
-                </td>
-                <td class="topAlig">
-                    <div id="stat"></div>
-                </td>
-                <td class="topAlig">
-                    <div id="otput"></div>
-                </td>
-                <td class="topAlig">
-                    <div id="du"></div>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr >
-                <td >
-                    <div id="limits">
-                        <table class="lim" cellspacing="0">
-                            <tr>
-                                <td class="width60" colspan="3">
-                                    Пределы измерений
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="width60">нижн</td>
-                                <td class="width60" colspan="2">верх</td>
-                            </tr>
-                            <tr>
-                                <td class="width60"><input name="low" id="low" type="text" size="8"
-                                                           onkeydown="changeNsLimit()">
-                                </td>
-                                <td class="width60"><input type="text" name="hi" id="hi" size="8"
-                                                           onkeydown="changeNsLimit()"></td>
-                                <td class="width60"><select name="hid" id="hid" style="width:80px;"
-                                                            onchange="changeLimit();">
+<div id="head">
+    <label><input type="radio" name="typeTxt" value="0"> &quot;Сафiр М&quot;</label>
+    <label><input type="radio" name="typeTxt" value="1"> &quot;Сафiр&quot; </label>
+    <label><input type="radio" name="typeTxt" value="2"> СМХ </label>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    Перед спецификацией &nbsp;&nbsp;
+    <input type="text" name="beforeSpec" id="beforeSpec" size="40">
 
 
-                                </select></select>
+</div>
+<div id="model">
+<table cellspacing="0" class="models">
+<tbody>
+<tr>
+    <td class="silver_rb">  &nbsp;</td>
+    <td class="silver_b">..01</td>
+    <td class="silver_b">..10</td>
+    <td class="silver_rb">..15</td>
+    <td class="silver_b">..20</td>
+    <td class="silver_rb">..24</td>
+    <td class="silver_b">..30</td>
+    <td class="silver_b">..33</td>
+    <td class="silver_b">..34</td>
+    <td class="silver_rb">..35</td>
+    <td class="silver_b">..40</td>
+    <td class="silver_b">..41</td>
+    <td class="silver_b">..42</td>
+    <td class="silver_b">..43</td>
+    <td class="silver_b">..44</td>
+    <td class="silver_rb">..45</td>
+    <td class="silver_b">..50</td>
+    <td class="silver_b">..51</td>
+    <td class="silver_b">..52</td>
+    <td class="silver_b">..53</td>
+    <td class="silver_b">..54</td>
+    <td class="silver_rb">..55</td>
+    <td class="silver_b">..60</td>
+    <td class="silver_b">..61</td>
+    <td class="silver_b">..62</td>
+    <td class="silver_b">..63</td>
+    <td class="silver_rb">..64</td>
+    <td class="silver_b">..70</td>
+    <td class="silver_b">..71</td>
+</tr>
+<tr>
+    <td class="silver_r">50..</td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver_r">&nbsp;</td>
+    <td class="row0  silver "><input type="radio" value="5020" name="model" onclick="test();"></td>
+    <td class="row0 silver_r">&nbsp;</td>
+    <td class="row0  silver "><input type="radio" value="5030" name="model" onclick="test();"></td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver_r">&nbsp;</td>
+    <td class="row0  silver "><input type="radio" value="5040" name="model" onclick="test();"></td>
+    <td class="row0  silver "><input type="radio" value="5041" name="model" onclick="test();"></td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver_r">&nbsp;</td>
+    <td class="row0  silver "><input type="radio" value="5050" name="model" onclick="test();"></td>
+    <td class="row0  silver "><input type="radio" value="5051" name="model" onclick="test();"></td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver_r">&nbsp;</td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver_r">&nbsp;</td>
+    <td class="row0 silver">&nbsp;</td>
+    <td class="row0 silver">&nbsp;</td>
+</tr>
+<tr>
+    <td class="silver_r">51..</td>
+    <td class="row1  silver "><input type="radio" value="5101" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5110" name="model" onclick="test();"></td>
+    <td class="row1  silver_r "><input type="radio" value="5115" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5120" name="model" onclick="test();"></td>
+    <td class="row1 silver_r">&nbsp;</td>
+    <td class="row1  silver "><input type="radio" value="5130" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5133" name="model" onclick="test();"></td>
+    <td class="row1 silver">&nbsp;</td>
+    <td class="row1  silver_r "><input type="radio" value="5135" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5140" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5141" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5142" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5143" name="model" onclick="test();"></td>
+    <td class="row1 silver">&nbsp;</td>
+    <td class="row1  silver_r "><input type="radio" value="5145" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5150" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5151" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5152" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5153" name="model" onclick="test();"></td>
+    <td class="row1 silver">&nbsp;</td>
+    <td class="row1  silver_r "><input type="radio" value="5155" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5160" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5161" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5162" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5163" name="model" onclick="test();"></td>
+    <td class="row1 silver_r">&nbsp;</td>
+    <td class="row1  silver "><input type="radio" value="5170" name="model" onclick="test();"></td>
+    <td class="row1  silver "><input type="radio" value="5171" name="model" onclick="test();"></td>
+</tr>
+<tr>
+    <td class="silver_r">52..</td>
+    <td class="row2  silver "><input type="radio" value="5201" name="model" onclick="test();"></td>
+    <td class="row2  silver "><input type="radio" value="5210" name="model" onclick="test();"></td>
+    <td class="row2  silver_r "><input type="radio" value="5215" name="model" onclick="test();"></td>
+    <td class="row2  silver "><input type="radio" value="5220" name="model" onclick="test();"></td>
+    <td class="row2 silver_r">&nbsp;</td>
+    <td class="row2  silver "><input type="radio" value="5230" name="model" onclick="test();"></td>
+    <td class="row2  silver "><input type="radio" value="5233" name="model" onclick="test();"></td>
+    <td class="row2 silver">&nbsp;</td>
+    <td class="row2  silver_r "><input type="radio" value="5235" name="model" onclick="test();"></td>
+    <td class="row2  silver "><input type="radio" value="5240" name="model" onclick="test();"></td>
+    <td class="row2  silver "><input type="radio" value="5241" name="model" onclick="test();"></td>
+    <td class="row2  silver "><input type="radio" value="5242" name="model" onclick="test();"></td>
+    <td class="row2  silver "><input type="radio" value="5243" name="model" onclick="test();"></td>
+    <td class="row2 silver">&nbsp;</td>
+    <td class="row2  silver_r "><input type="radio" value="5245" name="model" onclick="test();"></td>
+    <td class="row2 silver">&nbsp;</td>
+    <td class="row2 silver">&nbsp;</td>
+    <td class="row2 silver">&nbsp;</td>
+    <td class="row2 silver">&nbsp;</td>
+    <td class="row2 silver">&nbsp;</td>
+    <td class="row2 silver_r">&nbsp;</td>
+    <td class="row2 silver">&nbsp;</td>
+    <td class="row2 silver">&nbsp;</td>
+    <td class="row2 silver">&nbsp;</td>
+    <td class="row2 silver">&nbsp;</td>
+    <td class="row2 silver_r">&nbsp;</td>
+    <td class="row2 silver">&nbsp;</td>
+    <td class="row2 silver">&nbsp;</td>
+</tr>
+<tr>
+    <td class="silver_r">53..</td>
+    <td class="row3  silver "><input type="radio" value="5301" name="model" onclick="test();"></td>
+    <td class="row3  silver "><input type="radio" value="5310" name="model" onclick="test();"></td>
+    <td class="row3  silver_r "><input type="radio" value="5315" name="model" onclick="test();"></td>
+    <td class="row3  silver "><input type="radio" value="5320" name="model" onclick="test();"></td>
+    <td class="row3 silver_r">&nbsp;</td>
+    <td class="row3  silver "><input type="radio" value="5330" name="model" onclick="test();"></td>
+    <td class="row3  silver "><input type="radio" value="5333" name="model" onclick="test();"></td>
+    <td class="row3 silver">&nbsp;</td>
+    <td class="row3  silver_r "><input type="radio" value="5335" name="model" onclick="test();"></td>
+    <td class="row3  silver "><input type="radio" value="5340" name="model" onclick="test();"></td>
+    <td class="row3  silver "><input type="radio" value="5341" name="model" onclick="test();"></td>
+    <td class="row3  silver "><input type="radio" value="5342" name="model" onclick="test();"></td>
+    <td class="row3  silver "><input type="radio" value="5343" name="model" onclick="test();"></td>
+    <td class="row3 silver">&nbsp;</td>
+    <td class="row3  silver_r "><input type="radio" value="5345" name="model" onclick="test();"></td>
+    <td class="row3  silver "><input type="radio" value="5350" name="model" onclick="test();"></td>
+    <td class="row3  silver "><input type="radio" value="5351" name="model" onclick="test();"></td>
+    <td class="row3  silver "><input type="radio" value="5352" name="model" onclick="test();"></td>
+    <td class="row3  silver "><input type="radio" value="5353" name="model" onclick="test();"></td>
+    <td class="row3 silver">&nbsp;</td>
+    <td class="row3  silver_r "><input type="radio" value="5355" name="model" onclick="test();"></td>
+    <td class="row3 silver">&nbsp;</td>
+    <td class="row3 silver">&nbsp;</td>
+    <td class="row3 silver">&nbsp;</td>
+    <td class="row3 silver">&nbsp;</td>
+    <td class="row3 silver_r">&nbsp;</td>
+    <td class="row3 silver">&nbsp;</td>
+    <td class="row3 silver">&nbsp;</td>
+</tr>
+<tr>
+    <td class="silver_r">54..</td>
+    <td class="row4  silver "><input type="radio" value="5401" name="model" onclick="test();"></td>
+    <td class="row4  silver "><input type="radio" value="5410" name="model" onclick="test();"></td>
+    <td class="row4  silver_r "><input type="radio" value="5415" name="model" onclick="test();"></td>
+    <td class="row4  silver "><input type="radio" value="5420" name="model" onclick="test();"></td>
+    <td class="row4  silver_r "><input type="radio" value="5424" name="model" onclick="test();"></td>
+    <td class="row4  silver "><input type="radio" value="5430" name="model" onclick="test();"></td>
+    <td class="row4 silver">&nbsp;</td>
+    <td class="row4  silver "><input type="radio" value="5434" name="model" onclick="test();"></td>
+    <td class="row4 silver_r">&nbsp;</td>
+    <td class="row4  silver "><input type="radio" value="5440" name="model" onclick="test();"></td>
+    <td class="row4 silver">&nbsp;</td>
+    <td class="row4 silver">&nbsp;</td>
+    <td class="row4 silver">&nbsp;</td>
+    <td class="row4  silver "><input type="radio" value="5444" name="model" onclick="test();"></td>
+    <td class="row4 silver_r">&nbsp;</td>
+    <td class="row4  silver "><input type="radio" value="5450" name="model" onclick="test();"></td>
+    <td class="row4 silver">&nbsp;</td>
+    <td class="row4 silver">&nbsp;</td>
+    <td class="row4 silver">&nbsp;</td>
+    <td class="row4  silver "><input type="radio" value="5454" name="model" onclick="test();"></td>
+    <td class="row4 silver_r">&nbsp;</td>
+    <td class="row4  silver "><input type="radio" value="5460" name="model" onclick="test();"></td>
+    <td class="row4 silver">&nbsp;</td>
+    <td class="row4 silver">&nbsp;</td>
+    <td class="row4 silver">&nbsp;</td>
+    <td class="row4  silver_r "><input type="radio" value="5464" name="model" onclick="test();"></td>
+    <td class="row4 silver">&nbsp;</td>
+    <td class="row4 silver">&nbsp;</td>
+</tr>
+<tr>
+    <td class="silver_r">55..</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver_r">&nbsp;</td>
+    <td class="row5  silver "><input type="radio" value="5520" name="model" onclick="test();"></td>
+    <td class="row5 silver_r">&nbsp;</td>
+    <td class="row5  silver "><input type="radio" value="5530" name="model" onclick="test();"></td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver_r">&nbsp;</td>
+    <td class="row5  silver "><input type="radio" value="5540" name="model" onclick="test();"></td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver_r">&nbsp;</td>
+    <td class="row5  silver "><input type="radio" value="5550" name="model" onclick="test();"></td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver_r">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver_r">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+    <td class="row5 silver">&nbsp;</td>
+</tr>
 
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-                <td>
-                    <div id="options">
-                        <table class="opt" cellspacing="0">
-                            <tr>
-                                <td class="width60" colspan="7">
-                                    Опции
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col3">КМЧ</td>
-                                <td class="col3">-И</td>
-                                <td class="col3">-ПИ</td>
-                                <td class="col3">-П</td>
-                                <td class="col3">-ВМ</td>
-                                <td class="col3">-Хим</td>
-                                <td class="col3">-Р</td>
-                            </tr>
-                            <tr>
-                                <td class="col3"><select name="kmch" style="width:60px;"></select></td>
-                                <td class="col3"><input type="checkbox" name="i" id="i"></td>
-                                <td class="col3"><input type="checkbox" name="pi" id="PI"></td>
-                                <td class="col3"><input type="checkbox" name="p" id="p"></td>
-                                <td class="col3"><input type="checkbox" name="vm" id="vm"></td>
-                                <td class="col3"><input type="checkbox" name="him" id="him"></td>
-                                <td class="col3"><input type="checkbox" name="r" id="r"></td>
+</tbody>
+</table>
+</div>
 
 
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-                <td>
-                    <div id="right">
-                        <label> <input type="checkbox" name="tu" id="tu"> &nbsp; ТУ </label>
-                        <br>  После спецификации: <br>
-                        <input type="text" name="afterSpec" id="afterSpec" size="40">
+<table>
+    <tr>
+        <td class="topAlig">
+            <div id="ispolnenie"></div>
+        </td>
+        <td class="topAlig">
+            <div id="materials"></div>
+        </td>
+        <td class="topAlig">
+            <div id="klimat" style="visibility:hidden;">
+                <fieldset>
+                    <legend>Климатика</legend>
+                    <input type="radio" checked name="klim" value="0"> &nbsp;УХЛ3.1* <br>
+                    <input type="radio" name="klim" value="1"> &nbsp;УХЛ3.1* (+5..+50) <br>
+                    <input type="radio" name="klim" value="2"> &nbsp;УХЛ3.1* (+5..+80) <br><br>
+                    <input type="radio" name="klim" value="3"> &nbsp;У2*<br>
+                    <input type="radio" name="klim" value="4"> &nbsp;У2* (-30..+50) <br>
+                    <input type="radio" name="klim" value="5"> &nbsp;У2* (-40..+50) <br><br>
+                    <input type="radio" name="klim" value="6"> &nbsp;Т3**<br>
+                    <input type="radio" name="klim" value="7"> &nbsp;Т3** (-5..+80) <br>
+                </fieldset>
+            </div>
+        </td>
+        <td class="topAlig">
+            <div id="errors"></div>
+        </td>
+        <td class="topAlig">
+            <div id="ed_izm" style="visibility:hidden;">
+                <fieldset>
+                    <legend>ед. измер.</legend>
+                    <input type="radio" name="ed_izm" value="0" onclick="changeEdIzm();"> &nbsp;кПа<br>
+                    <input type="radio" name="ed_izm" value="1" onclick="changeEdIzm();"> &nbsp;МПа<br>
+                    <input type="radio" name="ed_izm" value="2" onclick="changeEdIzm();"> &nbsp;кгс/см&sup2;<br>
+                    <input type="radio" name="ed_izm" value="3" onclick="changeEdIzm();"> &nbsp;кгс/м&sup2;<br>
+                    <input type="radio" name="ed_izm" value="4" onclick="changeEdIzm();"> &nbsp;kPa <br>
+                    <input type="radio" name="ed_izm" value="5" onclick="changeEdIzm();"> &nbsp;MPa <br>
+                    <input type="radio" name="ed_izm" value="6" onclick="changeEdIzm();"> &nbsp;kgf/сm&sup2; <br>
+                    <input type="radio" name="ed_izm" value="7" onclick="changeEdIzm();">&nbsp;kgf/m&sup2; <br>
+                    <input type="radio" name="ed_izm" value="8" onclick="changeEdIzm();">&nbsp;bar <br>
+                    <input type="radio" name="ed_izm" value="9" onclick="changeEdIzm();">&nbsp;mbar <br>
+                </fieldset>
+            </div>
+        </td>
+        <td class="topAlig">
+            <div id="stat"/>
+        </td>
+        <td class="topAlig">
+            <div id="output"/>
+        </td>
+        <td class="topAlig">
+            <div id="du"/>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            <div id="limits">
+                <table class="lim" cellspacing="0">
+                    <tr>
+                        <td class="width60" colspan="3">
+                            Пределы измерений
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="width60">нижн</td>
+                        <td class="width60" colspan="2">верх</td>
+                    </tr>
+                    <tr>
+                        <td class="width60"><input name="low" id="low" type="text" size="8"
+                                                   onkeydown="changeNsLimit()">
+                        </td>
+                        <td class="width60"><input type="text" name="hi" id="hi" size="8"
+                                                   onkeydown="changeNsLimit()"></td>
+                        <td class="width60"><select name="hid" id="hid" style="width:80px;"
+                                                    onchange="changeLimit();">
 
-                    </div>
-                </td>
-            </tr>
-        </table>
+
+                        </select></select>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+        <td>
+            <div id="options">
+                <table class="opt" cellspacing="0">
+                    <tr>
+                        <td class="width60" colspan="7">
+                            Опции
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col3">КМЧ</td>
+                        <td class="col3">-И</td>
+                        <td class="col3">-ПИ</td>
+                        <td class="col3">-П</td>
+                        <td class="col3">-ВМ</td>
+                        <td class="col3">-Хим</td>
+                        <td class="col3">-Р</td>
+                    </tr>
+                    <tr>
+                        <td class="col3"><select name="kmch" style="width:60px;" id="kmch"></select></td>
+                        <td class="col3"><input type="checkbox" name="i" id="i"></td>
+                        <td class="col3"><input type="checkbox" name="pi" id="PI"></td>
+                        <td class="col3"><input type="checkbox" name="p" id="p"></td>
+                        <td class="col3"><input type="checkbox" name="vm" id="vm"></td>
+                        <td class="col3"><input type="checkbox" name="him" id="him"></td>
+                        <td class="col3"><input type="checkbox" name="r" id="r"></td>
 
 
-        <input type="hidden" value="addPressureSensor" name="method">
+                    </tr>
+                </table>
+            </div>
+        </td>
+        <td>
+            <div id="right">
+                <label> <input type="checkbox" name="tu" id="tu"> &nbsp; ТУ </label>
+                <br> После спецификации: <br>
+                <input type="text" name="afterSpec" id="afterSpec" size="40">
 
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+<input type="hidden" value="addPressureSensor" name="method">
 
 
 </div>
 <div id="downButtons">
-            <input type="submit" value="Отправить">
-            <input type="button" value="Отменить" onclick="cancel();">
+    <input type="submit" value="Отправить">
+    <input type="button" value="Отменить" onclick="cancel();">
 
-        </div>
- </form>
-</body>
-</html>
+</div>
+</form>
 
 
 

@@ -23,48 +23,48 @@ public class InvoiceFilter {
     Date f2From;
     Date f2To;
 
-    @Type(type = "ua.com.manometer.util.LongArrayCustomType")
-    Long[] users;
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    List<Integer> users;
 
-    @Type(type = "ua.com.manometer.util.LongArrayCustomType")
-    Long[] purposeFilter;
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    List<Integer> purposeFilter;
 
-    @Type(type = "ua.com.manometer.util.LongArrayCustomType")
-    Long[] stateFilter;
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    List<Integer> stateFilter;
 
-    @Type(type = "ua.com.manometer.util.LongArrayCustomType")
-    Long[] currencyFilter;
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    List<Integer> currencyFilter;
 
 
-    public Long[] getCurrencyFilter() {
+    public List<Integer> getCurrencyFilter() {
         return currencyFilter;
     }
 
-    public void setCurrencyFilter(Long[] currencyFilter) {
+    public void setCurrencyFilter(List<Integer> currencyFilter) {
         this.currencyFilter = currencyFilter;
     }
 
-    public Long[] getStateFilter() {
+    public List<Integer> getStateFilter() {
         return stateFilter;
     }
 
-    public void setStateFilter(Long[] stateFilter) {
+    public void setStateFilter(List<Integer> stateFilter) {
         this.stateFilter = stateFilter;
     }
 
-    public Long[] getPurposeFilter() {
+    public List<Integer> getPurposeFilter() {
         return purposeFilter;
     }
 
-    public void setPurposeFilter(Long[] purposeFilter) {
+    public void setPurposeFilter(List<Integer> purposeFilter) {
         this.purposeFilter = purposeFilter;
     }
 
-    public Long[] getUsers() {
+    public List<Integer> getUsers() {
         return users;
     }
 
-    public void setUsers(Long[] users) {
+    public void setUsers(List<Integer> users) {
         this.users = users;
     }
 

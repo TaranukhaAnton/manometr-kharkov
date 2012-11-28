@@ -41,9 +41,9 @@ $(function() {
 
 
     $("#date").datepicker({
-        showOn: 'button',
-        buttonImage: '../images/datepicker.jpg',
-        buttonImageOnly: true
+//        showOn: 'button',
+//        buttonImage: '../images/datepicker.jpg',
+//        buttonImageOnly: true
     });
     var dates = $("#f2_from, #f2_to").datepicker({
         showOn: 'button',
@@ -59,48 +59,28 @@ $(function() {
 
 
     $("#consumer").autocomplete(
-        "../customers/listCustomers", {
+         {
+             source:"../customers/listCustomers",
             width:260,
-            selectFirst:false,
-            parse:function (data) {
-                var array = new Array();
-                for (var i = 0; i < data.length; i++) {
-                    array[array.length] ={
-                        data: [data[i].shortName],
-                        value: data[i].shortName,
-                        result: data[i].shortName
-                    };
-
-                }
-                return array;
-            }
+            selectFirst:false
         });
 
     $("#employer").autocomplete(
-        "../customers/listCustomers", {
+         {
+            source:"../customers/listCustomers",
             width:260,
-            selectFirst:false,
-            parse:function (data) {
-                var array = new Array();
-                for (var i = 0; i < data.length; i++) {
-                    array[array.length] ={
-                        data: [data[i].shortName],
-                        value: data[i].shortName,
-                        result: data[i].shortName
-                    };
-
-                }
-                return array;
-            }
+            selectFirst:false
         });
 
 
     $("#ui-datepicker-div").css("z-index", 1000000); //задаем z-index
-
+//    $("#ui-id-1").css("z-index", 1000000); //задаем z-index
+//    $("#ui-id-2").css("z-index", 1000000); //задаем z-index
+//    $("#newInvoice-div").css("overflow", "hidden");
     $("#newInvoice-div").dialog({
         autoOpen: false,
         height: 400,
-        width: 350,
+        width: 450,
         modal: true,
         resizable:false,
         buttons: {
@@ -109,29 +89,30 @@ $(function() {
                 $('#numberModifier').removeClass("error");
                 $('#date').removeClass("error");
                 $('#consumer').removeClass("error");
-                $('#emploer').removeClass("error");
+                $('#employer').removeClass("error");
 
-                //                        $.post("invoiceAction.do?method=verifyInvoicePresence", {"isInvoice" : $('[name=isInvoice]:checked').val(), "number":$('#number').val(), "numberModifier":$('#numberModifier').val(), "date":$('#date').val() }, function(data) {
-                $.post("add", $('#newInvoice_form').serialize(), function(data) {
-                    if (data.length > 0) {
-                        var response = eval("(" + data + ")");
-                        if (response.correct) {
-                            location.replace("invoiceAction.do?method=addInvoice&" + $('#newInvoice_form').serialize());
+                         $.post("verifyInvoicePresence", $('#newInvoice_form').serialize(),
+                             function(data) {
+//                $.post("add", $('#newInvoice_form').serialize(), function(data) {
+                  //  if (data.length > 0) {
+                   //     var response = eval("(" + data + ")");
+                        if (data.correct) {
+                            location.replace("add?" + $('#newInvoice_form').serialize());
                         } else {
-                            alert(response.mes);
-                            if (!response.presence) {
+                            alert(data.mes);
+                            if (data.presence) {
                                 $('#number').addClass("error");
                                 $('#numberModifier').addClass("error");
                                 $('#date').addClass("error");
                             }
-                            if (!response.emploer) {
-                                $('#emploer').addClass("error");
+                            if (!data.employer) {
+                                $('#employer').addClass("error");
                             }
-                            if (!response.consumer) {
+                            if (!data.consumer) {
                                 $('#consumer').addClass("error");
                             }
                         }
-                    }
+                   // }
                 });
 
 

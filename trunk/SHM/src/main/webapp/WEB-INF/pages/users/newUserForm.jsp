@@ -18,6 +18,7 @@ $(function() {
         buttonImageOnly: true
     });
 }  );
+
 </script>
 
 
@@ -135,8 +136,11 @@ $(function() {
 
         <tr>
             <td colspan="2">
-                <input type="submit"/>
+                <input type="submit" value="Записать"/>
+                <input type="button" value="Отмена" onclick=" window.location.replace( '../users/' );" >
             </td>
         </tr>
     </table>
+
+
 </form:form>

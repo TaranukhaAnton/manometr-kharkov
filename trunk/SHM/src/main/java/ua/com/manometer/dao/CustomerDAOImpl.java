@@ -1,5 +1,6 @@
 package ua.com.manometer.dao;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,19 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public List<Customer> findByShortNameExample(String customerTemplate) {
+    public List<String> findByShortNameExample(String customerTemplate) {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("SELECT DISTINCT  c.shortName FROM customer c WHERE c.status = 'Y' AND c.shortName LIKE '" + customerTemplate + "%'");
 
-        return sessionFactory.getCurrentSession().createCriteria(Customer.class).
-                add(Restrictions.eq("status", true)).add(Restrictions.like("shortName", customerTemplate + "%")).list();
+        List<String> list = (List<String>) query.list();
+        return list;
 
+    }
+
+    @Override
+    public Boolean isCustomerPresent(String customer) {
+        Query query = sessionFactory.getCurrentSession().
+                createSQLQuery("select IF(count(*)>0, 'true','false' ) from Customer c where c.shortName = '" + customer + "'  and c.status = 'Y'");
+        return new Boolean((String) query.uniqueResult());
     }
 
     @Override
