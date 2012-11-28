@@ -296,8 +296,8 @@
 
 
 <%
-    GenericHibernateDAO<ModelDescription> dao = Factory.getModelDescriptionDAO();
-    List<ModelDescription> result = dao.findAll();
+  //  GenericHibernateDAO<ModelDescription> dao = Factory.getModelDescriptionDAO();
+    List<ModelDescription> result = (List<ModelDescription>) request.getAttribute("models");
 //    System.out.println("result.size() = " + result.size());
 //    //int k=0;
 //    for (int k = 0; k < result.size(); k++) {

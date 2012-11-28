@@ -1,10 +1,8 @@
 package ua.com.manometer.model.price;
 
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 
@@ -116,61 +114,9 @@ public class PriceFirstPart {
     {
         return "isp=" +isp+" model="+model+" mat="+mat+  " klim= "+klim+ " err="+err+ " cost="   +cost+" price="+price;
     }
-}
 
 
 
-@Embeddable
- class IdPrice implements Serializable {
-    private Integer model;
-
-    private Integer isp;
-
-    private Integer mat;
-
-    private Integer klim;
-
-    private Integer err;
-
-    public Integer getModel() {
-        return model;
-    }
-
-    public void setModel(Integer model) {
-        this.model = model;
-    }
-
-    public Integer getIsp() {
-        return isp;
-    }
-
-    public void setIsp(Integer isp) {
-        this.isp = isp;
-    }
-
-    public Integer getMat() {
-        return mat;
-    }
-
-    public void setMat(Integer mat) {
-        this.mat = mat;
-    }
-
-    public Integer getKlim() {
-        return klim;
-    }
-
-    public void setKlim(Integer klim) {
-        this.klim = klim;
-    }
-
-    public Integer getErr() {
-        return err;
-    }
-
-    public void setErr(Integer err) {
-        this.err = err;
-    }
 
 
 

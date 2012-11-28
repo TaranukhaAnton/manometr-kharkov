@@ -1,4 +1,5 @@
 package ua.com.manometer.dao.invoice;
+import ua.com.manometer.model.invoice.Invoice;
 import ua.com.manometer.model.invoice.InvoiceItem;
 
 import org.hibernate.SessionFactory;
@@ -14,8 +15,8 @@ public class InvoiceItemDAOImpl implements InvoiceItemDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public void addInvoiceItem(InvoiceItem invoiceitem) {
-        sessionFactory.getCurrentSession().save(invoiceitem);
+    public void saveInvoiceItem(InvoiceItem invoiceitem) {
+        sessionFactory.getCurrentSession().saveOrUpdate(invoiceitem);
     }
 
     @SuppressWarnings("unchecked")
@@ -30,6 +31,11 @@ public class InvoiceItemDAOImpl implements InvoiceItemDAO {
         if (invoiceitem != null) {
             sessionFactory.getCurrentSession().delete(invoiceitem);
         }
+    }
+
+    @Override
+    public InvoiceItem getInvoiceItem(Long id) {
+        return (InvoiceItem) sessionFactory.getCurrentSession().get(InvoiceItem.class, id);
     }
 
 }

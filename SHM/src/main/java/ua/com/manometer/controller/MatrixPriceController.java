@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ua.com.manometer.model.price.IdPrice;
 import ua.com.manometer.model.price.PriceFirstPart;
 import ua.com.manometer.service.price.PriceFirstPartService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 @Controller
 @RequestMapping("/matrix_price")
@@ -64,7 +63,7 @@ public class MatrixPriceController {
 
     @RequestMapping("/getItems")
     @ResponseBody
-    public  List<PriceFirstPart> getItemsPrice( HttpServletRequest request)
+    public List<PriceFirstPart> getItemsPrice(HttpServletRequest request)
             throws Exception {
         System.out.println("PriceController.getItemsPrice");
         List<Integer> models = new LinkedList<Integer>();
@@ -75,26 +74,25 @@ public class MatrixPriceController {
         StringTokenizer tokenizer;
 
         tokenizer = new StringTokenizer(request.getParameter("models"), "|", false);
-        for (; tokenizer.hasMoreTokens();)
+        for (; tokenizer.hasMoreTokens(); )
             models.add(new Integer(tokenizer.nextToken()));
 
         tokenizer = new StringTokenizer(request.getParameter("err"), "|", false);
-        for (; tokenizer.hasMoreTokens();)
+        for (; tokenizer.hasMoreTokens(); )
             err.add(new Integer(tokenizer.nextToken()));
 
         tokenizer = new StringTokenizer(request.getParameter("mat"), "|", false);
-        for (; tokenizer.hasMoreTokens();)
+        for (; tokenizer.hasMoreTokens(); )
             mat.add(new Integer(tokenizer.nextToken()));
         tokenizer = new StringTokenizer(request.getParameter("klim"), "|", false);
-        for (; tokenizer.hasMoreTokens();)
+        for (; tokenizer.hasMoreTokens(); )
             clime.add(new Integer(tokenizer.nextToken()));
         tokenizer = new StringTokenizer(request.getParameter("isp"), "|", false);
-        for (; tokenizer.hasMoreTokens();)
+        for (; tokenizer.hasMoreTokens(); )
             isp.add(new Integer(tokenizer.nextToken()));
         List<PriceFirstPart> result = priceFirstPartService.getItems(models, err, mat, clime, isp);
         return result;
     }
-
 
 
     @RequestMapping("/applyTmp")
@@ -119,6 +117,14 @@ public class MatrixPriceController {
         System.out.println("PriceController.priceValuesToTmp");
         priceFirstPartService.priceValuesToTmp();
         return null;
+    }
+
+    @RequestMapping("/isAvailable")
+    @ResponseBody
+    public Map isAvailable(IdPrice item) {
+        Map map = new HashMap();
+        map.put("available", priceFirstPartService.modelAvailableToSell(item));
+        return map;
     }
 
 

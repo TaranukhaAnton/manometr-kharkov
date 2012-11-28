@@ -23,13 +23,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public void addCustomer(Customer customer) {
 
-        if ((customer.getHeadCustomer()!=null)&&( StringUtils.isNotEmpty(customer.getHeadCustomer().getShortName()))) {
+        if ((customer.getHeadCustomer() != null) && (StringUtils.isNotEmpty(customer.getHeadCustomer().getShortName()))) {
             Customer headCustomer = customerDAO.getCustomerByShortName(customer.getHeadCustomer().getShortName());
             customer.setHeadCustomer(headCustomer);
         } else {
             customer.setHeadCustomer(null);
         }
-        if ((customer.getOldRecord()!=null)&&(StringUtils.isNotEmpty(customer.getOldRecord().getShortName()))) {
+        if ((customer.getOldRecord() != null) && (StringUtils.isNotEmpty(customer.getOldRecord().getShortName()))) {
             Customer oldRecord = customerDAO.getCustomerByShortName(customer.getOldRecord().getShortName());
             customer.setOldRecord(oldRecord);
         } else {
@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         //todo
-        if (customer.getOrgForm()!=null){
+        if (customer.getOrgForm() != null) {
             final OrgForm orgForm = orgFormDAO.getOrgForm(customer.getOrgForm().getId());
             customer.setOrgForm(orgForm);
         }
@@ -66,7 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public List<Customer> findByShortNameExample(String customerTemplate) {
+    public List<String> findByShortNameExample(String customerTemplate) {
         return customerDAO.findByShortNameExample(customerTemplate);
 
     }
@@ -75,6 +75,16 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public Customer getCustomerByShortName(String shortName) {
         return customerDAO.getCustomerByShortName(shortName);
+    }
+
+
+    @Override
+    @Transactional
+    public Boolean isCustomerPresent(String customer) {
+        if (StringUtils.isBlank(customer)) {
+            return false;
+        }
+        return customerDAO.isCustomerPresent(customer);
     }
 
 

@@ -1,64 +1,23 @@
-<%@ taglib prefix="logic" uri="http://struts.apache.org/tags-logic" %>
-<%@ taglib prefix="bean" uri="http://jakarta.apache.org/struts/tags-bean" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="html" uri="http://jakarta.apache.org/struts/tags-html" %>
-<%@ page import="application.data.Supplier" %>
-<%@ page import="application.data.invoice.Invoice" %>
-<%@ page import="application.hibernate.Factory" %>
-<%@ page import="java.math.RoundingMode" %>
+
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.List" %>
-<%@ page import="application.data.invoice.InvoiceItem" %>
-<%@ page import="application.data.invoice.Booking" %>
 <%@ page import="java.util.Calendar" %>
+<%@ page import="ua.com.manometer.model.invoice.Invoice" %>
+<%@ page import="ua.com.manometer.model.Supplier" %>
+<%@ page import="ua.com.manometer.model.invoice.InvoiceItem" %>
+<%@ page import="ua.com.manometer.model.invoice.Booking" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head><title>Simple jsp page</title>
 
 
-    <link rel="stylesheet" type="text/css" href="css/jquery.autocomplete.css"/>
 
-    <script type="text/javascript" src="js/ui/jquery-1.4.1.js"/>
-    <script type="text/javascript" src="js/ui/jquery.bgiframe-2.1.1.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.core.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.widget.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.mouse.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.button.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.draggable.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.position.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.resizable.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.dialog.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.tabs.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.effects.core.js"></script>
-    <script type='text/javascript' src="js/jquery.autocomplete.js"></script>
-    <script type="text/javascript" src="js/editInvoice.js"></script>
-    <%--<link rel="stylesheet" type="text/css" href="css/datepicker.css"/>--%>
-
-    <script src="js/ui/i18n/jquery.ui.datepicker-ru.js"></script>
-    <script src="js/ui/jquery.ui.datepicker.js"></script>
-
-    <%--<script src="js/datepicker.js" type="text/javascript" charset="UTF-8" language="javascript"></script>--%>
-    <link type="text/css" href=" css/tst/jquery.ui.all.css" rel="stylesheet"/>
-    <%--<link type="text/css" href="/Manometr/css/tst/ui.all.css" rel="stylesheet"/>--%>
-    <link rel="stylesheet" type="text/css" href="css/invoice.css"/>
-
-    <style type="text/css">
-        #invItemsContent {
-            overflow-y: auto;
-            overflow-x: hidden;
-            height: 100%;
-        }
-
-        .error {
-            border-color: #ff9999;
-            border-width: 2px;
-        }
-    </style>
+<script type="text/javascript" src="../js/local/editInvoice.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/invoice.css"/>
 
 
-</head>
 <body onResize="bodyResize();">
 <%
 
@@ -97,9 +56,7 @@
 
     <td><select name="supplier" id="supplier" onkeypressEn="true"   <%= changesAllowed ? "" : "disabled=\"true\"" %>
                 onchange="paramChange('supplier','any',supplierChange);">
-        <% List<Supplier> supplierList = Factory.getSupplierDAO().findAll();
-
-
+        <% List<Supplier> supplierList = (List<Supplier>) request.getAttribute("supplierList");
             for (Supplier supplier : supplierList) { %>
         <option value="<%=supplier.getId()%>"  <%=(supplier.getId().equals(invoice.getSupplier().getId())) ? "selected" : ""%>    ><%=supplier.getAlias()%>
         </option>
@@ -118,9 +75,9 @@
         Заказчик
     </td>
     <td colspan="3"><input type="text"  <%= changesAllowed ? "" : textFieldDisab %>
-                           value="<%= (invoice.getEmploer() ==null)?"":invoice.getEmploer().getShortName()%>"
+                           value="<%= invoice.getEmployer()%>"
                            id="employer" name="employer" onkeypressEn="true"
-                           onblur="paramChange('emploer','any',customerSetup);"/>
+                           onblur="paramChange('employer','any',customerSetup);"/>
     </td>
     <td>
         Вниманию
@@ -155,7 +112,7 @@
     <td>Конечный</td>
     <td colspan="3"><input
             type="text"   <%= invoice.getCurrentState().equals(Invoice.STATE_CHERN) ? "" : textFieldDisab %>
-            value="<%= (invoice.getConsumer() ==null)?"":invoice.getConsumer().getShortName()  %>"
+            value="<%= invoice.getConsumer() %>"
             id="consumer" name="consumer" onkeypressEn="true"
             onblur="paramChange('consumer','any',customerSetup);"/></td>
     <td>Срок пост</td>
@@ -231,7 +188,7 @@
     <td><input type="text"
                value="<%= (invoice.getProbabilityOfPayment()==null)?"":invoice.getProbabilityOfPayment() %>"
                id="probabilityOfPayment"
-               name="paymentOnTheNitice"
+               name="probabilityOfPayment"
                onkeypress='return digInput(event)'
                onkeypressEn="true"
                onkeydown="paramChange('probabilityOfPayment','dig');"
@@ -245,10 +202,10 @@
     <td>по извещ</td>
     <td><input type="text"
             <%= changesAllowed ? "" : textFieldDisab %>
-               value="<%= (invoice.getPaymentOnTheNitice()==null)?"":invoice.getPaymentOnTheNitice() %>"
-               id="paymentOnTheNitice"
-               name="paymentOnTheNitice" onkeypress='return digInput(event)'
-               onkeypressEn="true" onkeydown="paramChange('paymentOnTheNitice','float');" class="width40"/></td>
+               value="<%= (invoice.getPaymentOnTheNotice()==null)?"":invoice.getPaymentOnTheNotice() %>"
+               id="paymentOnTheNotice"
+               name="paymentOnTheNotice" onkeypress='return digInput(event)'
+               onkeypressEn="true" onkeydown="paramChange('paymentOnTheNotice','float');" class="width40"/></td>
     <td></td>
     <td></td>
     <td></td>
@@ -279,7 +236,7 @@
     <td>по факту</td>
     <td><input type="text"
             <%= changesAllowed ? "" : textFieldDisab %>
-               value="<%= (invoice.getPostpay()==null)?"":invoice.getPostpay() %>" id="postpay"
+               value="<%= (invoice.getPostPay()==null)?"":invoice.getPostPay() %>" id="postpay"
                name="postpay"
                onkeypress='return digInput(event)'
                onkeypressEn="true"
@@ -352,7 +309,7 @@
                 df.setMaximumFractionDigits(2);
 
 
-                String[] url = {"addCoForm", "addAoForm", "addOpForm"};
+                String[] url = {"add_co", "add_ao", "add_op"};
                 for (int i = 0; i < invoice.getInvoiceItems().size(); i++) {
                     InvoiceItem item = invoice.getInvoiceItems().get(i);
 
@@ -363,22 +320,22 @@
                 </TD>
                 <TD class="topAlign width415" align="left">
 
-                    <%if ((invoice.getInvoiceItems().get(i).getType() < 3) && changesAllowed) {%>
+                    <%if ((item.getType() < 3) && changesAllowed) {%>
 
-                    <a href="testAction.do?method=<%=url[invoice.getInvoiceItems().get(i).getType()]%>&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&invoiceItemId= <%=invoice.getInvoiceItems().get(i).getId()%>">
-                        <%= invoice.getInvoiceItems().get(i).getName() %>
+                    <a href="../invoice_item/<%=url[item.getType()]%>?invoice_id=<%= invoice.getId()%>&invoice_item_id= <%=item.getId()%>">
+                        <%= item.getName() %>
                     </a> <br>
                     <% } else { %>
-                    <%= invoice.getInvoiceItems().get(i).getName() %>
+                    <%= item.getName() %>
                     <% } %>
 
                 </TD>
                 <TD class="width70 topAlign">
-                    <input type="text" class="inp" value="<%= invoice.getInvoiceItems().get(i).getQuantity() %>"
+                    <input type="text" class="inp" value="<%= item.getQuantity() %>"
                            onkeypressEn="true"  <%= changesAllowed?"":"readonly=\"true\"" %>
-                           id="quantity<%= invoice.getInvoiceItems().get(i).getId() %>"
+                           id="quantity<%= item.getId() %>"
                            onkeypress='return digInput(event)'
-                           onkeydown="invoiceItemChange('quantity',<%= invoice.getInvoiceItems().get(i).getId() %>,'dig',<%= invoice.getId()%>);">
+                           onkeydown="invoiceItemChange('quantity',<%= item.getId() %>,'dig',<%= invoice.getId()%>);">
 
                 </TD>
                 <TD class="width70 topAlign">
@@ -432,7 +389,7 @@
                            id="sum<%=item.getId() %>" readonly="true">
 
 
-                    <%--<span id="sum<%= invoice.getInvoiceItems().get(i).getId() %>"><%= invoice.getInvoiceItems().get(i).getSum().divide(invoice.getExchangeRate() ,2, RoundingMode.HALF_UP) %></span>--%>
+                    <%--<span id="sum<%= item.getId() %>"><%= item.getSum().divide(invoice.getExchangeRate() ,2, RoundingMode.HALF_UP) %></span>--%>
                 </TD>
                 <TD class="width70 topAlign">
                     <input type="text" class="inp" value=" <%=item.getDeliveryTime() %>"
@@ -447,8 +404,8 @@
                 <TD class="width20 topAlign">
 
                     <%if (changesAllowed) {%>
-                    <a href="javascript:  if (confirm('Удалить позицию?'))  self.location.href='invoiceAction.do?method=deleteInvoiceItem&id=<%= item.getId() %>&invoiceId=<%= invoice.getId() %>'">
-                        <img src="images/delete.gif" width="18" height="18" border="0"/>
+                    <a href="javascript:  if (confirm('Удалить позицию?'))  self.location.href='../invoice_item/del_ii?invoice_item_id=<%= item.getId() %>&invoice_id=<%=invoice.getId()%>'">
+                        <img src="../images/delete.gif" width="18" height="18" border="0"/>
                     </a>
                     <%} %>
 
@@ -457,7 +414,7 @@
                 <TD class="width20 topAlign">
                     <%if (changesAllowed) {%>
                     <a href="javascript:   self.location.href='invoiceAction.do?method=moveUpItem&id=<%=i%>&invoiceId=<%= invoice.getId() %>'">
-                        <img src="images/prev_nav.gif" width="18" height="18" border="0"/>
+                        <img src="../images/prev_nav.gif" width="18" height="18" border="0"/>
                     </a>
                     <%} %>
 
@@ -467,7 +424,7 @@
 
                     <%if (changesAllowed) {%>
                     <a href="javascript:  self.location.href='invoiceAction.do?method=moveDownItem&id=<%=i%>&invoiceId=<%= invoice.getId() %>'">
-                        <img src="images/next_nav.gif" width="18" height="18" border="0"/>
+                        <img src="../images/next_nav.gif" width="18" height="18" border="0"/>
                     </a>
                     <%} %>
 
@@ -550,8 +507,8 @@
                       id="notes" cols="40" rows="3" onkeypressEn="true"
                       onkeydown="paramChange('notes','any');"><%=(invoice.getNotes() == null) ? "" : invoice.getNotes()%></textarea>
         <td>
-            <textarea name="сomments" id="сomments" cols="40" rows="3" onkeypressEn="true" class="width520"
-                      onkeydown="paramChange('сomments','any');"><%= (invoice.getComments() == null) ? "" : invoice.getComments()%></textarea>
+            <textarea name="comments" id="comments" cols="40" rows="3" onkeypressEn="true" class="width520"
+                      onkeydown="paramChange('comments','any');"><%= (invoice.getComments() == null) ? "" : invoice.getComments()%></textarea>
         </td>
     </tr>
 </table>
@@ -639,7 +596,7 @@
                     && (invoice.getCurrentState().equals(Invoice.STATE_ZAK) || invoice.getCurrentState().equals(Invoice.STATE_ISP))) {
     %>
     <input type="button" value="Отгрузки"
-           onclick="location.href='invoiceAction.do?method=viewShipments&invoiceId=<%=((Invoice) request.getAttribute("invoice")).getId()%>'"
+           onclick="location.href='invoiceAction.do?method=viewShipments&invoiceId=<%=invoice.getId()%>'"
            class="butt">
     <%
             }
@@ -648,7 +605,7 @@
                 invoice.getCurrentState().equals(Invoice.STATE_ACT))) {
     %>
     <input type="button" value="Оплаты"
-           onclick="location.href='invoiceAction.do?method=viewPayments&invoiceId=<%=((Invoice) request.getAttribute("invoice")).getId()%>'"
+           onclick="location.href='invoiceAction.do?method=viewPayments&invoiceId=<%=invoice.getId()%>'"
            class="butt">
     <%
         }
@@ -666,25 +623,25 @@
 <%-- content--%>
 
 <div id="addProduction-dialog" title="Добавить позицию">
-    <a href="testAction.do?method=addCoForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&invoiceItemId=0">
+    <a href="../invoice_item/add_co?invoiceId=<%= invoice.getId()%>&invoiceItemId=0">
         датчик ЦО</a> <br>
-    <a href="testAction.do?method=addAoForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&invoiceItemId=0">
+    <a href="../invoice_item/add_ao?invoiceId=<%= invoice.getId()%>&invoiceItemId=0">
         датчик АО</a> <br>
-    <a href="testAction.do?method=addOpForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&invoiceItemId=0">
+    <a href="../invoice_item/add_op?invoiceId=<%= invoice.getId()%>&invoiceItemId=0">
         датчик ОП</a> <br>
-    <a href="testAction.do?method=addListFormExt&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=3">
+    <a href="testAction.do?method=addListFormExt&invoiceId=<%= invoice.getId()%>&type=3">
         д.д. спец</a> <br>
-    <a href="testAction.do?method=addListForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=4">
+    <a href="testAction.do?method=addListForm&invoiceId=<%= invoice.getId()%>&type=4">
         блок питания</a> <br>
-    <a href="testAction.do?method=addListForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=5">
+    <a href="testAction.do?method=addListForm&invoiceId=<%= invoice.getId()%>&type=5">
         ИБ</a> <br>
-    <a href="testAction.do?method=addListForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=6">
+    <a href="testAction.do?method=addListForm&invoiceId=<%= invoice.getId()%>&type=6">
         диаф. кам.</a> <br>
-    <a href="testAction.do?method=addListFormExt&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=7">
+    <a href="testAction.do?method=addListFormExt&invoiceId=<%= invoice.getId()%>&type=7">
         проч продукция</a> <br>
-    <a href="testAction.do?method=addListForm&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=8">
+    <a href="testAction.do?method=addListForm&invoiceId=<%= invoice.getId()%>&type=8">
         вычислитель</a> <br>
-    <a href="testAction.do?method=addListFormExt&invoiceId=<%= ((Invoice) request.getAttribute("invoice")).getId()%>&type=9">
+    <a href="testAction.do?method=addListFormExt&invoiceId=<%= invoice.getId()%>&type=9">
         прод. сторон. произв.</a> <br>
 
 </div>
@@ -729,13 +686,13 @@
 
 
     <input type="button" value="PDF"
-           onclick="javascript:void(printIvoice('pdf',<%= ((Invoice) request.getAttribute("invoice")).getId()%>))"
+           onclick="javascript:void(printInvoice('pdf',<%= invoice.getId()%>))"
            class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only "> <br>
     <input type="button" value="XLS" disabled="true"
-           onclick="javascript:void(printIvoice('xls',<%= ((Invoice) request.getAttribute("invoice")).getId()%>))"
+           onclick="javascript:void(printInvoice('xls',<%= invoice.getId()%>))"
            class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>
     <input type="button" value="ODT"
-           onclick="javascript:void(printIvoice('odt',<%= ((Invoice) request.getAttribute("invoice")).getId()%>))"
+           onclick="javascript:void(printInvoice('odt',<%= invoice.getId()%>))"
            class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>
 
 
@@ -883,4 +840,3 @@
 </div>
 
 </body>
-</html>

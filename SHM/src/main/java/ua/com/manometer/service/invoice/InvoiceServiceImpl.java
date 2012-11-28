@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.com.manometer.dao.invoice.InvoiceDAO;
 import ua.com.manometer.model.invoice.Invoice;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -14,10 +15,17 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Autowired
 	private InvoiceDAO invoiceDAO;
 
-	@Override
+
+    @Override
+    @Transactional
+    public Invoice getInvoice(Long id) {
+        return invoiceDAO.getInvoice(id);  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
 	@Transactional
-	public void addInvoice(Invoice invoice) {
-		invoiceDAO.addInvoice(invoice);
+	public void saveInvoice(Invoice invoice) {
+		invoiceDAO.saveInvoice(invoice);
 	}
 
 	@Override
@@ -31,5 +39,13 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public void removeInvoice(Long id) {
 		invoiceDAO.removeInvoice(id);
 	}
+
+    @Override
+    public Boolean checkPresence(Integer number, String numberModifier, Boolean invoice, Date date) {
+
+
+        return true;
+    }
+
 
 }

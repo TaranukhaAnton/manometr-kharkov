@@ -13,7 +13,9 @@ public interface CustomerDAO {
 
     public Customer getCustomer(Long id);
 
-    public List<Customer> findByShortNameExample(String customerTemplate);
+    public List<String> findByShortNameExample(String customerTemplate);
 
     public Customer getCustomerByShortName(String shortName);
+
+    public Boolean isCustomerPresent(String customer);
 }

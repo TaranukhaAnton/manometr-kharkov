@@ -1,11 +1,8 @@
-<%@ page import="ua.com.manometer.model.modeldescription.ModelDescription" %>
-
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
-
- <div id="parent">
-<form action="#">
-    <table class="models"  cellspacing="0" > <tr> <td  class="silver_rb" >  <img src="../images/delete.gif" width="18" height="18" onclick="clearTable();" hspace="4"
+ <div  id="parent">
+    <form action="#">
+        <table class="models"  cellspacing="0" > <tr> <td  class="silver_rb" >  <img src="../images/delete.gif" width="18" height="18" onclick="clearTable();" hspace="4"
                                                                              border="0"/></td>
     <td class="silver_b" >..01</td>
     <td class="silver_b" >..10</td>
@@ -225,163 +222,112 @@
 
 </table>
 
-</form>
+    </form>
 
 
-<div id="tabs">
-    <ul>
-    <li><a href="#first">Пределы</a></li>
-    <%--<li><a href="#limits">Пределы</a></li>--%>
-    <li><a href="#ispolnenie">Исполнения</a></li>
-    <li><a href="#materials">Материалы</a></li>
-    <li><a href="#error">Погрешность</a></li>
-    <li><a href="#stat">Стат.</a></li>
-    <li><a href="#output">Выходы</a></li>
-    <li><a href="#DU">ДУ</a></li>
-    <li><a href="#KMCH">КМЧ</a></li>
-    <li><a href="#VM">ВМ</a></li>
-</ul>
-<%--<div id="buttons">
-    <input type="button" id="limButton" value="Пределы" class="but"/>
-    <input type="button" id="ispButton" value="Исп." class="but"/>
-    <input type="button" id="matButton" value="Мат." class="but"/>
-    <input type="button" id="pogButton" value="Погр." class="but"/>
-    <input type="button" id="statButton" value="Стат." class="but"/>
-    <input type="button" id="vsButton" value="Вых." class="but"/>
-    <input type="button" id="duButton" value="ДУ" class="but"/>
-    <input type="button" id="kmchButton" value="КМЧ" class="but"/>
-    <input type="button" id="vmButton" value="ВМ" class="but"/>
-</div>--%>
-    <div id="first" style="height: 400px;">
+    <div  id="tabs">
+        <ul>
+            <li><a href="#limits">Пределы</a></li>
+            <li><a href="#ispolnenie">Исполнения</a></li>
+            <li><a href="#materials">Материалы</a></li>
+            <li><a href="#error">Погрешность</a></li>
+            <li><a href="#stat">Стат.</a></li>
+            <li><a href="#output">Выходы</a></li>
+            <li><a href="#DU">ДУ</a></li>
+            <li><a href="#KMCH">КМЧ</a></li>
+            <li><a href="#VM">ВМ</a></li>
+        </ul>
+
+    <div class="height" id="limits" >
         <fieldset>
-            <label for="valueA">Start Date:</label>
-            <select name="valueA" id="valueA">
+            <label for="loLim">От:</label>
+            <select name="loLim" id="loLim">
                 <optgroup label="КПа">
-                    <option value="0,04">0,04</option>
-                    <option value="0,063">0,063</option>
-                    <option value="0,10">0,10</option>
-                    <option value="0,16">0,16</option>
-                    <option value="0,25">0,25</option>
-                    <option value="0,40" selected="selected">0,40</option>
-                    <option value="0,63">0,63</option>
-                    <option value="1,0" >1,0</option>
-                    <option value="1,6">1,6</option>
-                    <option value="2,5">2,5</option>
-                    <option value="4,0">4,0</option>
-                    <option value="6,3">6,3</option>
-                    <option value="10">10</option>
-                    <option value="16">16</option>
-                    <option value="25">25</option>
-                    <option value="40">40</option>
-                    <option value="63">63</option>
-                    <option value="100">100</option>
-                    <option value="160">160</option>
-                    <option value="250">250</option>
-                    <option value="400">400</option>
-                    <option value="630">630</option>
+                    <option value="1">0,04КПа</option>
+                    <option value="2">0,063КПа</option>
+                    <option value="3">0,10КПа</option>
+                    <option value="4">0,16КПа</option>
+                    <option value="5">0,25КПа</option>
+                    <option value="6" selected="selected">0,40КПа</option>
+                    <option value="7">0,63КПа</option>
+                    <option value="8" >1,0КПа</option>
+                    <option value="9">1,6КПа</option>
+                    <option value="10">2,5КПа</option>
+                    <option value="11">4,0КПа</option>
+                    <option value="12">6,3КПа</option>
+                    <option value="13">10КПа</option>
+                    <option value="14">16КПа</option>
+                    <option value="15">25КПа</option>
+                    <option value="16">40КПа</option>
+                    <option value="17">63КПа</option>
+                    <option value="18">100КПа</option>
+                    <option value="19">160КПа</option>
+                    <option value="20">250КПа</option>
+                    <option value="21">400КПа</option>
+                    <option value="22">630КПа</option>
                 </optgroup>
                 <optgroup label="МПа">
-                    <option value="1,0" >1,0</option>
-                    <option value="1,6">1,6</option>
-                    <option value="2,5">2,5</option>
-                    <option value="4,0">4,0</option>
-                    <option value="6,3">6,3</option>
-                    <option value="10">10</option>
-                    <option value="16">16</option>
-                    <option value="25">25</option>
-                    <option value="40">40</option>
-                    <option value="63">63</option>
-                    <option value="100">100</option>
+                    <option value="23" >1,0MПа</option>
+                    <option value="24">1,6MПа</option>
+                    <option value="25">2,5MПа</option>
+                    <option value="26">4,0MПа</option>
+                    <option value="27">6,3MПа</option>
+                    <option value="28">10MПа</option>
+                    <option value="29">16MПа</option>
+                    <option value="30">25MПа</option>
+                    <option value="31">40MПа</option>
+                    <option value="32">63MПа</option>
+                    <option value="33">100MПа</option>
 
                 </optgroup>
 
             </select>
 
-            <label for="valueB">End Date:</label>
-            <select name="valueB" id="valueB">
+            <label for="hiLim">До:</label>
+            <select name="hiLim" id="hiLim">
                 <optgroup label="КПа">
-                    <option value="0,04">0,04</option>
-                    <option value="0,063">0,063</option>
-                    <option value="0,10">0,10</option>
-                    <option value="0,16">0,16</option>
-                    <option value="0,25">0,25</option>
-                    <option value="0,40" >0,40</option>
-                    <option value="0,63">0,63</option>
-                    <option value="1,0" >1,0</option>
-                    <option value="1,6">1,6</option>
-                    <option value="2,5">2,5</option>
-                    <option value="4,0">4,0</option>
-                    <option value="6,3">6,3</option>
-                    <option value="10">10</option>
-                    <option value="16">16</option>
-                    <option value="25">25</option>
-                    <option value="40">40</option>
-                    <option value="63">63</option>
-                    <option value="100">100</option>
-                    <option value="160">160</option>
-                    <option value="250">250</option>
-                    <option value="400">400</option>
-                    <option value="630">630</option>
+                    <option value="1">0,04КПа</option>
+                    <option value="2">0,063КПа</option>
+                    <option value="3">0,10КПа</option>
+                    <option value="4">0,16КПа</option>
+                    <option value="5">0,25КПа</option>
+                    <option value="6" >0,40КПа</option>
+                    <option value="7">0,63КПа</option>
+                    <option value="8" >1,0КПа</option>
+                    <option value="9">1,6КПа</option>
+                    <option value="10">2,5КПа</option>
+                    <option value="11">4,0КПа</option>
+                    <option value="12">6,3КПа</option>
+                    <option value="13">10КПа</option>
+                    <option value="14">16КПа</option>
+                    <option value="15">25КПа</option>
+                    <option value="16">40КПа</option>
+                    <option value="17" selected="selected">63КПа</option>
+                    <option value="18">100КПа</option>
+                    <option value="19">160КПа</option>
+                    <option value="20">250КПа</option>
+                    <option value="21">400КПа</option>
+                    <option value="22">630КПа</option>
                 </optgroup>
                 <optgroup label="МПа">
-                    <option value="1,0" >1,0</option>
-                    <option value="1,6">1,6</option>
-                    <option value="2,5" selected="selected">2,5</option>
-                    <option value="4,0">4,0</option>
-                    <option value="6,3">6,3</option>
-                    <option value="10">10</option>
-                    <option value="16">16</option>
-                    <option value="25">25</option>
-                    <option value="40">40</option>
-                    <option value="63">63</option>
-                    <option value="100">100</option>
-
+                    <option value="23" >1,0MПа</option>
+                    <option value="24">1,6MПа</option>
+                    <option value="25">2,5MПа</option>
+                    <option value="26">4,0MПа</option>
+                    <option value="27">6,3MПа</option>
+                    <option value="28">10MПа</option>
+                    <option value="29">16MПа</option>
+                    <option value="30">25MПа</option>
+                    <option value="31">40MПа</option>
+                    <option value="32">63MПа</option>
+                    <option value="33">100MПа</option>
                 </optgroup>
             </select>
         </fieldset>
+        <input type="button" id="okLimits" value="Применить" class="okbut"  style="margin-top: 60px;" onclick="setLimits();"/>
     </div>
-    <%--<div id="limits">--%>
 
-    <%--<fieldset>--%>
-        <%--<legend>--%>
-            <%--Пределы--%>
-        <%--</legend>--%>
-
-        <%--<%--%>
-            <%--String[] ar3 = {"0,04", "0,063", "0,10", "0,16", "0,25", "0,40", "0,63", "1,0", "1,6", "2,5", "4,0", "6,3", "10", "16", "25", "40", "63", "100", "160", "250", "400", "630", "1,0", "1,6", "2,5", "4,0", "6,3", "10", "16", "25", "40", "63", "100"};--%>
-            <%--out.print("<table id= \"limTamle\" class=\"lim\" border=\"0\" cellspacing=\"0\"   ><tr> <td class=\"limits\">&nbsp;</td>");--%>
-            <%--StringBuilder sb1 = new StringBuilder();--%>
-            <%--StringBuilder sb2 = new StringBuilder();--%>
-            <%--StringBuilder sb3 = new StringBuilder();--%>
-            <%--for (int i = 0; i < ar3.length; i++) {--%>
-                <%--if ((i % 2) == 0) {--%>
-                    <%--out.print(" <td class=\"limits\"   bgcolor=\"#C5C5C5\">" + ar3[i] + "</td>");--%>
-                    <%--sb1.append("<td class=\"limits\"  bgcolor=\"#C5C5C5\"><input type=\"radio\" name=\"loLim\" value=\"" + (i + 1) + "\"/></td>");--%>
-                    <%--sb2.append("<td class=\"limits\"  bgcolor=\"#C5C5C5\"><input type=\"radio\" name=\"hiLim\" value=\"" + (i + 1) + "\"/></td>");--%>
-                    <%--sb3.append(" <td class=\"limits\" bgcolor=\"#C5C5C5\">&nbsp;</td>");--%>
-
-                <%--} else {--%>
-                    <%--out.print(" <td class=\"limits\">&nbsp;</td>");--%>
-                    <%--sb1.append("<td class=\"limits\"><input type=\"radio\" name=\"loLim\" value=\"" + (i + 1) + "\"/></td>");--%>
-                    <%--sb2.append("<td class=\"limits\"><input type=\"radio\" name=\"hiLim\" value=\"" + (i + 1) + "\"/></td>");--%>
-                    <%--sb3.append(" <td class=\"limits\"  >" + ar3[i] + "</td>");--%>
-
-                <%--}--%>
-            <%--}--%>
-            <%--out.print("</tr><tr id = \"loLimTR\"> <td class=\"limits\">мин</td>" + sb1.toString());--%>
-            <%--out.print("</tr><tr id = \"hiLimTR\"> <td class=\"limits\">макс</td>" + sb2.toString());--%>
-            <%--out.print("</tr><tr> <td class=\"limits\">&nbsp;</td>" + sb3.toString());--%>
-            <%--out.println("</tr></table>");--%>
-        <%--%>--%>
-
-
-        <%--<input type="button" id="okLimits" value="Применить" class="okbut" onclick="setLimits();"/>--%>
-
-    <%--</fieldset>--%>
-
-
-<%--</div>--%>
-    <div id="ispolnenie">
+    <div class="height" id="ispolnenie">
     <form name="isp">
         <fieldset>
             <legend>
@@ -398,7 +344,7 @@
         </fieldset>
     </form>
 </div>
-    <div id="materials">
+    <div class="height" id="materials">
     <form name="Mat">
         <fieldset>
             <legend>
@@ -416,7 +362,7 @@
         </fieldset>
     </form>
 </div>
-    <div id="error">
+    <div class="height" id="error">
     <form name="err">
         <fieldset>
             <legend>
@@ -432,7 +378,7 @@
         </fieldset>
     </form>
 </div>
-    <div id="stat">
+    <div class="height" id="stat">
     <form name="st">
         <fieldset>
             <legend>
@@ -455,7 +401,7 @@
         </fieldset>
     </form>
 </div>
-    <div id="output">
+    <div class="height" id="output">
     <form name="ou">
         <fieldset>
             <legend>
@@ -474,7 +420,7 @@
         </fieldset>
     </form>
 </div>
-    <div id="DU">
+    <div class="height" id="DU">
     <form name="du">
         <fieldset>
             <legend>
@@ -487,7 +433,7 @@
         </fieldset>
     </form>
 </div>
-    <div id="KMCH">
+    <div class="height" id="KMCH">
     <form>
         <fieldset>
             <legend>
@@ -513,7 +459,7 @@
         </fieldset>
     </form>
 </div>
-    <div id="VM">
+    <div class="height" id="VM">
     <form name="VmForm">
         <fieldset>
             <legend>
@@ -531,9 +477,6 @@
 
  </div>
 
-<div id="downButtons">
-    <input type="button" value="Черновик"  onclick="window.open('./pages/redactMD/compatibilityTable.jsp')">
-</div>
 
 
 

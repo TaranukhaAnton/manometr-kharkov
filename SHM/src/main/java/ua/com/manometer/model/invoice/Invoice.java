@@ -2,7 +2,6 @@ package ua.com.manometer.model.invoice;
 
 import org.hibernate.annotations.IndexColumn;
 import org.hibernate.annotations.Type;
-import ua.com.manometer.model.Customer;
 import ua.com.manometer.model.Supplier;
 import ua.com.manometer.model.User;
 
@@ -49,10 +48,11 @@ public class Invoice {
     private Integer validity; //    срок действия
     @ManyToOne
     private Supplier supplier;
-    @ManyToOne
-    private Customer employer;
-    @ManyToOne
-    private Customer consumer;
+
+
+
+    private String employer;
+    private String consumer;
 
     private String notice;
     @Column(length = 5000)
@@ -70,7 +70,7 @@ public class Invoice {
 
     private Integer purpose; //назначение
     private BigDecimal prepayment; //предоплата
-    private BigDecimal paymentOnTheNitice; //по извещению
+    private BigDecimal paymentOnTheNotice; //по извещению
     private BigDecimal postPay; //по факту
 
 
@@ -87,17 +87,15 @@ public class Invoice {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "INVOICE_ID")
     @IndexColumn(name = "orders_index", base = 0)
+    private List<InvoiceItem> invoiceItems;
 
-    private Set<InvoiceItem> invoiceItems;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_id", nullable = true)
-
     private Booking booking;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "INVOICE_ID")
-
     private Set<Shipment> shipments;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -188,19 +186,19 @@ public class Invoice {
     }
 
 
-    public Customer getEmployer() {
+    public String getEmployer() {
         return employer;
     }
 
-    public void setEmployer(Customer employer) {
+    public void setEmployer(String employer) {
         this.employer = employer;
     }
 
-    public Customer getConsumer() {
+    public String getConsumer() {
         return consumer;
     }
 
-    public void setConsumer(Customer consumer) {
+    public void setConsumer(String consumer) {
         this.consumer = consumer;
     }
 
@@ -228,17 +226,17 @@ public class Invoice {
         this.executor = executor;
     }
 
-    public Set<InvoiceItem> getInvoiceItems() {
+    public List<InvoiceItem> getInvoiceItems() {
         return invoiceItems;
     }
 
-    public void setInvoiceItems(Set<InvoiceItem> invoiceItems) {
+    public void setInvoiceItems(List<InvoiceItem> invoiceItems) {
         this.invoiceItems = invoiceItems;
     }
 
     public void addInvoiceItems(InvoiceItem invoiceItem) {
         if (invoiceItems == null)
-            invoiceItems = new HashSet<InvoiceItem>();
+            invoiceItems = new LinkedList<InvoiceItem>();
 
         invoiceItems.add(invoiceItem);
     }
@@ -262,11 +260,11 @@ public class Invoice {
     }
 
     public BigDecimal getPaymentOnTheNotice() {
-        return paymentOnTheNitice;
+        return paymentOnTheNotice;
     }
 
     public void setPaymentOnTheNotice(BigDecimal paymentOnTheNotice) {
-        this.paymentOnTheNitice = paymentOnTheNotice;
+        this.paymentOnTheNotice = paymentOnTheNotice;
     }
 
     public BigDecimal getPostPay() {

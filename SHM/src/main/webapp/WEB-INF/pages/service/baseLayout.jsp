@@ -1,4 +1,4 @@
-<%@ page import="java.util.Enumeration" %>
+<?xml version="1.0" encoding="UTF-8"?>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -10,28 +10,45 @@
 <html>
 <head>
     <title><tiles:getAsString name="title" ignore="true"/></title>
-
-    <tiles:useAttribute id="list" name="cssItems" classname="java.util.List"/>
-    <tiles:useAttribute id="ppp" name="ppp" classname="java.util.List"/>
-
-    <c:forEach var="item" items="${list}">
-        <c:if test="${fn:startsWith(item, '/css')}">
-            <link rel="stylesheet" type="text/css" href="<c:url value="${item}"/>"/>
-        </c:if>
-        <c:if test="${fn:startsWith(item, '/js')}">
-            <script type="text/javascript" src="<c:url value="${item}"/>" ></script>
-        </c:if>
-    </c:forEach>
+    <link href="../css/smoothness/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css">
+    <script src="../js/jquery-ui-1.9.1.custom/jquery-1.8.2.js" type="text/javascript"></script>
+    <script src="../js/jquery-ui-1.9.1.custom/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
+    <script src="../js/jquery-ui-1.9.1.custom/jquery.cookies.js" type="text/javascript"></script>
+    <script src="../js/ui/i18n/jquery.ui.datepicker-ru.js" type="text/javascript"></script>
 
 
-    <c:forEach var="item" items="${ppp}">
-        <c:if test="${fn:startsWith(item, '/css')}">
-            <link rel="stylesheet" type="text/css" href="<c:url value="${item}"/>"/>
-        </c:if>
-        <c:if test="${fn:startsWith(item, '/js')}">
-            <script type="text/javascript" src="<c:url value="${item}"/>" ></script>
-        </c:if>
-    </c:forEach>
+
+    <script src="../js/local/menu.js" type="text/javascript"></script>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/smartTable.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/menu.css" rel="stylesheet" type="text/css"/>
+
+
+
+
+
+
+    <%--<tiles:useAttribute id="list" name="cssItems" classname="java.util.List"/>--%>
+    <%--<tiles:useAttribute id="ppp" name="ppp" classname="java.util.List"/>--%>
+
+    <%--<c:forEach var="item" items="${list}">--%>
+        <%--<c:if test="${fn:startsWith(item, '/css')}">--%>
+            <%--<link rel="stylesheet" type="text/css" href="<c:url value="${item}"/>"/>--%>
+        <%--</c:if>--%>
+        <%--<c:if test="${fn:startsWith(item, '/js')}">--%>
+            <%--<script type="text/javascript" src="<c:url value="${item}"/>" ></script>--%>
+        <%--</c:if>--%>
+    <%--</c:forEach>--%>
+
+
+    <%--<c:forEach var="item" items="${ppp}">--%>
+        <%--<c:if test="${fn:startsWith(item, '/css')}">--%>
+            <%--<link rel="stylesheet" type="text/css" href="<c:url value="${item}"/>"/>--%>
+        <%--</c:if>--%>
+        <%--<c:if test="${fn:startsWith(item, '/js')}">--%>
+            <%--<script type="text/javascript" src="<c:url value="${item}"/>" ></script>--%>
+        <%--</c:if>--%>
+    <%--</c:forEach>--%>
 
 
 

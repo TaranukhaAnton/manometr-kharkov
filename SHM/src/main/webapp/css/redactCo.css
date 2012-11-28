@@ -87,7 +87,7 @@ TD.silver_b {
 }
 
 .okbut {
-    width: 80px;
+    width: 120px;
     margin-left: 10px;
     margin-right: 20px;
     margin-bottom: 10px;
@@ -109,6 +109,12 @@ TD.limits {
     height: 639px;
 
 }
+
+.height {
+    height: 400px;
+}
+
+
 
 
 

@@ -209,5 +209,9 @@ public class User {
     public boolean isAdmin() {
         return 4 == powersLevel;
     }
+
+    public String toString(){
+        return  login;
+    }
 }
 

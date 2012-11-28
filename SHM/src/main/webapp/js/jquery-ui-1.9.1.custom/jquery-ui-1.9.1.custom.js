@@ -5462,7 +5462,8 @@ $.widget( "ui.autocomplete", {
 		close: null,
 		focus: null,
 		open: null,
-		response: null,
+
+        response: null,
 		search: null,
 		select: null
 	},
