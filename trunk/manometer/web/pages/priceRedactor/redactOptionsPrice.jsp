@@ -310,7 +310,7 @@
             </tr>
             <%
                 String[] array1 = {"ou0", "ou1", "ou2", "ou3", "ou4", "ou5", "du1", "du2", "I", "PI", "VM", "HIM", "R", "RK", "RD", "GP"};
-                String[] lab1 = {"05", "&#8730 05", "50", "42", "&#8730 42", "24", "ДУ 50", "ДУ 80", "-И", "-ПИ", "ВМ", "-Хим", "-P", "-PK", "-PD", "госповерка"};
+                String[] lab1 = {"42", "24" , "&#8730 42" ,"05","50", "&#8730 05" ,  "ДУ 50", "ДУ 80", "-И", "-ПИ", "ВМ", "-Хим", "-P", "-PK", "-PD", "госповерка"};
                 //  GenericHibernateDAO<OptionsPrice> ddd = Factory.getSINGLETON().getOptionsPriceDAO();
 
                 for (int c = 0; c < array1.length; c++) {
@@ -324,7 +324,7 @@
                         Map<String, Object> map = new HashMap<String, Object>();
                         map.put("type", new Integer(2));
                         map.put("isp", isp);
-                        map.put("param", array[c]);
+                        map.put("param", array1[c]);
 
                         List<OptionsPrice> res = ddd.findByExample(map);
 
