@@ -410,7 +410,7 @@ public class PressureSensor extends InvoiceItem {
         }
         if (I) {
             op = dao.findUniqueByExample(new OptionsPrice(type, isp, "I"));
-            System.out.println("I " + op);
+//            System.out.println("I " + op);
             cost = cost.add(op.getCost());
             price = price.add(op.getPrice());
         }
@@ -479,13 +479,6 @@ public class PressureSensor extends InvoiceItem {
         buf.append("\"TU\":"+TU+",");
         buf.append("\"outType\":"+outType+",");
         buf.append("\"klim\":"+klim+"}");
-
-//        String result = "{\"du\":0,\"model\":\"5020\",\"hiLimit\":4,\"lowLimit\":null," +
-//                "\"VM\":false,\"ed_izm\":0,\"type\":0,\"id\":3,\"kmch\":0,\"preamble\":\"\",\"HIM\":false," +
-//                "\"error\":0,\"afterSpec\":\"\",\"mat\":0,\"isp\":0,\"stat\":0,\"i\":false,\"r\":false," +
-//                "\"PI\":false,\"p\":false,\"TU\":false,\"outType\":0,\"klim\":0}";
-
-
         return buf.toString();
     }
 
