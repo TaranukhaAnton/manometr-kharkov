@@ -1,6 +1,8 @@
 <%@ page import="ua.com.manometer.model.invoice.Invoice" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="ua.com.manometer.model.invoice.Booking" %>
+<%@ page import="org.apache.commons.lang.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -9,6 +11,7 @@
 
 <script type="text/javascript" src="../js/local/invoices.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/invoice.css"/>
+
 <div ID="content">
 
     <a href="javascript:void($('#newInvoice-div').dialog('open'))">Добавить</a><br>
@@ -26,7 +29,7 @@
             </c:if>
         </display:column>
 
-        <display:column url="/invoices/view"  title="№" class="right" paramId="id" paramProperty="id" property="number" sortable="true"/>
+        <display:column url="/invoices/view"  title="№" class="right" paramId="invoice_id" paramProperty="id" property="number" sortable="true"/>
 
         <display:column property="numberModifier" title="м" class="left"/>
 
@@ -47,10 +50,10 @@
         <display:column property="t5" class="col30 center" title="стор"/>
 
         <display:column title="Сумма,<br> тыс" class="right">
-            <%--<%=df.format(((Invoice) pageContext.getAttribute("invoice")).getTotal().divide(new BigDecimal("1000"), 2, RoundingMode.HALF_UP)) %>--%>
+            <%--<%=df.format(((Invoice) pageContext.getAttribute("invoice")).computeTotal().divide(new BigDecimal("1000"), 2, RoundingMode.HALF_UP)) %>--%>
         </display:column>
         <display:column title="Нац-ка" class="right">
-            <%--<%=df.format(((Invoice) pageContext.getAttribute("invoice")).getAdditionToPrice()) %>--%>
+            <%--<%=df.format(((Invoice) pageContext.getAttribute("invoice")).computeAdditionToPrice()) %>--%>
         </display:column>
         <display:column property="supplier.currency.name" class="center" title="Вал"/>
         <display:column title="сост.">
@@ -58,23 +61,26 @@
         </display:column>
 
         <display:column title="з/н">
-       <%--     <%
+            <%
                 Booking booking = ((Invoice) pageContext.getAttribute("invoice")).getBooking();
                 if (booking != null) {
             %>
-            <a href="invoiceAction.do?method=viewBooking&id=<%=booking.getId()%>"><%=booking.getNumber()%><%= ((booking.getNumberModifier() == null) || (booking.getNumberModifier().isEmpty())) ? "" : ("/" + booking.getNumberModifier())%>
+            <a href="../bookings/view?invoice_id=<%=((Invoice) pageContext.getAttribute("invoice")).getId()%>"><%=booking.getNumber()%> <%= (StringUtils.isBlank(booking.getNumberModifier()) ? "" : ("/" + booking.getNumberModifier()))%>
             </a>
             <%
 
                 }
-            %>--%>
+            %>
         </display:column>
 
         <display:column title="Оплата,<br> %" class="right">
-            <%--<%=df.format(((Invoice) pageContext.getAttribute("invoice")).getPaymentPercent()) %>--%>
+            <%--<%=df.format(((Invoice) pageContext.getAttribute("invoice")).computePaymentPercent()) %>--%>
         </display:column>
 
-
+            <display:column title="" url="/invoices/delete"
+                            paramId="invoice_id" paramProperty="id" >
+                <img src="../images/delete.gif" width="18" height="18" hspace="4"   border="0"/>
+            </display:column>
 
 
     </display:table>

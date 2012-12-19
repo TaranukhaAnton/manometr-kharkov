@@ -1,48 +1,23 @@
-<%@ taglib prefix="logic" uri="http://struts.apache.org/tags-logic" %>
-<%@ taglib prefix="bean" uri="http://jakarta.apache.org/struts/tags-bean" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="html" uri="http://jakarta.apache.org/struts/tags-html" %>
-<%@ page import="application.data.User" %>
-<%@ page import="application.data.invoice.*" %>
-<%@ page import="application.hibernate.generic.GenericHibernateDAO" %>
+<%@ page import="ua.com.manometer.model.invoice.Invoice" %>
+<%@ page import="ua.com.manometer.model.invoice.Booking" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.List" %>
+<%@ page import="ua.com.manometer.model.invoice.Shipment" %>
+<%@ page import="ua.com.manometer.model.invoice.InvoiceItem" %>
 <%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head><title>Simple jsp page</title>
 
 
-    <link rel="stylesheet" type="text/css" href="css/jquery.autocomplete.css"/>
-    <link rel="stylesheet" type="text/css" href="css/invoice.css"/>
 
-    <script type="text/javascript" src="/js/ui/jquery-1.4.1.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.bgiframe-2.1.1.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.core.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.widget.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.mouse.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.button.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.draggable.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.position.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.resizable.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.dialog.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.tabs.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.effects.core.js"></script>
-    <script type='text/javascript' src="js/jquery.autocomplete.js"></script>
-
-    <script src="js/ui/i18n/jquery.ui.datepicker-ru.js"></script>
-    <script src="js/ui/jquery.ui.datepicker.js"></script>
-
-    <%--<link type="text/css" href="/Manometr/css/tst/ui.all.css" rel="stylesheet"/>--%>
-    <link type="text/css" href=" css/tst/jquery.ui.all.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/invoice.css"/>
     <script type="text/javascript">
         $(function() {
             $("#date").datepicker({
                 showOn: 'button',
-                buttonImage: 'images/datepicker.jpg',
+                buttonImage: '../images/datepicker.jpg',
                 buttonImageOnly: true
 
             });
@@ -67,8 +42,8 @@
 
                 setTimeout(function() {
                     $(param).attr("onkeypressEn", "true");
-                    $.post("invoiceAction.do?method=getShipmentSum", $('#addShipment').serialize(), function(data) {
-                        $("#sum").text(data);
+                    $.post("../invoices/get_shipment_sum", $('#addShipment').serialize(), function(data) {
+                        $("#sum").text(data.sum);
                     });
                 }
                         , 2000);
@@ -82,7 +57,7 @@
                 return;
             }
 
-            location.replace("invoiceAction.do?method=addShipment&" + $('#addShipment').serialize());
+            location.replace("../invoices/add_shipment?" + $('#addShipment').serialize());
         }
         function bodyResize(height) {
             var winHeight = $("body").height();
@@ -128,12 +103,14 @@
 <body onResize="bodyResize(110);">
 <%
     Invoice invoice = (Invoice) request.getAttribute("invoice");
+    Map<Long, Map<Long,Integer>> map =  ( Map<Long, Map<Long,Integer>>) request.getAttribute("map");
     Booking booking = invoice.getBooking();
     NumberFormat df = NumberFormat.getInstance();
     df.setMinimumFractionDigits(2);
     df.setMaximumFractionDigits(2);
-    Integer livel = (Integer) request.getSession().getAttribute("livel");
-    boolean changesAllowed = (User.LIVEL_ECONOMIST.equals(livel) || User.LIVEL_ADMINISTRATOR.equals(livel)) && (!invoice.getCurrentState().equals(Invoice.STATE_ISP));
+   // Integer livel = (Integer) request.getSession().getAttribute("livel");
+//    boolean changesAllowed = (User.LIVEL_ECONOMIST.equals(livel) || User.LIVEL_ADMINISTRATOR.equals(livel)) && (!invoice.getCurrentState().equals(Invoice.STATE_ISP));
+    boolean changesAllowed = true;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy");
 
 %>
@@ -148,7 +125,7 @@
     <tr>
         <td class="width100">
             <%=(invoice.isInvoice()) ? "  Счет" : "  КП"%>
-            <a href="invoiceAction.do?method=viewInvoice&id=<%=invoice.getId()%>">
+            <a href="../invoices/view?invoice_id=<%=invoice.getId()%>">
 
                 <b>
                     <%=invoice.getNumber()%>
@@ -179,7 +156,7 @@
         <td>
             <% if (booking != null) { %>
             З.Н. &nbsp;
-            <a href="invoiceAction.do?method=viewBooking&id=<%=booking.getId()%>">
+            <a href="../bookings/view?invoice_id=<%=invoice.getId()%>">
                 <b>
                     <%=booking.getNumber()%>
                     <%= ((booking.getNumberModifier() == null) || (booking.getNumberModifier().isEmpty())) ? "" : ("/" + invoice.getNumberModifier())%>
@@ -206,7 +183,7 @@
             Заказчик &nbsp;
         </td>
         <td>
-            <%= (invoice.getEmploer() == null) ? "" : invoice.getEmploer().getShortName()%>
+            <%= (invoice.getEmployer() == null) ? "" : invoice.getEmployer()%>
         </td>
 
 
@@ -234,7 +211,7 @@
     </tr>
     <tr>
         <td>Конечный &nbsp; </td>
-        <td><%= (invoice.getConsumer() == null) ? "" : invoice.getConsumer().getShortName()  %>
+        <td><%= (invoice.getConsumer() == null) ? "" : invoice.getConsumer()  %>
         </td>
         <td></td>
         <td><%if (changesAllowed) {%> Накладная <%} %></td>
@@ -252,7 +229,7 @@
 
 
         <td>Оплата</td>
-        <td><%=df.format(invoice.getPaymentPercent())%>&nbsp;%</td>
+        <td><%=df.format(invoice.computePaymentPercent())%>&nbsp;%</td>
 
 
     </tr>
@@ -262,7 +239,7 @@
 <div id="invItems">
 
 
-    <input type="hidden" name="invoiceId" value="<%=invoice.getId()%>">
+    <input type="hidden" name="invoice_id" value="<%=invoice.getId()%>">
 
     <div id="variableHeightElement">
         <TABLE class="invItemsTab" id="invItemsTab">
@@ -325,19 +302,10 @@
                 <% if (invoice.getShipments() != null) {
                     for (Shipment shipment : invoice.getShipments()) {%>
                 <td class="hideColumn">
-                    <%
-                        GenericHibernateDAO<ShipmentMediator> SMdao = new GenericHibernateDAO<ShipmentMediator>() {
-                        };
-
-
-                        Map<String, Object> ex = new HashMap();
-                        ex.put("invoiceItem", item);
-                        ex.put("shipment", shipment);
-
-                        List<ShipmentMediator> result = SMdao.findByExample(ex);
-                        if (result.size() > 0)
-                            out.print(result.get(0).getCount());
-
+                  <%
+                      Integer count = map.get(shipment.getId()).get(item.getId());
+                      if (count!=null)
+                      out.print(count);
                     %>
                 </td>
                 <% }
@@ -380,7 +348,7 @@
 
 
     <input type="button" value="К счету"
-           onclick="location.href='invoiceAction.do?method=viewInvoice&id=<%=invoice.getId()%>'" class="butt">
+           onclick="location.href='../invoices/view?invoice_id=<%=invoice.getId()%>'" class="butt">
 
 
     <%

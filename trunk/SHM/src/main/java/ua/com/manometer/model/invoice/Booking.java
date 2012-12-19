@@ -7,14 +7,14 @@ import java.util.Date;
 
 @Entity
 public class Booking {
-    public static final Integer STATE_CHERN = 0;
-    public static final Integer STATE_PROIZV = 1;
-    public static final Integer STATE_SKLAD = 2;
-    public static final Integer STATE_CH_OTGR = 3;
-    public static final Integer STATE_OTGR = 4;
-    public static final Integer STATE_ISP = 5;
-    public static final Integer STATE_PRIOST = 6;
-    public static final Integer STATE_ANN = 7;
+    public static final int STATE_CHERN = 0;
+    public static final int STATE_PROIZV = 1;
+    public static final int STATE_SKLAD = 2;
+    public static final int STATE_CH_OTGR = 3;
+    public static final int STATE_OTGR = 4;
+    public static final int STATE_ISP = 5;
+    public static final int STATE_PRIOST = 6;
+    public static final int STATE_ANN = 7;
     public static final String[] curStateAlias = {"черн", "про", "склад", "ч.отгр", "отгр", "исп", "приос", "анн"};
     @Id
     @GeneratedValue()

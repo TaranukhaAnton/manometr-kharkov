@@ -6,20 +6,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ua.com.manometer.dao.price.PriceFirstPartDAO;
 import ua.com.manometer.model.invoice.Invoice;
 import ua.com.manometer.model.invoice.InvoiceItem;
 import ua.com.manometer.model.invoice.PressureSensor;
 import ua.com.manometer.model.modeldescription.ModelDescription;
+import ua.com.manometer.model.price.IdPrice;
+import ua.com.manometer.model.price.PriceFirstPart;
 import ua.com.manometer.service.invoice.InvoiceItemService;
 import ua.com.manometer.service.invoice.InvoiceService;
 import ua.com.manometer.service.modeldescription.ModelDescriptionService;
+import ua.com.manometer.service.price.PriceFirstPartService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/invoice_item")
@@ -34,11 +36,16 @@ public class InvoiceItemController {
     @Autowired
     ModelDescriptionService modelDescriptionService;
 
+    @Autowired
+    private PriceFirstPartService priceFirstPartService;
+
 
     @RequestMapping("/add_co")
     public String addCo(@RequestParam("invoice_id") Long invoiceId, @RequestParam(value = "invoice_item_id", required = false) Long itemId, Map<String, Object> map) {
         map.put("invoice_id", invoiceId);
-        map.put("invoice_item_id", (itemId == null) ? "" : itemId);
+        if (itemId != null) {
+            map.put("invoice_item_id", itemId);
+        }
         return "addCo";
     }
 
@@ -67,7 +74,7 @@ public class InvoiceItemController {
                 break;
             }
         }
-        return "redirect:/invoices/view?id=" + invoiceId;
+        return "redirect:/invoices/view?invoice_id=" + invoiceId;
     }
 
 
@@ -131,8 +138,7 @@ public class InvoiceItemController {
             pressureSensor.setTransportationCost(new BigDecimal("0"));
             pressureSensor.setAdditionalCost(new BigDecimal("0"));
 
-            invoiceItemService.setupMoneyFields(pressureSensor,new BigDecimal("1.3"));
-
+            invoiceItemService.setupMoneyFields(pressureSensor, new BigDecimal("1.3"));
 
 
             i.addInvoiceItems(pressureSensor);
@@ -147,11 +153,40 @@ public class InvoiceItemController {
             invoiceService.saveInvoice(i);
         } else {
             BigDecimal koef = pressureSensor.calculatePercent();
-            invoiceItemService.setupMoneyFields(pressureSensor,koef);
+            invoiceItemService.setupMoneyFields(pressureSensor, koef);
             invoiceItemService.saveInvoiceItem(pressureSensor);
         }
-        return "redirect:/invoices/view?id=" + invoiceId;
+        return "redirect:/invoices/view?invoice_id=" + invoiceId;
     }
+
+
+    @RequestMapping("/moveDownItem")
+    public String moveDownItem  (@RequestParam("invoice_id") Long invoiceId,
+                                 @RequestParam("position") Integer position){
+        Invoice invoice = invoiceService.getInvoice(invoiceId);
+        List<InvoiceItem> list = invoice.getInvoiceItems();
+
+        if ((position >= 0) & (position < (list.size() - 1))) {
+            Collections.swap(list, position, position + 1);
+            invoice.setInvoiceItems(list);
+            invoiceService.saveInvoice(invoice);
+        }
+        return "redirect:/invoices/view?invoice_id=" + invoice.getId();
+    }
+
+    @RequestMapping("/moveUpItem")
+    public String moveUpItem  (@RequestParam("invoice_id") Long invoiceId,
+                                 @RequestParam("position") Integer position){
+        Invoice invoice = invoiceService.getInvoice(invoiceId);
+        List<InvoiceItem> list = invoice.getInvoiceItems();
+        if ((position > 0) & (position < list.size())) {
+            Collections.swap(list, position, position - 1);
+            invoice.setInvoiceItems(list);
+            invoiceService.saveInvoice(invoice);
+        }
+        return "redirect:/invoices/view?invoice_id=" + invoice.getId();
+    }
+
 
 
     private Map toJsonMap(PressureSensor pressureSensor) {

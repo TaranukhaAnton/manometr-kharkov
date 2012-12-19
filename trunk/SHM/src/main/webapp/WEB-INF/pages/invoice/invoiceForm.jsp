@@ -322,7 +322,7 @@
 
                     <%if ((item.getType() < 3) && changesAllowed) {%>
 
-                    <a href="../invoice_item/<%=url[item.getType()]%>?invoice_id=<%= invoice.getId()%>&invoice_item_id= <%=item.getId()%>">
+                    <a href="../invoice_item/<%=url[item.getType()]%>?invoice_id=<%=invoice.getId()%>&invoice_item_id=<%=item.getId()%>">
                         <%= item.getName() %>
                     </a> <br>
                     <% } else { %>
@@ -389,7 +389,6 @@
                            id="sum<%=item.getId() %>" readonly="true">
 
 
-                    <%--<span id="sum<%= item.getId() %>"><%= item.getSum().divide(invoice.getExchangeRate() ,2, RoundingMode.HALF_UP) %></span>--%>
                 </TD>
                 <TD class="width70 topAlign">
                     <input type="text" class="inp" value=" <%=item.getDeliveryTime() %>"
@@ -413,7 +412,7 @@
                 </TD>
                 <TD class="width20 topAlign">
                     <%if (changesAllowed) {%>
-                    <a href="javascript:   self.location.href='invoiceAction.do?method=moveUpItem&id=<%=i%>&invoiceId=<%= invoice.getId() %>'">
+                    <a href="javascript:   self.location.href='../invoice_item/moveUpItem?position=<%=i%>&invoice_id=<%=invoice.getId()%>'">
                         <img src="../images/prev_nav.gif" width="18" height="18" border="0"/>
                     </a>
                     <%} %>
@@ -423,7 +422,7 @@
                 <TD class="width20 topAlign">
 
                     <%if (changesAllowed) {%>
-                    <a href="javascript:  self.location.href='invoiceAction.do?method=moveDownItem&id=<%=i%>&invoiceId=<%= invoice.getId() %>'">
+                    <a href="javascript:  self.location.href='../invoice_item/moveDownItem?position=<%=i%>&invoice_id=<%=invoice.getId()%>'">
                         <img src="../images/next_nav.gif" width="18" height="18" border="0"/>
                     </a>
                     <%} %>
@@ -453,7 +452,7 @@
             <Td class="width70"></Td>
             <%--<Td class="middle70"></Td>--%>
             <Td class="width90">
-                <div id="sum" style="text-align:right;"><%=df.format(invoice.getSum())%>
+                <div id="sum" style="text-align:right;"><%=df.format(invoice.computeSum())%>
                 </div>
             </Td>
             <Td class="width70"></Td>
@@ -467,7 +466,7 @@
             <Td class="width70"></Td>
             <%--<Td class="middle70"></Td>--%>
             <Td class="width90">
-                <div id="NDSPayment" style="text-align:right;"><%= df.format(invoice.getNDSPayment())%>
+                <div id="NDSPayment" style="text-align:right;"><%= df.format(invoice.computeNDSPayment())%>
                 </div>
             </Td>
             <Td class="width70"></Td>
@@ -481,7 +480,7 @@
             <Td class="width70"></Td>
             <%--<Td class="middle70"></Td>--%>
             <Td class="width90">
-                <div id="total" style="text-align:right;"><%= df.format(invoice.getTotal())%>
+                <div id="total" style="text-align:right;"><%= df.format(invoice.computeTotal())%>
                 </div>
             </Td>
             <Td class="width70"></Td>
@@ -559,7 +558,7 @@
     %>
 
     <input type="button" value="заказ-наряд"
-           onclick="location.href='invoiceAction.do?method=viewBooking&id=<%=invoice.getBooking().getId()%>'"
+           onclick="location.href='../bookings/view?invoice_id=<%=invoice.getId()%>'"
            class="butt">
     <%
         }
@@ -596,7 +595,7 @@
                     && (invoice.getCurrentState().equals(Invoice.STATE_ZAK) || invoice.getCurrentState().equals(Invoice.STATE_ISP))) {
     %>
     <input type="button" value="Отгрузки"
-           onclick="location.href='invoiceAction.do?method=viewShipments&invoiceId=<%=invoice.getId()%>'"
+           onclick="location.href='../invoices/view_shipments?invoice_id=<%=invoice.getId()%>'"
            class="butt">
     <%
             }
@@ -605,7 +604,7 @@
                 invoice.getCurrentState().equals(Invoice.STATE_ACT))) {
     %>
     <input type="button" value="Оплаты"
-           onclick="location.href='invoiceAction.do?method=viewPayments&invoiceId=<%=invoice.getId()%>'"
+           onclick="location.href='./view_payments?invoice_id=<%=invoice.getId()%>'"
            class="butt">
     <%
         }
@@ -623,11 +622,11 @@
 <%-- content--%>
 
 <div id="addProduction-dialog" title="Добавить позицию">
-    <a href="../invoice_item/add_co?invoiceId=<%= invoice.getId()%>&invoiceItemId=0">
+    <a href="../invoice_item/add_co?invoice_id=<%=invoice.getId()%>">
         датчик ЦО</a> <br>
-    <a href="../invoice_item/add_ao?invoiceId=<%= invoice.getId()%>&invoiceItemId=0">
+    <a href="../invoice_item/add_ao?invoiceId=<%=invoice.getId()%>">
         датчик АО</a> <br>
-    <a href="../invoice_item/add_op?invoiceId=<%= invoice.getId()%>&invoiceItemId=0">
+    <a href="../invoice_item/add_op?invoiceId=<%=invoice.getId()%>">
         датчик ОП</a> <br>
     <a href="testAction.do?method=addListFormExt&invoiceId=<%= invoice.getId()%>&type=3">
         д.д. спец</a> <br>
@@ -643,7 +642,6 @@
         вычислитель</a> <br>
     <a href="testAction.do?method=addListFormExt&invoiceId=<%= invoice.getId()%>&type=9">
         прод. сторон. произв.</a> <br>
-
 </div>
 
 <div id="order-dialog" title="Открыть заказ-наряд">
@@ -686,14 +684,14 @@
 
 
     <input type="button" value="PDF"
-           onclick="javascript:void(printInvoice('pdf',<%= invoice.getId()%>))"
+           onclick="javascript:void(printInvoice('pdf',<%=invoice.getId()%>))"
            class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only "> <br>
-    <input type="button" value="XLS" disabled="true"
-           onclick="javascript:void(printInvoice('xls',<%= invoice.getId()%>))"
+    <input type="button" value="XLS"
+           onclick="javascript:void(printInvoice('xls',<%=invoice.getId()%>))"
            class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>
-    <input type="button" value="ODT"
-           onclick="javascript:void(printInvoice('odt',<%= invoice.getId()%>))"
-           class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>
+    <%--<input type="button" value="ODT"--%>
+           <%--onclick="javascript:void(printInvoice('odt',<%=invoice.getId()%>))"--%>
+           <%--class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>--%>
 
 
 </div>

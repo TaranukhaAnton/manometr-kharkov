@@ -507,7 +507,7 @@ function validate()
 
 function cancel()
 {
-    var str = "../invoices/view?id=" + $('#invoice_id').val();
+    var str = "../invoices/view?invoice_id=" + $('#invoice_id').val();
     location.replace(str);
 }
 

@@ -1,47 +1,26 @@
-<%@ taglib prefix="logic" uri="http://struts.apache.org/tags-logic" %>
-<%@ taglib prefix="bean" uri="http://jakarta.apache.org/struts/tags-bean" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="html" uri="http://jakarta.apache.org/struts/tags-html" %>
-<%@ page import="application.data.User" %>
-<%@ page import="application.data.invoice.Booking" %>
-<%@ page import="application.data.invoice.Invoice" %>
-<%@ page import="application.data.invoice.Payment" %>
+
 <%@ page import="java.math.BigDecimal" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="ua.com.manometer.model.invoice.Invoice" %>
+<%@ page import="ua.com.manometer.model.invoice.Booking" %>
+<%@ page import="ua.com.manometer.model.invoice.Payment" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head><title>Simple jsp page</title>
 
 
-    <link rel="stylesheet" type="text/css" href="css/jquery.autocomplete.css"/>
-    <link rel="stylesheet" type="text/css" href="css/invoice.css"/>
 
-    <script type="text/javascript" src="/js/ui/jquery-1.4.1.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.bgiframe-2.1.1.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.core.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.widget.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.mouse.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.button.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.draggable.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.position.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.resizable.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.dialog.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.tabs.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.effects.core.js"></script>
-    <script type='text/javascript' src="js/jquery.autocomplete.js"></script>
 
-    <script src="js/ui/i18n/jquery.ui.datepicker-ru.js"></script>
-    <script src="js/ui/jquery.ui.datepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/invoice.css"/>
 
-    <%--<link type="text/css" href="/Manometr/css/tst/ui.all.css" rel="stylesheet"/>--%>
-    <link type="text/css" href=" css/tst/jquery.ui.all.css" rel="stylesheet"/>
+
     <script type="text/javascript">
         $(function() {
             $("#date").datepicker({
                 showOn: 'button',
-                buttonImage: 'images/datepicker.jpg',
+                buttonImage: '../images/datepicker.jpg',
                 buttonImageOnly: true
 
             });
@@ -72,7 +51,7 @@
                         // if
                         //  var exchangeRate = $('#exchangeRate').value;
 
-                        location.replace("invoiceAction.do?method=addPayment&" + $('#addPayment_form').serialize());
+                        location.replace("./add_payment?" + $('#addPayment_form').serialize());
                     },
                     'Отмена': function() {
                         $(this).dialog('close');
@@ -192,8 +171,8 @@
     </style>
 
 
-</head>
-<body onResize="bodyResize(24);">
+
+
 <%
     Invoice invoice = (Invoice) request.getAttribute("invoice");
     Booking booking = invoice.getBooking();
@@ -266,7 +245,7 @@
             Заказчик &nbsp;
         </td>
         <td>
-            <%= (invoice.getEmploer() == null) ? "" : invoice.getEmploer().getShortName()%>
+            <%=invoice.getEmployer()%>
         </td>
 
 
@@ -289,7 +268,7 @@
     </tr>
     <tr>
         <td>Конечный &nbsp; </td>
-        <td><%= (invoice.getConsumer() == null) ? "" : invoice.getConsumer().getShortName()  %>
+        <td><%=invoice.getConsumer()%>
         </td>
         <td></td>
         <td></td>
@@ -373,7 +352,7 @@
                     <td class="dig width90"><%=df.format(payment.getExchangeRate())%>    &nbsp;
                     </td>
                     <td class="dig width90">
-                        <%= payment.getPaymentSum().multiply(new BigDecimal("100")).divide(invoice.getTotal(), 2, BigDecimal.ROUND_HALF_UP)%>
+                        <%= payment.getPaymentSum().multiply(new BigDecimal("100")).divide(invoice.computeTotal(), 2, BigDecimal.ROUND_HALF_UP)%>
                         &nbsp;
                     </td>
                 </tr>
@@ -418,7 +397,7 @@
                 <td>Задолженность</td>
 
 
-                <td class="dig"><%=df.format(invoice.getTotal().subtract(p2))%>
+                <td class="dig"><%=df.format(invoice.computeTotal().subtract(p2))%>
                 </td>
                 <td class="dig">
                 </td>
@@ -430,7 +409,7 @@
                 <td>Сумма по счету</td>
 
 
-                <td class="dig"><%=df.format(invoice.getTotal())%>
+                <td class="dig"><%=df.format(invoice.computeTotal())%>
                 </td>
                 <td class="dig"><%=df.format(invoice.getExchangeRate())%>
                 </td>
@@ -449,13 +428,14 @@
 
 
     <input type="button" value="К счету"
-           onclick="location.href='invoiceAction.do?method=viewInvoice&id=<%=invoice.getId()%>'" class="butt">
+           onclick="location.href='../invoices/view?invoice_id=<%=invoice.getId()%>'" class="butt">
 
-    <%
-        Integer livel = (Integer) request.getSession().getAttribute("livel");
-        if ((User.LIVEL_ECONOMIST.equals(livel) || User.LIVEL_ADMINISTRATOR.equals(livel)) && (!invoice.getCurrentState().equals(Invoice.STATE_ISP))) {%>
+    <%--<%--%>
+        <%--Integer livel = (Integer) request.getSession().getAttribute("livel");--%>
+        <%--if ((User.LIVEL_ECONOMIST.equals(livel) || User.LIVEL_ADMINISTRATOR.equals(livel)) && (!invoice.getCurrentState().equals(Invoice.STATE_ISP))) {%>--%>
+    <%--todo  security--%>
     <input type="button" value="Добавить" onclick="javascript:void($('#addPayment').dialog('open'))" class="butt">
-    <%} %>
+    <%--<%} %>--%>
 
 
 </div>
@@ -464,7 +444,7 @@
     <Br>
 
     <form action="#" id="addPayment_form">
-        <input type="hidden" name="invoiceId" value="<%=invoice.getId()%>">
+        <input type="hidden" name="invoice_id" value="<%=invoice.getId()%>">
         <table>
             <tr>
                 <td><label for="date">Дата &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label></td>
@@ -525,5 +505,3 @@
 </div>
 
 
-</body>
-</html>

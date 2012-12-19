@@ -90,7 +90,7 @@ public class Invoice {
     private List<InvoiceItem> invoiceItems;
 
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "booking_id", nullable = true)
     private Booking booking;
 
@@ -116,6 +116,10 @@ public class Invoice {
     @Transient
     private BigDecimal debtPercent;
 
+
+
+
+ //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public Set<Payment> getPayments() {
         return payments;
     }
@@ -324,73 +328,9 @@ public class Invoice {
         this.exchangeRate = exchangeRate;
     }
 
-    public BigDecimal getSum() {
-        BigDecimal result = new BigDecimal("0");
-        if (invoiceItems != null) {
-            for (InvoiceItem item : invoiceItems)
-                result = result.add(item.getSum());
-        }
-        return result;
-    }
-
-    public BigDecimal getNDSPayment() {
-        return getSum().multiply(NDS).divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP);
-    }
-
-    public BigDecimal getTotal() {
-        return getSum().add(getNDSPayment());
-    }
-
-    public BigDecimal getAdditionToPrice() {
-        /*
-        *  BigDecimal znamenatel = price.divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP).add(additionalCost);
 
 
-        if (znamenatel.compareTo(BigDecimal.ZERO) != 0) {
-            BigDecimal res = sellingPrice.subtract(transportationCost).divide(znamenatel, 4, RoundingMode.HALF_UP);
 
-            return res;
-        } else
-            return new BigDecimal("-1");
-        *
-        *
-        *
-        * */
-
-
-        BigDecimal znamenatel = new BigDecimal("0");
-        BigDecimal chislitel = new BigDecimal("0");
-
-        BigDecimal result = new BigDecimal("0");
-        BigDecimal tmp1, tmp2;
-
-        if (invoiceItems != null) {
-            for (InvoiceItem item : invoiceItems) {
-                tmp1 = item.getPrice().divide(exchangeRate, 2, RoundingMode.HALF_UP).add(item.getAdditionalCost()).multiply(new BigDecimal(item.getQuantity()));
-                tmp2 = item.getSellingPrice().subtract(item.getTransportationCost()).multiply(new BigDecimal(item.getQuantity()));
-                znamenatel = znamenatel.add(tmp1);
-                chislitel = chislitel.add(tmp2);
-                //   BigDecimal selP = item.getSellingPrice();
-                //   BigDecimal tr = item.getTransportationCost();
-                //   Integer qa = item.getQuantity();
-
-
-                //   result = result.add(selP.subtract(tr).multiply((new BigDecimal(qa))));
-                //   System.out.println(selP + " " + tr + " " + qa + " " + result);
-            }
-
-        }
-        //  BigDecimal sum = getSum();
-
-        if (znamenatel.compareTo(BigDecimal.ZERO) == 0) {
-            return BigDecimal.ONE;
-        } else {
-            return chislitel.divide(znamenatel, 2, RoundingMode.HALF_UP);
-        }
-        //return result.divide(sum, 2, RoundingMode.HALF_UP);
-
-
-    }
 
 
     public String getNumberModifier() {
@@ -531,7 +471,11 @@ public class Invoice {
         this.debtPercent = debtPercent;
     }
 
-    public BigDecimal getTotalPayments() {
+
+
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    public BigDecimal computeTotalPayments() {
         BigDecimal sumOfPayments = new BigDecimal("0");
         if (payments != null)
             for (Payment payment : payments) {
@@ -540,15 +484,15 @@ public class Invoice {
         return sumOfPayments;
     }
 
-    public BigDecimal getPaymentPercent() {
+    public BigDecimal computePaymentPercent() {
 //         new BigDecimal("0");
 //        if (payments != null)
 //            for (Payment payment : payments) {
 //                sumOfPayments = sumOfPayments.add(payment.getPaymentSum());
 //            }
 
-        BigDecimal sumOfPayments = getTotalPayments();
-        BigDecimal total = getTotal();
+        BigDecimal sumOfPayments = computeTotalPayments();
+        BigDecimal total = computeTotal();
         if (total.compareTo(BigDecimal.ZERO) == 0) {
             return BigDecimal.ZERO;
         } else {
@@ -564,7 +508,7 @@ public class Invoice {
             for (Payment payment : payments) {
                 sumOfPayments = sumOfPayments.add(payment.getPaymentSum());
             }
-        BigDecimal total = getTotal();
+        BigDecimal total = computeTotal();
         return total.compareTo(sumOfPayments) == 0;
     }
 
@@ -610,5 +554,72 @@ public class Invoice {
 
         return result;
     }
+
+    public BigDecimal computeNDSPayment() {
+        return computeSum().multiply(NDS).divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP);
+    }
+
+    public BigDecimal computeTotal() {
+        return computeSum().add(computeNDSPayment());
+    }
+    public BigDecimal computeSum() {
+        BigDecimal result = new BigDecimal("0");
+        if (invoiceItems != null) {
+            for (InvoiceItem item : invoiceItems)
+                result = result.add(item.getSum());
+        }
+        return result;
+    }
+
+    public BigDecimal computeAdditionToPrice() {
+        /*
+        *  BigDecimal znamenatel = price.divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP).add(additionalCost);
+
+
+        if (znamenatel.compareTo(BigDecimal.ZERO) != 0) {
+            BigDecimal res = sellingPrice.subtract(transportationCost).divide(znamenatel, 4, RoundingMode.HALF_UP);
+
+            return res;
+        } else
+            return new BigDecimal("-1");
+        *
+        *
+        *
+        * */
+
+
+        BigDecimal znamenatel = new BigDecimal("0");
+        BigDecimal chislitel = new BigDecimal("0");
+
+        BigDecimal result = new BigDecimal("0");
+        BigDecimal tmp1, tmp2;
+
+        if (invoiceItems != null) {
+            for (InvoiceItem item : invoiceItems) {
+                tmp1 = item.getPrice().divide(exchangeRate, 2, RoundingMode.HALF_UP).add(item.getAdditionalCost()).multiply(new BigDecimal(item.getQuantity()));
+                tmp2 = item.getSellingPrice().subtract(item.getTransportationCost()).multiply(new BigDecimal(item.getQuantity()));
+                znamenatel = znamenatel.add(tmp1);
+                chislitel = chislitel.add(tmp2);
+                //   BigDecimal selP = item.getSellingPrice();
+                //   BigDecimal tr = item.getTransportationCost();
+                //   Integer qa = item.getQuantity();
+
+
+                //   result = result.add(selP.subtract(tr).multiply((new BigDecimal(qa))));
+                //   System.out.println(selP + " " + tr + " " + qa + " " + result);
+            }
+
+        }
+
+        if (znamenatel.compareTo(BigDecimal.ZERO) == 0) {
+            return BigDecimal.ONE;
+        } else {
+            return chislitel.divide(znamenatel, 2, RoundingMode.HALF_UP);
+        }
+        //return result.divide(sum, 2, RoundingMode.HALF_UP);
+
+
+    }
+
 
 }

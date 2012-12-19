@@ -41,10 +41,11 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
     @Override
+    @Transactional
     public Boolean checkPresence(Integer number, String numberModifier, Boolean invoice, Date date) {
 
-
-        return true;
+          //todo !!!!!!
+        return invoiceDAO.checkPresence( number,  numberModifier,  invoice,  date);
     }
 
 

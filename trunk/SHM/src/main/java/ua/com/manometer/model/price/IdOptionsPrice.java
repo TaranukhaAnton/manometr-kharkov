@@ -7,6 +7,15 @@ public class IdOptionsPrice implements Serializable{
     private Integer isp;
     private String param;
 
+    public IdOptionsPrice() {
+    }
+
+    public IdOptionsPrice(Integer type, Integer isp, String param) {
+        this.type = type;
+        this.isp = isp;
+        this.param = param;
+    }
+
     public Integer getType() {
         return type;
     }

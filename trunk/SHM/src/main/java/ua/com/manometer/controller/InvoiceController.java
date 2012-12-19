@@ -1,26 +1,35 @@
 package ua.com.manometer.controller;
 
 
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.datetime.joda.JodaTimeContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ua.com.manometer.model.Customer;
 import ua.com.manometer.model.Supplier;
-import ua.com.manometer.model.invoice.Invoice;
-import ua.com.manometer.model.invoice.InvoiceItem;
+import ua.com.manometer.model.address.City;
+import ua.com.manometer.model.invoice.*;
 import ua.com.manometer.service.CustomerService;
 import ua.com.manometer.service.SupplierService;
+import ua.com.manometer.service.address.CityService;
+import ua.com.manometer.service.invoice.BookingService;
 import ua.com.manometer.service.invoice.InvoiceItemService;
 import ua.com.manometer.service.invoice.InvoiceService;
+import ua.com.manometer.service.invoice.PaymentService;
+import ua.com.manometer.util.UTF8Control;
+import ua.com.manometer.util.amount.JAmount;
+import ua.com.manometer.util.amount.JAmountRU;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
@@ -40,6 +49,13 @@ public class InvoiceController {
     SupplierService supplierService;
     @Autowired
     InvoiceItemService invoiceItemService;
+    @Autowired
+    CityService cityService;
+    @Autowired
+    PaymentService paymentService;
+    @Autowired
+    BookingService bookingService;
+
 
     @RequestMapping("/")
     public String populateInvoices(Map<String, Object> map) {
@@ -49,11 +65,43 @@ public class InvoiceController {
     }
 
     @RequestMapping("/view")
-    public String viewInvoice(@RequestParam("id") Long id, Map<String, Object> map) {
+    public String viewInvoice(@RequestParam("invoice_id") Long id, Map<String, Object> map) {
         Invoice invoice = invoiceService.getInvoice(id);
         map.put("invoice", invoice);
         map.put("supplierList", supplierService.listSupplier());
         return "editInvoice";
+    }
+
+    @RequestMapping("/view_shipments")
+    public String viewShipments(@RequestParam("invoice_id") Long id, Map<String, Object> map) {
+        Invoice invoice = invoiceService.getInvoice(id);
+
+        Map<Long, Map<Long,Integer>> res= new HashMap<Long, Map<Long, Integer>>();     
+        Set<Shipment> shipments = invoice.getShipments();
+        for (Shipment shipment : shipments) {
+            Map<Long,Integer> mapSM = new HashMap<Long, Integer>();
+            List<ShipmentMediator> shippingMediators = shipment.getShippingMediators();
+            for (ShipmentMediator sm : shippingMediators) {
+              mapSM.put(sm.getInvoiceItem().getId(), sm.getCount());
+            }
+            res.put(shipment.getId(),mapSM);
+        }
+
+
+        map.put("map", res);
+        map.put("invoice", invoice);
+        map.put("supplierList", supplierService.listSupplier());
+        return "shipments";
+    }
+
+    
+    
+    
+    
+    @RequestMapping("/delete")
+    public String deleteInvoice(@RequestParam("invoice_id") Long id) {
+        invoiceService.removeInvoice(id);
+        return "redirect:/invoices/";
     }
 
 
@@ -87,9 +135,77 @@ public class InvoiceController {
         }
         invoice.setInvoiceItems(new LinkedList<InvoiceItem>());
         invoiceService.saveInvoice(invoice);
-        return "redirect:/invoices/view?id=" + invoice.getId();
+        return "redirect:/invoices/view?invoice_id=" + invoice.getId();
     }
 
+
+    @RequestMapping("/add_shipment")
+    public String addShipment(@RequestParam("invoice_id") Long invoiceId, HttpServletRequest request) throws ParseException {
+        Invoice invoice = invoiceService.getInvoice(invoiceId);
+
+        Shipment shipment = new Shipment();
+
+        shipment.setDate((new SimpleDateFormat("dd.MM.yyyy")).parse(request.getParameter("date")));
+        shipment.setShipmentNum(request.getParameter("shipmentNum"));
+        for (InvoiceItem item : invoice.getInvoiceItems()) {
+        String   param = request.getParameter("invItId" + item.getId());
+            if ((param != null) && (!param.isEmpty())) {
+                ShipmentMediator sm = new ShipmentMediator(item, new Integer(param));
+                shipment.addShippingMediator(sm);
+                item.addShippingMediators(sm);
+                invoiceItemService.saveInvoiceItem(item);
+            }
+        }
+
+        if ((shipment.getShippingMediators() != null) && (!shipment.getShippingMediators().isEmpty())) {
+            shipment.setInvoice(invoice);
+            invoice.addShipment(shipment);
+            if (invoice.isDeliveryMade()) {
+                invoice.getBooking().setCurrentState(Booking.STATE_OTGR);
+                invoice.getBooking().setDateOfDeviveryMade(getCurrentDate());
+                if (invoice.isPaymentMade()) {
+                    invoice.getBooking().setCurrentState(Booking.STATE_ISP);
+                    invoice.setCurrentState(Invoice.STATE_ISP);
+                }
+            }
+            invoiceService.saveInvoice(invoice);
+            bookingService.addBooking(invoice.getBooking());
+        }
+        return "redirect:/invoices/view_shipments?invoice_id="+invoiceId;
+    }
+
+    @RequestMapping("/get_shipment_sum")
+    public
+    @ResponseBody
+    Map editInvoiceItem(@RequestParam("invoice_id") Long invoiceId, HttpServletRequest request)
+            throws Exception {
+        Invoice invoice = invoiceService.getInvoice(invoiceId);
+        BigDecimal sum = new BigDecimal("0");
+        BigDecimal count;
+        for (InvoiceItem item : invoice.getInvoiceItems()) {
+        String    param = request.getParameter("invItId" + item.getId());
+            if (StringUtils.isNotBlank(param)) {
+                count = new BigDecimal(param);
+                sum = sum.add(item.getSellingPrice().multiply(count));
+            }
+        }
+        NumberFormat df = NumberFormat.getInstance();
+        df.setMinimumFractionDigits(2);
+        Map map = new HashMap();
+        map.put("sum", df.format(sum));
+        return map;
+    }
+    
+    
+    public static Date getCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.AM_PM, Calendar.AM);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
 
     @RequestMapping("/editInvoiceItem")
     public
@@ -178,9 +294,9 @@ public class InvoiceController {
 
         //Factory.getInvoiceDAO().findById(new Long(request.getParameter("invoiceId")));
         String res = "{";
-        res += "\"total\":\"" + df.format(invoice.getTotal()) + "\"," +
-                "\"sumTot\":\"" + df.format(invoice.getSum()) + "\"," +
-                "\"nds\":\"" + df.format(invoice.getNDSPayment()) + "\"";
+        res += "\"total\":\"" + df.format(invoice.computeTotal()) + "\"," +
+                "\"sumTot\":\"" + df.format(invoice.computeSum()) + "\"," +
+                "\"nds\":\"" + df.format(invoice.computeNDSPayment()) + "\"";
         res += ",\"quantity\":\"" + item.getQuantity() + "\"";
         df.setMinimumFractionDigits(4);
         df.setMaximumFractionDigits(4);
@@ -282,9 +398,9 @@ public class InvoiceController {
                 items.add(invoiceItemToMap(invoiceItem));
             }
             map.put("items", items);
-            map.put("total", df.format(invoice.getTotal()));
-            map.put("sum", df.format(invoice.getSum()));
-            map.put("nds", df.format(invoice.getNDSPayment()));
+            map.put("total", df.format(invoice.computeTotal()));
+            map.put("sum", df.format(invoice.computeSum()));
+            map.put("nds", df.format(invoice.computeNDSPayment()));
         } else if (param.equals("commonPercent")) {
             BigDecimal percent = new BigDecimal(value.replace(",", ".").trim());
             List<Map> items = new LinkedList<Map>();
@@ -294,9 +410,9 @@ public class InvoiceController {
                 items.add(invoiceItemToMap(invoiceItem));
             }
             map.put("items", items);
-            map.put("total", df.format(invoice.getTotal()));
-            map.put("sum", df.format(invoice.getSum()));
-            map.put("nds", df.format(invoice.getNDSPayment()));
+            map.put("total", df.format(invoice.computeTotal()));
+            map.put("sum", df.format(invoice.computeSum()));
+            map.put("nds", df.format(invoice.computeNDSPayment()));
         } else if (param.equals("commonTransportCost")) {
             BigDecimal transportationCost = new BigDecimal(value.replace(",", ".").trim());
 
@@ -307,9 +423,9 @@ public class InvoiceController {
                 items.add(invoiceItemToMap(invoiceItem));
             }
             map.put("items", items);
-            map.put("total", df.format(invoice.getTotal()));
-            map.put("sum", df.format(invoice.getSum()));
-            map.put("nds", df.format(invoice.getNDSPayment()));
+            map.put("total", df.format(invoice.computeTotal()));
+            map.put("sum", df.format(invoice.computeSum()));
+            map.put("nds", df.format(invoice.computeNDSPayment()));
         } else if (param.equals("roundPrice")) {
             Integer roundValue = new Integer(value);
             List<Map> items = new LinkedList<Map>();
@@ -323,17 +439,17 @@ public class InvoiceController {
                 items.add(invoiceItemToMap(invoiceItem));
             }
             map.put("items", items);
-            map.put("total", df.format(invoice.getTotal()));
-            map.put("sum", df.format(invoice.getSum()));
-            map.put("nds", df.format(invoice.getNDSPayment()));
+            map.put("total", df.format(invoice.computeTotal()));
+            map.put("sum", df.format(invoice.computeSum()));
+            map.put("nds", df.format(invoice.computeNDSPayment()));
 
         } else if (param.equals("NDS")) {
             invoice.setNDS(new BigDecimal(value.replace(",", ".")));
             List<Map> items = new LinkedList<Map>();
             map.put("items", items);
-            map.put("total", df.format(invoice.getTotal()));
-            map.put("sum", df.format(invoice.getSum()));
-            map.put("nds", df.format(invoice.getNDSPayment()));
+            map.put("total", df.format(invoice.computeTotal()));
+            map.put("sum", df.format(invoice.computeSum()));
+            map.put("nds", df.format(invoice.computeNDSPayment()));
         } else if (param.equals("exchangeRate")) {
             BigDecimal exchangeRate = new BigDecimal(value.replace(",", "."));
             BigDecimal oldExchangeRate = invoice.getExchangeRate();
@@ -346,9 +462,9 @@ public class InvoiceController {
                 items.add(invoiceItemToMap(invoiceItem));
             }
             map.put("items", items);
-            map.put("total", df.format(invoice.getTotal()));
-            map.put("sum", df.format(invoice.getSum()));
-            map.put("nds", df.format(invoice.getNDSPayment()));
+            map.put("total", df.format(invoice.computeTotal()));
+            map.put("sum", df.format(invoice.computeSum()));
+            map.put("nds", df.format(invoice.computeNDSPayment()));
         }
         //#######################################
         invoiceService.saveInvoice(invoice);
@@ -396,7 +512,7 @@ public class InvoiceController {
                 correct = false;
                 mes += "Неверно указан конечный потребитель. \\u0D ";
             }
-        }else {
+        } else {
             map.put("consumer", true);
         }
 
@@ -405,6 +521,67 @@ public class InvoiceController {
         map.put("mes", mes);
 
         return map;
+    }
+
+
+    @RequestMapping(value = "/export_report", method = RequestMethod.GET)
+    public String exportReport(@RequestParam("invoice_id") Long invoiceId, @RequestParam("type") String type, ModelMap model) {
+        Invoice invoice = invoiceService.getInvoice(invoiceId);
+
+        JRDataSource dataSource = new JRBeanCollectionDataSource(invoice.getInvoiceItems());
+
+        Customer employer = customerService.getCustomerByShortName(invoice.getEmployer());
+        String orgForm = employer.getOrgForm().getName();
+        model.addAttribute("orgForm", orgForm);
+
+        City city = cityService.getCity(employer.getCity());
+        String cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
+        cityName += " " + city.getName();
+        model.addAttribute("city", cityName);
+
+        model.addAttribute("dataSource", dataSource);
+        // Add the report format
+        model.addAttribute("format", type);
+        model.addAttribute("invoice", invoice);
+        final int currencyId = invoice.getSupplier().getCurrency().getId().intValue();
+        JAmount jAmount = new JAmountRU();
+        model.addAttribute("strTotal", jAmount.getAmount(currencyId, invoice.computeTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
+        model.addAttribute("path", "/header.png");
+        model.addAttribute(JRParameter.REPORT_LOCALE, new Locale("ua", "UA"));
+        ResourceBundle bundle = ResourceBundle.getBundle("i18n", new UTF8Control());
+        model.addAttribute(JRParameter.REPORT_RESOURCE_BUNDLE, bundle);
+        return "invoiceReport";
+    }
+
+    @RequestMapping("/view_payments")
+    public String viewPayments(@RequestParam("invoice_id") Long invoiceId, Map<String, Object> map) {
+        Invoice invoice = invoiceService.getInvoice(invoiceId);
+        map.put("invoice", invoice);
+        return "payments";
+    }
+
+    @RequestMapping("/add_payment")
+    public String addPayment(@RequestParam("invoice_id") Long invoiceId, Map<String, Object> map, HttpServletRequest request)
+            throws Exception {
+        Invoice invoice = invoiceService.getInvoice(invoiceId);
+        Payment payment = new Payment();
+//
+        payment.setExchangeRate(new BigDecimal(request.getParameter("exchangeRate").replaceAll("[^0-9,.]", "").replace(",", ".")));
+        payment.setPaymentSum(new BigDecimal(request.getParameter("paymentSum").replaceAll("[^0-9,.-]", "").replace(",", ".")));
+        payment.setPurpose(new Integer(request.getParameter("purpose")));
+        payment.setDate((new SimpleDateFormat("dd.MM.yyyy")).parse(request.getParameter("date")));
+        // payment.setInvoice(invoice);
+        paymentService.addPayment(payment);
+
+        invoice.addPayment(payment);
+        if (invoice.isDeliveryMade() && invoice.isPaymentMade()) {
+            invoice.getBooking().setCurrentState(Booking.STATE_ISP);
+            invoice.setCurrentState(Invoice.STATE_ISP);
+        }
+        invoiceService.saveInvoice(invoice);
+
+
+        return "redirect:/invoices/view_payments?invoice_id=" + invoice.getId();
     }
 
 
@@ -426,5 +603,14 @@ public class InvoiceController {
         return result;
     }
 
-
+    public static void printProps(HttpServletRequest request) {
+        Enumeration<String> en = request.getParameterNames();
+        while (en.hasMoreElements()) {
+            String param = en.nextElement();
+            // System.out.print(param + " -- ");
+            // System.out.println(request.getParameter(param));
+            for (String s : request.getParameterValues(param))
+                System.out.println(param + " = " + s);
+        }
+    }
 }
