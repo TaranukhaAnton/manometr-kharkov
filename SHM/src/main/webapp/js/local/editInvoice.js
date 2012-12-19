@@ -323,13 +323,13 @@ $(function() {
         buttons: {
             'Создать': function() {
 
-                $.post("invoiceAction.do?method=verifyOrderPresence", {"isInvoice" : $('[name=isInvoice]:checked').val(), "number":$('#number').val(), "numberModifier":$('#numberModifier').val(), "date":$('#date').val() }, function(data) {
-                    if (data.length > 0) {
+                $.post("../bookings/verify_booking", {"isInvoice" : $('[name=isInvoice]:checked').val(), "number":$('#number').val(), "numberModifier":$('#numberModifier').val(), "date":$('#date').val() }, function(data) {
 
 
-                        if (data == 'true') {
-                            var str = "invoiceAction.do?method=openOrder";
-                            str += "&invoceId=" + $('#id').val();
+
+                        if (!data.presence) {
+                            var str = "../bookings/add";
+                            str += "?invoice_id=" + $('#id').val();
                             str += "&number=" + $('#number').val();
                             str += "&numberModifier=" + $('#numberModifier').val();
                             str += "&date=" + $('#date').val();
@@ -338,7 +338,7 @@ $(function() {
                         } else {
                             alert("Такой заказ-наряд уже существует");
                         }
-                    }
+
 
                 });
 
@@ -537,8 +537,7 @@ function paramChange(param, type, func) {
 
 
 function printInvoice(type, id) {
-
-    location.replace("invoiceAction.do?method=downloadArch&invoiceId=" + id + "&type=" + type);
+    location.replace("./export_report?invoice_id=" + id + "&type=" + type);
     $('#print-dialog').dialog('close');
 }
 

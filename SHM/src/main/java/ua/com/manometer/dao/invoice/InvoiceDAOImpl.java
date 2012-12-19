@@ -1,11 +1,15 @@
 package ua.com.manometer.dao.invoice;
+
 import org.hibernate.Hibernate;
+import org.hibernate.classic.Session;
 import ua.com.manometer.model.invoice.Invoice;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -16,6 +20,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
     @Override
     public void saveInvoice(Invoice invoice) {
+        System.out.println("saveInvoice");
         sessionFactory.getCurrentSession().saveOrUpdate(invoice);
     }
 
@@ -43,5 +48,15 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         Hibernate.initialize(invoice.getShipments());
         return invoice;
     }
+
+    @Override
+    public Boolean checkPresence(Integer number, String numberModifier, Boolean invoice, Date date) {
+
+        Session session = sessionFactory.getCurrentSession();
+        BigInteger count = (BigInteger) session.createSQLQuery("select count(*) from invoice i where year(i.date) = year (?) and i.number = ? and i.numberModifier = ? and isInvoice = ? ")
+                .setDate(0, date).setInteger(1, number).setString(2, numberModifier).setString(3, invoice ? "Y" : "N").uniqueResult();
+        return   count.compareTo(BigInteger.ZERO) == 1;
+    }
+
 
 }

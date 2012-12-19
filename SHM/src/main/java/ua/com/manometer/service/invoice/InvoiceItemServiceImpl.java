@@ -55,7 +55,11 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
 		invoiceitemDAO.removeInvoiceItem(id);
 	}
 
+
+
+    //todo
     @Override
+
     public void setupMoneyFields(PressureSensor item ,BigDecimal koef ) {
         PriceFirstPart priceFirstPart = priceFirstPartService.getItem(new IdPrice(new Integer(item.getModel()),item.getIsp(),item.getMat(),item.getKlim(), item.getError()));
 

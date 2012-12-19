@@ -1,4 +1,5 @@
 package ua.com.manometer.dao.price;
+import ua.com.manometer.model.price.IdOptionsPrice;
 import ua.com.manometer.model.price.OptionsPrice;
 
 import org.hibernate.SessionFactory;
@@ -16,8 +17,8 @@ public class OptionsPriceDAOImpl implements OptionsPriceDAO {
 
     @Override
     public OptionsPrice getOptionsPrice(Integer type, Integer isp, String param) {
-        //todo!!!!!!!!!!!!!!!!!!
-        return (OptionsPrice)sessionFactory.getCurrentSession().createCriteria(OptionsPrice.class).list().get(0);
+        IdOptionsPrice id = new IdOptionsPrice(type, isp, param);
+        return (OptionsPrice)sessionFactory.getCurrentSession().get(OptionsPrice.class, id);
     }
 
 

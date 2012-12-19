@@ -73,6 +73,7 @@ public class PriceFirstPartDAOImpl implements PriceFirstPartDAO {
 
     @Override
     public PriceFirstPart getItem(IdPrice id) {
-        return (PriceFirstPart) sessionFactory.getCurrentSession().load(PriceFirstPart.class, id);
+        PriceFirstPart priceFirstPart = (PriceFirstPart) sessionFactory.getCurrentSession().get(PriceFirstPart.class, id);
+        return priceFirstPart;
     }
 }

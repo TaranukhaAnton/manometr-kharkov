@@ -10,6 +10,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.math.BigDecimal" %>
 <%@ page import="java.math.RoundingMode" %>
+<%@ page import="ua.com.manometer.model.invoice.Invoice" %>
 
 
 <%@taglib uri="/WEB-INF/displaytag.tld" prefix="display" %>
@@ -322,14 +323,14 @@
         <display:column property="supplier.currency.name" class="center" title="Вал"/>
 
         <display:column title="Сумма,<br> тыс" class="right">
-            <%=df.format(((Invoice) pageContext.getAttribute("invoice")).getTotal().divide(new BigDecimal("1000"), 2, RoundingMode.HALF_UP)) %>
+            <%=df.format(((Invoice) pageContext.getAttribute("invoice")).computeTotal().divide(new BigDecimal("1000"), 2, RoundingMode.HALF_UP)) %>
         </display:column>
             <display:column title="долг">
 
         </display:column>
 
         <display:column title="Оплата,<br> %" class="right">
-            <%=df.format(((Invoice) pageContext.getAttribute("invoice")).getPaymentPercent()) %>
+            <%=df.format(((Invoice) pageContext.getAttribute("invoice")).computePaymentPercent()) %>
         </display:column>
         <display:column title="долг, <br> % ">
 

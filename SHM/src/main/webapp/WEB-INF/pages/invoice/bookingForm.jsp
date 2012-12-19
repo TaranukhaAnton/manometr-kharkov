@@ -1,40 +1,13 @@
-<%@ taglib prefix="logic" uri="http://struts.apache.org/tags-logic" %>
-<%@ taglib prefix="bean" uri="http://jakarta.apache.org/struts/tags-bean" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="html" uri="http://jakarta.apache.org/struts/tags-html" %>
-<%@ page import="application.data.User" %>
-<%@ page import="application.data.invoice.Booking" %>
-<%@ page import="application.data.invoice.Invoice" %>
-<%@ page import="application.data.invoice.InvoiceItem" %>
-<%@ page import="application.hibernate.Factory" %>
 <%@ page import="java.text.NumberFormat" %>
+<%@ page import="ua.com.manometer.model.invoice.Invoice" %>
+<%@ page import="ua.com.manometer.model.invoice.Booking" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="ua.com.manometer.model.invoice.InvoiceItem" %>
+<%@ page import="ua.com.manometer.model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head><title>Simple jsp page</title>
 
+    <link rel="stylesheet" type="text/css" href="../css/invoice.css"/>
 
-    <%--<link rel="stylesheet" type="text/css" href="css/jquery.autocomplete.css"/>--%>
-    <link rel="stylesheet" type="text/css" href="css/invoice.css"/>
-    <script type="text/javascript" src="js/ui/jquery-1.4.1.js"></script>
-    <%--<script type="text/javascript" src="js/ui/jquery.bgiframe-2.1.1.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.core.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.widget.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.mouse.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.button.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.draggable.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.position.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.resizable.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.dialog.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.ui.tabs.js"></script>--%>
-    <%--<script type="text/javascript" src="js/ui/jquery.effects.core.js"></script>--%>
-    <%--<script type='text/javascript' src="js/jquery.autocomplete.js"></script>--%>
-    <%--<script type="text/javascript" src="js/editInvoice.js"></script>--%>
-    <script src="js/ui/i18n/jquery.ui.datepicker-ru.js"></script>
-    <script src="js/ui/jquery.ui.datepicker.js"></script>
-
-    <link type="text/css" href="/Manometr/css/tst/ui.all.css" rel="stylesheet"/>
-    <link type="text/css" href=" css/tst/jquery.ui.all.css" rel="stylesheet"/>
     <script type="text/javascript">
 
 
@@ -72,21 +45,17 @@
         }
         function changeBookingState(state)
         {
-            $.post("invoiceAction.do?method=editBookingParams", {"param" : "currentState", "value":state, "id":$("#id").val()}, function(data) {
-                if (data.length > 0) {
+            $.post("../bookings/editBookingParams", {"param":"currentState", "value":state, "invoice_id":$("#invoice_id").val()},
+                    function (response) {
 
-                    var response = eval("(" + data + ")");
-                    if (response.res == "ok")
-                    {
-                        window.location.reload(true);
-                    } else
-                    {
-                        alert(response.res);
-                    }
+                        if (response.res) {
+                            window.location.reload(true);
+                        } else {
+                            alert(response.message);
+                        }
 
 
-                }
-            });
+                    });
         }
 
     </script>
@@ -107,12 +76,12 @@
 
 
 </head>
-<body onResize="bodyResize();">
+
 <%
 
-    Long id = (Long) request.getAttribute("id");
-    Booking booking = Factory.getBookingDAO().findById(id);
-    Invoice invoice = booking.getInvoice();
+    Invoice invoice = (Invoice) request.getAttribute("invoice");
+    Booking  booking = invoice.getBooking();
+
     String textFieldDisab = "disabled=\"true\"";
     Boolean changesAllowed = true;
     NumberFormat df = NumberFormat.getInstance();
@@ -122,6 +91,7 @@
 %>
 <div id="content">
 <div id="topDiv">
+<input type="hidden" name="invoice_id" id="invoice_id" value="<%=invoice.getId()%>">
 <input type="hidden" name="id" id="id" value="<%= booking.getId() %>">
 <input type="hidden" id="mindate" value="<%= booking.getDate().toGMTString() %>">
 
@@ -141,7 +111,7 @@
 
                 &nbsp; &nbsp; &nbsp; &nbsp;
 
-                <a href="invoiceAction.do?method=viewInvoice&id=<%=invoice.getId()%>">по счету
+                <a href="../invoices/view?invoice_id=<%=invoice.getId()%>">по счету
                     &nbsp;<%=invoice.getNumber()%>  <%= ((invoice.getNumberModifier() == null) || (invoice.getNumberModifier().isEmpty())) ? "" : ("/" + invoice.getNumberModifier())%>
                     &nbsp; от <%= (new SimpleDateFormat("dd.MM.yyyy")).format(invoice.getDate()) %>
                 </a>
@@ -174,7 +144,7 @@
             <td class="width80">
                 Заказчик
             </td>
-            <td class="width200"><%= (invoice.getEmploer() == null) ? "" : invoice.getEmploer().getShortName()%>
+            <td class="width200"><%= (invoice.getEmployer() == null) ? "" : invoice.getEmployer()%>
             </td>
             <td></td>
             <td></td>
@@ -190,7 +160,7 @@
         </tr>
         <tr>
             <td>Конечный</td>
-            <td><%= (invoice.getConsumer() == null) ? "" : invoice.getConsumer().getShortName()  %>
+            <td><%= (invoice.getConsumer() == null) ? "" : invoice.getConsumer()%>
             </td>
             <td></td>
             <td></td>
@@ -216,7 +186,7 @@
             <td>Оплата</td>
             <td>
 
-                <%=df.format(invoice.getPaymentPercent())%>&nbsp;%
+                <%=df.format(invoice.computePaymentPercent())%>&nbsp;%
 
             </td>
 
@@ -334,41 +304,42 @@
 
 <div id="downButtons">
     <input type="button" value="К счету"
-           onclick="location.href='invoiceAction.do?method=viewInvoice&id=<%=invoice.getId()%>'" class="butt">
+           onclick="location.href='../invoices/view?invoice_id=<%=invoice.getId()%>'" class="butt">
 
     <%
-         Integer livel = (Integer) request.getSession().getAttribute("livel");
+        //todo sequrity
+         Integer level = 4;//(Integer) request.getSession().getAttribute("level");
         Integer st = booking.getCurrentState();
-        if (st.equals(Booking.STATE_CHERN)&(User.LIVEL_ECONOMIST.equals(livel)||User.LIVEL_ADMINISTRATOR.equals(livel))) {%>
+        if (st.equals(Booking.STATE_CHERN)&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {%>
     <input type="button" value="Запрет изм." onclick="changeBookingState(<%=Booking.STATE_PROIZV%>);" class="butt">
     <%
         }
         if ((st.equals(Booking.STATE_CHERN) ||
                 st.equals(Booking.STATE_PROIZV) ||
                 st.equals(Booking.STATE_SKLAD) ||
-                st.equals(Booking.STATE_PRIOST))&(User.LIVEL_ECONOMIST.equals(livel)||User.LIVEL_ADMINISTRATOR.equals(livel))) {
+                st.equals(Booking.STATE_PRIOST))&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {
     %>
     <input type="button" value="Аннулировать" onclick="changeBookingState(<%=Booking.STATE_ANN%>);" class="butt">
     <%
         }
         if ((st.equals(Booking.STATE_PROIZV) ||
-                st.equals(Booking.STATE_SKLAD))&(User.LIVEL_ECONOMIST.equals(livel)||User.LIVEL_ADMINISTRATOR.equals(livel))) {
+                st.equals(Booking.STATE_SKLAD))&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {
     %>
     <input type="button" value="Приостановить" onclick="changeBookingState(<%=Booking.STATE_PRIOST%>);" class="butt">
     <%
         }
-        if ((st.equals(Booking.STATE_PRIOST))&(User.LIVEL_ECONOMIST.equals(livel)||User.LIVEL_ADMINISTRATOR.equals(livel))) {
+        if ((st.equals(Booking.STATE_PRIOST))&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {
     %>
     <input type="button" value="Возобновить" onclick="changeBookingState(<%=Booking.STATE_CHERN%>);" class="butt">
     <%
         }
-        if ((st.equals(Booking.STATE_PROIZV))&(User.LIVEL_ECONOMIST.equals(livel)||User.LIVEL_ADMINISTRATOR.equals(livel))) {
+        if ((st.equals(Booking.STATE_PROIZV))&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {
     %>
     <input type="button" value="Склад" onclick="changeBookingState(<%=Booking.STATE_SKLAD%>);" class="butt">
     <%--<input type="button" value="Отгрузка" onclick="changeBookingState(<%=Booking.STATE_ANN%>);" class="butt">--%>
         <%
         }
-        if ((!st.equals(Booking.STATE_CHERN))&(!User.LIVEL_USER.equals(livel))) {
+        if ((!st.equals(Booking.STATE_CHERN))&(!User.LEVEL_USER.equals(level))) {
     %>
 
     <input type="button" value="Печать"
@@ -381,5 +352,3 @@
 </div>
 </div>
 
-</body>
-</html>

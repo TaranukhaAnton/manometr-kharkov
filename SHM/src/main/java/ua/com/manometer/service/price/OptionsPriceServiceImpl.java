@@ -16,6 +16,7 @@ public class OptionsPriceServiceImpl implements OptionsPriceService {
 
 
     @Override
+    @Transactional
     public OptionsPrice getOptionsPrice(Integer type, Integer isp, String param) {
         return   optionspriceDAO.getOptionsPrice(type, isp, param);
     }

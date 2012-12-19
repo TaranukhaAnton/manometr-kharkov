@@ -11,11 +11,13 @@
 
 
 <input type="hidden" name="invoice_id" id="invoice_id" value="<%=request.getParameter("invoice_id")%>">
+<% if(request.getParameter("invoice_item_id")!=null){%>
 <input type="hidden" name="invoice_item_id" id="invoice_item_id" value="<%=request.getParameter("invoice_item_id")%>">
+<% }%>
 
 
 <div id="head">
-    <label><input type="radio" name="typeTxt" value="0"> &quot;Сафiр М&quot;</label>
+    <label><input type="radio" name="typeTxt" value="0" checked="checked"> &quot;Сафiр М&quot;</label>
     <label><input type="radio" name="typeTxt" value="1"> &quot;Сафiр&quot; </label>
     <label><input type="radio" name="typeTxt" value="2"> СМХ </label>
     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -380,7 +382,7 @@
 </table>
 
 
-<input type="hidden" value="addPressureSensor" name="method">
+<%--<input type="hidden" value="addPressureSensor" name="method">--%>
 
 
 </div>

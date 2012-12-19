@@ -15,7 +15,7 @@ public class BookingDAOImpl implements BookingDAO {
 
     @Override
     public void addBooking(Booking booking) {
-        sessionFactory.getCurrentSession().save(booking);
+        sessionFactory.getCurrentSession().saveOrUpdate(booking);
     }
 
     @SuppressWarnings("unchecked")
