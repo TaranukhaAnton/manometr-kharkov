@@ -32,14 +32,12 @@ public class ListPriceController {
         return "/price/oneListPage";
     }
 
-
+     //todo
     @RequestMapping("/add")
     public String add(ProductionPrice productionPrice, ModelMap model) {
         System.out.println("ListPriceController.add");
         productionPriceService.addProductionPrice(productionPrice);
-        model.put("type", productionPrice.getType());
-        model.put("list", productionPriceService.listProductionPriceByType(productionPrice.getType()));
-        return "/price/oneListPage";
+        return  "redirect:/list_price/page?type="+ productionPrice.getType();
     }
 
 

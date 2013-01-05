@@ -108,7 +108,7 @@ public class BookingController {
                     break;
                 case STATE_ANN:
                     // System.out.println(invoice.computeTotalPayments()+" "+ invoice.computeTotalPayments().compareTo(BigDecimal.ZERO));
-                    if (!(invoice.isAnyGoodsNotShipped() && (invoice.computeTotalPayments().compareTo(BigDecimal.ZERO) == 0))) {
+                    if (!(!invoice.isAnyGoodsShipped() && (invoice.getTotalPayments().compareTo(BigDecimal.ZERO) == 0))) {
 
                         result.put("message", "Сумма отгрузок и сумма оплат должна равняться нулю.");
                         validate = false;

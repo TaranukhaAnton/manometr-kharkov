@@ -20,7 +20,6 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
     @Override
     public void saveInvoice(Invoice invoice) {
-        System.out.println("saveInvoice");
         sessionFactory.getCurrentSession().saveOrUpdate(invoice);
     }
 

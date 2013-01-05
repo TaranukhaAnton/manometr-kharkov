@@ -3,6 +3,8 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="ua.com.manometer.model.invoice.Booking" %>
 <%@ page import="org.apache.commons.lang.StringUtils" %>
+<%@ page import="java.math.RoundingMode" %>
+<%@ page import="java.math.BigDecimal" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -50,14 +52,14 @@
         <display:column property="t5" class="col30 center" title="стор"/>
 
         <display:column title="Сумма,<br> тыс" class="right">
-            <%--<%=df.format(((Invoice) pageContext.getAttribute("invoice")).computeTotal().divide(new BigDecimal("1000"), 2, RoundingMode.HALF_UP)) %>--%>
+            <%=((Invoice) pageContext.getAttribute("invoice")).getTotal().divide(new BigDecimal("1000"), 2, RoundingMode.HALF_UP) %>
         </display:column>
         <display:column title="Нац-ка" class="right">
-            <%--<%=df.format(((Invoice) pageContext.getAttribute("invoice")).computeAdditionToPrice()) %>--%>
+            <%=((Invoice) pageContext.getAttribute("invoice")).getAdditionToPrice() %>
         </display:column>
         <display:column property="supplier.currency.name" class="center" title="Вал"/>
         <display:column title="сост.">
-            <%--<%=Invoice.curStateAlias[((Invoice) pageContext.getAttribute("invoice")).getCurrentState()]%>--%>
+            <%=Invoice.curStateAlias[((Invoice) pageContext.getAttribute("invoice")).getCurrentState()]%>
         </display:column>
 
         <display:column title="з/н">
@@ -74,7 +76,7 @@
         </display:column>
 
         <display:column title="Оплата,<br> %" class="right">
-            <%--<%=df.format(((Invoice) pageContext.getAttribute("invoice")).computePaymentPercent()) %>--%>
+            <%=((Invoice) pageContext.getAttribute("invoice")).getPaymentPercent()%>
         </display:column>
 
             <display:column title="" url="/invoices/delete"

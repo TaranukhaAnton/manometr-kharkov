@@ -264,7 +264,7 @@ function setKMCH() {
     it = "";
     var frm = document.forms[7];
     var numberElements = frm.elements.length;
-    queryString += "0|";
+    queryString += "";
     for (var i = 0; i < numberElements; i++) {
         if (frm.elements[i].checked)
             queryString += frm.elements[i].value + "|";

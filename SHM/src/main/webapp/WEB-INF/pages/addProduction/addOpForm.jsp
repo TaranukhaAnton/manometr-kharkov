@@ -1,31 +1,16 @@
-<%@ page import="application.hibernate.Factory" %>
-<%@ page import="application.hibernate.generic.GenericHibernateDAO" %>
-
-<%@ page import="application.data.ModelDescription.ModelDescription" %>
 <%request.setCharacterEncoding("UTF-8");%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<html>
-<head>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Редактор таблицы совместимости.</title>
-    <link href="css/addPressureSensor.css" rel="stylesheet" type="text/css"/>
-    <script src="js/jquery.js" type="text/javascript"></script>
-    <script src="js/addOp.js" type="text/javascript"></script>
+<link href="../css/addPressureSensor.css" rel="stylesheet" type="text/css"/>
+<script src="../js/local/add/addCo.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-    </script>
-
-</head>
-<body>
-<form action="testAction.do" name="mainForm" onsubmit="return  validate();">
+<form action="add_pressure_sensor" name="mainForm" onsubmit="return  validate();">
     <div id="parent">
 
-
-        <input type="hidden" name="invoiceId" id="invoiceId" value="<%=request.getParameter("invoiceId")%>">
-        <input type="hidden" name="invoiceItemId" id="invoiceItemId" value="<%=request.getParameter("invoiceItemId")%>">
+        <input type="hidden" name="invoice_id" id="invoice_id" value="<%=request.getParameter("invoice_id")%>">
+        <% if(request.getParameter("invoice_item_id")!=null){%>
+        <input type="hidden" name="invoice_item_id" id="invoice_item_id" value="<%=request.getParameter("invoice_item_id")%>">
+        <% }%>
 
         <div id="head">
             <label><input type="radio" checked name="typeTxt" value="0"> Сафiр М</label>
@@ -40,36 +25,73 @@
         </div>
 
         <div id="model">
-            <%
-                GenericHibernateDAO<ModelDescription> dao = Factory.getModelDescriptionDAO();
+            <table class="models" cellspacing="0">
+                <tr>
+                    <td class="silver_rb">  &nbsp;</td>
+                    <td class="silver_b">..30</td>
+                    <td class="silver_b">..31</td>
+                    <td class="silver_b">..40</td>
+                    <td class="silver_b">..41</td>
+                    <td class="silver_b">..50</td>
+                    <td class="silver_b">..51</td>
+                    <td class="silver_b">..60</td>
+                    <td class="silver_b">..61</td>
+                    <td class="silver_b">..70</td>
+                    <td class="silver_b">..71</td>
+                </tr>
+                <tr>
+                    <td class="silver_r">30..</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3030"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3040"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3041"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3050"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3051"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="silver_r">31..</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3130"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3131"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3140"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3141"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3150"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3151"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3160"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3161"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3170"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3171"/></td>
+                </tr>
+                <tr>
+                    <td class="silver_r">32..</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3230"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3231"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="silver_r">33..</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3330"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3331"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3340"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3341"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3350"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="3351"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                </tr>
 
-                String[] ar1 = {"30", "31", "40", "41", "50", "51", "60", "61", "70", "71"};
-                String[] ar2 = {"30", "31", "32", "33"};
-                out.println("<table class=\"models\"  cellspacing=\"0\" > <tr> <td  class=\"silver_rb\" >  &nbsp;</td>");
-                for (String it1 : ar1) {
-                    String style = ((it1 == "15") || (it1 == "24") || (it1 == "35") || (it1 == "45") || (it1 == "55") || (it1 == "64")) ? "silver_rb" : "silver_b";
-                    out.println(" <td class=\"" + style + "\" >.." + it1 + "</td>");
-                }
-                out.println("</tr>");
-                for (String it2 : ar2) {
-                    out.println("<tr>");
-                    out.println(" <td class=\"silver_r\">" + it2 + "..</td>");
-                    for (String it1 : ar1) {
-
-                        String style = ((it1 == "15") || (it1 == "24") || (it1 == "35") || (it1 == "45") || (it1 == "55") || (it1 == "64")) ? "silver_r" : "silver";
-
-                        ModelDescription result = dao.findById(new Long(it2 + it1));
-                        if (result != null) {
-                            out.println(" <td  class=\"" + style + " \" ><input type=\"radio\" onclick=\"test();\" name=\"model\" value=\"" + it2 + it1 + "\"/></td>");
-                        } else {
-                            out.println(" <td  class=\"" + style + "\" >&nbsp;</td>");
-                        }
-
-                    }
-                    out.println("</tr>");
-                }
-
-            %>
             </table>
         </div>
 
@@ -123,7 +145,7 @@
                     <div id="stat"></div>
                 </td>
                 <td class="topAlig">
-                    <div id="otput"></div>
+                    <div id="output"></div>
                 </td>
                 <td class="topAlig">
                     <div id="du"></div>

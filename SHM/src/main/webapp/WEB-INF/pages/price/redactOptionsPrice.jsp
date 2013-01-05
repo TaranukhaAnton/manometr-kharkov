@@ -1,4 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script type="text/javascript" src="../js/local/optionPrice.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/redactOptionPrice.css"/>
+
+
+
+
 <div id="tabs" class="tabs">
     <!-- Это сами вкладки -->
     <ul class="tabNavigation">

@@ -4,19 +4,23 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ua.com.manometer.dao.price.PriceFirstPartDAO;
 import ua.com.manometer.model.invoice.Invoice;
 import ua.com.manometer.model.invoice.InvoiceItem;
 import ua.com.manometer.model.invoice.PressureSensor;
+import ua.com.manometer.model.invoice.Production;
 import ua.com.manometer.model.modeldescription.ModelDescription;
 import ua.com.manometer.model.price.IdPrice;
 import ua.com.manometer.model.price.PriceFirstPart;
+import ua.com.manometer.model.price.ProductionPrice;
 import ua.com.manometer.service.invoice.InvoiceItemService;
 import ua.com.manometer.service.invoice.InvoiceService;
 import ua.com.manometer.service.modeldescription.ModelDescriptionService;
 import ua.com.manometer.service.price.PriceFirstPartService;
+import ua.com.manometer.service.price.ProductionPriceService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,14 +43,81 @@ public class InvoiceItemController {
     @Autowired
     private PriceFirstPartService priceFirstPartService;
 
+    @Autowired
+    private ProductionPriceService productionPriceService;
 
-    @RequestMapping("/add_co")
-    public String addCo(@RequestParam("invoice_id") Long invoiceId, @RequestParam(value = "invoice_item_id", required = false) Long itemId, Map<String, Object> map) {
-        map.put("invoice_id", invoiceId);
+
+    @RequestMapping("/add")
+    public String add(@RequestParam("invoice_id") Long invoice_id, @RequestParam(value = "invoice_item_id", required = false) Long itemId,
+                      @RequestParam("type") String type, Map<String, Object> map) {
+        map.put("invoice_id", invoice_id);
         if (itemId != null) {
             map.put("invoice_item_id", itemId);
         }
-        return "addCo";
+        return "add" + StringUtils.capitalize(type);
+    }
+
+    @RequestMapping(value = "/add_list", method = RequestMethod.GET)
+    public String addList(@RequestParam("invoice_id") Long invoice_id, @RequestParam("type") Integer type, Map<String, Object> map) {
+        map.put("invoice_id", invoice_id);
+        map.put("type", type);
+        map.put("list", productionPriceService.listProductionPriceByType(type));
+        return "addList";
+    }
+
+    @RequestMapping(value = "/add_list", method = RequestMethod.POST)
+    public String addListExt(@RequestParam("invoice_id") Long invoice_id,
+                             @RequestParam("type") Integer type,
+                             HttpServletRequest request)     throws Exception {
+        printProps(request);
+        Invoice invoice = invoiceService.getInvoice(invoice_id);
+        String productionId = request.getParameter("production_id");
+        BigDecimal cost;
+        BigDecimal price;
+        Boolean addToList = false;
+        String name;
+
+        if (productionId != null) {
+            Long id = new Long(productionId);
+            ProductionPrice productionPrice = productionPriceService.getProductionPrice(id);
+            cost = productionPrice.getCost();
+            price = productionPrice.getPrice();
+            name = productionPrice.getName();
+        } else {
+            addToList = request.getParameter("addToList") != null;
+            cost = new BigDecimal(request.getParameter("cost"));
+            price = new BigDecimal(request.getParameter("price"));
+            name = request.getParameter("name");
+        }
+
+
+
+        Production production = new Production();
+        production.setName(name);
+        production.setCost(cost);
+        production.setPrice(price);
+        production.setQuantity(1);
+        production.setDeliveryTime(45);
+        production.setType(type);
+        production.setInvoice(invoice);
+        production.setTransportationCost(new BigDecimal("0"));
+        production.setAdditionalCost(new BigDecimal("0"));
+        invoiceItemService.setupMoneyFields(production, new BigDecimal("1.3"));
+        if (addToList) {
+            ProductionPrice item = new ProductionPrice();
+            item.setCost(cost);
+            item.setName(name);
+            item.setPrice(price);
+            item.setType(type);
+            productionPriceService.addProductionPrice(item);
+        }
+
+
+
+        invoice.addInvoiceItems(production);
+        invoiceItemService.saveInvoiceItem(production);
+        invoiceService.saveInvoice(invoice);
+        return "redirect:/invoices/view?invoice_id=" + invoice_id;
     }
 
     @RequestMapping("/get_ii")
@@ -143,13 +214,6 @@ public class InvoiceItemController {
 
             i.addInvoiceItems(pressureSensor);
             invoiceItemService.saveInvoiceItem(pressureSensor);
-            Integer count = i.getT0();
-            if (count == null) {
-                count = 1;
-            } else {
-                count += 1;
-            }
-            i.setT0(count);
             invoiceService.saveInvoice(i);
         } else {
             BigDecimal koef = pressureSensor.calculatePercent();
@@ -161,8 +225,8 @@ public class InvoiceItemController {
 
 
     @RequestMapping("/moveDownItem")
-    public String moveDownItem  (@RequestParam("invoice_id") Long invoiceId,
-                                 @RequestParam("position") Integer position){
+    public String moveDownItem(@RequestParam("invoice_id") Long invoiceId,
+                               @RequestParam("position") Integer position) {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         List<InvoiceItem> list = invoice.getInvoiceItems();
 
@@ -175,8 +239,8 @@ public class InvoiceItemController {
     }
 
     @RequestMapping("/moveUpItem")
-    public String moveUpItem  (@RequestParam("invoice_id") Long invoiceId,
-                                 @RequestParam("position") Integer position){
+    public String moveUpItem(@RequestParam("invoice_id") Long invoiceId,
+                             @RequestParam("position") Integer position) {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         List<InvoiceItem> list = invoice.getInvoiceItems();
         if ((position > 0) & (position < list.size())) {
@@ -186,7 +250,6 @@ public class InvoiceItemController {
         }
         return "redirect:/invoices/view?invoice_id=" + invoice.getId();
     }
-
 
 
     private Map toJsonMap(PressureSensor pressureSensor) {
@@ -216,5 +279,16 @@ public class InvoiceItemController {
         return map;
     }
 
+
+    public static void printProps(HttpServletRequest request) {
+        Enumeration<String> en = request.getParameterNames();
+        while (en.hasMoreElements()) {
+            String param = en.nextElement();
+            // System.out.print(param + " -- ");
+            // System.out.println(request.getParameter(param));
+            for (String s : request.getParameterValues(param))
+                System.out.println(param + " = " + s);
+        }
+    }
 
 }

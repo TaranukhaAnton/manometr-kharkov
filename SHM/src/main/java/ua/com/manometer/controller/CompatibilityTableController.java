@@ -47,7 +47,7 @@ public class CompatibilityTableController {
     }
 
 
-/*    @RequestMapping("/edit")
+    @RequestMapping("/edit")
     @ResponseBody
     public String redactModelDescription(HttpServletRequest request) {
         try {
@@ -71,43 +71,43 @@ public class CompatibilityTableController {
 
 
             } else if (param.equals("isp")) {
-                String val = request.getParameter("val");
+                List<Integer> val = toIntList(request.getParameter("val"));
                 for (ModelDescription item : list) {
                     item.setIsp(val);
                     modelDescriptionService.updateDescription(item);
                 }
             } else if (param.equals("mat")) {
-                String val = request.getParameter("val");
+                List<Integer> val = toIntList(request.getParameter("val"));
                 for (ModelDescription item : list) {
                     item.setMaterials(val);
                     modelDescriptionService.updateDescription(item);
                 }
             } else if (param.equals("err")) {
-                String val = request.getParameter("val");
+                List<Integer> val = toIntList(request.getParameter("val"));
                 for (ModelDescription item : list) {
                     item.setErrors(val);
                     modelDescriptionService.updateDescription(item);
                 }
             } else if (param.equals("stat")) {
-                String val = request.getParameter("val");
+                List<Integer> val = toIntList(request.getParameter("val"));
                 for (ModelDescription item : list) {
                     item.setStaticPressures(val);
                     modelDescriptionService.updateDescription(item);
                 }
             } else if (param.equals("Out")) {
-                String val = request.getParameter("val");
+                List<Integer> val = toIntList(request.getParameter("val"));
                 for (ModelDescription item : list) {
                     item.setOutputs(val);
                     modelDescriptionService.updateDescription(item);
                 }
             } else if (param.equals("DU")) {
-                String val = request.getParameter("val");
+                List<Integer> val = toIntList(request.getParameter("val"));
                 for (ModelDescription item : list) {
                     item.setDU(val);
                     modelDescriptionService.updateDescription(item);
                 }
             } else if (param.equals("KMCH")) {
-                String val = request.getParameter("val");
+                List<Integer> val = toIntList(request.getParameter("val"));
                 for (ModelDescription item : list) {
                     item.setKMCH(val);
                     modelDescriptionService.updateDescription(item);
@@ -124,7 +124,15 @@ public class CompatibilityTableController {
             System.err.println(e);
         }
         return null;
-    }*/
+    }
+
+    List<Integer> toIntList(String value) {
+        LinkedList<Integer> result = new LinkedList<Integer>();
+        StringTokenizer tokenizer = new StringTokenizer(value,"|");
+        for (; tokenizer.hasMoreTokens();)
+            result.add( new Integer(tokenizer.nextToken()));
+        return result;
+    }
 
 
     private List<ModelDescription> getModelDescriptions(String models) {
@@ -144,17 +152,6 @@ public class CompatibilityTableController {
     public ModelDescription getModelDescription(@RequestParam("model") Long model) {
         ModelDescription modelDescription = modelDescriptionService.getModelDescription(model);
         return modelDescription;
-
-//        response.setCharacterEncoding( "UTF-8" );
-//        response.setHeader("Content-Type", "application/json;charset=UTF-8");
-//        try {
-//            //response.getWriter().write(modelDescription.toJSONString());
-//            response.getWriter().flush();
-//        } catch (IOException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        }
-
-
     }
 
 

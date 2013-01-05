@@ -41,9 +41,25 @@
         <put-attribute name="body" value="/WEB-INF/pages/invoice/paymentsForm.jsp"/>
     </definition>
 
+    <definition name="addList" extends="baseLayout">
+        <put-attribute name="title" value="Счета"/>
+        <put-attribute name="body" value="/WEB-INF/pages/addProduction/addListProductionExt.jsp"/>
+    </definition>
+
+
     <definition name="addCo" extends="baseLayout">
         <put-attribute name="title" value="Счета"/>
         <put-attribute name="body" value="/WEB-INF/pages/addProduction/addCoForm.jsp"/>
+    </definition>
+
+    <definition name="addAo" extends="baseLayout">
+        <put-attribute name="title" value="Счета"/>
+        <put-attribute name="body" value="/WEB-INF/pages/addProduction/addAoForm.jsp"/>
+    </definition>
+
+    <definition name="addOp" extends="baseLayout">
+        <put-attribute name="title" value="Счета"/>
+        <put-attribute name="body" value="/WEB-INF/pages/addProduction/addOpForm.jsp"/>
     </definition>
 
     <definition name="editInvoice" extends="baseLayout">
@@ -93,6 +109,7 @@
             <add-attribute value="/css/jquery.autocomplete.css"/>
         </put-list-attribute>
     </definition>
+
     <definition name="customers" extends="baseLayout">
         <put-attribute name="title" value="Пользователи"/>
         <put-attribute name="body" value="/WEB-INF/pages/customers/customers.jsp"/>
@@ -108,6 +125,7 @@
         <put-attribute name="title" value="Пользователи"/>
         <put-attribute name="body" value="/WEB-INF/pages/contacts/contactForm.jsp"/>
     </definition>
+
     <definition name="contacts" extends="baseLayout">
         <put-attribute name="title" value="Пользователи"/>
         <put-attribute name="body" value="/WEB-INF/pages/contacts/contacts.jsp"/>
@@ -132,13 +150,7 @@
     <definition name="matrixPrice" extends="baseLayout">
         <put-attribute name="title" value="Редактирование матричного прайса"/>
         <put-attribute name="body" value="/WEB-INF/pages/price/redactMatrixPrice.jsp"/>
-        <put-list-attribute name="ppp">
-            <add-attribute value="/js/local/matrixPrice.js"/>
-            <add-attribute value="/css/redactMatrixPrice.css"/>
 
-            <add-attribute value="/js/jquery-ui-1.9.1.custom/jquery-ui-1.9.1.custom.min.js"/>
-            <add-attribute value="/css/smoothness/jquery-ui-1.8.24.custom.css"/>
-        </put-list-attribute>
     </definition>
 
     <definition name="listPrice" extends="baseLayout">

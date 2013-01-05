@@ -38,13 +38,12 @@
 
 
 
-        <mapping class="ua.com.manometer.model.test.Test1" />
-        <mapping class="ua.com.manometer.model.test.Test2" />
-
 
         <!--<property name="packagesToScan" />-->
 
-
+         <!--<event type="save-update">-->
+             <!--<listener class="ua.com.manometer.util.SaveOrUpdateListener"></listener>-->
+         <!--</event>-->
 
 	</session-factory>
 </hibernate-configuration>

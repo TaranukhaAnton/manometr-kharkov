@@ -1,4 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<script type="text/javascript" src="../js/local/compatibility/co.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/redactCo.css"/>
+
+<script type="text/javascript" src="../js/jquery-ui-1.9.1.custom/selectToUISlider.jQuery.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/ui.slider.extras.css"/>
+
 
 <div id="parent">
     <form action="#">

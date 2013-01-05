@@ -307,73 +307,76 @@
 //    }
     for ( ModelDescription md : result) {
         out.println("<tr> <td >" + md.getId() + "</td>");
-        Boolean[] isp = new Boolean[6];
-        Boolean[] mat = new Boolean[7];
-        Boolean[] err = new Boolean[5];
-        Boolean[] stat = new Boolean[12];
-        Boolean[] output = new Boolean[6];
-        Boolean[] du = new Boolean[4];
-        Boolean[] kmch = new Boolean[43];
+//        Boolean[] isp = new Boolean[6];
+//        Boolean[] mat = new Boolean[7];
+//        Boolean[] err = new Boolean[5];
+//        Boolean[] stat = new Boolean[12];
+//        Boolean[] output = new Boolean[6];
+//        Boolean[] du = new Boolean[4];
+//        Boolean[] kmch = new Boolean[43];
+//
+//        Arrays.fill(isp, false);
+//        Arrays.fill(mat, false);
+//        Arrays.fill(err, false);
+//        Arrays.fill(stat, false);
+//        Arrays.fill(output, false);
+//        Arrays.fill(du, false);
+//        Arrays.fill(kmch, false);
 
-        Arrays.fill(isp, false);
-        Arrays.fill(mat, false);
-        Arrays.fill(err, false);
-        Arrays.fill(stat, false);
-        Arrays.fill(output, false);
-        Arrays.fill(du, false);
-        Arrays.fill(kmch, false);
 
 
-        StringTokenizer tokenizer = new StringTokenizer(md.getIsp(), "|");
-        for (; tokenizer.hasMoreTokens();)
-            isp[new Integer(tokenizer.nextToken())] = true;
-        tokenizer = new StringTokenizer(md.getMaterials(), "|");
-        for (; tokenizer.hasMoreTokens();)
-            mat[new Integer(tokenizer.nextToken())] = true;
+//            for (Integer i : md.getIsp()) {
+//                isp[i] = true;
+//            }
+//
+//
+//
+//        tokenizer = new StringTokenizer(md.getMaterials(), "|");
+//        for (; tokenizer.hasMoreTokens();)
+//            mat[new Integer(tokenizer.nextToken())] = true;
+//
+//        tokenizer = new StringTokenizer(md.getErrors(), "|");
+//        for (; tokenizer.hasMoreTokens();)
+//            err[new Integer(tokenizer.nextToken())] = true;
+//
+//        tokenizer = new StringTokenizer(md.getStaticPressures(), "|");
+//        for (; tokenizer.hasMoreTokens();)
+//            stat[new Integer(tokenizer.nextToken())] = true;
+//
+//        tokenizer = new StringTokenizer(md.getKMCH(), "|");
+//        for (; tokenizer.hasMoreTokens();)
+//            kmch[new Integer(tokenizer.nextToken())] = true;
+//
+//        tokenizer = new StringTokenizer(md.getDU(), "|");
+//        for (; tokenizer.hasMoreTokens();)
+//            du[new Integer(tokenizer.nextToken())] = true;
+//
+//        tokenizer = new StringTokenizer(md.getOutputSygnals(), "|");
+//        for (; tokenizer.hasMoreTokens();)
+//            output[new Integer(tokenizer.nextToken())] = true;
 
-        tokenizer = new StringTokenizer(md.getErrors(), "|");
-        for (; tokenizer.hasMoreTokens();)
-            err[new Integer(tokenizer.nextToken())] = true;
-
-        tokenizer = new StringTokenizer(md.getStaticPressures(), "|");
-        for (; tokenizer.hasMoreTokens();)
-            stat[new Integer(tokenizer.nextToken())] = true;
-
-        tokenizer = new StringTokenizer(md.getKMCH(), "|");
-        for (; tokenizer.hasMoreTokens();)
-            kmch[new Integer(tokenizer.nextToken())] = true;
-
-        tokenizer = new StringTokenizer(md.getDU(), "|");
-        for (; tokenizer.hasMoreTokens();)
-            du[new Integer(tokenizer.nextToken())] = true;
-
-        tokenizer = new StringTokenizer(md.getOutputSygnals(), "|");
-        for (; tokenizer.hasMoreTokens();)
-            output[new Integer(tokenizer.nextToken())] = true;
-
-        for (int i = 0; i < 5; i++)
-            out.println("<td class=\"" + (isp[i] ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 4) ? "_r" : "") + "\">&nbsp;</td>");
+        for (Integer i = 0; i < 5; i++)
+            out.println("<td class=\"" + (md.getIsp().contains(i) ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 4) ? "_r" : "") + "\">&nbsp;</td>");
 
         for (int i = 0; i < 7; i++)
-            out.println("<td class=\"" + (mat[i] ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 6) ? "_r" : "") + "\">&nbsp;</td>");
+            out.println("<td class=\"" + (md.getMaterials().contains(i) ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 6) ? "_r" : "") + "\">&nbsp;</td>");
 
         for (int i = 0; i < 5; i++)
-            out.println("<td class=\"" + (err[i] ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 4) ? "_r" : "") + "\">&nbsp;</td>");
+            out.println("<td class=\"" + (md.getErrors().contains(i) ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 4) ? "_r" : "") + "\">&nbsp;</td>");
 
         for (int i = 1; i < 34; i++)
             out.println("<td class=\"" + ((i >= md.getLoLimit() && i <= md.getHiLimit()) ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 4) ? "_r" : "") + "\">&nbsp;</td>");
 
 
-        for (int i = 1; i < 11; i++) {
+        for (int i = 0; i < 10; i++) {
 
 
-            lr = (i == 1) ? "_l" : "";
-            lr += (i == 10) ? "_r" : "";
+            lr = (i == 0) ? "_l" : "";
+            lr += (i == 9) ? "_r" : "";
             if
-                    (stat[0]) {
-                out.println("<td class=\"np" + lr + "\">Н</td>");
+                    (md.getStaticPressures().isEmpty()) {   out.println("<td class=\"np" + lr + "\">Н</td>");
             } else {
-                if (stat[i])
+                if (md.getStaticPressures().contains(i))
                     out.println("<td class=\"yes" + lr + "\">&nbsp;</td>");
                 else
                     out.println("<td class=\"no" + lr + "\">&nbsp;</td>");
@@ -381,18 +384,18 @@
         }
 
         for (int i = 0; i < 6; i++)
-            out.println("<td class=\"" + (output[i] ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 5) ? "_r" : "") + "\">&nbsp;</td>");
+            out.println("<td class=\"" + (md.getOutputs().contains(i) ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 5) ? "_r" : "") + "\">&nbsp;</td>");
 
 
-        for (int i = 1; i < 3; i++)
-            out.println("<td class=\"" + (du[i] ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 2) ? "_r" : "") + "\">&nbsp;</td>");
+        for (int i = 0; i < 2; i++)
+            out.println("<td class=\"" + (md.getDU().contains(i) ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 1) ? "_r" : "") + "\">&nbsp;</td>");
 
 
         for (int i = 1; i < 43; i++)
 
         {
             if ((i > 21) & (i < 31)) continue;
-            out.println("<td class=\"" + (kmch[i] ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 42) ? "_r" : "") + "\">&nbsp;</td>");
+            out.println("<td class=\"" + (md.getKMCH().contains(i) ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 42) ? "_r" : "") + "\">&nbsp;</td>");
         }
 
         out.println("<td class=\"" + (md.isVM() ? "yes" : "no") + "_l\">&nbsp;</td>");
