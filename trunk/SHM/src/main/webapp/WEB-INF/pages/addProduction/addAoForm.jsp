@@ -1,30 +1,18 @@
-<%@ page import="application.data.ModelDescription.ModelDescription" %>
-<%@ page import="application.hibernate.Factory" %>
-<%@ page import="application.hibernate.generic.GenericHibernateDAO" %>
-<%@ page import="java.util.List" %>
-<%request.setCharacterEncoding("UTF-8");%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<html>
-<head>
-
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Добавить датчик давлеия АО.</title>
-    <link href="css/addPressureSensor.css" rel="stylesheet" type="text/css"/>
-    <script src="js/jquery.js" type="text/javascript"></script>
-    <script src="js/addAo.js" type="text/javascript"></script>
+<link href="../css/addPressureSensor.css" rel="stylesheet" type="text/css"/>
+<script src="../js/local/add/addCo.js" type="text/javascript"></script>
 
 
-</head>
-<body>
 
-<form action="/Manometr/testAction.do" name="mainForm" onsubmit="return  validate();">
+<form action="add_pressure_sensor" name="mainForm" onsubmit="return  validate();">
     <div id="parent">
 
+    <input type="hidden" name="invoice_id" id="invoice_id" value="<%=request.getParameter("invoice_id")%>">
+    <% if(request.getParameter("invoice_item_id")!=null){%>
+    <input type="hidden" name="invoice_item_id" id="invoice_item_id" value="<%=request.getParameter("invoice_item_id")%>">
+    <% }%>
 
-        <input type="hidden" name="invoiceId" id="invoiceId" value="<%=request.getParameter("invoiceId")%>">
-        <input type="hidden" name="invoiceItemId" id="invoiceItemId" value="<%=request.getParameter("invoiceItemId")%>">
 
         <div id="head">
 
@@ -40,36 +28,155 @@
         </div>
 
         <div id="model">
-            <%
-                GenericHibernateDAO<ModelDescription> dao = Factory.getModelDescriptionDAO();
+            <table class="models" cellspacing="0">
+                <tr>
+                    <td class="silver_rb">  &nbsp;</td>
+                    <td class="silver_b">..01</td>
+                    <td class="silver_b">..10</td>
+                    <td class="silver_rb">..15</td>
+                    <td class="silver_b">..20</td>
+                    <td class="silver_rb">..24</td>
+                    <td class="silver_b">..30</td>
+                    <td class="silver_b">..34</td>
+                    <td class="silver_b">..40</td>
+                    <td class="silver_b">..41</td>
+                    <td class="silver_b">..44</td>
+                    <td class="silver_b">..50</td>
+                    <td class="silver_b">..51</td>
+                    <td class="silver_b">..54</td>
+                    <td class="silver_b">..60</td>
+                    <td class="silver_b">..61</td>
+                    <td class="silver_rb">..64</td>
+                    <td class="silver_b">..70</td>
+                    <td class="silver_b">..71</td>
+                </tr>
+                <tr>
+                    <td class="silver_r">20..</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver_r">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2020"/></td>
+                    <td class="silver_r">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2030"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2040"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2041"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2050"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2051"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver_r">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="silver_r">21..</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2101"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2110"/></td>
+                    <td class="silver_r "><input type="radio" onclick="test();" name="model" value="2115"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2120"/></td>
+                    <td class="silver_r">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2130"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2140"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2141"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2150"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2151"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2160"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2161"/></td>
+                    <td class="silver_r">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2170"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2171"/></td>
+                </tr>
+                <tr>
+                    <td class="silver_r">22..</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2201"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2210"/></td>
+                    <td class="silver_r "><input type="radio" onclick="test();" name="model" value="2215"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2220"/></td>
+                    <td class="silver_r">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2230"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2240"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2241"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver_r">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="silver_r">23..</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2301"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2310"/></td>
+                    <td class="silver_r "><input type="radio" onclick="test();" name="model" value="2315"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2320"/></td>
+                    <td class="silver_r">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2330"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2340"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2341"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2350"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2351"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver_r">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="silver_r">24..</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2401"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2410"/></td>
+                    <td class="silver_r "><input type="radio" onclick="test();" name="model" value="2415"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2420"/></td>
+                    <td class="silver_r "><input type="radio" onclick="test();" name="model" value="2424"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2430"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2434"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2440"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2444"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2450"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2454"/></td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2460"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver_r "><input type="radio" onclick="test();" name="model" value="2464"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="silver_r">25..</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver_r">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2520"/></td>
+                    <td class="silver_r">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2530"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2540"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver "><input type="radio" onclick="test();" name="model" value="2550"/></td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver_r">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                    <td class="silver">&nbsp;</td>
+                </tr>
 
-                String[] ar1 = {"01", "10", "15", "20", "24", "30", "34", "40", "41", "44", "50", "51", "54", "60", "61", "64", "70", "71"};
-                String[] ar2 = {"20", "21", "22", "23", "24", "25"};
-                out.println("<table class=\"models\"  cellspacing=\"0\" > <tr> <td  class=\"silver_rb\" >  &nbsp;</td>");
-                for (String it1 : ar1) {
-                    String style = ((it1 == "15") || (it1 == "24") || (it1 == "35") || (it1 == "45") || (it1 == "55") || (it1 == "64")) ? "silver_rb" : "silver_b";
-                    out.println(" <td class=\"" + style + "\" >.." + it1 + "</td>");
-                }
-                out.println("</tr>");
-                for (String it2 : ar2) {
-                    out.println("<tr>");
-                    out.println(" <td class=\"silver_r\">" + it2 + "..</td>");
-                    for (String it1 : ar1) {
-
-                        String style = ((it1 == "15") || (it1 == "24") || (it1 == "35") || (it1 == "45") || (it1 == "55") || (it1 == "64")) ? "silver_r" : "silver";
-
-                        ModelDescription result = dao.findById(new Long(it2 + it1));
-                        if (result != null) {
-                            out.println(" <td  class=\"" + style + " \" ><input type=\"radio\" onclick=\"test();\" name=\"model\" value=\"" + it2 + it1 + "\"/></td>");
-                        } else {
-                            out.println(" <td  class=\"" + style + "\" >&nbsp;</td>");
-                        }
-
-                    }
-                    out.println("</tr>");
-                }
-
-            %>
             </table>
         </div>
 
@@ -121,7 +228,7 @@
                     <div id="stat"></div>
                 </td>
                 <td class="topAlig">
-                    <div id="otput"></div>
+                    <div id="output"></div>
                 </td>
                 <td class="topAlig">
                     <div id="du"></div>
@@ -212,8 +319,7 @@
 </div>
 </form>
 
-</body>
-</html>
+
 
 
 

@@ -1,32 +1,7 @@
-<%@ page import="application.hibernate.Factory" %>
+<%@ page import="ua.com.manometer.model.price.ProductionPrice" %>
 <%@ page import="java.util.List" %>
-<%@ page import="application.data.price.ProductionPrice" %>
-<%@ page import="application.hibernate.generic.GenericHibernateDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head><title>Simple jsp page</title>
-    <script type="text/javascript" src="js/ui/jquery-1.4.1.js"></script>
-    <script type="text/javascript" src="js/ui/jquery-ui.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.bgiframe-2.1.1.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.core.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.widget.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.mouse.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.button.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.draggable.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.position.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.resizable.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.ui.dialog.js"></script>
-    <script type="text/javascript" src="js/ui/jquery.effects.core.js"></script>
-    <script type="text/javascript" src="js/jquery.deserialize.js"></script>
-    <script type='text/javascript' src="js/jquery.autocomplete.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/jquery.autocomplete.css"/>
-    <%--<script type="text/javascript" src="../../jquery-1.4.2.js"></script> --%>
-    <%--<script type="text/javascript" src="../../ui/jquery.ui.core.js"></script> --%>
-    <%--<script type="text/javascript" src="../../ui/jquery.ui.widget.js"></script> --%>
-    <%--<script type="text/javascript" src="../../ui/jquery.ui.datepicker.js"></script> --%>
 
-
-    <link type="text/css" href=" css/tst/jquery.ui.all.css" rel="stylesheet"/>
 
     <script type="text/javascript">
         $(function() {
@@ -35,7 +10,7 @@
 
         });
         function cancel() {
-            var str = "invoiceAction.do?method=viewInvoice&id=" + $('#invoiceId').val();
+            var str = "invoiceAction.do?method=viewInvoice&id=" + $('#invoice_id').val();
             location.replace(str);
         }
         function checkForm() {
@@ -178,8 +153,6 @@
     </style>
 
 
-</head>
-<body>
 
 <div id="bodyDiv">
      <% String[] arr = {"датчик давления специальный", "блок питания", "измерительный блок", "диаф. кам.", "проч продукция", "вычислитель", "продукцию сторонних производителей"};%>
@@ -191,15 +164,13 @@
             <li><a href="#tabs-2">Новая позиция</a></li>
         </ul>
         <div id="tabs-1" class="tabdiv">
-            <form action="testAction.do">
-                <input type="hidden" name="invoiceId" id="invoiceId" value="<%=request.getParameter("invoiceId")%>">
+            <form action="add_list" method="post">
+                <input type="hidden" name="invoice_id" id="invoice_id" value="<%=request.getParameter("invoice_id")%>">
                 <input type="hidden" name="type" value="<%=request.getParameter("type")%>">
 
                 <div id="tableDiv">
                     <%
-                        GenericHibernateDAO<ProductionPrice> dao = Factory.getProductionDAO();
-
-                        List<ProductionPrice> result = dao.findListByParameter("type", new Integer(request.getParameter("type")));
+                        List<ProductionPrice> result = (List<ProductionPrice>) request.getAttribute("list");
                         if (result.size() == 0) {
                     %>
                     Ни одной записи не найдено.
@@ -220,7 +191,7 @@
                                     item = result.get(i);
                             %>
                             <tr>
-                                <td class="short"><input type="radio" name="productionId"
+                                <td class="short"><input type="radio" name="production_id"
                                                          value="<%=item.getId()%>" <%=(i==0)?"checked":""%>  ></td>
                                 <td class="long"><%=item.getName()%>
                                 </td>
@@ -245,9 +216,9 @@
                 <div id="container">
                     <p class="validateTips">Все поля должны быть заполненны.</p>
                     <fieldset>
-                        <input type="hidden" name="invoiceId" value="<%=request.getParameter("invoiceId")%>">
+                        <input type="hidden" name="invoice_id" value="<%=request.getParameter("invoice_id")%>">
                         <input type="hidden" name="type" value="<%=request.getParameter("type")%>">
-                        <input type="hidden" name="type" value="<%=request.getParameter("type")%>">
+
                         <label for="name">Название</label>
                         <textarea rows="4" cols="50" name="name" id="name"></textarea><br><br>
                         <label for="cost">Себестоимость</label>

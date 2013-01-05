@@ -7,8 +7,8 @@ var ed_iz = ["кПа","МПа","кгс/см &sup2;","кгс/м &sup2;","kPa","MP
 
 $().ready(
         function() {
-            var invoiceItemId = $("#invoice_item_id").val().replace(/\s+/, "");
-            if (invoiceItemId != 'null')
+            var invoiceItemId = $("#invoice_item_id").val();
+            if (invoiceItemId != undefined)
             {
                 $.post("get_ii", {"invoice_item_id":invoiceItemId},
                         function(data) {
@@ -228,7 +228,7 @@ function parseResults(data) {
 
     //   alert(xmlHttp.responseText);
    //   var response = eval("(" + xmlHttp.responseText + ")");
-   // var txt = "";
+   var txt = "";
     var s = "";
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     txt = " <fieldset> <legend>Исп.</legend> ";
@@ -310,12 +310,14 @@ function parseResults(data) {
     }
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-    objSel = document.mainForm.kmch;
-    objSel.options.length = 0;
-    objSel.options[objSel.options.length] = new Option('','', false, false); // todo
-    for (i = 0; i < data.kmch.length; i++)
-        objSel.options[objSel.options.length] = new Option('H'+data.kmch[i],data.kmch[i], false, false); // todo
 
+    if (document.mainForm.kmch != undefined) {
+        objSel = document.mainForm.kmch;
+        objSel.options.length = 0;
+        objSel.options[objSel.options.length] = new Option('', '', false, false); // todo
+        for (i = 0; i < data.kmch.length; i++)
+            objSel.options[objSel.options.length] = new Option('H' + data.kmch[i], data.kmch[i], false, false); // todo
+    }
 
     var  LoLimit = Number(data.loLimit);
     var  HiLimit = Number(data.hiLimit);
@@ -329,7 +331,9 @@ function parseResults(data) {
         objSel.options[objSel.options.length] = new Option(limits[count] * koef[n], limits[count] * koef[n], false, false);
     }
 
-    document.mainForm.vm.disabled = data.vm != "true";
+    if (document.mainForm.vm != undefined){
+        document.mainForm.vm.disabled = data.vm != "true";
+    }
 
 
 }

@@ -352,7 +352,7 @@
                     <td class="dig width90"><%=df.format(payment.getExchangeRate())%>    &nbsp;
                     </td>
                     <td class="dig width90">
-                        <%= payment.getPaymentSum().multiply(new BigDecimal("100")).divide(invoice.computeTotal(), 2, BigDecimal.ROUND_HALF_UP)%>
+                        <%= payment.getPaymentSum().multiply(new BigDecimal("100")).divide(invoice.getTotal(), 2, BigDecimal.ROUND_HALF_UP)%>
                         &nbsp;
                     </td>
                 </tr>
@@ -397,7 +397,7 @@
                 <td>Задолженность</td>
 
 
-                <td class="dig"><%=df.format(invoice.computeTotal().subtract(p2))%>
+                <td class="dig"><%=df.format(invoice.getTotal().subtract(p2))%>
                 </td>
                 <td class="dig">
                 </td>
@@ -409,7 +409,7 @@
                 <td>Сумма по счету</td>
 
 
-                <td class="dig"><%=df.format(invoice.computeTotal())%>
+                <td class="dig"><%=df.format(invoice.getTotal())%>
                 </td>
                 <td class="dig"><%=df.format(invoice.getExchangeRate())%>
                 </td>

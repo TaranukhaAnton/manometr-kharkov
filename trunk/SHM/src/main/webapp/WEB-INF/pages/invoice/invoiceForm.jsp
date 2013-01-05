@@ -309,7 +309,7 @@
                 df.setMaximumFractionDigits(2);
 
 
-                String[] url = {"add_co", "add_ao", "add_op"};
+                String[] url = {"co", "ao", "op"};
                 for (int i = 0; i < invoice.getInvoiceItems().size(); i++) {
                     InvoiceItem item = invoice.getInvoiceItems().get(i);
 
@@ -322,7 +322,7 @@
 
                     <%if ((item.getType() < 3) && changesAllowed) {%>
 
-                    <a href="../invoice_item/<%=url[item.getType()]%>?invoice_id=<%=invoice.getId()%>&invoice_item_id=<%=item.getId()%>">
+                    <a href="../invoice_item/add?invoice_id=<%=invoice.getId()%>&invoice_item_id=<%=item.getId()%>&type=<%=url[item.getType()]%> ">
                         <%= item.getName() %>
                     </a> <br>
                     <% } else { %>
@@ -452,7 +452,7 @@
             <Td class="width70"></Td>
             <%--<Td class="middle70"></Td>--%>
             <Td class="width90">
-                <div id="sum" style="text-align:right;"><%=df.format(invoice.computeSum())%>
+                <div id="sum" style="text-align:right;"><%=df.format(invoice.getSum())%>
                 </div>
             </Td>
             <Td class="width70"></Td>
@@ -466,7 +466,7 @@
             <Td class="width70"></Td>
             <%--<Td class="middle70"></Td>--%>
             <Td class="width90">
-                <div id="NDSPayment" style="text-align:right;"><%= df.format(invoice.computeNDSPayment())%>
+                <div id="NDSPayment" style="text-align:right;"><%= df.format(invoice.getNdsPayment())%>
                 </div>
             </Td>
             <Td class="width70"></Td>
@@ -480,7 +480,7 @@
             <Td class="width70"></Td>
             <%--<Td class="middle70"></Td>--%>
             <Td class="width90">
-                <div id="total" style="text-align:right;"><%= df.format(invoice.computeTotal())%>
+                <div id="total" style="text-align:right;"><%= df.format(invoice.getTotal())%>
                 </div>
             </Td>
             <Td class="width70"></Td>
@@ -622,25 +622,25 @@
 <%-- content--%>
 
 <div id="addProduction-dialog" title="Добавить позицию">
-    <a href="../invoice_item/add_co?invoice_id=<%=invoice.getId()%>">
+    <a href="../invoice_item/add?invoice_id=<%=invoice.getId()%>&type=co">
         датчик ЦО</a> <br>
-    <a href="../invoice_item/add_ao?invoiceId=<%=invoice.getId()%>">
+    <a href="../invoice_item/add?invoice_id=<%=invoice.getId()%>&type=ao">
         датчик АО</a> <br>
-    <a href="../invoice_item/add_op?invoiceId=<%=invoice.getId()%>">
+    <a href="../invoice_item/add?invoice_id=<%=invoice.getId()%>&type=op">
         датчик ОП</a> <br>
-    <a href="testAction.do?method=addListFormExt&invoiceId=<%= invoice.getId()%>&type=3">
+    <a href="../invoice_item/add_list?invoice_id=<%=invoice.getId()%>&type=3">
         д.д. спец</a> <br>
-    <a href="testAction.do?method=addListForm&invoiceId=<%= invoice.getId()%>&type=4">
+    <a href="../invoice_item/add_list?invoice_id=<%=invoice.getId()%>&type=4">
         блок питания</a> <br>
-    <a href="testAction.do?method=addListForm&invoiceId=<%= invoice.getId()%>&type=5">
+    <a href="../invoice_item/add_list?invoice_id=<%=invoice.getId()%>&type=5">
         ИБ</a> <br>
-    <a href="testAction.do?method=addListForm&invoiceId=<%= invoice.getId()%>&type=6">
+    <a href="../invoice_item/add_list?invoice_id=<%=invoice.getId()%>&type=6">
         диаф. кам.</a> <br>
-    <a href="testAction.do?method=addListFormExt&invoiceId=<%= invoice.getId()%>&type=7">
+    <a href="../invoice_item/add_list?invoice_id=<%=invoice.getId()%>&type=7">
         проч продукция</a> <br>
-    <a href="testAction.do?method=addListForm&invoiceId=<%= invoice.getId()%>&type=8">
+    <a href="../invoice_item/add_list?invoice_id=<%=invoice.getId()%>&type=8">
         вычислитель</a> <br>
-    <a href="testAction.do?method=addListFormExt&invoiceId=<%= invoice.getId()%>&type=9">
+    <a href="../invoice_item/add_list?invoice_id=<%=invoice.getId()%>&type=9">
         прод. сторон. произв.</a> <br>
 </div>
 

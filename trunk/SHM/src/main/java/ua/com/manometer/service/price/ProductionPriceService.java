@@ -12,6 +12,8 @@ public interface ProductionPriceService {
 
 	public void removeProductionPrice(Long id);
 
+    public ProductionPrice getProductionPrice(Long id);
+
 
 
 }

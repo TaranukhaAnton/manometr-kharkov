@@ -28,6 +28,16 @@ public class Invoice {
     public static final Integer STATE_ANN = 5;
     public static final Integer STATE_ZAK = 6;
     public static final Integer STATE_ISP = 7;
+
+    public static final Integer STATE_OPLACH = 8;
+    public static final Integer STATE_OTGRUG = 9;
+    public static final Integer STATE_CH_ISP = 10;
+    public static final Integer STATE_OTKAZ = 11;
+
+
+
+
+
     public static final Integer PURPOSE_POSTAVKA = 0;
     public static final Integer PURPOSE_ISPIT = 1;
 
@@ -115,6 +125,27 @@ public class Invoice {
 
     @Transient
     private BigDecimal debtPercent;
+
+
+    private BigDecimal additionToPrice;
+    private BigDecimal ndsPayment;
+    private BigDecimal paymentPercent;
+    private BigDecimal sum;
+    private BigDecimal total;
+    private BigDecimal totalPayments;
+
+    @Column(nullable = false, length = 1)
+    @Type(type = "yes_no")
+    private boolean paymentMade;
+
+    @Column(nullable = false, length = 1)
+    @Type(type = "yes_no")
+    private boolean deliveryMade;
+
+    @Column(nullable = false, length = 1)
+    @Type(type = "yes_no")
+    private boolean  anyGoodsShipped;
+
 
 
 
@@ -473,153 +504,78 @@ public class Invoice {
 
 
 
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    // **** computed fields
 
-    public BigDecimal computeTotalPayments() {
-        BigDecimal sumOfPayments = new BigDecimal("0");
-        if (payments != null)
-            for (Payment payment : payments) {
-                sumOfPayments = sumOfPayments.add(payment.getPaymentSum());
-            }
-        return sumOfPayments;
+
+    public BigDecimal getAdditionToPrice() {
+        return additionToPrice;
     }
 
-    public BigDecimal computePaymentPercent() {
-//         new BigDecimal("0");
-//        if (payments != null)
-//            for (Payment payment : payments) {
-//                sumOfPayments = sumOfPayments.add(payment.getPaymentSum());
-//            }
-
-        BigDecimal sumOfPayments = computeTotalPayments();
-        BigDecimal total = computeTotal();
-        if (total.compareTo(BigDecimal.ZERO) == 0) {
-            return BigDecimal.ZERO;
-        } else {
-            return sumOfPayments.multiply(new BigDecimal("100")).divide(total, 2, BigDecimal.ROUND_HALF_UP);
-        }
-
-
+    public void setAdditionToPrice(BigDecimal additionToPrice) {
+        this.additionToPrice = additionToPrice;
     }
 
-    public Boolean isPaymentMade() {
-        BigDecimal sumOfPayments = new BigDecimal("0");
-        if (payments != null)
-            for (Payment payment : payments) {
-                sumOfPayments = sumOfPayments.add(payment.getPaymentSum());
-            }
-        BigDecimal total = computeTotal();
-        return total.compareTo(sumOfPayments) == 0;
+    public BigDecimal getNdsPayment() {
+        return ndsPayment;
     }
 
-    public Boolean isDeliveryMade() {
-        Boolean result = true;
-        for (InvoiceItem item : invoiceItems) {
-
-            Integer count = 0;
-            if (item.getShippingMediators() != null)
-                for (ShipmentMediator sm : item.getShippingMediators())
-                    count += sm.getCount();
-
-
-            if (!item.getQuantity().equals(count)) {
-                result = false;
-                break;
-            }
-
-        }
-
-
-        return result;
+    public void setNdsPayment(BigDecimal ndsPayment) {
+        this.ndsPayment = ndsPayment;
     }
 
-
-    public Boolean isAnyGoodsNotShipped() {
-        Boolean result = true;
-        for (InvoiceItem item : invoiceItems) {
-
-            Integer count = 0;
-            if (item.getShippingMediators() != null)
-                for (ShipmentMediator sm : item.getShippingMediators())
-                    count += sm.getCount();
-
-
-            if (count != 0) {
-                result = false;
-                break;
-            }
-
-        }
-
-
-        return result;
+    public BigDecimal getPaymentPercent() {
+        return paymentPercent;
     }
 
-    public BigDecimal computeNDSPayment() {
-        return computeSum().multiply(NDS).divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP);
+    public void setPaymentPercent(BigDecimal paymentPercent) {
+        this.paymentPercent = paymentPercent;
     }
 
-    public BigDecimal computeTotal() {
-        return computeSum().add(computeNDSPayment());
-    }
-    public BigDecimal computeSum() {
-        BigDecimal result = new BigDecimal("0");
-        if (invoiceItems != null) {
-            for (InvoiceItem item : invoiceItems)
-                result = result.add(item.getSum());
-        }
-        return result;
+    public BigDecimal getSum() {
+        return sum;
     }
 
-    public BigDecimal computeAdditionToPrice() {
-        /*
-        *  BigDecimal znamenatel = price.divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP).add(additionalCost);
-
-
-        if (znamenatel.compareTo(BigDecimal.ZERO) != 0) {
-            BigDecimal res = sellingPrice.subtract(transportationCost).divide(znamenatel, 4, RoundingMode.HALF_UP);
-
-            return res;
-        } else
-            return new BigDecimal("-1");
-        *
-        *
-        *
-        * */
-
-
-        BigDecimal znamenatel = new BigDecimal("0");
-        BigDecimal chislitel = new BigDecimal("0");
-
-        BigDecimal result = new BigDecimal("0");
-        BigDecimal tmp1, tmp2;
-
-        if (invoiceItems != null) {
-            for (InvoiceItem item : invoiceItems) {
-                tmp1 = item.getPrice().divide(exchangeRate, 2, RoundingMode.HALF_UP).add(item.getAdditionalCost()).multiply(new BigDecimal(item.getQuantity()));
-                tmp2 = item.getSellingPrice().subtract(item.getTransportationCost()).multiply(new BigDecimal(item.getQuantity()));
-                znamenatel = znamenatel.add(tmp1);
-                chislitel = chislitel.add(tmp2);
-                //   BigDecimal selP = item.getSellingPrice();
-                //   BigDecimal tr = item.getTransportationCost();
-                //   Integer qa = item.getQuantity();
-
-
-                //   result = result.add(selP.subtract(tr).multiply((new BigDecimal(qa))));
-                //   System.out.println(selP + " " + tr + " " + qa + " " + result);
-            }
-
-        }
-
-        if (znamenatel.compareTo(BigDecimal.ZERO) == 0) {
-            return BigDecimal.ONE;
-        } else {
-            return chislitel.divide(znamenatel, 2, RoundingMode.HALF_UP);
-        }
-        //return result.divide(sum, 2, RoundingMode.HALF_UP);
-
-
+    public void setSum(BigDecimal sum) {
+        this.sum = sum;
     }
 
+    public BigDecimal getTotal() {
+        return total;
+    }
 
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public BigDecimal getTotalPayments() {
+        return totalPayments;
+    }
+
+    public void setTotalPayments(BigDecimal totalPayments) {
+        this.totalPayments = totalPayments;
+    }
+
+    public boolean isPaymentMade() {
+        return paymentMade;
+    }
+
+    public void setPaymentMade(boolean paymentMade) {
+        this.paymentMade = paymentMade;
+    }
+
+    public boolean isDeliveryMade() {
+        return deliveryMade;
+    }
+
+    public void setDeliveryMade(boolean deliveryMade) {
+        this.deliveryMade = deliveryMade;
+    }
+
+    public boolean isAnyGoodsShipped() {
+        return anyGoodsShipped;
+    }
+
+    public void setAnyGoodsShipped(boolean anyGoodsShipped) {
+        this.anyGoodsShipped = anyGoodsShipped;
+    }
 }

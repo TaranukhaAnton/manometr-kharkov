@@ -1,4 +1,3 @@
-var xmlHttp;
 var LoLimit;
 var HiLimit;
 var limits = [0.00004, 0.000063, 0.00010, 0.00016,  0.00025 ,  0.00040 ,  0.00063 ,  0.001 ,  0.0016 ,  0.0025 ,  0.004 ,  0.0063 ,  0.01 ,  0.016 ,  0.025 ,  0.04 ,  0.063 ,  0.100 ,  0.160 ,  0.250 ,  0.400 ,0.630 ,1 ,1.6 ,2.5 ,4 ,6.3,10 ,  16 ,  25 ,  40 ,  63 ,  100 ];
@@ -8,7 +7,7 @@ var ed_iz = ["кПа","МПа","кгс/см &sup2;","кгс/м &sup2;","kPa","MP
 
 $().ready(
         function() {
-              $("input[name='typeTxt'][value='0']")[0].checked = true;
+            $("input[name='typeTxt'][value='0']")[0].checked = true;
             var invoiceItemId = $("#invoiceItemId").val().replace(/\s+/, "");
             if (invoiceItemId != "0")
             {

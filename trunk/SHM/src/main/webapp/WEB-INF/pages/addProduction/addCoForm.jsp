@@ -2,12 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
     <link href="../css/addPressureSensor.css" rel="stylesheet" type="text/css"/>
-    <%--<script type="text/javascript" src="../js/jquery-ui-1.9.1.custom/jquery-1.8.2.js" ></script>--%>
     <script src="../js/local/add/addCo.js" type="text/javascript"></script>
 
 
 <form action="add_pressure_sensor" name="mainForm" onsubmit="return  validate();">
-<div id="parent"  style="background-color: #a6c9e2; width: 1080px;">
+<div id="parent"  >
 
 
 <input type="hidden" name="invoice_id" id="invoice_id" value="<%=request.getParameter("invoice_id")%>">
