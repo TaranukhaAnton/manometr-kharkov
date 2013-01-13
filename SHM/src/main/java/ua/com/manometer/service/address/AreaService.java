@@ -8,9 +8,5 @@ public interface AreaService {
 
 	public void addArea(Area area);
 
-	public List<Area> listArea();
-
-	public void removeArea(Long id);
-
-    List<Area> listAreaForCountry(Long countryId);
+    public  List<Area> listAreaForCountry(Long countryId);
 }

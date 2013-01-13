@@ -9,6 +9,6 @@ public interface RegionDAO {
 
 	public List<Region> listRegion();
 
-	public void removeRegion(Long id);
+
 
 }

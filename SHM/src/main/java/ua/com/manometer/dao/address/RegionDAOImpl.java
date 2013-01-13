@@ -24,12 +24,6 @@ public class RegionDAOImpl implements RegionDAO {
         return sessionFactory.getCurrentSession().createQuery("from Region").list();
     }
 
-    @Override
-    public void removeRegion(Long id) {
-        Region region = (Region) sessionFactory.getCurrentSession().load(Region.class, id);
-        if (region != null) {
-            sessionFactory.getCurrentSession().delete(region);
-        }
-    }
+
 
 }

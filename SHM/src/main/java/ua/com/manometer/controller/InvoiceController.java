@@ -25,6 +25,7 @@ import ua.com.manometer.service.invoice.BookingService;
 import ua.com.manometer.service.invoice.InvoiceItemService;
 import ua.com.manometer.service.invoice.InvoiceService;
 import ua.com.manometer.service.invoice.PaymentService;
+import ua.com.manometer.util.InvoiceUtils;
 import ua.com.manometer.util.UTF8Control;
 import ua.com.manometer.util.amount.JAmount;
 import ua.com.manometer.util.amount.JAmountRU;
@@ -78,15 +79,15 @@ public class InvoiceController {
     public String viewShipments(@RequestParam("invoice_id") Long id, Map<String, Object> map) {
         Invoice invoice = invoiceService.getInvoice(id);
 
-        Map<Long, Map<Long,Integer>> res= new HashMap<Long, Map<Long, Integer>>();     
+        Map<Long, Map<Long, Integer>> res = new HashMap<Long, Map<Long, Integer>>();
         Set<Shipment> shipments = invoice.getShipments();
         for (Shipment shipment : shipments) {
-            Map<Long,Integer> mapSM = new HashMap<Long, Integer>();
+            Map<Long, Integer> mapSM = new HashMap<Long, Integer>();
             List<ShipmentMediator> shippingMediators = shipment.getShippingMediators();
             for (ShipmentMediator sm : shippingMediators) {
-              mapSM.put(sm.getInvoiceItem().getId(), sm.getCount());
+                mapSM.put(sm.getInvoiceItem().getId(), sm.getCount());
             }
-            res.put(shipment.getId(),mapSM);
+            res.put(shipment.getId(), mapSM);
         }
 
 
@@ -96,10 +97,7 @@ public class InvoiceController {
         return "shipments";
     }
 
-    
-    
-    
-    
+
     @RequestMapping("/delete")
     public String deleteInvoice(@RequestParam("invoice_id") Long id) {
         invoiceService.removeInvoice(id);
@@ -150,7 +148,7 @@ public class InvoiceController {
         shipment.setDate((new SimpleDateFormat("dd.MM.yyyy")).parse(request.getParameter("date")));
         shipment.setShipmentNum(request.getParameter("shipmentNum"));
         for (InvoiceItem item : invoice.getInvoiceItems()) {
-        String   param = request.getParameter("invItId" + item.getId());
+            String param = request.getParameter("invItId" + item.getId());
             if ((param != null) && (!param.isEmpty())) {
                 ShipmentMediator sm = new ShipmentMediator(item, new Integer(param));
                 shipment.addShippingMediator(sm);
@@ -173,7 +171,7 @@ public class InvoiceController {
             invoiceService.saveInvoice(invoice);
             bookingService.addBooking(invoice.getBooking());
         }
-        return "redirect:/invoices/view_shipments?invoice_id="+invoiceId;
+        return "redirect:/invoices/view_shipments?invoice_id=" + invoiceId;
     }
 
     @RequestMapping("/get_shipment_sum")
@@ -185,7 +183,7 @@ public class InvoiceController {
         BigDecimal sum = new BigDecimal("0");
         BigDecimal count;
         for (InvoiceItem item : invoice.getInvoiceItems()) {
-        String    param = request.getParameter("invItId" + item.getId());
+            String param = request.getParameter("invItId" + item.getId());
             if (StringUtils.isNotBlank(param)) {
                 count = new BigDecimal(param);
                 sum = sum.add(item.getSellingPrice().multiply(count));
@@ -197,8 +195,8 @@ public class InvoiceController {
         map.put("sum", df.format(sum));
         return map;
     }
-    
-    
+
+
     public static Date getCurrentDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.AM_PM, Calendar.AM);
@@ -513,8 +511,12 @@ public class InvoiceController {
     }
 
     @RequestMapping("/add_payment")
-    public String addPayment(@RequestParam("invoice_id") Long invoiceId, Map<String, Object> map, HttpServletRequest request)
+    public
+    @ResponseBody
+    Map addPayment(@RequestParam("invoice_id") Long invoiceId, HttpServletRequest request)
             throws Exception {
+
+        System.out.println("InvoiceController.addPayment");
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         Payment payment = new Payment();
 //
@@ -526,14 +528,37 @@ public class InvoiceController {
         paymentService.addPayment(payment);
 
         invoice.addPayment(payment);
-        if (invoice.isDeliveryMade() && invoice.isPaymentMade()) {
+        InvoiceUtils.setupInvoice(invoice);
+        Map result = new HashMap();
+        result.put("isStateChanged", false);
+        if (invoice.isPaymentMade() && invoice.isDeliveryMade()) {
+
             invoice.getBooking().setCurrentState(Booking.STATE_ISP);
             invoice.setCurrentState(Invoice.STATE_ISP);
+            result.put("isStateChanged", true);
+            result.put("state", "Исполнен");
         }
+
+
+        if ((invoice.getCurrentState() != Invoice.STATE_CH_ISP)&&
+                (invoice.getCurrentState() != Invoice.STATE_OTGRUG)) {
+            invoice.setCurrentState(Invoice.STATE_CH_ISP);
+            result.put("isStateChanged", true);
+            result.put("state", "Частично исполнен");
+        }
+
+        if (invoice.isPaymentMade() && !invoice.isDeliveryMade()) {
+
+            invoice.setCurrentState(Invoice.STATE_OPLACH);
+            result.put("isStateChanged", true);
+            result.put("state", "Оплачен");
+        }
+
+
         invoiceService.saveInvoice(invoice);
 
 
-        return "redirect:/invoices/view_payments?invoice_id=" + invoice.getId();
+        return result;
     }
 
 
@@ -567,13 +592,12 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public void doSalesMultiRep(@RequestParam("invoice_id") Long invoiceId ,HttpServletResponse response) throws JRException, IOException {
+    public void doSalesMultiRep(@RequestParam("invoice_id") Long invoiceId, HttpServletResponse response) throws JRException, IOException {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
 
         JasperReport report = JasperCompileManager.compileReport("D:\\projects\\~MANOMETR\\SHM\\src\\main\\resources\\invoice.jrxml");
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put(JRParameter.REPORT_LOCALE, new Locale("ru", "RU"));
-
 
 
         ResourceBundle bundle = ResourceBundle.getBundle("i18n", new UTF8Control());
@@ -607,7 +631,6 @@ public class InvoiceController {
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, response.getOutputStream());
         exporter.exportReport();
-
 
 
         // JasperViewer.viewReport(jasperPrint);

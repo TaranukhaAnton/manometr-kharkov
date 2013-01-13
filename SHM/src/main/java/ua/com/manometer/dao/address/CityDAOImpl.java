@@ -15,25 +15,6 @@ public class CityDAOImpl implements CityDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public void addCity(City city) {
-        sessionFactory.getCurrentSession().save(city);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<City> listCity() {
-        return sessionFactory.getCurrentSession().createQuery("from City").list();
-    }
-
-    @Override
-    public void removeCity(Long id) {
-        City city = (City) sessionFactory.getCurrentSession().load(City.class, id);
-        if (city != null) {
-            sessionFactory.getCurrentSession().delete(city);
-        }
-    }
-
-    @Override
     public List<City> listCityForArea(Long areaId) {
         return sessionFactory.getCurrentSession().createCriteria(City.class).
                 add(Restrictions.eq("area.id", areaId)).list();

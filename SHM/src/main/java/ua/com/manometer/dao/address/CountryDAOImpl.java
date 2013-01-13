@@ -25,14 +25,6 @@ public class CountryDAOImpl implements CountryDAO {
     }
 
     @Override
-    public void removeCountry(Long id) {
-        Country country = (Country) sessionFactory.getCurrentSession().load(Country.class, id);
-        if (country != null) {
-            sessionFactory.getCurrentSession().delete(country);
-        }
-    }
-
-    @Override
     public Country getCountry(Long countryId) {
         Country country = (Country) sessionFactory.getCurrentSession().get(Country.class, countryId);
         return country;

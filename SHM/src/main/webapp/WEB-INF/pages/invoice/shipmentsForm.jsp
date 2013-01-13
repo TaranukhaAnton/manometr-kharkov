@@ -229,7 +229,7 @@
 
 
         <td>Оплата</td>
-        <td><%=df.format(invoice.computePaymentPercent())%>&nbsp;%</td>
+        <td><%=df.format(invoice.getPaymentPercent())%>&nbsp;%</td>
 
 
     </tr>
