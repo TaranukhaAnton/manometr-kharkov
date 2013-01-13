@@ -25,18 +25,4 @@ public class CountryServiceImpl implements CountryService {
 	public List<Country> listCountry() {
 		return countryDAO.listCountry();
 	}
-
-	@Override
-	@Transactional
-	public void removeCountry(Long id) {
-		countryDAO.removeCountry(id);
-	}
-
-    @Override
-    @Transactional
-    public Country getCountry(Long countryId) {
-        return countryDAO.getCountry( countryId);
-    }
-
-
 }

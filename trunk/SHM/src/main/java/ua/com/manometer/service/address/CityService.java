@@ -8,10 +8,6 @@ public interface CityService {
 
 	public void addCity(City city);
 
-	public List<City> listCity();
-
-	public void removeCity(Long id);
-
     public  List<City> listCityForArea(Long areaId);
 
     public City getCity(Long id);

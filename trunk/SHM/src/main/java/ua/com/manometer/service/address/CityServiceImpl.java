@@ -21,19 +21,7 @@ public class CityServiceImpl implements CityService {
 	@Override
 	@Transactional
 	public void addCity(City city) {
-		cityDAO.addCity(city);
-	}
-
-	@Override
-	@Transactional
-	public List<City> listCity() {
-		return cityDAO.listCity();
-	}
-
-	@Override
-	@Transactional
-	public void removeCity(Long id) {
-		cityDAO.removeCity(id);
+        baseDAO.saveOrUpdate(city);
 	}
 
     @Override

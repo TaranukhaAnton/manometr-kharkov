@@ -129,6 +129,8 @@ $(function() {
             $('body').css('overflow', 'auto');
         }
     });
+
+
     $("#filter-form").dialog({
         autoOpen: false,
         height: 550,

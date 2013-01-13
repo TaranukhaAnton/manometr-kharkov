@@ -13,27 +13,11 @@ public class AreaServiceImpl implements AreaService {
 
 	@Autowired
 	private AreaDAO areaDAO;
-	@Autowired
-	private CountryService countryService;
-
-
 
 	@Override
 	@Transactional
 	public void addArea(Area area) {
 		areaDAO.addArea(area);
-	}
-
-	@Override
-	@Transactional
-	public List<Area> listArea() {
-		return areaDAO.listArea();
-	}
-
-	@Override
-	@Transactional
-	public void removeArea(Long id) {
-		areaDAO.removeArea(id);
 	}
 
     @Override

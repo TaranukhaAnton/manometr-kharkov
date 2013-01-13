@@ -9,7 +9,5 @@ public interface CountryDAO {
 
 	public List<Country> listCountry();
 
-	public void removeCountry(Long id);
-
     public Country getCountry(Long countryId);
 }

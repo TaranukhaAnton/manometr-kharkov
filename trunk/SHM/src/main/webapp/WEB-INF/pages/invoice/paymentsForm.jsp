@@ -50,8 +50,16 @@
                         if (err) return;
                         // if
                         //  var exchangeRate = $('#exchangeRate').value;
+                        $.post("add_payment", $('#addPayment_form').serialize(),
+                                function(data) {
 
-                        location.replace("./add_payment?" + $('#addPayment_form').serialize());
+                                    if (data.isStateChanged){
+                                        alert("Coстояние счета изменено на \""+ data.state+"\"")
+                                    }
+                                    window.location.reload(true);
+                                });
+
+//
                     },
                     'Отмена': function() {
                         $(this).dialog('close');

@@ -26,10 +26,6 @@ public class RegionServiceImpl implements RegionService {
 		return regionDAO.listRegion();
 	}
 
-	@Override
-	@Transactional
-	public void removeRegion(Long id) {
-		regionDAO.removeRegion(id);
-	}
+
 
 }

@@ -7,9 +7,6 @@ public interface AreaDAO {
 
 	public void addArea(Area area);
 
-	public List<Area> listArea();
-
-	public void removeArea(Long id);
 
     public List<Area> listAreaForCountry(Long country);
 }

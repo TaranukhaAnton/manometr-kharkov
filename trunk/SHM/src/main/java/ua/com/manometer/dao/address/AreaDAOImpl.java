@@ -20,19 +20,7 @@ public class AreaDAOImpl implements AreaDAO {
         sessionFactory.getCurrentSession().save(area);
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<Area> listArea() {
-        return sessionFactory.getCurrentSession().createQuery("from Area").list();
-    }
 
-    @Override
-    public void removeArea(Long id) {
-        Area area = (Area) sessionFactory.getCurrentSession().load(Area.class, id);
-        if (area != null) {
-            sessionFactory.getCurrentSession().delete(area);
-        }
-    }
 
     @Override
     public List<Area> listAreaForCountry(Long countryId) {

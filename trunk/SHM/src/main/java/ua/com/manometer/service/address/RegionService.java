@@ -10,6 +10,6 @@ public interface RegionService {
 
 	public List<Region> listRegion();
 
-	public void removeRegion(Long id);
+
 
 }

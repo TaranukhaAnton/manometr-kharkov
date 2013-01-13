@@ -16,7 +16,7 @@ import java.util.*;
 public class Invoice {
     public static final String[] purposeAlias = {"пос", "исп", "гар", "рез", "прч"};
     public static final String[] purposeAliasFull = {"поставка", "испытания", "гарантия", "резерв", "прочее"};
-    public static final String[] curStateAlias = {"черн", "акт", "мод", "отл", "изм", "анн", "зак", "исп"};
+    public static final String[] curStateAlias = {"черн", "акт", "мод", "отл", "изм", "анн", "зак", "исп" ,"оплач", "отгр", "ч.исп", "отказ"};
 
 
 
