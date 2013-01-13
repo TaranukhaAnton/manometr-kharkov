@@ -13,4 +13,8 @@ public interface UserDAO {
     public void removeUser(Long id);
 
     public User getUser(Long userId);
+
+
+    public User findByLogin(String login);
+
 }

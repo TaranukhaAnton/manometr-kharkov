@@ -5,10 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.manometer.dao.UserDAO;
 import ua.com.manometer.model.User;
-import ua.com.manometer.model.invoice.InvoiceFilter;
 
-import java.text.ParseException;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -39,6 +36,12 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void removeUser(Long id) {
         userDAO.removeUser(id);
+    }
+
+    @Override
+    @Transactional
+    public User findByLogin(String login) {
+        return userDAO.findByLogin(login);
     }
 
 }

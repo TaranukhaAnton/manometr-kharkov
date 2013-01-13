@@ -1,6 +1,7 @@
 package ua.com.manometer.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.userdetails.UserDetails;
 import ua.com.manometer.model.invoice.InvoiceFilter;
 
 import javax.persistence.*;
