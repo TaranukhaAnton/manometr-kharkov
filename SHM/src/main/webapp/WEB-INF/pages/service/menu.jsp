@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 
@@ -27,12 +28,15 @@
                 <LI><A href="../compatibility/compatibilityTable" target="_blank">Таблица</A></LI>
             </UL>
         </LI>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
         <LI><A href="#">Статистика</A>
             <UL>
                 <LI><A href="statisticAction.do?method=viewPaymentArrears">Задолженности по оплате</A></LI>
 
             </UL>
         </LI>
+        </sec:authorize>
+
         <%--<li><a href="priceAction.do?method=redactMatrixPriceForward">Ред матр. прайс.</a></li>--%>
         <%--<li><a href="priceAction.do?method=redactListPriceForward">Ред сп. прайс.</a>--%>
         <%--<li><a href="priceAction.do?method=redactOptionPriceForward">Ред оп. прайс.</a></li>--%>
@@ -47,8 +51,12 @@
         <li><a href="../contacts/">Конт. лица</a></li>
 
 
-        <li><a href="../users/">Пользователи</a></li>
-        <li><a href="userLogin.do?method=logof">Выход</a></li>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <li><a href="../users/">Пользователи</a></li>
+        </sec:authorize>
+
+
+        <li><a href="../logout">Выход</a></li>
     </ul>
 </div>
 

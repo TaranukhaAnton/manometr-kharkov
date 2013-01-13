@@ -10,13 +10,7 @@ import java.math.RoundingMode;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by IntelliJ IDEA.
- * User: anton
- * Date: 22.12.12
- * Time: 11:35
- * To change this template use File | Settings | File Templates.
- */
+
 public class InvoiceUtils {
 
 
