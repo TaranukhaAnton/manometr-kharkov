@@ -9,7 +9,6 @@ public class Country {
 	private String name;
 	//private List<City> regions;
 	public Country() {
-		// TODO Auto-generated constructor stub
 	}
 	public Country(String name) {
 		this.name = name;
@@ -35,7 +34,6 @@ public class Country {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 

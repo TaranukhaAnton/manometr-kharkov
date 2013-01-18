@@ -16,8 +16,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerDAO customerDAO;
-    @Autowired
-    private OrgFormDAO orgFormDAO;
 
     @Override
     @Transactional
@@ -36,11 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setOldRecord(null);
         }
 
-        //todo
-        if (customer.getOrgForm() != null) {
-            final OrgForm orgForm = orgFormDAO.getOrgForm(customer.getOrgForm().getId());
-            customer.setOrgForm(orgForm);
-        }
+
 
 
         customerDAO.addCustomer(customer);

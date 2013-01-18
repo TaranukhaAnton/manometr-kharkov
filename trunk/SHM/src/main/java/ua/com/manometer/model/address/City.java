@@ -11,7 +11,6 @@ public class City {
 	private Area area;
 
 	public City() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public City(String name) {

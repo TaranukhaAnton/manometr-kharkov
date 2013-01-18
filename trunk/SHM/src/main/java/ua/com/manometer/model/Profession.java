@@ -37,7 +37,6 @@ public class Profession {
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return name;
     }
 

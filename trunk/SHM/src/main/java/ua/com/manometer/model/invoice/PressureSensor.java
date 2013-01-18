@@ -55,7 +55,7 @@ public class PressureSensor extends InvoiceItem {
     private static String[] outArr = {"42", "24", "\u221a42", "05", "50", "\u221a05"};
     private static String[] matArr = {"01", "02", "05", "07", "09", "11", "12"};
     private static String[] errArr = {"0,1", "0,15", "0,25", "0,5", "1"};
-    private static String[] ed_izmArr = {"\u043a\u041f\u0430", "\u041c\u041f\u0430", "\u043a\u0433\u0441/\u0441\u043c\u00b2", "\u043a\u0433\u0441/\u043c\u00b2", "kPa", "MPa", "kgf/sm\u00b2", "kgf/m\u00b2", "bar", "mbar"};
+    private static String[] ed_izmArr = {"\u043a\u041f\u0430", "\u041c\u041f\u0430", "\u043a\u0433\u0441/\u0441\u043c\u00b2", "\u043a\u0433\u0441/\u043c\u00b2", "kPa", "MPa", "kgf/cm\u00b2", "kgf/m\u00b2", "bar", "mbar"};
     private static String[] statArr = {"", "0,16", "0,25", "1,6", "2,5", "4", "10", "16", "25", "32", "40"};
     private static String[] duArr = {"", "50", "80"};
     private static Integer[] koef = {1000, 1, 10, 100000, 1000, 1, 10, 100000, 10, 10000};

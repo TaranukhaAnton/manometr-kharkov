@@ -14,7 +14,6 @@ public class Area {
     // private List<City> cities;
 
     public Area() {
-        // TODO Auto-generated constructor stub
     }
 
     public Area(String name) {

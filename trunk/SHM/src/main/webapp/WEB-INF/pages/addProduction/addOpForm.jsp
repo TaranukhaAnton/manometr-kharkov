@@ -133,7 +133,7 @@
                             <input type="radio" name="ed_izm" value="3" onclick="changeEdIzm();"> &nbsp;кгс/м&sup2;<br>
                             <input type="radio" name="ed_izm" value="4" onclick="changeEdIzm();"> &nbsp;kPa <br>
                             <input type="radio" name="ed_izm" value="5" onclick="changeEdIzm();"> &nbsp;MPa <br>
-                            <input type="radio" name="ed_izm" value="6" onclick="changeEdIzm();"> &nbsp;kgf/sm&sup2;
+                            <input type="radio" name="ed_izm" value="6" onclick="changeEdIzm();"> &nbsp;kgf/cm&sup2;
                             <br>
                             <input type="radio" name="ed_izm" value="7" onclick="changeEdIzm();">&nbsp;kgf/m&sup2; <br>
                             <input type="radio" name="ed_izm" value="8" onclick="changeEdIzm();">&nbsp;bar <br>
