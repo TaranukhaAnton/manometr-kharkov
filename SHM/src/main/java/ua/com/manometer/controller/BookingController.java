@@ -59,7 +59,7 @@ public class BookingController {
         booking.setInvoice(invoice);
         invoice.setBooking(booking);
         invoice.setCurrentState(Invoice.STATE_ZAK);
-        bookingService.addBooking(booking);
+        bookingService.saveBooking(booking);
         invoiceService.saveInvoice(invoice);
         return "redirect:/bookings/view?invoice_id=" + invoice.getId();
     }
@@ -127,7 +127,7 @@ public class BookingController {
         }
         result.put("res", validate);
         result.put("message", "message");
-        bookingService.addBooking(booking);
+        bookingService.saveBooking(booking);
         return result;
     }
 

@@ -43,5 +43,11 @@ public class SupplierServiceImpl implements SupplierService {
         return (Supplier) baseDAO.getById(id, Supplier.class);
     }
 
+    @Override
+    @Transactional
+    public Supplier getDefSupplier() {
+        return  supplierDAO.getDefSupplier();
+    }
+
 
 }

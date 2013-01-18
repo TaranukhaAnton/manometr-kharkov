@@ -57,7 +57,17 @@
                 return;
             }
 
-            location.replace("../invoices/add_shipment?" + $('#addShipment').serialize());
+            $.post("add_shipment", $('#addShipment').serialize(),
+                    function(data) {
+
+                        if (data.isStateChanged){
+                            alert("Coстояние счета изменено на \""+ data.state+"\"")
+                        }
+                        window.location.reload(true);
+                    });
+
+
+//            location.replace("../invoices/add_shipment?" + $('#addShipment').serialize());
         }
         function bodyResize(height) {
             var winHeight = $("body").height();

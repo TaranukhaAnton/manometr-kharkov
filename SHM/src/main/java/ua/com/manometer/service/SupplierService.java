@@ -13,4 +13,7 @@ public interface SupplierService {
 	public void removeSupplier(Long id);
 
     public Supplier getSupplier(Long id);
+    public Supplier getDefSupplier();
+
+
 }

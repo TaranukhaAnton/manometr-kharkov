@@ -140,7 +140,9 @@ public class InvoiceController {
 
 
     @RequestMapping("/add_shipment")
-    public String addShipment(@RequestParam("invoice_id") Long invoiceId, HttpServletRequest request) throws ParseException {
+    public
+    @ResponseBody
+    Map addShipment(@RequestParam("invoice_id") Long invoiceId, HttpServletRequest request) throws ParseException {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
 
         Shipment shipment = new Shipment();
@@ -157,21 +159,40 @@ public class InvoiceController {
             }
         }
 
+        Map result = new HashMap();
+        result.put("isStateChanged", false);
+
         if ((shipment.getShippingMediators() != null) && (!shipment.getShippingMediators().isEmpty())) {
+
             shipment.setInvoice(invoice);
             invoice.addShipment(shipment);
+            if (invoice.getCurrentState()!=Invoice.STATE_CH_ISP && invoice.getCurrentState()!=Invoice.STATE_OPLACH) {
+                result.put("isStateChanged", true);
+                result.put("state", "Частично исполнен");
+                invoice.setCurrentState(Invoice.STATE_CH_ISP);
+            }
+
+            InvoiceUtils.setupInvoice(invoice);
             if (invoice.isDeliveryMade()) {
+                result.put("isStateChanged", true);
+
                 invoice.getBooking().setCurrentState(Booking.STATE_OTGR);
                 invoice.getBooking().setDateOfDeviveryMade(getCurrentDate());
+                invoice.setCurrentState(Invoice.STATE_OTGR);
+                result.put("state", "Отгружен");
+
                 if (invoice.isPaymentMade()) {
                     invoice.getBooking().setCurrentState(Booking.STATE_ISP);
                     invoice.setCurrentState(Invoice.STATE_ISP);
+                    result.put("state", "Исполнен");
                 }
             }
             invoiceService.saveInvoice(invoice);
-            bookingService.addBooking(invoice.getBooking());
+            bookingService.saveBooking(invoice.getBooking());
         }
-        return "redirect:/invoices/view_shipments?invoice_id=" + invoiceId;
+
+        return result;
+        //   return "redirect:/invoices/view_shipments?invoice_id=" + invoiceId;
     }
 
     @RequestMapping("/get_shipment_sum")
@@ -516,7 +537,6 @@ public class InvoiceController {
     Map addPayment(@RequestParam("invoice_id") Long invoiceId, HttpServletRequest request)
             throws Exception {
 
-        System.out.println("InvoiceController.addPayment");
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         Payment payment = new Payment();
 //
@@ -540,8 +560,8 @@ public class InvoiceController {
         }
 
 
-        if ((invoice.getCurrentState() != Invoice.STATE_CH_ISP)&&
-                (invoice.getCurrentState() != Invoice.STATE_OTGRUG)) {
+        if ((invoice.getCurrentState() != Invoice.STATE_CH_ISP) &&
+                (invoice.getCurrentState() != Invoice.STATE_OTGR)) {
             invoice.setCurrentState(Invoice.STATE_CH_ISP);
             result.put("isStateChanged", true);
             result.put("state", "Частично исполнен");

@@ -10,6 +10,8 @@
 <%@ page import="ua.com.manometer.model.Supplier" %>
 <%@ page import="ua.com.manometer.model.invoice.InvoiceItem" %>
 <%@ page import="ua.com.manometer.model.invoice.Booking" %>
+<%@ page import="ua.com.manometer.util.InvoiceUtils" %>
+<%@ page import="static ua.com.manometer.util.InvoiceUtils.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
@@ -516,102 +518,72 @@
 </div>
 
 <div id="downButtons">
-    <%if (invoice.getCurrentState().equals(Invoice.STATE_CHERN)) {%>
+    <%if (InvoiceUtils.isAddProdAllowed(invoice)) {%>
     <input type="button" value="+ Продукция" onclick="javascript:void($('#addProduction-dialog').dialog('open'))" class="butt">
     <%} %>
 
-    <%if (invoice.getCurrentState().equals(Invoice.STATE_CHERN) || invoice.getCurrentState().equals(Invoice.STATE_MOD)) {%>
+    <%if (InvoiceUtils.isZapIzmAllowed(invoice)) {%>
     <input type="button" value="Запрет изм." onclick="banChanges();" class="butt">
     <%} %>
 
-    <%if (invoice.getCurrentState().equals(Invoice.STATE_OTL)) {%>
+    <% if (InvoiceUtils.isAktivirAllowed(invoice)) {%>
     <input type="button" value="Активировать" onclick="setActive()" class="butt">
-    <%
-        }
-        if (invoice.getCurrentState().equals(Invoice.STATE_ACT) ||
-                invoice.getCurrentState().equals(Invoice.STATE_OTL) ||
-                invoice.isInvoice() && (invoice.getCurrentState().equals(Invoice.STATE_ZAK) ||
-                        invoice.getCurrentState().equals(Invoice.STATE_ISP))) {
-    %>
+    <% }%>
+
+    <%if (InvoiceUtils.isAnnulirovatAllowed(invoice)) {%>
     <input type="button" value="Аннулировать" onclick="setAnn()" class="butt">
-    <%
-        }
-        if (invoice.getCurrentState().equals(Invoice.STATE_ACT)) {
-    %>
+    <% }  %>
+
+
+    <%if (InvoiceUtils.isOtlAllowed(invoice)) {%>
     <input type="button" value="Отложить" onclick="setOtl()" class="butt">
-    <%
-        }
-        if ((!invoice.isInvoice()) && (invoice.getCurrentState().equals(Invoice.STATE_ACT) || invoice.getCurrentState().equals(Invoice.STATE_OTL))) {
-    %>
+    <% }%>
+
+    <%if (InvoiceUtils.isInvIzKpAllowed(invoice)) {%>
     <input type="button" value="Счет из кп" onclick="$('#invFromKP').dialog('open')" class="butt">
-    <%
-        }
+    <% }%>
 
-
-        if ((invoice.getCurrentState().equals(Invoice.STATE_ACT)) && (invoice.isInvoice()) && (invoice.getBooking() == null)) {
-    %>
+    <%if (InvoiceUtils.isOpenZNAllowed(invoice)) {%>
     <input type="button" value="Открыть З.Н." onclick="$('#order-dialog').dialog('open')" class="butt">
-    <%
-        }
+    <% }%>
 
-        if (invoice.getBooking() != null) {
-    %>
-
+    <%if (InvoiceUtils.isZnAllowed(invoice)) {%>
     <input type="button" value="заказ-наряд"
            onclick="location.href='../bookings/view?invoice_id=<%=invoice.getId()%>'"
            class="butt">
-    <%
-        }
-        if (!(invoice.getCurrentState().equals(Invoice.STATE_CHERN) ||
-                invoice.getCurrentState().equals(Invoice.STATE_MOD) ||
-                (((invoice.getCurrentState().equals(Invoice.STATE_ZAK) || invoice.getCurrentState().equals(Invoice.STATE_ISP))) && (!invoice.isInvoice())))) {
-    %>
+    <% }%>
+
+    <%if (InvoiceUtils.isCopyAllowed(invoice)) {%>
     <input type="button" value="Копия" onclick="javascript:void($('#copyInvoice-dialog').dialog('open'))" class="butt">
-    <%} %>
+    <% }%>
 
-    <%if (invoice.getCurrentState().equals(Invoice.STATE_ACT) || (invoice.getCurrentState().equals(Invoice.STATE_ANN))) {%>
+    <%if (InvoiceUtils.isIzmRazbAllowed(invoice)) {%>
     <input type="button" value="Изм./разбить" onclick="" class="butt">
-    <%} %>
+    <% }%>
 
-    <%
-        if (invoice.getCurrentState().equals(Invoice.STATE_ACT) ||
-                (invoice.getCurrentState().equals(Invoice.STATE_CHERN)) ||
-                (invoice.getCurrentState().equals(Invoice.STATE_MOD))) {
-    %>
+    <%if (InvoiceUtils.isAnalizAllowed(invoice)) {%>
     <input type="button" value="Анализ" onclick="" class="butt">
-    <%} %>
+    <% }%>
 
-
-    <%if (!((!invoice.isInvoice()) && (invoice.getCurrentState().equals(Invoice.STATE_ZAK) || invoice.getCurrentState().equals(Invoice.STATE_ISP)))) {%>
+    <%if (InvoiceUtils.isPrintAllowed(invoice)) {%>
     <input type="button" value="Печать"
            onclick="javascript:void($('#print-dialog').dialog('open'))"
            class="butt">
-    <%
-        }
-        if (invoice.getBooking() != null)
-            if (((invoice.getPurpose().equals(Invoice.PURPOSE_POSTAVKA)) || (invoice.getPurpose().equals(Invoice.PURPOSE_ISPIT)))
-                    && (!invoice.getBooking().getCurrentState().equals(Booking.STATE_CHERN))
-                    && (invoice.isInvoice())
-                    && (invoice.getCurrentState().equals(Invoice.STATE_ZAK) || invoice.getCurrentState().equals(Invoice.STATE_ISP))) {
-    %>
+    <% }%>
+
+    <%if (InvoiceUtils.isOtgrAllowed(invoice)) {%>
     <input type="button" value="Отгрузки"
            onclick="location.href='../invoices/view_shipments?invoice_id=<%=invoice.getId()%>'"
            class="butt">
-    <%
-            }
-        if ((invoice.getPurpose().equals(Invoice.PURPOSE_POSTAVKA)) && (invoice.isInvoice()) && (invoice.getCurrentState().equals(Invoice.STATE_ZAK) ||
-                invoice.getCurrentState().equals(Invoice.STATE_ISP) ||
-                invoice.getCurrentState().equals(Invoice.STATE_ACT))) {
-    %>
+    <% }%>
+
+    <%if (InvoiceUtils.isOplatAllowed(invoice)) {%>
     <input type="button" value="Оплаты"
            onclick="location.href='./view_payments?invoice_id=<%=invoice.getId()%>'"
            class="butt">
-    <%
-        }
+    <% }%>
 
-
-        if (((!invoice.getPurpose().equals(Invoice.PURPOSE_POSTAVKA)) && (!invoice.getPurpose().equals(Invoice.PURPOSE_ISPIT)))) {
-    %>
+    <%if (InvoiceUtils.isIspolnAllowed(invoice)) {%>
     <input type="button" value="Исполнен"
            onclick="setIsp()"
            class="butt">

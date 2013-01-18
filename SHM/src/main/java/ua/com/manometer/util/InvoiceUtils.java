@@ -26,9 +26,9 @@ public class InvoiceUtils {
         return sumOfPayments;
     }
 
-    public static BigDecimal computePaymentPercent( BigDecimal sumOfPayments,BigDecimal total ) {
+    public static BigDecimal computePaymentPercent(BigDecimal sumOfPayments, BigDecimal total) {
         //BigDecimal sumOfPayments = computeTotalPayments(invoice);
-       // BigDecimal total = computeTotal(invoice);
+        // BigDecimal total = computeTotal(invoice);
         if (total.compareTo(BigDecimal.ZERO) == 0) {
             return BigDecimal.ZERO;
         } else {
@@ -38,7 +38,7 @@ public class InvoiceUtils {
 
     }
 
-    public static Boolean isPaymentMade(Invoice invoice,BigDecimal total) {
+    public static Boolean isPaymentMade(Invoice invoice, BigDecimal total) {
         BigDecimal sumOfPayments = new BigDecimal("0");
         Set<Payment> payments = invoice.getPayments();
         if (payments != null)
@@ -85,12 +85,12 @@ public class InvoiceUtils {
         return result;
     }
 
-    public static BigDecimal computeNDSPayment(Invoice invoice,BigDecimal sum ) {
+    public static BigDecimal computeNDSPayment(Invoice invoice, BigDecimal sum) {
         return sum.multiply(invoice.getNDS()).divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP);
     }
 
-    public static BigDecimal computeTotal(Invoice invoice,BigDecimal sum ) {
-        return sum.add(computeNDSPayment(invoice,sum));
+    public static BigDecimal computeTotal(Invoice invoice, BigDecimal sum) {
+        return sum.add(computeNDSPayment(invoice, sum));
     }
 
     public static BigDecimal computeSum(Invoice invoice) {
@@ -128,15 +128,15 @@ public class InvoiceUtils {
         }
     }
 
-    public static void setupInvoice(Invoice invoice){
+    public static void setupInvoice(Invoice invoice) {
         BigDecimal totalPayments = computeTotalPayments(invoice);
-        BigDecimal sum =computeSum(invoice);
+        BigDecimal sum = computeSum(invoice);
         BigDecimal total = computeTotal(invoice, sum);
         BigDecimal paymentPercent = computePaymentPercent(totalPayments, total);
-        Boolean paymentMade = isPaymentMade(invoice,total);
+        Boolean paymentMade = isPaymentMade(invoice, total);
         Boolean deliveryMade = isDeliveryMade(invoice);
         Boolean anyGoodsShipped = isAnyGoodsShipped(invoice);
-        BigDecimal ndsPayment = computeNDSPayment(invoice,sum);
+        BigDecimal ndsPayment = computeNDSPayment(invoice, sum);
         BigDecimal additionToPrice = computeAdditionToPrice(invoice);
 
         invoice.setTotalPayments(totalPayments);
@@ -150,6 +150,76 @@ public class InvoiceUtils {
         invoice.setAdditionToPrice(additionToPrice);
     }
 
+
+    public static boolean isAddProdAllowed(Invoice invoice) {
+        return invoice.getCurrentState() == Invoice.STATE_CHERN || invoice.getCurrentState() == Invoice.STATE_MOD;
+    }
+    public static boolean isZapIzmAllowed(Invoice invoice) {
+        return invoice.getCurrentState() == Invoice.STATE_CHERN || invoice.getCurrentState() == Invoice.STATE_MOD;
+    }
+    public static boolean isAktivirAllowed(Invoice invoice) {
+        return invoice.getCurrentState() == Invoice.STATE_OTL;
+
+    }
+    public static boolean isAnnulirovatAllowed(Invoice invoice) {
+        return invoice.getCurrentState() == Invoice.STATE_ACT || invoice.getCurrentState() == Invoice.STATE_ZAK;
+
+    }
+    public static boolean isOtlAllowed(Invoice invoice) {
+        return invoice.getCurrentState() == Invoice.STATE_ACT || invoice.getCurrentState() == Invoice.STATE_ZAK;
+    }
+    public static boolean isInvIzKpAllowed(Invoice invoice) {
+        return invoice.getCurrentState() == Invoice.STATE_ACT;
+    }
+    public static boolean isOpenZNAllowed(Invoice invoice) {
+        return
+                invoice.getCurrentState() == Invoice.STATE_ACT ||
+                        invoice.getCurrentState() == Invoice.STATE_OTGR ||
+                        invoice.getCurrentState() == Invoice.STATE_CH_ISP;
+    }
+    public static boolean isZnAllowed(Invoice invoice) {
+        return invoice.getBooking() != null;
+
+    }
+    public static boolean isCopyAllowed(Invoice invoice) {
+        return true;
+    }
+    public static boolean isIzmRazbAllowed(Invoice invoice) {
+        return false;
+    }
+    public static boolean isAnalizAllowed(Invoice invoice) {
+        return true;
+    }
+    public static boolean isPrintAllowed(Invoice invoice) {
+        return true;
+    }
+    public static boolean isOtgrAllowed(Invoice invoice) {
+        return invoice.getCurrentState() == Invoice.STATE_ACT ||
+                invoice.getCurrentState() == Invoice.STATE_ZAK ||
+                invoice.getCurrentState() == Invoice.STATE_OPLACH ||
+                invoice.getCurrentState() == Invoice.STATE_OTGR ||
+                invoice.getCurrentState() == Invoice.STATE_ISP ||
+                invoice.getCurrentState() == Invoice.STATE_OTKAZ ||
+                invoice.getCurrentState() == Invoice.STATE_CH_ISP;
+
+    }
+    public static boolean isOplatAllowed(Invoice invoice){
+        return  invoice.getCurrentState() == Invoice.STATE_ZAK ||
+                invoice.getCurrentState() == Invoice.STATE_OPLACH ||
+                invoice.getCurrentState() == Invoice.STATE_OTGR ||
+                invoice.getCurrentState() == Invoice.STATE_ISP ||
+                invoice.getCurrentState() == Invoice.STATE_OTKAZ ||
+                invoice.getCurrentState() == Invoice.STATE_CH_ISP;
+    }
+    public static boolean isIspolnAllowed(Invoice invoice){
+        return invoice.getCurrentState() == Invoice.STATE_ACT ||
+                invoice.getCurrentState() == Invoice.STATE_ZAK ||
+                invoice.getCurrentState() == Invoice.STATE_OPLACH ||
+                invoice.getCurrentState() == Invoice.STATE_OTGR ||
+                invoice.getCurrentState() == Invoice.STATE_ISP ||
+                invoice.getCurrentState() == Invoice.STATE_OTKAZ ||
+                invoice.getCurrentState() == Invoice.STATE_CH_ISP;
+    }
 
 
 }

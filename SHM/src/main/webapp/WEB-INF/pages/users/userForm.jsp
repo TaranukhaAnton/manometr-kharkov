@@ -1,36 +1,32 @@
-<%@ page import="application.data.User" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<%@ taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
-<%@ taglib prefix="bean" uri="http://jakarta.apache.org/struts/tags-bean" %>
-<c:set var="insertUpdateTitle"
-       value="${!empty userForm.id && userForm.id != 0 ?'Редактировать личные данные пользователя':'Добавить пользователя'}"/>
+<script type="text/javascript">
 
 
-<%
-    request.setAttribute("powersLivels", User.PowersLivel.values());
-%>
+$(function() {
+    $("#dischargingDate").datepicker({
+        showOn: 'button',
+        buttonImage: '../images/datepicker.jpg',
+        buttonImageOnly: true
+    });
+    $("#receptionOnWorkDate").datepicker({
+        showOn: 'button',
+        buttonImage: '../images/datepicker.jpg',
+        buttonImageOnly: true
+    });
+}  );
 
-<html>
-<head>
-    <link href="css/style.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="css/datepicker.css"/>
-
-    <script src="js/datepicker.js" type="text/javascript" charset="UTF-8" language="javascript"></script>
-    <style>
-        td {
-            white-space: nowrap;
-        }
-    </style>
-    <title><c:out value="${insertUpdateTitle}"/>
-    </title>
-</head>
-<body>
+</script>
 
 
-<html:form action="/UserSetUp.do?method=insertOrUpdate">
+
+<form:form modelAttribute="user" action="add" method="post">
+    <form:hidden path="id"/>
+    <form:hidden path="invoiceFilter.id"/>
+
     <table>
 
         <tr>
@@ -38,8 +34,8 @@
                 Фамилия
             </td>
             <td>
-                <html:text property="lastName" size="40"/>
-                <font color="#ff0000"> <html:errors property="lastName"/> </font>
+
+                <form:input path="lastName" size="40"/>
             </td>
         </tr>
 
@@ -48,7 +44,7 @@
                 Имя
             </td>
             <td>
-                <html:text property="name" size="40"/>
+                <form:input path="name" size="40"/>
             </td>
         </tr>
 
@@ -57,7 +53,7 @@
                 Отчество
             </td>
             <td>
-                <html:text property="patronymic" size="40"/>
+                <form:input path="patronymic" size="40"/>
             </td>
         </tr>
 
@@ -66,7 +62,7 @@
                 Должность
             </td>
             <td>
-                <html:text property="position" size="40"/>
+                <form:input path="position" size="40"/>
             </td>
         </tr>
 
@@ -76,10 +72,7 @@
                 Дата приёма
             </td>
             <td>
-                <html:text property="receptionoOnWorkDate" size="20"/>
-                <html:img src="images/datepicker.jpg"
-                          onclick="displayDatePicker('receptionoOnWorkDate', false, 'dmy', '.');"/>
-                <html:errors property="receptionoOnWorkDate"/>
+                <form:input path="receptionOnWorkDate" size="20"/>
             </td>
         </tr>
         <tr>
@@ -87,10 +80,7 @@
                 Дата увольнения
             </td>
             <td>
-                <html:text property="dischargingDate" size="20"/>
-                <html:img src="images/datepicker.jpg"
-                          onclick="displayDatePicker('dischargingDate', false, 'dmy', '.');"/>
-                <html:errors property="dischargingDate"/>
+                <form:input path="dischargingDate" size="20" />
             </td>
         </tr>
 
@@ -99,8 +89,7 @@
                 Телефон
             </td>
             <td>
-                <html:text property="tel" size="40"/>
-                <font color="#ff0000"><html:errors property="tel"/></font>
+                <form:input path="tel" size="40"/>
             </td>
         </tr>
         <tr>
@@ -108,7 +97,7 @@
                 Моб. тел.
             </td>
             <td>
-                <html:text property="telMob" size="40"/>
+                <form:input path="telMob" size="40"/>
 
             </td>
         </tr>
@@ -117,9 +106,12 @@
                 Уровень полномочий
             </td>
             <td>
-                <html:select property="powersLivel" size="1">
-                    <html:options name="powersLivels"/>
-                </html:select>
+                <form:select path="powersLevel">
+                    <form:option value="1" label="пользователь"/>
+                    <form:option value="2" label="менеджер"/>
+                    <form:option value="3" label="экономист"/>
+                    <form:option value="4" label="администратор"/>
+                </form:select>
 
             </td>
         </tr>
@@ -129,8 +121,7 @@
                 Логин
             </td>
             <td>
-                <html:text property="login" size="40"/>
-                <font color="#ff0000"><html:errors property="login"/> </font>
+                <form:input path="login" size="40"/>
             </td>
         </tr>
         <tr>
@@ -138,29 +129,18 @@
                 Пароль
             </td>
             <td>
-                <html:text property="pass" size="40"/>
-                <font color="#ff0000"> <html:errors property="pass"/></font>
+                <form:input path="pass" size="40"/>
             </td>
         </tr>
 
 
         <tr>
             <td colspan="2">
-                <html:hidden property="id"/>
-
-                <html:submit>
-                    <bean:message key="button.submit"/>
-                </html:submit>
-
-
-                <html:cancel>
-                    <bean:message key="button.cancel"/>
-                </html:cancel>
+                <input type="submit" value="Записать"/>
+                <input type="button" value="Отмена" onclick=" window.location.replace( '../users/' );" >
             </td>
         </tr>
     </table>
-</html:form>
 
-</body>
-</html>
- 
+
+</form:form>

@@ -1,6 +1,7 @@
 package ua.com.manometer.dao;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.com.manometer.model.Supplier;
@@ -30,6 +31,11 @@ public class SupplierDAOImpl implements SupplierDAO {
         if (supplier != null) {
             sessionFactory.getCurrentSession().delete(supplier);
         }
+    }
+
+    @Override
+    public Supplier getDefSupplier() {
+       return (Supplier)sessionFactory.getCurrentSession().createCriteria(Supplier.class).add(Restrictions.eq("defddd", "y")).uniqueResult();
     }
 
 }

@@ -11,6 +11,8 @@ public interface SupplierDAO {
 	public List<Supplier> listSupplier();
 
 	public void removeSupplier(Long id);
+
+    public  Supplier getDefSupplier();
 }
 
 

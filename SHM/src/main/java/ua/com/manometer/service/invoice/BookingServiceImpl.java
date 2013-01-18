@@ -1,6 +1,5 @@
 package ua.com.manometer.service.invoice;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +21,8 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     @Transactional
-    public void addBooking(Booking booking) {
-        bookingDAO.addBooking(booking);
+    public void saveBooking(Booking booking) {
+        bookingDAO.saveBooking(booking);
     }
 
     @Override

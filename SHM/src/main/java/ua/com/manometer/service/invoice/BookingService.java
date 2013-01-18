@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BookingService {
 
-	public void addBooking(Booking booking);
+	public void saveBooking(Booking booking);
 
 	public List<Booking> listBooking();
 

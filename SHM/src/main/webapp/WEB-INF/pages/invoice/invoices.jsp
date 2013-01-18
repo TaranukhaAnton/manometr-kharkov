@@ -9,6 +9,7 @@
 <%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <script type="text/javascript" src="../js/local/invoices.js"></script>
@@ -78,11 +79,11 @@
         <display:column title="Оплата,<br> %" class="right">
             <%=((Invoice) pageContext.getAttribute("invoice")).getPaymentPercent()%>
         </display:column>
-
-            <display:column title="" url="/invoices/delete"
-                            paramId="invoice_id" paramProperty="id" >
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <display:column title="" url="/invoices/delete"         paramId="invoice_id" paramProperty="id" >
                 <img src="../images/delete.gif" width="18" height="18" hspace="4"   border="0"/>
             </display:column>
+    </sec:authorize>
 
 
     </display:table>
