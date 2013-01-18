@@ -1,5 +1,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%@ page import="java.math.BigDecimal" %>
 <%@ page import="java.text.NumberFormat" %>
@@ -438,12 +439,9 @@
     <input type="button" value="К счету"
            onclick="location.href='../invoices/view?invoice_id=<%=invoice.getId()%>'" class="butt">
 
-    <%--<%--%>
-        <%--Integer livel = (Integer) request.getSession().getAttribute("livel");--%>
-        <%--if ((User.LIVEL_ECONOMIST.equals(livel) || User.LIVEL_ADMINISTRATOR.equals(livel)) && (!invoice.getCurrentState().equals(Invoice.STATE_ISP))) {%>--%>
-    <%--todo  security--%>
+    <sec:authorize access="hasRole('ROLE_ECONOMIST')">
     <input type="button" value="Добавить" onclick="javascript:void($('#addPayment').dialog('open'))" class="butt">
-    <%--<%} %>--%>
+   </sec:authorize>
 
 
 </div>

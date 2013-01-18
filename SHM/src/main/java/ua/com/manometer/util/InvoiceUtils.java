@@ -173,9 +173,9 @@ public class InvoiceUtils {
     }
     public static boolean isOpenZNAllowed(Invoice invoice) {
         return
-                invoice.getCurrentState() == Invoice.STATE_ACT ||
+                (invoice.getCurrentState() == Invoice.STATE_ACT ||
                         invoice.getCurrentState() == Invoice.STATE_OTGR ||
-                        invoice.getCurrentState() == Invoice.STATE_CH_ISP;
+                        invoice.getCurrentState() == Invoice.STATE_CH_ISP)&& invoice.getBooking() == null;
     }
     public static boolean isZnAllowed(Invoice invoice) {
         return invoice.getBooking() != null;
