@@ -1,13 +1,23 @@
 package ua.com.manometer.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Entity
 public class Supplier {
     public static final String[] currencyAlias = {"грн", "руб", "дол. США", "евро"};
+    public static Map<String, String> LANGUAGES;
+
+    static {
+        LANGUAGES = new LinkedHashMap<String, String>();
+        LANGUAGES.put("ru", "Русский");
+        LANGUAGES.put("ua", "Украинский");
+        LANGUAGES.put("en", "Английский");
+    }
+
 
 
     @Id
@@ -44,8 +54,12 @@ public class Supplier {
     String chief;//6.28
     String FIOChief;//6.29
 
-    String NDSPayerNom;   //6.30
+    String secondChief;//6.28
+    String secondFIOChief;//6.29
 
+    String NDSPayerNom;   //6.30
+    String language;
+    private boolean def;
 
     public Supplier() {
     }
@@ -298,5 +312,40 @@ public class Supplier {
 
     public void setFIOChief(String FIOChief) {
         this.FIOChief = FIOChief;
+    }
+
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    @Column(nullable = false, length = 1)
+    @Type(type = "yes_no")
+    public boolean isDef() {
+        return def;
+    }
+
+    public void setDef(boolean def) {
+        this.def = def;
+    }
+
+    public String getSecondChief() {
+        return secondChief;
+    }
+
+    public void setSecondChief(String secondChief) {
+        this.secondChief = secondChief;
+    }
+
+    public String getSecondFIOChief() {
+        return secondFIOChief;
+    }
+
+    public void setSecondFIOChief(String secondFIOChief) {
+        this.secondFIOChief = secondFIOChief;
     }
 }

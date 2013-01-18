@@ -14,7 +14,7 @@ public class BookingDAOImpl implements BookingDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public void addBooking(Booking booking) {
+    public void saveBooking(Booking booking) {
         sessionFactory.getCurrentSession().saveOrUpdate(booking);
     }
 

@@ -50,5 +50,11 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/delete")
+    public String deleteInvoice(@RequestParam("user_id") Long id) {
+        userService.removeUser(id);
+        return "redirect:/users/";
+    }
+
 
 }

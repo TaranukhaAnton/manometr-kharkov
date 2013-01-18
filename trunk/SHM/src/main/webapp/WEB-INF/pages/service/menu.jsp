@@ -2,40 +2,40 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 
-
 <div id="menu">
     <ul id="sidebarmenu1">
         <li><a href="../invoices/">Счета и к.п.</a></li>
         <li><a href="../bookings/">Заказ-наряды</a></li>
 
-
-        <li><a href="supplierAction.do?method=viewSuppliers">Поставщики</a></li>
-
-
-        <LI><A href="#">Прайс</A>
-            <UL>
-                <LI><A href="../matrix_price/">Матричный</A></LI>
-                <LI><A href="../list_price/">Список</A></LI>
-                <LI><A href="../option_price/">Опции</A></LI>
-            </UL>
-        </LI>
-
-        <LI><A href="#">Таб. совм.</A>
-            <UL>
-                <LI><A href="../compatibility/co">ЦО</A></LI>
-                <LI><A href="../compatibility/op">ОП</A></LI>
-                <LI><A href="../compatibility/ao">АО</A></LI>
-                <LI><A href="../compatibility/compatibilityTable" target="_blank">Таблица</A></LI>
-            </UL>
-        </LI>
         <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <li><a href="../suppliers/">Поставщики</a></li>
+
+
+            <LI><A href="#">Прайс</A>
+                <UL>
+                    <LI><A href="../matrix_price/">Матричный</A></LI>
+                    <LI><A href="../list_price/">Список</A></LI>
+                    <LI><A href="../option_price/">Опции</A></LI>
+                </UL>
+            </LI>
+
+            <LI><A href="#">Таб. совм.</A>
+                <UL>
+                    <LI><A href="../compatibility/co">ЦО</A></LI>
+                    <LI><A href="../compatibility/op">ОП</A></LI>
+                    <LI><A href="../compatibility/ao">АО</A></LI>
+                    <LI><A href="../compatibility/compatibilityTable" target="_blank">Таблица</A></LI>
+                </UL>
+            </LI>
+        </sec:authorize>
+
         <LI><A href="#">Статистика</A>
             <UL>
                 <LI><A href="statisticAction.do?method=viewPaymentArrears">Задолженности по оплате</A></LI>
 
             </UL>
         </LI>
-        </sec:authorize>
+
 
         <%--<li><a href="priceAction.do?method=redactMatrixPriceForward">Ред матр. прайс.</a></li>--%>
         <%--<li><a href="priceAction.do?method=redactListPriceForward">Ред сп. прайс.</a>--%>
@@ -50,11 +50,11 @@
         <li><a href="../customers/">Предприятия</a></li>
         <li><a href="../contacts/">Конт. лица</a></li>
 
-
         <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <li><a href="../users/">Пользователи</a></li>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <li><a href="../users/">Пользователи</a></li>
+            </sec:authorize>
         </sec:authorize>
-
 
         <li><a href="../logout">Выход</a></li>
     </ul>

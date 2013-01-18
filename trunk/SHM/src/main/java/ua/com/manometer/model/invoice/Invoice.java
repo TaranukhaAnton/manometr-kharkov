@@ -30,7 +30,7 @@ public class Invoice {
     public static final Integer STATE_ISP = 7;
 
     public static final Integer STATE_OPLACH = 8;
-    public static final Integer STATE_OTGRUG = 9;
+    public static final Integer STATE_OTGR = 9;
     public static final Integer STATE_CH_ISP = 10;
     public static final Integer STATE_OTKAZ = 11;
 
