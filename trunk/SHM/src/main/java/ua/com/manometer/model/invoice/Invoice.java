@@ -121,6 +121,12 @@ public class Invoice {
     private Integer t5;
 
     @Transient
+    Long prev;
+
+    @Transient
+    Long next;
+
+    @Transient
     private BigDecimal debt;
 
     @Transient
@@ -577,5 +583,21 @@ public class Invoice {
 
     public void setAnyGoodsShipped(boolean anyGoodsShipped) {
         this.anyGoodsShipped = anyGoodsShipped;
+    }
+
+    public Long getPrev() {
+        return prev;
+    }
+
+    public void setPrev(Long prev) {
+        this.prev = prev;
+    }
+
+    public Long getNext() {
+        return next;
+    }
+
+    public void setNext(Long next) {
+        this.next = next;
     }
 }

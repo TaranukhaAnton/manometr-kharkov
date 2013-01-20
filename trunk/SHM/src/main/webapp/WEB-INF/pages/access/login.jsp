@@ -18,7 +18,7 @@
 			
 			<p>
 			<label for="j_username">Логин</label>:
-			<input id="j_username" name="j_username" size="20" maxlength="50" type="text"/>
+			<input id="j_username" name="j_username" size="20" maxlength="50" type="text" AUTOCOMPLETE="off"/>
 			</p>
 			
 			<p>
@@ -29,6 +29,15 @@
 			<p><input type="submit" value="Вход"/></p>
 		</fieldset>
 	</form>
-	<p class="message">${message}</p>
+<%--<%--%>
+
+        <%--String mes = (String) request.getAttribute("message"); %>--%>
+	<%--<p class="message">${message}</p>--%>
+	<%--<p class="message"><%=mes%></p>--%>
+    <c:if test="${hasError}">
+        <p class="message">Ошибка при входе</p>
+    </c:if>
+
+
 </body>
 </html>
