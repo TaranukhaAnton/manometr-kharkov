@@ -62,8 +62,8 @@ public class InvoiceController {
 
     @RequestMapping("/")
     public String populateInvoices(Map<String, Object> map) {
-        final List<Invoice> value = invoiceService.listInvoice();
-        map.put("listInvoices", value);
+        final List<Invoice> listInvoices = invoiceService.listInvoice();
+        map.put("listInvoices", listInvoices);
         return "invoices";
     }
 
@@ -72,8 +72,43 @@ public class InvoiceController {
         Invoice invoice = invoiceService.getInvoice(id);
         map.put("invoice", invoice);
         map.put("supplierList", supplierService.listSupplier());
+
+
+        final List<Invoice> invoices = invoiceService.listInvoice();
+//        final int index = invoices.indexOf(invoice);
+        final int index = getIndex(invoices, invoice);
+        if (index == 0) {
+            invoice.setPrev(null);
+            if (invoices.size() > 1) {
+                invoice.setNext(invoices.get(index + 1).getId());
+            } else {
+                invoice.setNext(null);
+            }
+        } else if (index == invoices.size() - 1) {
+            invoice.setNext(null);
+            invoice.setPrev(invoices.get(index - 1).getId());
+        } else {
+            invoice.setPrev(invoices.get(index - 1).getId());
+            invoice.setNext(invoices.get(index + 1).getId());
+        }
+
+
+
         return "editInvoice";
     }
+
+
+   // todo для того чтоб полечить индек следующего и предыдущего надо вытащить все заказы
+     private int getIndex(List<Invoice> invoices, Invoice invoice){
+         Long id = invoice.getId();
+         for (int i = 0; i < invoices.size(); i++) {
+             if (invoices.get(i).getId().equals(id)){
+              return i;
+             }
+         }
+         return -1;
+     }
+
 
     @RequestMapping("/view_shipments")
     public String viewShipments(@RequestParam("invoice_id") Long id, Map<String, Object> map) {

@@ -516,80 +516,106 @@
 
 
 </div>
+    <div id="downButtons">
+        <table style="width: 100%;">
+            <tr>
+                <td>
+            <div >
+                <%if (InvoiceUtils.isAddProdAllowed(invoice)) {%>
+                <input type="button" value="+ Продукция" onclick="javascript:void($('#addProduction-dialog').dialog('open'))" class="butt">
+                <%} %>
 
-<div id="downButtons">
-    <%if (InvoiceUtils.isAddProdAllowed(invoice)) {%>
-    <input type="button" value="+ Продукция" onclick="javascript:void($('#addProduction-dialog').dialog('open'))" class="butt">
-    <%} %>
+                <%if (InvoiceUtils.isZapIzmAllowed(invoice)) {%>
+                <input type="button" value="Запрет изм." onclick="banChanges();" class="butt">
+                <%} %>
 
-    <%if (InvoiceUtils.isZapIzmAllowed(invoice)) {%>
-    <input type="button" value="Запрет изм." onclick="banChanges();" class="butt">
-    <%} %>
+                <% if (InvoiceUtils.isAktivirAllowed(invoice)) {%>
+                <input type="button" value="Активировать" onclick="setActive()" class="butt">
+                <% }%>
 
-    <% if (InvoiceUtils.isAktivirAllowed(invoice)) {%>
-    <input type="button" value="Активировать" onclick="setActive()" class="butt">
-    <% }%>
-
-    <%if (InvoiceUtils.isAnnulirovatAllowed(invoice)) {%>
-    <input type="button" value="Аннулировать" onclick="setAnn()" class="butt">
-    <% }  %>
+                <%if (InvoiceUtils.isAnnulirovatAllowed(invoice)) {%>
+                <input type="button" value="Аннулировать" onclick="setAnn()" class="butt">
+                <% }  %>
 
 
-    <%if (InvoiceUtils.isOtlAllowed(invoice)) {%>
-    <input type="button" value="Отложить" onclick="setOtl()" class="butt">
-    <% }%>
+                <%if (InvoiceUtils.isOtlAllowed(invoice)) {%>
+                <input type="button" value="Отложить" onclick="setOtl()" class="butt">
+                <% }%>
 
-    <%if (InvoiceUtils.isInvIzKpAllowed(invoice)) {%>
-    <input type="button" value="Счет из кп" onclick="$('#invFromKP').dialog('open')" class="butt">
-    <% }%>
+                <%if (InvoiceUtils.isInvIzKpAllowed(invoice)) {%>
+                <input type="button" value="Счет из кп" onclick="$('#invFromKP').dialog('open')" class="butt">
+                <% }%>
 
-    <%if (InvoiceUtils.isOpenZNAllowed(invoice)) {%>
-    <input type="button" value="Открыть З.Н." onclick="$('#order-dialog').dialog('open')" class="butt">
-    <% }%>
+                <%if (InvoiceUtils.isOpenZNAllowed(invoice)) {%>
+                <input type="button" value="Открыть З.Н." onclick="$('#order-dialog').dialog('open')" class="butt">
+                <% }%>
 
-    <%if (InvoiceUtils.isZnAllowed(invoice)) {%>
-    <input type="button" value="заказ-наряд"
-           onclick="location.href='../bookings/view?invoice_id=<%=invoice.getId()%>'"
-           class="butt">
-    <% }%>
+                <%if (InvoiceUtils.isZnAllowed(invoice)) {%>
+                <input type="button" value="заказ-наряд"
+                       onclick="location.href='../bookings/view?invoice_id=<%=invoice.getId()%>'"
+                       class="butt">
+                <% }%>
 
-    <%if (InvoiceUtils.isCopyAllowed(invoice)) {%>
-    <input type="button" value="Копия" onclick="javascript:void($('#copyInvoice-dialog').dialog('open'))" class="butt">
-    <% }%>
+                <%if (InvoiceUtils.isCopyAllowed(invoice)) {%>
+                <input type="button" value="Копия" onclick="javascript:void($('#copyInvoice-dialog').dialog('open'))" class="butt">
+                <% }%>
 
-    <%if (InvoiceUtils.isIzmRazbAllowed(invoice)) {%>
-    <input type="button" value="Изм./разбить" onclick="" class="butt">
-    <% }%>
+                <%if (InvoiceUtils.isIzmRazbAllowed(invoice)) {%>
+                <input type="button" value="Изм./разбить" onclick="" class="butt">
+                <% }%>
 
-    <%if (InvoiceUtils.isAnalizAllowed(invoice)) {%>
-    <input type="button" value="Анализ" onclick="" class="butt">
-    <% }%>
+                <%if (InvoiceUtils.isAnalizAllowed(invoice)) {%>
+                <input type="button" value="Анализ" onclick="" class="butt">
+                <% }%>
 
-    <%if (InvoiceUtils.isPrintAllowed(invoice)) {%>
-    <input type="button" value="Печать"
-           onclick="javascript:void($('#print-dialog').dialog('open'))"
-           class="butt">
-    <% }%>
+                <%if (InvoiceUtils.isPrintAllowed(invoice)) {%>
+                <input type="button" value="Печать"
+                       onclick="javascript:void($('#print-dialog').dialog('open'))"
+                       class="butt">
+                <% }%>
 
-    <%if (InvoiceUtils.isOtgrAllowed(invoice)) {%>
-    <input type="button" value="Отгрузки"
-           onclick="location.href='../invoices/view_shipments?invoice_id=<%=invoice.getId()%>'"
-           class="butt">
-    <% }%>
+                <%if (InvoiceUtils.isOtgrAllowed(invoice)) {%>
+                <input type="button" value="Отгрузки"
+                       onclick="location.href='../invoices/view_shipments?invoice_id=<%=invoice.getId()%>'"
+                       class="butt">
+                <% }%>
 
-    <%if (InvoiceUtils.isOplatAllowed(invoice)) {%>
-    <input type="button" value="Оплаты"
-           onclick="location.href='./view_payments?invoice_id=<%=invoice.getId()%>'"
-           class="butt">
-    <% }%>
+                <%if (InvoiceUtils.isOplatAllowed(invoice)) {%>
+                <input type="button" value="Оплаты"
+                       onclick="location.href='./view_payments?invoice_id=<%=invoice.getId()%>'"
+                       class="butt">
+                <% }%>
 
-    <%if (InvoiceUtils.isIspolnAllowed(invoice)) {%>
-    <input type="button" value="Исполнен"
-           onclick="setIsp()"
-           class="butt">
-    <%} %>
+                <%if (InvoiceUtils.isIspolnAllowed(invoice)) {%>
+                <input type="button" value="Исполнен"
+                       onclick="setIsp()"
+                       class="butt">
+                <%} %>
+            </div>
+                </td>
+                <td style="width: 50px;">
+                    <div>
+                        <%
+                            if (invoice.getPrev() != null) {
+                        %>
+                        <a href="./view?invoice_id=<%=((Invoice) request.getAttribute("invoice")).getPrev()%>"><img
+                                src="../images/back.png"></a>
+                        <%
+                            }
+                            if (invoice.getNext() != null) {
+                        %>
+                        <a href="./view?invoice_id=<%=((Invoice) request.getAttribute("invoice")).getNext()%>"><img
+                                src="../images/forward.png"></a>
+                        <%
+                            } %>
 
-</div>
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
 </div>
 <%-- content--%>
 
