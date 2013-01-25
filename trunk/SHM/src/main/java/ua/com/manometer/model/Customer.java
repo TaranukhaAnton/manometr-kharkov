@@ -11,6 +11,9 @@ import java.util.Date;
 
 public class Customer {
     public static String[] localityTypeAlias = {"г.", "пгт", "пос.", "с."};
+    public static String[] localityTypeAliasUkr = {"м.", "смт", "с.", "с."};
+    public static String[] localityTypeAliasEn = {"м.", "смт", "с.", "с."};
+
     public static String[] branchValues = {"про", "аэс", "энр", "мет", "доб", "нгу", "хим", "маш", "стр", "ком"};
 
 

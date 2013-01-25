@@ -238,11 +238,11 @@
     <td>по факту</td>
     <td><input type="text"
             <%= changesAllowed ? "" : textFieldDisab %>
-               value="<%= (invoice.getPostPay()==null)?"":invoice.getPostPay() %>" id="postpay"
-               name="postpay"
+               value="<%= (invoice.getPostPay()==null)?"":invoice.getPostPay() %>" id="postPay"
+               name="postPay"
                onkeypress='return digInput(event)'
                onkeypressEn="true"
-               onkeydown="paramChange('postpay','float');" class="width40"/></td>
+               onkeydown="paramChange('postPay','float');" class="width40"/></td>
     <td>дней</td>
     <td>
         <input type="text"  <%= changesAllowed ? "" : textFieldDisab %>

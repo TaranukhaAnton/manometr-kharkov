@@ -8,6 +8,10 @@
     <properties>
         <org.springframework.version>3.1.0.RELEASE</org.springframework.version>
         <tiles.version>2.2.2</tiles.version>
+        <log4j.version>1.2.14</log4j.version>
+        <aspectj.version>1.6.10</aspectj.version>
+        <cglib.version>2.2</cglib.version>
+        <mysql.connector.version>5.1.16</mysql.connector.version>
     </properties>
     <repositories>
         <repository>
@@ -87,18 +91,44 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+        <!-- Hibernate c3p0 connection pool -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>3.6.3.Final</version>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>mysql</groupId>-->
+            <!--<artifactId>mysql-connector-java</artifactId>-->
+            <!--<version>5.1.10</version>-->
+        <!--</dependency>-->
+
+
+        <!--  MySQL Connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.10</version>
+            <version>${mysql.connector.version}</version>
+            <type>jar</type>
+            <scope>compile</scope>
         </dependency>
 
-        <!--&lt;!&ndash; PostgreSQL &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>postgresql</groupId>-->
-            <!--<artifactId>postgresql</artifactId>-->
-            <!--<version>8.4-701.jdbc4</version>-->
-        <!--</dependency>-->
+
+        <!-- Logger -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>apache-log4j-extras</artifactId>
+            <version>1.1</version>
+        </dependency>
 
         <!-- Jackson JSON Mapper -->
         <dependency>
@@ -148,6 +178,39 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${org.springframework.version}</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${org.springframework.version}</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- A seamless aspect-oriented extension to the Java programming language -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+
+
+        <!-- Cglib is a powerful, high performance and quality Code Generation Library,
+      It is used to extend JAVA classes and implements interfaces at runtime.  -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>${cglib.version}</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
