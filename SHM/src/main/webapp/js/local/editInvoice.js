@@ -660,26 +660,26 @@ function banChanges() {
 
     var prepayment = Number($("#prepayment").val().replace(",", "."));
     var paymentOnTheNotice = Number($("#paymentOnTheNotice").val().replace(",", "."));
-    var postpay = Number($("#postpay").val().replace(",", "."));
+    var postPay = Number($("#postPay").val().replace(",", "."));
     var daysAfterDelivery = Number($("#daysAfterDelivery").val().replace(",", "."));
 
 
-    if ((prepayment + paymentOnTheNotice + postpay) != 100) {
+    if ((prepayment + paymentOnTheNotice + postPay) != 100) {
         $("#prepayment").addClass('ui-state-error');
         $("#paymentOnTheNotice").addClass('ui-state-error');
-        $("#postpay").addClass('ui-state-error');
+        $("#postPay").addClass('ui-state-error');
         alert("Сумма полей должна быть 100");
         $("#prepayment").removeClass('ui-state-error');
         $("#paymentOnTheNotice").removeClass('ui-state-error');
-        $("#postpay").removeClass('ui-state-error');
+        $("#postPay").removeClass('ui-state-error');
         return;
     }
-    if ((postpay != 0) && (daysAfterDelivery == 0)) {
-        $("#postpay").addClass('ui-state-error');
+    if ((postPay != 0) && (daysAfterDelivery == 0)) {
+        $("#postPay").addClass('ui-state-error');
         $("#daysAfterDelivery").addClass('ui-state-error');
         alert("необходимо указать количество дней");
         $("#daysAfterDelivery").removeClass('ui-state-error');
-        $("#postpay").removeClass('ui-state-error');
+        $("#postPay").removeClass('ui-state-error');
         return;
     }
     $("#bunChanges-dialog").dialog('open');

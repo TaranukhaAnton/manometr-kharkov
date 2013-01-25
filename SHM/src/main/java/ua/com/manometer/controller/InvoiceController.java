@@ -7,6 +7,7 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,7 +29,9 @@ import ua.com.manometer.service.invoice.PaymentService;
 import ua.com.manometer.util.InvoiceUtils;
 import ua.com.manometer.util.UTF8Control;
 import ua.com.manometer.util.amount.JAmount;
+import ua.com.manometer.util.amount.JAmountEN;
 import ua.com.manometer.util.amount.JAmountRU;
+import ua.com.manometer.util.amount.JAmountUA;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +47,8 @@ import java.util.*;
 @Controller
 @RequestMapping("/invoices")
 public class InvoiceController {
+   private static Logger logger = Logger.getLogger(InvoiceController.class);
+
     @Autowired
     InvoiceService invoiceService;
     @Autowired
@@ -62,6 +67,7 @@ public class InvoiceController {
 
     @RequestMapping("/")
     public String populateInvoices(Map<String, Object> map) {
+        logger.debug("populateInvoices");
         final List<Invoice> listInvoices = invoiceService.listInvoice();
         map.put("listInvoices", listInvoices);
         return "invoices";
@@ -98,7 +104,7 @@ public class InvoiceController {
     }
 
 
-   // todo для того чтоб полечить индек следующего и предыдущего надо вытащить все заказы
+   // todo для того чтоб полечить индекc следующего и предыдущего надо вытащить все заказы
      private int getIndex(List<Invoice> invoices, Invoice invoice){
          Long id = invoice.getId();
          for (int i = 0; i < invoices.size(); i++) {
@@ -531,18 +537,42 @@ public class InvoiceController {
 
 
     @RequestMapping(value = "/export_report", method = RequestMethod.GET)
-    public String exportReport(@RequestParam("invoice_id") Long invoiceId, @RequestParam("type") String type, ModelMap model) {
+    public String exportReport(@RequestParam("invoice_id") Long invoiceId, @RequestParam("type") String type, ModelMap model, HttpServletRequest request) {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
+        String language = invoice.getSupplier().getLanguage();
+
 
         JRDataSource dataSource = new JRBeanCollectionDataSource(invoice.getInvoiceItems());
 
         Customer employer = customerService.getCustomerByShortName(invoice.getEmployer());
-        String orgForm = employer.getOrgForm().getName();
-        model.addAttribute("orgForm", orgForm);
-
         City city = cityService.getCity(employer.getCity());
-        String cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
-        cityName += " " + city.getName();
+
+        String orgForm ="";
+        String cityName ="";
+        JAmount jAmount = null;
+        Locale locale =null;
+
+        if (language.equals("ru")){
+            orgForm = employer.getOrgForm().getName();
+            cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
+            cityName += " " + city.getName();
+            jAmount = new JAmountRU();
+            locale = new Locale("ru", "RU");
+        }   else if(language.equals("ua")){
+            orgForm = employer.getOrgForm().getNameUkr();
+            cityName = Customer.localityTypeAliasUkr[employer.getLocalityType().intValue()];
+            cityName += " " + city.getNameUkr();
+            jAmount = new JAmountUA();
+            locale = new Locale("ua", "UA");
+        }   else if(language.equals("ua")){
+            orgForm = employer.getOrgForm().getNameEng();
+            cityName = Customer.localityTypeAliasEn[employer.getLocalityType().intValue()];
+            cityName += " " + city.getNameEn();
+            jAmount = new JAmountEN();
+            locale = new Locale("en", "EN");
+        }
+
+        model.addAttribute("orgForm", orgForm);
         model.addAttribute("city", cityName);
 
         model.addAttribute("dataSource", dataSource);
@@ -550,10 +580,13 @@ public class InvoiceController {
         model.addAttribute("format", type);
         model.addAttribute("invoice", invoice);
         final int currencyId = invoice.getSupplier().getCurrency().getId().intValue();
-        JAmount jAmount = new JAmountRU();
         model.addAttribute("strTotal", jAmount.getAmount(currencyId, invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
-        model.addAttribute("path", "/header.png");
-        model.addAttribute(JRParameter.REPORT_LOCALE, new Locale("ua", "UA"));
+
+        String path = request.getScheme()+"://" + request.getServerName() +":"+ request.getServerPort();
+        path +=  request.getContextPath() + "/images/reportImages/header_"+language+".png";
+        model.addAttribute("path", path);
+
+        model.addAttribute(JRParameter.REPORT_LOCALE, locale);
         ResourceBundle bundle = ResourceBundle.getBundle("i18n", new UTF8Control());
         model.addAttribute(JRParameter.REPORT_RESOURCE_BUNDLE, bundle);
         return "invoiceReport";
@@ -635,19 +668,8 @@ public class InvoiceController {
         return result;
     }
 
-    public static void printProps(HttpServletRequest request) {
-        Enumeration<String> en = request.getParameterNames();
-        while (en.hasMoreElements()) {
-            String param = en.nextElement();
-            // System.out.print(param + " -- ");
-            // System.out.println(request.getParameter(param));
-            for (String s : request.getParameterValues(param))
-                System.out.println(param + " = " + s);
-        }
-    }
-
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public void doSalesMultiRep(@RequestParam("invoice_id") Long invoiceId, HttpServletResponse response) throws JRException, IOException {
+    public void doSalesMultiRep(@RequestParam("invoice_id") Long invoiceId, HttpServletResponse response, HttpServletRequest request) throws JRException, IOException {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
 
         JasperReport report = JasperCompileManager.compileReport("D:\\projects\\~MANOMETR\\SHM\\src\\main\\resources\\invoice.jrxml");
@@ -668,12 +690,14 @@ public class InvoiceController {
         cityName += " " + city.getName();
         parameters.put("city", cityName);
 
-        parameters.put("format", "pdf");
         parameters.put("invoice", invoice);
         final int currencyId = invoice.getSupplier().getCurrency().getId().intValue();
         JAmount jAmount = new JAmountRU();
         parameters.put("strTotal", jAmount.getAmount(currencyId, invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
-        parameters.put("path", "/header.png");
+
+        String path = request.getScheme()+"://" + request.getServerName() +":"+ request.getServerPort();
+        path +=  request.getContextPath() + "/images/reportImages/header_ru.png";
+        parameters.put("path", path);
 
 
         List<InvoiceItem> invoiceItems = invoice.getInvoiceItems();

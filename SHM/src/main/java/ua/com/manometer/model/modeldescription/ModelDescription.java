@@ -40,6 +40,7 @@ public class ModelDescription {
     private List<Integer> staticPressures;
 
     @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    @Column( name ="outputSygnals")
     private List<Integer> outputs;
 
     @Type(type = "ua.com.manometer.util.IntegerListCustomType")

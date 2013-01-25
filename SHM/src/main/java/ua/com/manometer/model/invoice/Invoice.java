@@ -600,4 +600,9 @@ public class Invoice {
     public void setNext(Long next) {
         this.next = next;
     }
+
+    @Override
+    public String toString() {
+        return "i_"+id;    //To change body of overridden methods use File | Settings | File Templates.
+    }
 }

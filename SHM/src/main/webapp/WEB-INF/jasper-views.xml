@@ -22,7 +22,7 @@
 
 
     <bean id="invoiceReport" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView"
-          p:url="classpath:invoice_ru.jrxml" p:reportDataKey="dataSource"
+          p:url="classpath:invoice.jrxml" p:reportDataKey="dataSource"
           p:contentDispositionMappings-ref="contentDispositionMappings"/>
 
 </beans>

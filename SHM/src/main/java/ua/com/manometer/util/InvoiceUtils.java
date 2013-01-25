@@ -212,13 +212,14 @@ public class InvoiceUtils {
                 invoice.getCurrentState() == Invoice.STATE_CH_ISP;
     }
     public static boolean isIspolnAllowed(Invoice invoice){
-        return invoice.getCurrentState() == Invoice.STATE_ACT ||
-                invoice.getCurrentState() == Invoice.STATE_ZAK ||
-                invoice.getCurrentState() == Invoice.STATE_OPLACH ||
-                invoice.getCurrentState() == Invoice.STATE_OTGR ||
-                invoice.getCurrentState() == Invoice.STATE_ISP ||
-                invoice.getCurrentState() == Invoice.STATE_OTKAZ ||
-                invoice.getCurrentState() == Invoice.STATE_CH_ISP;
+//        return invoice.getCurrentState() == Invoice.STATE_ACT ||
+//                invoice.getCurrentState() == Invoice.STATE_ZAK ||
+//                invoice.getCurrentState() == Invoice.STATE_OPLACH ||
+//                invoice.getCurrentState() == Invoice.STATE_OTGR ||
+//                invoice.getCurrentState() == Invoice.STATE_ISP ||
+//                invoice.getCurrentState() == Invoice.STATE_OTKAZ ||
+//                invoice.getCurrentState() == Invoice.STATE_CH_ISP;
+        return false;
     }
 
 

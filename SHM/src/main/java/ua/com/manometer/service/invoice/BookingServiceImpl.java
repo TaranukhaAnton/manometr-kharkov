@@ -47,8 +47,10 @@ public class BookingServiceImpl implements BookingService {
     @Override
     @Transactional
     public Boolean checkPresence(Integer number, String numberModifier, Date date) {
+
+        return bookingDAO.checkPresence(number,numberModifier,date);
         //todo !!!!1111
-        return false;
+        //return false;
     }
 
 }
