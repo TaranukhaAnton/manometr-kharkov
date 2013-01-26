@@ -290,7 +290,7 @@ $(function() {
     $("#bunChanges-dialog").dialog({
         autoOpen: false,
         height: 200,
-        width: 350,
+        width: 450,
         modal: true,
         resizable:false,
         buttons: {

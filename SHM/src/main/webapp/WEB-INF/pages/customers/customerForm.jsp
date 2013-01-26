@@ -322,7 +322,7 @@
         Старая запись
     </td>
     <td>
-        <form:input path="oldRecord.shortName" id="oldRecord"/>
+        <form:input path="oldRecord.shortName" id="oldRecord" size="40"/>
     </td>
 </tr>
 
@@ -414,7 +414,25 @@
 </div>
 
 <div id="OrgFormInput" title="Добавить орг. форму">
-    <input type="text" id="newOrgForm"  style="width: 300px; height: 35px; font-size: 30px;" AUTOCOMPLETE="off">
+    <table>
+        <tr>
+            <td>
+                рус.
+            </td>
+            <td>
+                <input type="text" id="newOrgFormRus"  style="width: 300px; height: 35px; font-size: 30px;" AUTOCOMPLETE="off">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                укр.
+            </td>
+            <td>
+                <input type="text" id="newOrgFormUkr"  style="width: 300px; height: 35px; font-size: 30px;" AUTOCOMPLETE="off">
+            </td>
+        </tr>
+    </table>
+
 
 </div>
 

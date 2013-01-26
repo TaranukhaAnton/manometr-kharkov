@@ -1,9 +1,6 @@
 package ua.com.manometer.util;
 
-import ua.com.manometer.model.invoice.Invoice;
-import ua.com.manometer.model.invoice.InvoiceItem;
-import ua.com.manometer.model.invoice.Payment;
-import ua.com.manometer.model.invoice.ShipmentMediator;
+import ua.com.manometer.model.invoice.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -221,6 +218,28 @@ public class InvoiceUtils {
 //                invoice.getCurrentState() == Invoice.STATE_CH_ISP;
         return false;
     }
+
+
+
+    public static boolean  isBZapIzmAllowed(Booking booking) {
+
+        return booking.getCurrentState() == Booking.STATE_CHERN;
+    }
+    public static boolean  isBAnnulAllowed(Booking booking) {
+        return booking.getCurrentState() == Booking.STATE_CHERN;
+    }
+    public static boolean  isBPriostAllowed(Booking booking) {
+        return booking.getCurrentState() == Booking.STATE_PROIZV||
+                booking.getCurrentState() == Booking.STATE_SKLAD;
+    }
+    public static boolean isBVozobAllowed(Booking booking) {
+        return booking.getCurrentState() == Booking.STATE_PRIOST;
+    }
+    public static boolean  isBSkladAllowed(Booking booking) {
+        return booking.getCurrentState() == Booking.STATE_PROIZV;
+    }
+
+
 
 
 }

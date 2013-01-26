@@ -273,7 +273,7 @@
 
 <div id="invItems">
     <TABLE class="invItemsTab " id="headerTable">
-        <TR><%if (changesAllowed) {%><%}%>
+        <TR>
             <TH class="width20">№</TH>
             <TH class="width415">Наименование продукции</TH>
             <TH class="width70">Кол-во</TH>
@@ -773,7 +773,7 @@
             <td><label for="date">Дата &nbsp &nbsp &nbsp &nbsp &nbsp</label></td>
             <td><input type="text" name="date" id="invDate" readonly="true"
                        value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(invoice.getDate()) %>"
-                       class="width90 text ui-widget-content ui-corner-all"/>
+                       class="dateInput ui-widget-content ui-corner-all"/>
             </td>
         </tr>
     </table>

@@ -47,7 +47,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/invoices")
 public class InvoiceController {
-   private static Logger logger = Logger.getLogger(InvoiceController.class);
+    private static Logger logger = Logger.getLogger(InvoiceController.class);
 
     @Autowired
     InvoiceService invoiceService;
@@ -99,21 +99,20 @@ public class InvoiceController {
         }
 
 
-
         return "editInvoice";
     }
 
 
-   // todo для того чтоб полечить индекc следующего и предыдущего надо вытащить все заказы
-     private int getIndex(List<Invoice> invoices, Invoice invoice){
-         Long id = invoice.getId();
-         for (int i = 0; i < invoices.size(); i++) {
-             if (invoices.get(i).getId().equals(id)){
-              return i;
-             }
-         }
-         return -1;
-     }
+    // todo для того чтоб полечить индекc следующего и предыдущего надо вытащить все заказы
+    private int getIndex(List<Invoice> invoices, Invoice invoice) {
+        Long id = invoice.getId();
+        for (int i = 0; i < invoices.size(); i++) {
+            if (invoices.get(i).getId().equals(id)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
 
     @RequestMapping("/view_shipments")
@@ -184,16 +183,25 @@ public class InvoiceController {
     public
     @ResponseBody
     Map addShipment(@RequestParam("invoice_id") Long invoiceId, HttpServletRequest request) throws ParseException {
-        Invoice invoice = invoiceService.getInvoice(invoiceId);
+        //todo эта операция должна выполняться в одной транзакции
 
+
+        Invoice invoice = invoiceService.getInvoice(invoiceId);
         Shipment shipment = new Shipment();
+        Boolean otkaz = false;
+
 
         shipment.setDate((new SimpleDateFormat("dd.MM.yyyy")).parse(request.getParameter("date")));
         shipment.setShipmentNum(request.getParameter("shipmentNum"));
         for (InvoiceItem item : invoice.getInvoiceItems()) {
-            String param = request.getParameter("invItId" + item.getId());
-            if ((param != null) && (!param.isEmpty())) {
-                ShipmentMediator sm = new ShipmentMediator(item, new Integer(param));
+            String countStr = request.getParameter("invItId" + item.getId());
+
+            if (StringUtils.isNotBlank(countStr)) {
+                Integer count = new Integer(countStr);
+                if (count < 0) {
+                    otkaz = true;
+                }
+                ShipmentMediator sm = new ShipmentMediator(item, count);
                 shipment.addShippingMediator(sm);
                 item.addShippingMediators(sm);
                 invoiceItemService.saveInvoiceItem(item);
@@ -207,7 +215,7 @@ public class InvoiceController {
 
             shipment.setInvoice(invoice);
             invoice.addShipment(shipment);
-            if (invoice.getCurrentState()!=Invoice.STATE_CH_ISP && invoice.getCurrentState()!=Invoice.STATE_OPLACH) {
+            if (invoice.getCurrentState() != Invoice.STATE_CH_ISP && invoice.getCurrentState() != Invoice.STATE_OPLACH) {
                 result.put("isStateChanged", true);
                 result.put("state", "Частично исполнен");
                 invoice.setCurrentState(Invoice.STATE_CH_ISP);
@@ -228,6 +236,13 @@ public class InvoiceController {
                     result.put("state", "Исполнен");
                 }
             }
+            if (otkaz && Invoice.STATE_OTKAZ != invoice.getCurrentState()) {
+                invoice.setCurrentState(Invoice.STATE_OTKAZ);
+                result.put("isStateChanged", true);
+                result.put("state", "Отказ");
+            }
+
+
             invoiceService.saveInvoice(invoice);
             bookingService.saveBooking(invoice.getBooking());
         }
@@ -547,24 +562,24 @@ public class InvoiceController {
         Customer employer = customerService.getCustomerByShortName(invoice.getEmployer());
         City city = cityService.getCity(employer.getCity());
 
-        String orgForm ="";
-        String cityName ="";
+        String orgForm = "";
+        String cityName = "";
         JAmount jAmount = null;
-        Locale locale =null;
+        Locale locale = null;
 
-        if (language.equals("ru")){
+        if (language.equals("ru")) {
             orgForm = employer.getOrgForm().getName();
             cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
             cityName += " " + city.getName();
             jAmount = new JAmountRU();
             locale = new Locale("ru", "RU");
-        }   else if(language.equals("ua")){
+        } else if (language.equals("ua")) {
             orgForm = employer.getOrgForm().getNameUkr();
             cityName = Customer.localityTypeAliasUkr[employer.getLocalityType().intValue()];
             cityName += " " + city.getNameUkr();
             jAmount = new JAmountUA();
             locale = new Locale("ua", "UA");
-        }   else if(language.equals("ua")){
+        } else if (language.equals("ua")) {
             orgForm = employer.getOrgForm().getNameEng();
             cityName = Customer.localityTypeAliasEn[employer.getLocalityType().intValue()];
             cityName += " " + city.getNameEn();
@@ -582,8 +597,8 @@ public class InvoiceController {
         final int currencyId = invoice.getSupplier().getCurrency().getId().intValue();
         model.addAttribute("strTotal", jAmount.getAmount(currencyId, invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
 
-        String path = request.getScheme()+"://" + request.getServerName() +":"+ request.getServerPort();
-        path +=  request.getContextPath() + "/images/reportImages/header_"+language+".png";
+        String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        path += request.getContextPath() + "/images/reportImages/header_" + language + ".png";
         model.addAttribute("path", path);
 
         model.addAttribute(JRParameter.REPORT_LOCALE, locale);
@@ -609,7 +624,10 @@ public class InvoiceController {
         Payment payment = new Payment();
 //
         payment.setExchangeRate(new BigDecimal(request.getParameter("exchangeRate").replaceAll("[^0-9,.]", "").replace(",", ".")));
-        payment.setPaymentSum(new BigDecimal(request.getParameter("paymentSum").replaceAll("[^0-9,.-]", "").replace(",", ".")));
+        BigDecimal paymentSum = new BigDecimal(request.getParameter("paymentSum").replaceAll("[^0-9,.-]", "").replace(",", "."));
+        Boolean otkaz =paymentSum.compareTo(BigDecimal.ZERO)<0;
+
+        payment.setPaymentSum(paymentSum);
         payment.setPurpose(new Integer(request.getParameter("purpose")));
         payment.setDate((new SimpleDateFormat("dd.MM.yyyy")).parse(request.getParameter("date")));
         // payment.setInvoice(invoice);
@@ -641,6 +659,13 @@ public class InvoiceController {
             result.put("isStateChanged", true);
             result.put("state", "Оплачен");
         }
+
+        if (otkaz && Invoice.STATE_OTKAZ != invoice.getCurrentState()) {
+            invoice.setCurrentState(Invoice.STATE_OTKAZ);
+            result.put("isStateChanged", true);
+            result.put("state", "Отказ");
+        }
+
 
 
         invoiceService.saveInvoice(invoice);
@@ -695,8 +720,8 @@ public class InvoiceController {
         JAmount jAmount = new JAmountRU();
         parameters.put("strTotal", jAmount.getAmount(currencyId, invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
 
-        String path = request.getScheme()+"://" + request.getServerName() +":"+ request.getServerPort();
-        path +=  request.getContextPath() + "/images/reportImages/header_ru.png";
+        String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        path += request.getContextPath() + "/images/reportImages/header_ru.png";
         parameters.put("path", path);
 
 

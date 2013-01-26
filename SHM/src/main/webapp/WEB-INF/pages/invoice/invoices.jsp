@@ -15,6 +15,8 @@
 <script type="text/javascript" src="../js/local/invoices.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/invoice.css"/>
 
+<link rel="stylesheet" type="text/css" href="../css/invoices.css"/>
+
 <div ID="content">
 
     <a href="javascript:void($('#newInvoice-div').dialog('open'))">Добавить</a><br>
@@ -36,7 +38,7 @@
 
         <display:column property="numberModifier" title="м" class="left"/>
 
-        <display:column title="дата" sortable="true" format="{0,date,dd.MM.yyyy}" property="date" />
+        <display:column title="дата" sortable="true" format="{0,date,dd.MM.yyyy}" property="date"  headerClass="dataColumn"    />
 
         <display:column title="Назн" class="center">
             <%= Invoice.purposeAlias[((Invoice) pageContext.getAttribute("invoice")).getPurpose()]%>
@@ -45,7 +47,7 @@
 
         <display:column property="executor" class="center" title="спец <br> ОСО"/>
 
-        <display:column property="t0" class="col30 center" title="ДД"/>
+        <display:column property="t0" class="col30 center" title="ДД" headerClass="dd"/>
         <display:column property="t1" class="col30 center" title="БП"/>
         <display:column property="t2" class="col30 center" title="ДКС"/>
         <display:column property="t3" class="col30 center" title="ИБ"/>

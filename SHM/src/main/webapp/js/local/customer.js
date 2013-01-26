@@ -191,14 +191,15 @@ $(function () {
         }     });
     $("#OrgFormInput").dialog({
         autoOpen:false,
-        height:200,
-        width:350,
+        height:250,
+        width:400,
         modal:true,
         resizable:false,
         buttons:{
             'Создать':function () {
-                var name = $('#newOrgForm').val();
-                $.post("add_org_form", { "name":name},
+                var name = $('#newOrgFormRus').val();
+                var nameUkr = $('#newOrgFormUkr').val();
+                $.post("add_org_form", { "name":name, "nameUkr":nameUkr },
                     function (data) {
                         $('#orgForm')
                             .append($("<option></option>")
@@ -242,8 +243,11 @@ $(function () {
     $("#oldRecord").autocomplete(
         {
             source:"../customers/listCustomers",
-            width:260,
-            selectFirst:false
+            width:460,
+            selectFirst:false,
+            minChars: 2
+
+
         });
 
 //    jQuery.validator.addMethod("greaterThanZero", function(value, element, options) {

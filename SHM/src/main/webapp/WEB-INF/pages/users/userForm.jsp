@@ -56,6 +56,14 @@ $(function() {
                 <form:input path="patronymic" size="40"/>
             </td>
         </tr>
+        <tr>
+            <td class="tdLabel">
+                ФИО укр
+            </td>
+            <td>
+                <form:input path="fioUkr" size="120"/>
+            </td>
+        </tr>
 
         <tr>
             <td class="tdLabel">
