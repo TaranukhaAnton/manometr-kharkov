@@ -348,4 +348,9 @@ public class Supplier {
     public void setSecondFIOChief(String secondFIOChief) {
         this.secondFIOChief = secondFIOChief;
     }
+
+    @Override
+    public String toString() {
+        return "sup_"+id;
+    }
 }

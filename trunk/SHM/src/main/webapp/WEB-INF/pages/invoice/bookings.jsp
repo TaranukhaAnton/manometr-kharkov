@@ -144,7 +144,7 @@
         </display:column>
 
         <display:column title="Оплата,<br> %" class="right">
-            <%--<%=df.format(((Booking) pageContext.getAttribute("booking")).getInvoice().computePaymentPercent()) %>--%>
+            <%=df.format(((Booking) pageContext.getAttribute("booking")).getInvoice().getPaymentPercent()) %>
         </display:column>
 
 

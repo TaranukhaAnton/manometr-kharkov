@@ -31,7 +31,7 @@
             $("#addPayment").dialog({
                 autoOpen: false,
                 height: 450,
-                width: 450,
+                width: 550,
                 modal: true,
                 resizable:false,
                 buttons: {

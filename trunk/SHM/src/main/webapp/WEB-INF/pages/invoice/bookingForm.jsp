@@ -1,9 +1,11 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="ua.com.manometer.model.invoice.Invoice" %>
 <%@ page import="ua.com.manometer.model.invoice.Booking" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="ua.com.manometer.model.invoice.InvoiceItem" %>
 <%@ page import="ua.com.manometer.model.User" %>
+<%@ page import="ua.com.manometer.util.InvoiceUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
     <link rel="stylesheet" type="text/css" href="../css/invoice.css"/>
@@ -306,48 +308,33 @@
     <input type="button" value="К счету"
            onclick="location.href='../invoices/view?invoice_id=<%=invoice.getId()%>'" class="butt">
 
-    <%
-        //todo sequrity
-         Integer level = 4;//(Integer) request.getSession().getAttribute("level");
-        Integer st = booking.getCurrentState();
-        if (st.equals(Booking.STATE_CHERN)&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {%>
-    <input type="button" value="Запрет изм." onclick="changeBookingState(<%=Booking.STATE_PROIZV%>);" class="butt">
-    <%
-        }
-        if ((st.equals(Booking.STATE_CHERN) ||
-                st.equals(Booking.STATE_PROIZV) ||
-                st.equals(Booking.STATE_SKLAD) ||
-                st.equals(Booking.STATE_PRIOST))&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {
-    %>
-    <input type="button" value="Аннулировать" onclick="changeBookingState(<%=Booking.STATE_ANN%>);" class="butt">
-    <%
-        }
-        if ((st.equals(Booking.STATE_PROIZV) ||
-                st.equals(Booking.STATE_SKLAD))&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {
-    %>
-    <input type="button" value="Приостановить" onclick="changeBookingState(<%=Booking.STATE_PRIOST%>);" class="butt">
-    <%
-        }
-        if ((st.equals(Booking.STATE_PRIOST))&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {
-    %>
-    <input type="button" value="Возобновить" onclick="changeBookingState(<%=Booking.STATE_CHERN%>);" class="butt">
-    <%
-        }
-        if ((st.equals(Booking.STATE_PROIZV))&(User.LEVEL_ECONOMIST.equals(level)||User.LEVEL_ADMINISTRATOR.equals(level))) {
-    %>
-    <input type="button" value="Склад" onclick="changeBookingState(<%=Booking.STATE_SKLAD%>);" class="butt">
-    <%--<input type="button" value="Отгрузка" onclick="changeBookingState(<%=Booking.STATE_ANN%>);" class="butt">--%>
-        <%
-        }
-        if ((!st.equals(Booking.STATE_CHERN))&(!User.LEVEL_USER.equals(level))) {
-    %>
+    <sec:authorize access="hasRole('ROLE_ECONOMIST')">
+
+        <%if (InvoiceUtils.isBZapIzmAllowed(booking)) {%>
+        <input type="button" value="Запрет изм." onclick="changeBookingState(<%=Booking.STATE_PROIZV%>);" class="butt">
+        <% }%>
+
+        <%if (InvoiceUtils.isBAnnulAllowed(booking)) {%>
+        <input type="button" value="Аннулировать" onclick="changeBookingState(<%=Booking.STATE_ANN%>);" class="butt">
+        <% }%>
+
+        <%if (InvoiceUtils.isBPriostAllowed(booking)) {%>
+        <input type="button" value="Приостановить" onclick="changeBookingState(<%=Booking.STATE_PRIOST%>);"
+               class="butt">
+        <% }%>
+
+        <%if (InvoiceUtils.isBVozobAllowed(booking)) {%>
+        <input type="button" value="Возобновить" onclick="changeBookingState(<%=Booking.STATE_CHERN%>);" class="butt">
+        <% }%>
+
+        <%if (InvoiceUtils.isBSkladAllowed(booking)) {%>
+        <input type="button" value="Склад" onclick="changeBookingState(<%=Booking.STATE_SKLAD%>);" class="butt">
+        <% }%>
+    </sec:authorize>
 
     <input type="button" value="Печать"
            onclick="location.href='invoiceAction.do?method=bookingPrint&id=<%= ((Long) request.getAttribute("id"))%>'"
            class="butt">
-       <%
-        }
-    %>  
 
 </div>
 </div>
