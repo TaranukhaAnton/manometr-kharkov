@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.com.manometer.model.SecuredUser;
 import ua.com.manometer.model.User;
 
 import java.io.UnsupportedEncodingException;
@@ -39,14 +40,17 @@ public class CustomUserDetailsService implements UserDetailsService {
             boolean credentialsNonExpired = true;
             boolean accountNonLocked = true;
 
-            return new org.springframework.security.core.userdetails.User(
+            SecuredUser securedUser = new SecuredUser(
                     user.getLogin(),
                     user.getPass().toLowerCase(),
                     enabled,
                     accountNonExpired,
                     credentialsNonExpired,
                     accountNonLocked,
-                    getAuthorities(user.getPowersLevel()) );
+                    getAuthorities(user.getPowersLevel()));
+            securedUser.setFilter(user.getInvoiceFilter());
+
+            return securedUser;
 
         } catch (Exception e) {
             throw new RuntimeException(e);

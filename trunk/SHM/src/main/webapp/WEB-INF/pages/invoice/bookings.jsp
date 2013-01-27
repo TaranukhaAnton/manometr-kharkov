@@ -104,28 +104,24 @@
     <display:table name="listBookings" requestURI="suplierAction.do?method=viewBookings" excludedParams="method"
                    requestURIcontext="false" pagesize="20" sort="list"
                    class="simple" id="booking">
-        <display:column title="сост">
-            <%=Booking.curStateAlias[((Booking) pageContext.getAttribute("booking")).getCurrentState()]%>
-        </display:column>
 
+        <display:column property="curStateStr" title="сост" />
 
         <display:column url="/bookings/view" title="№"  paramId="invoice_id" paramProperty="invoice.id" >
         ${booking.number}${(booking.numberModifier!="")? "/":""}${booking.numberModifier}
         </display:column>
 
-        <display:column title="открыт">
-            <%=sdf.format(((Booking) pageContext.getAttribute("booking")).getDate())%>
-        </display:column>
-
+        <display:column title="открыт" sortable="true" format="{0,date,dd.MM.yyyy}" property="date"  headerClass="dataColumn"    />
 
         <display:column url="/invoices/view" title="№"  paramId="invoice_id" paramProperty="invoice.id" >
             ${booking.invoice.number}${(booking.invoice.numberModifier!="")? "/":""}${booking.invoice.numberModifier}
         </display:column>
 
 
-        <display:column title="Назн">
-            <%= Invoice.purposeAlias[((Booking) pageContext.getAttribute("booking")).getInvoice().getPurpose()] %>
-        </display:column>
+
+        <display:column property="purposeStr" title="Назн" />
+
+
         <display:column property="invoice.employer" title="заказчик"/>
 
         <display:column property="invoice.executor" title="спец<br>ОСО"/>
@@ -143,9 +139,7 @@
             <%=(((Booking) pageContext.getAttribute("booking")).getSupplierObligations2() != null) ? sdf.format(((Booking) pageContext.getAttribute("booking")).getSupplierObligations2()) : ""%>
         </display:column>
 
-        <display:column title="Оплата,<br> %" class="right">
-            <%=df.format(((Booking) pageContext.getAttribute("booking")).getInvoice().getPaymentPercent()) %>
-        </display:column>
+        <display:column property="paymentPercentStr" title="Оплата,<br> %" class="right" />
 
 
     </display:table>
