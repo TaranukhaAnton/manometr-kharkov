@@ -21,7 +21,7 @@ public class TraceInterceptor extends CustomizableTraceInterceptor {
        // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
        String name="";
 
-
+              //test
                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
                  if(authentication!=null) {
                      name   ="["+ authentication.getName()+"] "; //get logged in username
