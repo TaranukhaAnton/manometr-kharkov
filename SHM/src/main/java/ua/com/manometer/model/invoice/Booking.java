@@ -134,5 +134,17 @@ public class Booking {
         this.dateOfDeviveryMade = dateOfDeviveryMade;
     }
 
+    public String getCurStateStr(){
+        return curStateAlias[currentState];
+    }
+
+    public String getPurposeStr(){
+        return Invoice.purposeAlias[invoice.getPurpose()];
+    }
+
+    public String getPaymentPercentStr(){
+        return invoice.getPaymentPercent().toString();
+    }
+
 
 }
