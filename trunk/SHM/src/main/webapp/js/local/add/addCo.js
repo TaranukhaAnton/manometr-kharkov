@@ -319,8 +319,8 @@ function parseResults(data) {
             objSel.options[objSel.options.length] = new Option('H' + data.kmch[i], data.kmch[i], false, false); // todo
     }
 
-    var  LoLimit = Number(data.loLimit);
-    var  HiLimit = Number(data.hiLimit);
+      LoLimit = Number(data.loLimit);
+      HiLimit = Number(data.hiLimit);
     var n = (LoLimit < 21) ? 0 : 1;
     document.mainForm.ed_izm[n].checked = true;
 
@@ -341,7 +341,10 @@ function parseResults(data) {
 function changeEdIzm()
 {
 
+
+
     var n = $("input[name='ed_izm']:checked").val();
+
     var i = document.mainForm.hid.selectedIndex;
     var objSel = document.mainForm.hid;
     objSel.options.length = 0;
