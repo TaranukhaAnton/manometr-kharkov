@@ -12,6 +12,9 @@
         <aspectj.version>1.6.10</aspectj.version>
         <cglib.version>2.2</cglib.version>
         <mysql.connector.version>5.1.16</mysql.connector.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
     </properties>
     <repositories>
         <repository>
@@ -99,9 +102,9 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>mysql</groupId>-->
-            <!--<artifactId>mysql-connector-java</artifactId>-->
-            <!--<version>5.1.10</version>-->
+        <!--<groupId>mysql</groupId>-->
+        <!--<artifactId>mysql-connector-java</artifactId>-->
+        <!--<version>5.1.10</version>-->
         <!--</dependency>-->
 
 
@@ -136,7 +139,6 @@
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.6.4</version>
         </dependency>
-
 
 
         <!-- Spring dependencies -->
