@@ -14,7 +14,7 @@
 <body>
 <form class="login-form" action="j_spring_security_check" method="post" accept-charset="UTF-8">
     <fieldset>
-        <legend>Манометр Харьков !!!</legend>
+        <legend>Манометр Харьков</legend>
 
 
         <table>
