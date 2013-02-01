@@ -21,6 +21,9 @@
 
     <a href="javascript:void($('#newInvoice-div').dialog('open'))">Добавить</a><br>
 
+    <a href="javascript:void(openFilterWindow())">Фильтр</a><br>
+
+
 
 
         <display:table name="listInvoices" requestURI="./" excludedParams="method"
