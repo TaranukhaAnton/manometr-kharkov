@@ -9,13 +9,6 @@ import ua.com.manometer.model.invoice.InvoiceFilter;
 import java.io.Serializable;
 import java.util.*;
 
-/**
- * Created by IntelliJ IDEA.
- * User: anton
- * Date: 27.01.13
- * Time: 17:28
- * To change this template use File | Settings | File Templates.
- */
 public class SecuredUser implements UserDetails {
 
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.manometer.dao.invoice.InvoiceDAO;
 import ua.com.manometer.model.invoice.Invoice;
+import ua.com.manometer.model.invoice.InvoiceFilter;
 import ua.com.manometer.model.invoice.InvoiceItem;
 import ua.com.manometer.util.InvoiceUtils;
 
@@ -36,6 +37,12 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Transactional
     public List<Invoice> listInvoice() {
         return invoiceDAO.listInvoice();
+    }
+
+    @Override
+    @Transactional
+    public List<Invoice> listFilteredInvoice(InvoiceFilter invoiceFilter) {
+        return invoiceDAO.listFilteredInvoice(invoiceFilter);
     }
 
     @Override

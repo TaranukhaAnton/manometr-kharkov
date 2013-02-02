@@ -5,6 +5,9 @@
 <%@ page import="org.apache.commons.lang.StringUtils" %>
 <%@ page import="java.math.RoundingMode" %>
 <%@ page import="java.math.BigDecimal" %>
+<%@ page import="ua.com.manometer.model.Currency" %>
+<%@ page import="java.util.List" %>
+<%@ page import="ua.com.manometer.model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -13,6 +16,7 @@
 
 
 <script type="text/javascript" src="../js/local/invoices.js"></script>
+<script type="text/javascript" src="../js/jquery.deserialize.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/invoice.css"/>
 
 <link rel="stylesheet" type="text/css" href="../css/invoices.css"/>
@@ -148,7 +152,7 @@
     </form>
 
 </div>
-<%--
+
 <div id="filter-form" title="Фильтр">
 
     <div id="tabs">
@@ -159,11 +163,14 @@
             <li><a href="#tabs-4">Назначение</a></li>
             <li><a href="#tabs-5">Состояние</a></li>
             <li><a href="#tabs-6">Валюта</a></li>
-            <% if (((Integer) session.getAttribute("livel")) > 2) {%>
+            <%--<% if (((Integer) session.getAttribute("livel")) > 2) {%>--%>
             <li><a href="#tabs-7">Спец. ОСО</a></li>
-            <% } %>
+            <%--<% } %>--%>
         </ul>
+
+
         <form id="filterForm">
+            <input type="hidden" name="id">
             <div id="tabs-1" class="tabdiv">
 
                 <input type="radio" name="f0" value="0"/> все <Br>
@@ -214,17 +221,27 @@
 
                 <table>
 
-                    <% for (Integer i = 0; i < Invoice.purposeAlias.length; i++) { %>
+                   <%
+                        try{
+                        for (Integer i = 0; i < Invoice.purposeAlias.length; i++) { %>
                     <tr>
-                        <td><input type="checkbox" name="purpose" value="<%=i%>"></td>
-                        <td><%=Invoice.purposeAlias[i]%>
+                        <td>
+                            <input type="checkbox" name="purposeFilter" value="<%=i%>">
+                        </td>
+                        <td>
+                            <%=Invoice.purposeAlias[i]%>
                         </td>
                     </tr>
-                    <%}%>
+                    <%}
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    %>
 
 
                 </table>
             </div>
+
             <div id="tabs-5" class="tabdiv">
                 <table>
                     <%
@@ -233,7 +250,7 @@
                             String alias = aliases[i];
                     %>
                     <tr>
-                        <td><input type="checkbox" name="state" value="<%=i%>"></td>
+                        <td><input type="checkbox" name="stateFilter" value="<%=i%>"></td>
                         <td>&nbsp;<%=alias%>
                         </td>
                     </tr>
@@ -242,14 +259,15 @@
 
                 </table>
             </div>
+
             <div id="tabs-6" class="tabdiv">
-                <table>
+               <table>
                     <%
-                        List<Currency> currencies = Factory.getCurrencyDAO().findAll();
+                        List<Currency> currencies =    (List<Currency>) request.getAttribute("currencies");
                         for (Currency currency : currencies) {
                     %>
                     <tr>
-                        <td><input type="checkbox" name="currency" value="<%=currency.getId()%>"></td>
+                        <td><input type="checkbox" name="currencyFilter" value="<%=currency.getId()%>"></td>
                         <td>&nbsp;<%=currency.getName()%>
                         </td>
                     </tr>
@@ -258,19 +276,20 @@
 
                 </table>
             </div>
-            <% if (((Integer) session.getAttribute("livel")) > 2) {%>
+
+
             <div id="tabs-7" class="tabdiv">
 
-                &lt;%&ndash;<div id="users">&ndash;%&gt;
+               <div id="users">
 
 
                 <table>
                     <%
-                        List<User> users = Factory.getUserDAO().findAll();
+                        List<User> users =     (List<User>) request.getAttribute("userList");
                         for (User user : users) {
                     %>
                     <tr>
-                        <td><input type="checkbox" name="user" value="<%=user.getId()%>"></td>
+                        <td><input type="checkbox" name="users" value="<%=user.getId()%>"></td>
                         <td>&nbsp;<%=user.getLogin()%>
                         </td>
                     </tr>
@@ -279,8 +298,9 @@
 
                 </table>
             </div>
-            <% } %>
+            </div>
+
         </form>
     </div>
 
-</div>--%>
+</div>

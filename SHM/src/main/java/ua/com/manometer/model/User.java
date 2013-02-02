@@ -19,7 +19,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Integer id;
     private String name; // имя
     private String patronymic; // отчество
     private String lastName; // фамилия
@@ -46,7 +46,7 @@ public class User {
         this.invoiceFilter = invoiceFilter;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -108,7 +108,7 @@ public class User {
     }
 
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

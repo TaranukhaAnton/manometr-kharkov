@@ -10,9 +10,9 @@ public interface UserDAO {
 
     public List<User> listUser();
 
-    public void removeUser(Long id);
+    public void removeUser(Integer id);
 
-    public User getUser(Long userId);
+    public User getUser(Integer userId);
 
 
     public User findByLogin(String login);

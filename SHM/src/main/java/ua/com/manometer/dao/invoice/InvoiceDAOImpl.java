@@ -1,12 +1,17 @@
 package ua.com.manometer.dao.invoice;
 
+import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.classic.Session;
+import org.hibernate.criterion.Conjunction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import ua.com.manometer.model.invoice.Invoice;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ua.com.manometer.model.invoice.InvoiceFilter;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -27,6 +32,33 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     @Override
     public List<Invoice> listInvoice() {
         return sessionFactory.getCurrentSession().createQuery("from Invoice").list();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Invoice> listFilteredInvoice(InvoiceFilter invoiceFilter) {
+
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Invoice.class);
+        Conjunction conjunction = Restrictions.conjunction();
+
+        if (!invoiceFilter.getStateFilter().isEmpty()) {
+            conjunction.add(Restrictions.in("currentState", invoiceFilter.getStateFilter()));
+        }
+        if (!invoiceFilter.getUsers().isEmpty()) {
+            conjunction.add(Restrictions.in("executor.id", invoiceFilter.getUsers()));
+        }
+
+        if (!invoiceFilter.getCurrencyFilter().isEmpty()) {
+            conjunction.add(Restrictions.in("supplier.currency.id", invoiceFilter.getCurrencyFilter()));
+        }
+        if (!invoiceFilter.getPurposeFilter().isEmpty()) {
+            conjunction.add(Restrictions.in("purpose", invoiceFilter.getPurposeFilter()));
+        }
+
+        criteria.add(conjunction);
+
+
+        return criteria.list();
     }
 
     @Override
@@ -54,7 +86,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         Session session = sessionFactory.getCurrentSession();
         BigInteger count = (BigInteger) session.createSQLQuery("select count(*) from invoice i where year(i.date) = year (?) and i.number = ? and i.numberModifier = ? and isInvoice = ? ")
                 .setDate(0, date).setInteger(1, number).setString(2, numberModifier).setString(3, invoice ? "Y" : "N").uniqueResult();
-        return   count.compareTo(BigInteger.ZERO) == 1;
+        return count.compareTo(BigInteger.ZERO) == 1;
     }
 
 

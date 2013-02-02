@@ -1,6 +1,7 @@
 package ua.com.manometer.service.invoice;
 
 import ua.com.manometer.model.invoice.Invoice;
+import ua.com.manometer.model.invoice.InvoiceFilter;
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,7 @@ public interface InvoiceService {
 
 
 	public List<Invoice> listInvoice();
+    public List<Invoice> listFilteredInvoice(InvoiceFilter invoiceFilter);
 
 	public void removeInvoice(Long id);
 
