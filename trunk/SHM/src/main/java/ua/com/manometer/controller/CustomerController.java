@@ -79,8 +79,9 @@ public class CustomerController {
             OrgForm orgForm = new OrgForm();
             orgForm.setId(1L);
             customer.setOrgForm(orgForm);
+            //todo check
             User user = new User();
-            user.setId(1L);
+            user.setId(1);
             customer.setPerson(user);
             customer.setDateLastCorrection(new Date());
             customer.setDateOfRecord(new Date());

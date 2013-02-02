@@ -9,6 +9,7 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ua.com.manometer.model.Customer;
+import ua.com.manometer.model.SecuredUser;
 import ua.com.manometer.model.Supplier;
 import ua.com.manometer.model.address.City;
 import ua.com.manometer.model.invoice.*;
+import ua.com.manometer.service.CurrencyService;
 import ua.com.manometer.service.CustomerService;
 import ua.com.manometer.service.SupplierService;
+import ua.com.manometer.service.UserService;
 import ua.com.manometer.service.address.CityService;
 import ua.com.manometer.service.invoice.BookingService;
 import ua.com.manometer.service.invoice.InvoiceItemService;
@@ -63,13 +67,24 @@ public class InvoiceController {
     PaymentService paymentService;
     @Autowired
     BookingService bookingService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private CurrencyService currencyService;
+
+
 
 
     @RequestMapping("/")
     public String populateInvoices(Map<String, Object> map) {
-        logger.debug("populateInvoices");
-        final List<Invoice> listInvoices = invoiceService.listInvoice();
-        map.put("listInvoices", listInvoices);
+
+
+        SecuredUser securedUser = (SecuredUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        InvoiceFilter filter = securedUser.getFilter();
+        map.put("listInvoices", invoiceService.listFilteredInvoice(filter));
+        map.put("currencies", currencyService.listCurrency());
+        map.put("userList", userService.listUser());
+
         return "invoices";
     }
 
@@ -105,7 +120,7 @@ public class InvoiceController {
 
     // todo для того чтоб полечить индекc следующего и предыдущего надо вытащить все заказы
     private int getIndex(List<Invoice> invoices, Invoice invoice) {
-        Long id = invoice.getId();
+        Integer id = invoice.getId();
         for (int i = 0; i < invoices.size(); i++) {
             if (invoices.get(i).getId().equals(id)) {
                 return i;

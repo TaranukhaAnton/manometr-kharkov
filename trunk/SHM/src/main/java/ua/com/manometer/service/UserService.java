@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface UserService {
 
-	public User getUser(Long userId);
+	public User getUser(Integer userId);
 
     public void addUser(User user);
 
 	public List<User> listUser();
 
-	public void removeUser(Long id);
+	public void removeUser(Integer id);
 
     public User findByLogin(String login);
 }

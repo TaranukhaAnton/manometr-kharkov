@@ -44,8 +44,9 @@ public class Invoice {
 
     @Id
     @GeneratedValue()
+    private Integer id;
 
-    private Long id;
+
     @Column(nullable = false, length = 1)
     @Type(type = "yes_no")
     private boolean isInvoice;
@@ -121,10 +122,10 @@ public class Invoice {
     private Integer t5;
 
     @Transient
-    Long prev;
+    Integer prev;
 
     @Transient
-    Long next;
+    Integer next;
 
     @Transient
     private BigDecimal debt;
@@ -184,12 +185,12 @@ public class Invoice {
     }
 
 
-    public Long getId() {
+    public Integer getId() {
 
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -585,19 +586,19 @@ public class Invoice {
         this.anyGoodsShipped = anyGoodsShipped;
     }
 
-    public Long getPrev() {
+    public Integer getPrev() {
         return prev;
     }
 
-    public void setPrev(Long prev) {
+    public void setPrev(Integer prev) {
         this.prev = prev;
     }
 
-    public Long getNext() {
+    public Integer getNext() {
         return next;
     }
 
-    public void setNext(Long next) {
+    public void setNext(Integer next) {
         this.next = next;
     }
 

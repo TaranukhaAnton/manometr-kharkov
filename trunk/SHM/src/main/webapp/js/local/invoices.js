@@ -139,7 +139,7 @@ $(function() {
         resizable:false,
         buttons: {
             'Применить': function() {
-                location.replace("invoiceAction.do?method=setupFilter&" + $('#filterForm').serialize());
+                location.replace("../filters/save_filter?" + $('#filterForm').serialize());
             },
             'Очистить': function() {
                 // alert($('#filterForm').serialize());
@@ -162,9 +162,10 @@ $(function() {
 
 });
 function openFilterWindow() {
-    $.post("invoiceAction.do?method=getFilter", "", function(data) {
-        var response = eval("(" + data + ")");
-        $('#filterForm').deserialize(response);
+    $.post("../filters/get_filter", "", function(data) {
+      //  alert('R');
+      //  var response = eval("(" + data + ")");
+        $('#filterForm').deserialize(data);
     });
     $('#filter-form').dialog('open');
 }

@@ -27,7 +27,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void removeUser(Long id) {
+    public void removeUser(Integer id) {
         Session currentSession = sessionFactory.getCurrentSession();
         User user = (User) currentSession.load(User.class, id);
         if (user != null) {
@@ -36,7 +36,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUser(Long id) {
+    public User getUser(Integer id) {
         User user = (User) sessionFactory.getCurrentSession().get(User.class, id);
         return user;
     }

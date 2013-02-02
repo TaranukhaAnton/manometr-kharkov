@@ -2,15 +2,17 @@ package ua.com.manometer.model.invoice;
 
 
 import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.*;
 
 
 @Entity
-public class InvoiceFilter {
+public class InvoiceFilter  implements Serializable {
     @Id
     @GeneratedValue()
     private Long id;
@@ -20,20 +22,22 @@ public class InvoiceFilter {
     Integer f2 = 0;
     Integer f1From;
     Integer f1To;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date f2From;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date f2To;
 
     @Type(type = "ua.com.manometer.util.IntegerListCustomType")
-    List<Integer> users;
+    List<Integer> users = new LinkedList<Integer>();
 
     @Type(type = "ua.com.manometer.util.IntegerListCustomType")
-    List<Integer> purposeFilter;
+    List<Integer> purposeFilter = new LinkedList<Integer>();
 
     @Type(type = "ua.com.manometer.util.IntegerListCustomType")
-    List<Integer> stateFilter;
+    List<Integer> stateFilter = new LinkedList<Integer>();
 
     @Type(type = "ua.com.manometer.util.IntegerListCustomType")
-    List<Integer> currencyFilter;
+    List<Integer> currencyFilter = new LinkedList<Integer>();
 
 
     public List<Integer> getCurrencyFilter() {
@@ -204,48 +208,6 @@ public class InvoiceFilter {
     }*/
 
 
-   /* public String toJSONString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        StringBuilder result = new StringBuilder();
-        result.append("{");
-        if (users != null) {
-            result.append("\"user\":[");
-            for (int i = 0; i < users.length; i++)
-                result.append(users[i] + ((i == users.length - 1) ? "" : ","));
-            result.append("],");
-        }
-        if (purposeFilter != null) {
-            result.append("\"purpose\":[");
-            for (int i = 0; i < purposeFilter.length; i++)
-                result.append(purposeFilter[i] + ((i == purposeFilter.length - 1) ? "" : ","));
-            result.append("],");
-        }
 
-        if (stateFilter != null) {
-            result.append("\"state\":[");
-            for (int i = 0; i < stateFilter.length; i++)
-                result.append(stateFilter[i] + ((i == stateFilter.length - 1) ? "" : ","));
-            result.append("],");
-        }
-
-        if (currencyFilter != null) {
-            result.append("\"currency\":[");
-            for (int i = 0; i < currencyFilter.length; i++)
-                result.append(currencyFilter[i] + ((i == currencyFilter.length - 1) ? "" : ","));
-            result.append("],");
-        }
-
-        result.append("\"f0\":" + f0 + ",");
-        result.append("\"f1\":" + f1 + ",");
-        result.append("\"f2\":" + f2 + ",");
-
-        result.append("\"f2_to\":\"" + ((f2To == null) ? "" : sdf.format(f2To)) + "\",");
-        result.append("\"f2_from\":\"" + ((f2From == null) ? "" : sdf.format(f2From)) + "\",");
-        result.append("\"f1_to\":\"" + ((f1To == null) ? "" : f1To) + "\",");
-        result.append("\"f1_from\":\"" + ((f1From == null) ? "" : f1From) + "\"}");
-        //   System.out.println(result);
-        return result.toString();
-
-    }*/
 
 }
