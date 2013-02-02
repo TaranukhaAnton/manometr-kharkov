@@ -1,0 +1,41 @@
+label, input {
+    display: block;
+}
+
+#dialog-form {
+    font-size: 62.5%;
+}
+
+table.options {
+    border-collapse: collapse; /*border: 1px dashed black;*/
+    margin: 0 auto;
+}
+
+table.options th {
+    width: 80px;
+    background-color: #aaa;
+    border: 1px solid #000;
+}
+
+table.options td {
+    background-color: #eee;
+    border: 1px solid #000;
+
+    text-align: right;
+}
+
+table.options th.first {
+    width: 60px;
+    background-color: #aaa;
+}
+
+div.tabs div {
+    overflow-y: scroll; /* Добавляем полосы прокрутки */
+    height: 850px;
+}
+
+div.tabs {
+    /*background: #333;*/
+    /*padding: 20px;*/
+    height: 950px;
+}
