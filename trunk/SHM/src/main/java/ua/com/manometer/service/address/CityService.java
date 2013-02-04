@@ -8,7 +8,7 @@ public interface CityService {
 
 	public void addCity(City city);
 
-    public  List<City> listCityForArea(Long areaId);
+    public  List<City> listCityForArea(Integer areaId);
 
-    public City getCity(Long id);
+    public City getCity(Integer id);
 }

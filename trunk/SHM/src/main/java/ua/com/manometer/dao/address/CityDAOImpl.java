@@ -15,7 +15,7 @@ public class CityDAOImpl implements CityDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<City> listCityForArea(Long areaId) {
+    public List<City> listCityForArea(Integer areaId) {
         return sessionFactory.getCurrentSession().createCriteria(City.class).
                 add(Restrictions.eq("area.id", areaId)).list();
     }

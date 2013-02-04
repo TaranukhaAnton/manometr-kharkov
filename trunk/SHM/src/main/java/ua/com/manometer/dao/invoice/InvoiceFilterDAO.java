@@ -9,6 +9,6 @@ public interface InvoiceFilterDAO {
 
 	public List<InvoiceFilter> listInvoiceFilter();
 
-	public void removeInvoiceFilter(Long id);
+	public void removeInvoiceFilter(Integer id);
 
 }

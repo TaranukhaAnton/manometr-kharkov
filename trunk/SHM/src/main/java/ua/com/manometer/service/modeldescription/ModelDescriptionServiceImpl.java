@@ -32,19 +32,19 @@ public class ModelDescriptionServiceImpl implements ModelDescriptionService {
 
 	@Override
 	@Transactional
-	public void removeModelDescription(Long id) {
+	public void removeModelDescription(Integer id) {
 		modeldescriptionDAO.removeModelDescription(id);
 	}
 
     @Override
     @Transactional
-    public List<ModelDescription> findListByIds(List<Long> modelIds) {
+    public List<ModelDescription> findListByIds(List<Integer> modelIds) {
         return  modeldescriptionDAO.findListByIds(modelIds);
     }
 
     @Override
     @Transactional
-    public ModelDescription getModelDescription(Long model) {
+    public ModelDescription getModelDescription(Integer model) {
         return (ModelDescription) baseDAO.getById(model,ModelDescription.class);
     }
 

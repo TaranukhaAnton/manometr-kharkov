@@ -29,7 +29,7 @@ public class ProductionPriceDAOImpl implements ProductionPriceDAO {
     }
 
     @Override
-    public void removeProductionPrice(Long id) {
+    public void removeProductionPrice(Integer id) {
         ProductionPrice productionprice = (ProductionPrice) sessionFactory.getCurrentSession().get(ProductionPrice.class, id);
         if (productionprice != null) {
             sessionFactory.getCurrentSession().delete(productionprice);

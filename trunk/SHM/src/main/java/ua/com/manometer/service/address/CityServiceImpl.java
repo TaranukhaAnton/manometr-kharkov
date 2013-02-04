@@ -26,13 +26,13 @@ public class CityServiceImpl implements CityService {
 
     @Override
     @Transactional
-    public List<City> listCityForArea(Long areaId) {
+    public List<City> listCityForArea(Integer areaId) {
        return cityDAO.listCityForArea(areaId);
     }
 
     @Override
     @Transactional
-    public City getCity(Long id) {
+    public City getCity(Integer id) {
         return (City)baseDAO.getById(id, City.class);
     }
 

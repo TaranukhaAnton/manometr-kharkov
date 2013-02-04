@@ -7,5 +7,5 @@ public interface CityDAO {
 
 
 
-    public  List<City> listCityForArea(Long areaId);
+    public  List<City> listCityForArea(Integer areaId);
 }

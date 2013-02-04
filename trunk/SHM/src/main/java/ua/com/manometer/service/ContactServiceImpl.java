@@ -21,7 +21,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     @Transactional
-    public Contact getContact(Long userId) {
+    public Contact getContact(Integer userId) {
         return contactDAO.getContact(userId);
     }
 
@@ -29,7 +29,7 @@ public class ContactServiceImpl implements ContactService {
     @Transactional
     public void addContact(Contact contact) {
         if (contact.getProfession() != null) {
-            final Long id = contact.getProfession().getId();
+            final Integer id = contact.getProfession().getId();
             final Profession profession = professionDAO.getProfession(id);
             contact.setProfession(profession);
         }
@@ -44,7 +44,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     @Transactional
-    public void removeContact(Long id) {
+    public void removeContact(Integer id) {
         contactDAO.removeContact(id);
     }
 

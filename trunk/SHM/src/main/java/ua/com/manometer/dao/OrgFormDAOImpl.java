@@ -26,7 +26,7 @@ public class OrgFormDAOImpl implements OrgFormDAO {
     }
 
     @Override
-    public void removeOrgForm(Long id) {
+    public void removeOrgForm(Integer id) {
         OrgForm orgForm = (OrgForm) sessionFactory.getCurrentSession().load(OrgForm.class, id);
         if (orgForm != null) {
             sessionFactory.getCurrentSession().delete(orgForm);
@@ -34,7 +34,7 @@ public class OrgFormDAOImpl implements OrgFormDAO {
     }
 
     @Override
-    public OrgForm getOrgForm(Long id) {
+    public OrgForm getOrgForm(Integer id) {
         OrgForm orgForm = (OrgForm) sessionFactory.getCurrentSession().get(OrgForm.class, id);
         return orgForm;
     }

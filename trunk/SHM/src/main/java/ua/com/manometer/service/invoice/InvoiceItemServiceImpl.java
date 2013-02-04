@@ -33,7 +33,7 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
 
     @Override
     @Transactional
-    public InvoiceItem getInvoiceItem(Long id) {
+    public InvoiceItem getInvoiceItem(Integer id) {
         return   invoiceitemDAO.getInvoiceItem(id);
     }
 
@@ -51,7 +51,7 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
 
 	@Override
 	@Transactional
-	public void removeInvoiceItem(Long id) {
+	public void removeInvoiceItem(Integer id) {
 		invoiceitemDAO.removeInvoiceItem(id);
 	}
 

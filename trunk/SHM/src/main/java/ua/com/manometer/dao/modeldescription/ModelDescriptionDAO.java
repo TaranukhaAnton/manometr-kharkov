@@ -9,7 +9,7 @@ public interface ModelDescriptionDAO {
 
 	public List<ModelDescription> listModelDescription();
 
-	public void removeModelDescription(Long id);
+	public void removeModelDescription(Integer id);
 
-    public  List<ModelDescription> findListByIds(List<Long> modelIds);
+    public  List<ModelDescription> findListByIds(List<Integer> modelIds);
 }

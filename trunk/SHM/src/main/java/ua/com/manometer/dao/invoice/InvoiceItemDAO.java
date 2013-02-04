@@ -10,7 +10,7 @@ public interface InvoiceItemDAO {
 
 	public List<InvoiceItem> listInvoiceItem();
 
-	public void removeInvoiceItem(Long id);
+	public void removeInvoiceItem(Integer id);
 
-    public InvoiceItem getInvoiceItem(Long id);
+    public InvoiceItem getInvoiceItem(Integer id);
 }

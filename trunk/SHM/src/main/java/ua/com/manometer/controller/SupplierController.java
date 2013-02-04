@@ -31,7 +31,7 @@ public class SupplierController {
     }
 
     @RequestMapping("/edit")
-    public String setupForm(@RequestParam(value = "id", required = false) Long id, ModelMap model) {
+    public String setupForm(@RequestParam(value = "id", required = false) Integer id, ModelMap model) {
 
         model.put("currencies", currencyService.listCurrency());
 
@@ -52,7 +52,7 @@ public class SupplierController {
     }
 
     @RequestMapping("/delete")
-    public String deleteInvoice(@RequestParam("supplier_id") Long id) {
+    public String deleteInvoice(@RequestParam("supplier_id") Integer id) {
         supplierService.removeSupplier(id);
         return "redirect:/suppliers/";
     }

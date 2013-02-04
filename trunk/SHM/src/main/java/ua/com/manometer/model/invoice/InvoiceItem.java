@@ -17,7 +17,7 @@ import java.util.*;
 public abstract class InvoiceItem {
     @Id
     @GeneratedValue()
-    private Long id;
+    private Integer id;
 
     private Integer type;
 
@@ -67,11 +67,11 @@ public abstract class InvoiceItem {
     }
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -81,6 +81,8 @@ public class InvoiceController {
 
         SecuredUser securedUser = (SecuredUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         InvoiceFilter filter = securedUser.getFilter();
+
+        map.put("userId", securedUser.getUserId());
         map.put("listInvoices", invoiceService.listFilteredInvoice(filter));
         map.put("currencies", currencyService.listCurrency());
         map.put("userList", userService.listUser());
@@ -89,7 +91,7 @@ public class InvoiceController {
     }
 
     @RequestMapping("/view")
-    public String viewInvoice(@RequestParam("invoice_id") Long id, Map<String, Object> map) {
+    public String viewInvoice(@RequestParam("invoice_id") Integer id, Map<String, Object> map) {
         Invoice invoice = invoiceService.getInvoice(id);
         map.put("invoice", invoice);
         map.put("supplierList", supplierService.listSupplier());
@@ -131,13 +133,13 @@ public class InvoiceController {
 
 
     @RequestMapping("/view_shipments")
-    public String viewShipments(@RequestParam("invoice_id") Long id, Map<String, Object> map) {
+    public String viewShipments(@RequestParam("invoice_id") Integer id, Map<String, Object> map) {
         Invoice invoice = invoiceService.getInvoice(id);
 
-        Map<Long, Map<Long, Integer>> res = new HashMap<Long, Map<Long, Integer>>();
+        Map<Integer, Map<Integer, Integer>> res = new HashMap<Integer, Map<Integer, Integer>>();
         Set<Shipment> shipments = invoice.getShipments();
         for (Shipment shipment : shipments) {
-            Map<Long, Integer> mapSM = new HashMap<Long, Integer>();
+            Map<Integer, Integer> mapSM = new HashMap<Integer, Integer>();
             List<ShipmentMediator> shippingMediators = shipment.getShippingMediators();
             for (ShipmentMediator sm : shippingMediators) {
                 mapSM.put(sm.getInvoiceItem().getId(), sm.getCount());
@@ -154,7 +156,7 @@ public class InvoiceController {
 
 
     @RequestMapping("/delete")
-    public String deleteInvoice(@RequestParam("invoice_id") Long id) {
+    public String deleteInvoice(@RequestParam("invoice_id") Integer id) {
         invoiceService.removeInvoice(id);
         return "redirect:/invoices/";
     }
@@ -197,7 +199,7 @@ public class InvoiceController {
     @RequestMapping("/add_shipment")
     public
     @ResponseBody
-    Map addShipment(@RequestParam("invoice_id") Long invoiceId, HttpServletRequest request) throws ParseException {
+    Map addShipment(@RequestParam("invoice_id") Integer invoiceId, HttpServletRequest request) throws ParseException {
         //todo эта операция должна выполняться в одной транзакции
 
 
@@ -269,7 +271,7 @@ public class InvoiceController {
     @RequestMapping("/get_shipment_sum")
     public
     @ResponseBody
-    Map editInvoiceItem(@RequestParam("invoice_id") Long invoiceId, HttpServletRequest request)
+    Map editInvoiceItem(@RequestParam("invoice_id") Integer invoiceId, HttpServletRequest request)
             throws Exception {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         BigDecimal sum = new BigDecimal("0");
@@ -302,7 +304,7 @@ public class InvoiceController {
     @RequestMapping("/editInvoiceItem")
     public
     @ResponseBody
-    String editInvoiceItem(@RequestParam("invId") Long invoiceId, @RequestParam("id") final Long id, @RequestParam("param") String param, @RequestParam("value") String value)
+    String editInvoiceItem(@RequestParam("invId") Integer invoiceId, @RequestParam("id") final Integer id, @RequestParam("param") String param, @RequestParam("value") String value)
             throws Exception {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         InvoiceItem item = (InvoiceItem) CollectionUtils.find(invoice.getInvoiceItems(), new Predicate() {
@@ -336,7 +338,7 @@ public class InvoiceController {
         // NumberFormat df = NumberFormat.getInstance();
 
 
-        //Factory.getInvoiceDAO().findById(new Long(request.getParameter("invoiceId")));
+        //Factory.getInvoiceDAO().findById(new Integer(request.getParameter("invoiceId")));
         String res = "{";
         res += "\"total\":\"" + df.format(invoice.getTotal()) + "\"," +
                 "\"sumTot\":\"" + df.format(invoice.getSum()) + "\"," +
@@ -362,7 +364,7 @@ public class InvoiceController {
     @RequestMapping("/editInvoiceParams")
     public
     @ResponseBody
-    Map editInvoiceParams(@RequestParam("id") Long id, @RequestParam("param") String param, @RequestParam("value") String value) throws ParseException {
+    Map editInvoiceParams(@RequestParam("id") Integer id, @RequestParam("param") String param, @RequestParam("value") String value) throws ParseException {
         Map<String, Object> map = new HashMap<String, Object>();
         Invoice invoice = invoiceService.getInvoice(id);
         if (invoice == null) {
@@ -424,7 +426,7 @@ public class InvoiceController {
                 map.put("param", "consumer");
             }
         } else if (param.equals("supplier")) {
-            Supplier supplier = supplierService.getSupplier(new Long(value));
+            Supplier supplier = supplierService.getSupplier(new Integer(value));
             BigDecimal oldExchangeRate = invoice.getExchangeRate();
             invoice.setSupplier(supplier);
             invoice.setExchangeRate(supplier.getCurrency().getExchangeRate());
@@ -567,7 +569,7 @@ public class InvoiceController {
 
 
     @RequestMapping(value = "/export_report", method = RequestMethod.GET)
-    public String exportReport(@RequestParam("invoice_id") Long invoiceId, @RequestParam("type") String type, ModelMap model, HttpServletRequest request) {
+    public String exportReport(@RequestParam("invoice_id") Integer invoiceId, @RequestParam("type") String type, ModelMap model, HttpServletRequest request) {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         String language = invoice.getSupplier().getLanguage();
 
@@ -594,7 +596,7 @@ public class InvoiceController {
             cityName += " " + city.getNameUkr();
             jAmount = new JAmountUA();
             locale = new Locale("ua", "UA");
-        } else if (language.equals("ua")) {
+        } else if (language.equals("en")) {
             orgForm = employer.getOrgForm().getNameEng();
             cityName = Customer.localityTypeAliasEn[employer.getLocalityType().intValue()];
             cityName += " " + city.getNameEn();
@@ -617,13 +619,13 @@ public class InvoiceController {
         model.addAttribute("path", path);
 
         model.addAttribute(JRParameter.REPORT_LOCALE, locale);
-        ResourceBundle bundle = ResourceBundle.getBundle("i18n", new UTF8Control());
-        model.addAttribute(JRParameter.REPORT_RESOURCE_BUNDLE, bundle);
+//        ResourceBundle bundle = ResourceBundle.getBundle("i18n", new UTF8Control());
+//        model.addAttribute(JRParameter.REPORT_RESOURCE_BUNDLE, bundle);
         return "invoiceReport";
     }
 
     @RequestMapping("/view_payments")
-    public String viewPayments(@RequestParam("invoice_id") Long invoiceId, Map<String, Object> map) {
+    public String viewPayments(@RequestParam("invoice_id") Integer invoiceId, Map<String, Object> map) {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         map.put("invoice", invoice);
         return "payments";
@@ -632,7 +634,7 @@ public class InvoiceController {
     @RequestMapping("/add_payment")
     public
     @ResponseBody
-    Map addPayment(@RequestParam("invoice_id") Long invoiceId, HttpServletRequest request)
+    Map addPayment(@RequestParam("invoice_id") Integer invoiceId, HttpServletRequest request)
             throws Exception {
 
         Invoice invoice = invoiceService.getInvoice(invoiceId);
@@ -709,34 +711,61 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public void doSalesMultiRep(@RequestParam("invoice_id") Long invoiceId, HttpServletResponse response, HttpServletRequest request) throws JRException, IOException {
+    public void doSalesMultiRep(@RequestParam("invoice_id") Integer invoiceId,@RequestParam("lang") String language, HttpServletResponse response, HttpServletRequest request) throws JRException, IOException {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
-
-        JasperReport report = JasperCompileManager.compileReport("D:\\projects\\~MANOMETR\\SHM\\src\\main\\resources\\invoice.jrxml");
+        //String language = invoice.getSupplier().getLanguage();
+        JasperReport report = JasperCompileManager.compileReport("D:\\projects\\~MANOMETR\\SHM\\src\\main\\resources\\invoice_ru.jrxml");
         Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put(JRParameter.REPORT_LOCALE, new Locale("ru", "RU"));
-
-
-        ResourceBundle bundle = ResourceBundle.getBundle("i18n", new UTF8Control());
-        parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, bundle);
-
-
         Customer employer = customerService.getCustomerByShortName(invoice.getEmployer());
-        String orgForm = employer.getOrgForm().getName();
+        City city = cityService.getCity(employer.getCity());
+        String orgForm = "";
+        String cityName = "";
+        JAmount jAmount = null;
+        Locale locale = null;
+
+        if (language.equals("ru")) {
+            orgForm = employer.getOrgForm().getName();
+            cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
+            cityName += " " + city.getName();
+            jAmount = new JAmountRU();
+            locale = new Locale("ru", "RU");
+        } else if (language.equals("ua")) {
+            orgForm = employer.getOrgForm().getNameUkr();
+            cityName = Customer.localityTypeAliasUkr[employer.getLocalityType().intValue()];
+            cityName += " " + city.getNameUkr();
+            jAmount = new JAmountUA();
+            locale = new Locale("ua", "UA");
+        } else if (language.equals("en")) {
+            orgForm = employer.getOrgForm().getNameEng();
+            cityName = Customer.localityTypeAliasEn[employer.getLocalityType().intValue()];
+            cityName += " " + city.getNameEn();
+            jAmount = new JAmountEN();
+            locale = new Locale("en", "EN");
+        }
+        parameters.put(JRParameter.REPORT_LOCALE, locale);
+        
+        
+
+//        ResourceBundle bundle = ResourceBundle.getBundle("i18n", new UTF8Control());
+//        parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, bundle);
+
+
+      //  Customer employer = customerService.getCustomerByShortName(invoice.getEmployer());
+       // String orgForm = employer.getOrgForm().getName();
         parameters.put("orgForm", orgForm);
 
-        City city = cityService.getCity(employer.getCity());
-        String cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
-        cityName += " " + city.getName();
+      //  City city = cityService.getCity(employer.getCity());
+        //String cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
+        //cityName += " " + city.getName();
         parameters.put("city", cityName);
 
         parameters.put("invoice", invoice);
-        final int currencyId = invoice.getSupplier().getCurrency().getId().intValue();
-        JAmount jAmount = new JAmountRU();
+        final int currencyId = invoice.getSupplier().getCurrency().getId();
+      //  JAmount jAmount = new JAmountRU();
         parameters.put("strTotal", jAmount.getAmount(currencyId, invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
 
         String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        path += request.getContextPath() + "/images/reportImages/header_ru.png";
+        path += request.getContextPath() + "/images/reportImages/header_"+language+".png";
         parameters.put("path", path);
 
 

@@ -42,7 +42,7 @@ public class ListPriceController {
 
 
     @RequestMapping("/delete")
-    public String delete(Long id, Integer type, ModelMap model)
+    public String delete(Integer id, Integer type, ModelMap model)
             throws Exception {
         System.out.println("PriceController.delete");
         productionPriceService.removeProductionPrice(id);

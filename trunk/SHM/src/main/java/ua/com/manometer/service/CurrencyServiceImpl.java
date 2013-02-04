@@ -28,7 +28,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 
 	@Override
 	@Transactional
-	public void removeCurrency(Long id) {
+	public void removeCurrency(Integer id) {
 		currencyDAO.removeCurrency(id);
 	}
 

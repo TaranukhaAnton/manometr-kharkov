@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="514525b5-14f9-473b-bb6e-09a830ad8725">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports     http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20"
+              bottomMargin="20" uuid="514525b5-14f9-473b-bb6e-09a830ad8725"
+              resourceBundle="i18n">
 	<property name="ireport.zoom" value="1.464100000000003"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -19,14 +24,14 @@
 				<textElement>
 					<font fontName="DejaVu Serif" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Поставщик"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{param1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="ab9e9402-da04-422e-a230-39d40f611b15" x="265" y="138" width="290" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Serif" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Плательщик"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{param2}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="a827b5cf-996d-4b6c-b4b3-d12bc20ec6b8" x="0" y="158" width="265" height="20"/>
@@ -34,34 +39,34 @@
 					<font fontName="DejaVu Serif" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{invoice}.getSupplier().getName()+"\n"+
-                    "тел. "+$P{invoice}.getSupplier().getPhone()+"\n"+
+                   $R{param3}+ " "+$P{invoice}.getSupplier().getPhone()+"\n"+
                     $P{invoice}.getSupplier().getAddress()+"\n"+
-                    (($P{invoice}.getSupplier().getErdpou().isEmpty())?"":("ЄДРПОУ "+$P{invoice}.getSupplier().getErdpou()+"  " ))+
-                    (($P{invoice}.getSupplier().getInn().isEmpty())?"\n":("ИНН "+$P{invoice}.getSupplier().getInn()+"\n"))+
+                    (($P{invoice}.getSupplier().getErdpou().isEmpty())?"":($R{param4}+" "+$P{invoice}.getSupplier().getErdpou()+"  " ))+
+                    (($P{invoice}.getSupplier().getInn().isEmpty())?"\n":($R{param5}+" "+$P{invoice}.getSupplier().getInn()+"\n"))+
                     (($P{invoice}.isInvoice())?(
-                    (($P{invoice}.getSupplier().getInnkpp().isEmpty())?"":("ИНН/КПП "+$P{invoice}.getSupplier().getInnkpp()+"\n"))+
-                    (($P{invoice}.getSupplier().getOkpo().isEmpty())?"":("ОКПО "+$P{invoice}.getSupplier().getOkpo()+"\n"))+
-                    (($P{invoice}.getSupplier().getOgrn().isEmpty())?"":("ОГРН "+$P{invoice}.getSupplier().getOgrn()+"\n"))+
+                    (($P{invoice}.getSupplier().getInnkpp().isEmpty())?"":($R{param6}+" "+$P{invoice}.getSupplier().getInnkpp()+"\n"))+
+                    (($P{invoice}.getSupplier().getOkpo().isEmpty())?"":($R{param7}+" "+$P{invoice}.getSupplier().getOkpo()+"\n"))+
+                    (($P{invoice}.getSupplier().getOgrn().isEmpty())?"":($R{param8}+" "+$P{invoice}.getSupplier().getOgrn()+"\n"))+
 
-                    (($P{invoice}.getSupplier().getBankMediatorName().isEmpty())?"":("Intermediary bank \n"))+
+                    (($P{invoice}.getSupplier().getBankMediatorName().isEmpty())?"":($R{param9}+" \n"))+
                     (($P{invoice}.getSupplier().getBankMediatorName().isEmpty())?"":($P{invoice}.getSupplier().getBankMediatorName()+"  "))+
                     (($P{invoice}.getSupplier().getBankMediatorAddress().isEmpty())?"":($P{invoice}.getSupplier().getBankMediatorAddress()+"\n"))+
                     (($P{invoice}.getSupplier().getBankMediatorSWIFT().isEmpty())?"":($P{invoice}.getSupplier().getBankMediatorSWIFT()+"\n"))+
 
-                    (($P{invoice}.getSupplier().getBankBeneficiaryName().isEmpty())?"":("Beneficiary's bank \n"))+
+                    (($P{invoice}.getSupplier().getBankBeneficiaryName().isEmpty())?"":($R{param10}+" \n"))+
                     (($P{invoice}.getSupplier().getBankBeneficiaryName().isEmpty())?"":($P{invoice}.getSupplier().getBankBeneficiaryName()+"  "))+
                     (($P{invoice}.getSupplier().getBankBeneficiaryAddress().isEmpty())?"":($P{invoice}.getSupplier().getBankBeneficiaryAddress()+"\n"))+
                     (($P{invoice}.getSupplier().getBankBeneficiarySWIFT().isEmpty())?"":($P{invoice}.getSupplier().getBankBeneficiarySWIFT()+"\n"))+
                     (($P{invoice}.getSupplier().getBankBeneficiaryASS().isEmpty())?"":($P{invoice}.getSupplier().getBankBeneficiaryASS()+"\n"))+
 
 
-                    (($P{invoice}.getSupplier().getRs().isEmpty())?"":("Р/с "+$P{invoice}.getSupplier().getRs()+"\n"))+
-                    (($P{invoice}.getSupplier().getTs().isEmpty())?"":("т/с "+$P{invoice}.getSupplier().getTs()+"\n"))+
+                    (($P{invoice}.getSupplier().getRs().isEmpty())?"":($R{param11}+" "+$P{invoice}.getSupplier().getRs()+"\n"))+
+                    (($P{invoice}.getSupplier().getTs().isEmpty())?"":($R{param12}+" "+$P{invoice}.getSupplier().getTs()+"\n"))+
                     (($P{invoice}.getSupplier().getBank().isEmpty())?"":($P{invoice}.getSupplier().getBank()+"\n"))+
-                    (($P{invoice}.getSupplier().getMfoBank().isEmpty())?"":("МФО "+$P{invoice}.getSupplier().getMfoBank()+"\n"))+
-                    (($P{invoice}.getSupplier().getBIC().isEmpty())?"":("БИК "+$P{invoice}.getSupplier().getBIC()+"\n"))+
-                    (($P{invoice}.getSupplier().getKs().isEmpty())?"":("к/с "+$P{invoice}.getSupplier().getKs()+"\n"))):"")+
-(($P{invoice}.getSupplier().getTaxationScheme().isEmpty())?"":("Схема налогообложения "+$P{invoice}.getSupplier().getTaxationScheme()+"\n"))]]></textFieldExpression>
+                    (($P{invoice}.getSupplier().getMfoBank().isEmpty())?"":($R{param13}+" "+$P{invoice}.getSupplier().getMfoBank()+"\n"))+
+                    (($P{invoice}.getSupplier().getBIC().isEmpty())?"":($R{param14}+" "+$P{invoice}.getSupplier().getBIC()+"\n"))+
+                    (($P{invoice}.getSupplier().getKs().isEmpty())?"":($R{param15}+" "+$P{invoice}.getSupplier().getKs()+"\n"))):"")+
+(($P{invoice}.getSupplier().getTaxationScheme().isEmpty())?"":($R{param16}+" "+$P{invoice}.getSupplier().getTaxationScheme()+"\n"))]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="a36c36bf-7f60-42b0-978f-11ba1d96ac3d" x="265" y="158" width="290" height="20"/>
@@ -72,19 +77,19 @@
 			</textField>
 			<frame>
 				<reportElement uuid="2fdf316a-2106-4d42-b89b-eb0eff538616" positionType="Float" x="0" y="178" width="555" height="20"/>
-				<textField pattern="от dd/MM/yyyy г.">
+				<textField pattern="">
 					<reportElement uuid="39497a67-a153-4a8b-a78d-58a233e6c930" x="410" y="0" width="145" height="20"/>
 					<textElement>
 						<font fontName="DejaVu Serif" isItalic="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{invoice}.getDate()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[ new SimpleDateFormat($R{param17}).format($P{invoice}.getDate())]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement uuid="f5e88da6-3285-4d5d-bbb7-169a98ab142a" x="0" y="0" width="410" height="20"/>
 					<textElement>
 						<font fontName="DejaVu Serif" isUnderline="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[(($P{invoice}.isInvoice())?"Счет-фактура № " : "Коммерческое предложение № ")+$P{invoice}.getNumber()+(($P{invoice}.getNumberModifier().isEmpty()) ? "" : ("/" + $P{invoice}.getNumberModifier()))]]></textFieldExpression>
+					<textFieldExpression><![CDATA[(($P{invoice}.isInvoice())? ($R{param18}+" ") : ($R{param19}+" "))+$P{invoice}.getNumber()+(($P{invoice}.getNumberModifier().isEmpty()) ? "" : ("/" + $P{invoice}.getNumberModifier()))]]></textFieldExpression>
 				</textField>
 			</frame>
 			<textField>
@@ -93,7 +98,7 @@
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($P{invoice}.getValidity().equals(new Integer(0)) )?"":(
-(($P{invoice}.isInvoice())?"Действителен в течение ":"Счетом служить не может, действителен в течение " )+$P{invoice}.getValidity()+" дней")]]></textFieldExpression>
+(($P{invoice}.isInvoice())?$R{param20}+" ":$R{param21}+" " )+$P{invoice}.getValidity()+" "+$R{param22})]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement uuid="9e2351e9-1bac-497a-ac01-5a99af6f41fc" x="0" y="0" width="555" height="102"/>
@@ -127,7 +132,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Найменування продукції"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{param23}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="d3474cef-dc64-4a33-9d50-b28e93768974" stretchType="RelativeToTallestObject" mode="Opaque" x="365" y="0" width="45" height="20" backcolor="#CCCCCC"/>
@@ -140,7 +145,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Кіл-ть, шт."]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{param24}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="62ba4e93-1c54-4baa-8039-f86df505f0db" stretchType="RelativeToTallestObject" mode="Opaque" x="410" y="0" width="65" height="20" backcolor="#CCCCCC"/>
@@ -153,7 +158,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Цена, "+$P{invoice}.getSupplier().getCurrency().getName()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{param25}+ ", "+$P{invoice}.getSupplier().getCurrency().getName()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="b18e54fe-e2de-456a-b5ca-b2662eea994e" stretchType="RelativeToTallestObject" mode="Opaque" x="475" y="0" width="80" height="20" backcolor="#CCCCCC"/>
@@ -166,7 +171,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Сумма, "+$P{invoice}.getSupplier().getCurrency().getName()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{param26}+", "+$P{invoice}.getSupplier().getCurrency().getName()]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
@@ -246,21 +251,21 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Итого:"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{param27}+":"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="2c418b58-2366-4eae-8b63-cc89906d2a26" x="410" y="20" width="65" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["НДС "+$P{invoice}.getNDS()+"%"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{param28}+" "+$P{invoice}.getNDS()+"%"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="b897ec8c-b603-489c-bb84-4407b3a82d56" x="410" y="40" width="65" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Всего:"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{param29}+":"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="8d96b083-2834-442c-95cb-0d62b60431ce" x="475" y="0" width="80" height="20"/>
@@ -288,7 +293,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{strTotal}+ (($P{invoice}.getNDS().compareTo(new BigDecimal("0"))==0)?"":"  с учетом НДС")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{strTotal}+ (($P{invoice}.getNDS().compareTo(new BigDecimal("0"))==0)?"":"  "+$R{param30})]]></textFieldExpression>
 			</textField>
 			<frame>
 				<reportElement uuid="a6f0ac50-4ce0-45b0-907f-10b7e163a0f1" positionType="Float" x="0" y="83" width="555" height="20"/>
@@ -297,18 +302,18 @@
 					<textElement verticalAlignment="Top">
 						<font fontName="DejaVu Serif" isBold="true" isItalic="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Условия оплаты:"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$R{param31}+":"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="c4510e85-6001-4021-9d64-240d89fa877b" positionType="Float" mode="Opaque" x="105" y="0" width="450" height="20" backcolor="#FFFFFF"/>
 					<textElement verticalAlignment="Top">
 						<font fontName="DejaVu Serif" isItalic="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[(($P{invoice}.getPrepayment().compareTo(BigDecimal.ZERO)==0)?"":($P{invoice}.getPrepayment().toString() +"% — предоплата"))+
+					<textFieldExpression><![CDATA[(($P{invoice}.getPrepayment().compareTo(BigDecimal.ZERO)==0)?"":($P{invoice}.getPrepayment().toString() +"% — "+$R{param32}))+
 ((($P{invoice}.getPrepayment().compareTo(BigDecimal.ZERO)!=0)&&($P{invoice}.getPaymentOnTheNotice().compareTo(BigDecimal.ZERO)!=0))?", \n":"")+
-(($P{invoice}.getPaymentOnTheNotice().compareTo(BigDecimal.ZERO)==0)?"":($P{invoice}.getPaymentOnTheNotice().toString() +"% — по извещению о готовности продукции"))+
+(($P{invoice}.getPaymentOnTheNotice().compareTo(BigDecimal.ZERO)==0)?"":($P{invoice}.getPaymentOnTheNotice().toString() +"% — "+$R{param33}))+
 ((($P{invoice}.getPostPay().compareTo(BigDecimal.ZERO)!=0)&&(($P{invoice}.getPaymentOnTheNotice().compareTo(BigDecimal.ZERO)!=0)|| ($P{invoice}.getPrepayment().compareTo(BigDecimal.ZERO)!=0)  ))?", \n":"")+
-(($P{invoice}.getPostPay().compareTo(BigDecimal.ZERO)==0)?"":($P{invoice}.getPostPay().toString() +"% — в течение "+$P{invoice}.getDaysAfterDelivery()+"  дней с момента поступления продукции на склад Плательщика" ))]]></textFieldExpression>
+(($P{invoice}.getPostPay().compareTo(BigDecimal.ZERO)==0)?"":($P{invoice}.getPostPay().toString() +"% — "+$R{param34}+ " "+$P{invoice}.getDaysAfterDelivery()+"  "+$R{param35} ))]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
@@ -318,7 +323,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="DejaVu Serif" isBold="true" isItalic="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Сроки поставки:"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$R{param36}+":"]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement uuid="378cf61f-06cd-4789-8836-13fa8eaf5540" positionType="Float" mode="Opaque" x="105" y="0" width="450" height="20" backcolor="#FFFFFF"/>
@@ -339,7 +344,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="DejaVu Serif" isBold="true" isItalic="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Примітки:"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$R{param37}+":"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="">
 					<reportElement uuid="7428c6e7-cc84-4b9f-a87f-524781b7cd11" positionType="Float" mode="Opaque" x="0" y="20" width="555" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
@@ -392,10 +397,10 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Исполнитель: "
+				<textFieldExpression><![CDATA[$R{param38}+": "
 
 +$P{invoice}.getExecutor().getLastName()+" "+$P{invoice}.getExecutor().getName()+" "
-+$P{invoice}.getExecutor().getPatronymic()+    (($P{invoice}.isInvoice())?( ", тел. "+$P{invoice}.getExecutor().getTel()):"")]]></textFieldExpression>
++$P{invoice}.getExecutor().getPatronymic()+    (($P{invoice}.isInvoice())?( ", "+$R{param39}+". "+$P{invoice}.getExecutor().getTel()):"")]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

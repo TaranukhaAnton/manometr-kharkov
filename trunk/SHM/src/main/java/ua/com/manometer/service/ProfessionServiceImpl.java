@@ -16,7 +16,7 @@ public class ProfessionServiceImpl implements ProfessionService {
 
     @Override
     @Transactional
-    public Profession getProfession(Long professionId) {
+    public Profession getProfession(Integer professionId) {
        return professionDAO.getProfession(professionId);
     }
 
@@ -34,7 +34,7 @@ public class ProfessionServiceImpl implements ProfessionService {
 
     @Override
     @Transactional
-    public void removeProfession(Long id) {
+    public void removeProfession(Integer id) {
         professionDAO.removeProfession(id);
     }
 

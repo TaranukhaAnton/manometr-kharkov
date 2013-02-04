@@ -10,7 +10,7 @@ public interface OrgFormDAO {
 
 	public List<OrgForm> listOrgForm();
 
-	public void removeOrgForm(Long id);
+	public void removeOrgForm(Integer id);
 
-    public OrgForm getOrgForm(Long id);
+    public OrgForm getOrgForm(Integer id);
 }

@@ -136,11 +136,11 @@ public class CompatibilityTableController {
 
 
     private List<ModelDescription> getModelDescriptions(String models) {
-        List<Long> modelIds = new LinkedList<Long>();
+        List<Integer> modelIds = new LinkedList<Integer>();
         StringTokenizer tokenizer = new StringTokenizer(models, "|", false);
         for (; tokenizer.hasMoreTokens(); ) {
             String model = tokenizer.nextToken();
-            modelIds.add(new Long(model));
+            modelIds.add(new Integer(model));
         }
         List<ModelDescription> result = modelDescriptionService.findListByIds(modelIds);
         return result;
@@ -149,7 +149,7 @@ public class CompatibilityTableController {
 
     @RequestMapping("/get_md")
     @ResponseBody
-    public ModelDescription getModelDescription(@RequestParam("model") Long model) {
+    public ModelDescription getModelDescription(@RequestParam("model") Integer model) {
         ModelDescription modelDescription = modelDescriptionService.getModelDescription(model);
         return modelDescription;
     }

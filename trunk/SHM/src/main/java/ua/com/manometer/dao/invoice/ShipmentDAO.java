@@ -9,6 +9,6 @@ public interface ShipmentDAO {
 
 	public List<Shipment> listShipment();
 
-	public void removeShipment(Long id);
+	public void removeShipment(Integer id);
 
 }

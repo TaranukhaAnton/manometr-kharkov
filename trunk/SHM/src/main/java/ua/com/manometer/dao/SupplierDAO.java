@@ -10,7 +10,7 @@ public interface SupplierDAO {
 
 	public List<Supplier> listSupplier();
 
-	public void removeSupplier(Long id);
+	public void removeSupplier(Integer id);
 
     public  Supplier getDefSupplier();
 }

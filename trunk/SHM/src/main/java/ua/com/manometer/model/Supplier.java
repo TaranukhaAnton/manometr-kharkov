@@ -22,7 +22,7 @@ public class Supplier {
 
     @Id
     @GeneratedValue()
-    Long id;
+    Integer id;
     String alias; //условное название
     String name;  //название
     String address;  //6.4
@@ -47,6 +47,7 @@ public class Supplier {
     String mfoBank;//6.21
     String BIC;//6.22
     String ks;//6.23
+
     @ManyToOne
     Currency currency; //6.24
     String logo;  //6.26
@@ -64,7 +65,7 @@ public class Supplier {
     public Supplier() {
     }
 
-    public Supplier(Long id, String alias, String name, String address, String phone, String erdpou, String inn, String NDSPayerNom, String bank, String mfoBank, String logo) {
+    public Supplier(Integer id, String alias, String name, String address, String phone, String erdpou, String inn, String NDSPayerNom, String bank, String mfoBank, String logo) {
         this.id = id;
         this.alias = alias;
         this.name = name;
@@ -80,11 +81,11 @@ public class Supplier {
         this.logo = logo;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

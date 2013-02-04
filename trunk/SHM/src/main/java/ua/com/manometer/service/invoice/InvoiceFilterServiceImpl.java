@@ -28,7 +28,7 @@ public class InvoiceFilterServiceImpl implements InvoiceFilterService {
 
 	@Override
 	@Transactional
-	public void removeInvoiceFilter(Long id) {
+	public void removeInvoiceFilter(Integer id) {
 		invoicefilterDAO.removeInvoiceFilter(id);
 	}
 

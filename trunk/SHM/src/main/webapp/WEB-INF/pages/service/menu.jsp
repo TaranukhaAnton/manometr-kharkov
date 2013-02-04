@@ -50,11 +50,11 @@
         <li><a href="../customers/">Предприятия</a></li>
         <li><a href="../contacts/">Конт. лица</a></li>
 
-        <sec:authorize access="hasRole('ROLE_ADMIN')">
+
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <li><a href="../users/">Пользователи</a></li>
             </sec:authorize>
-        </sec:authorize>
+
 
         <li><a href="../logout">Выход</a></li>
     </ul>

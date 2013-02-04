@@ -25,7 +25,7 @@ public class CountryDAOImpl implements CountryDAO {
     }
 
     @Override
-    public Country getCountry(Long countryId) {
+    public Country getCountry(Integer countryId) {
         Country country = (Country) sessionFactory.getCurrentSession().get(Country.class, countryId);
         return country;
     }

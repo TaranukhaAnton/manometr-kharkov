@@ -164,7 +164,9 @@
             <li><a href="#tabs-5">Состояние</a></li>
             <li><a href="#tabs-6">Валюта</a></li>
             <%--<% if (((Integer) session.getAttribute("livel")) > 2) {%>--%>
+            <sec:authorize access="hasRole('ROLE_ECONOMIST')">
             <li><a href="#tabs-7">Спец. ОСО</a></li>
+            </sec:authorize>
             <%--<% } %>--%>
         </ul>
 
@@ -222,7 +224,7 @@
                 <table>
 
                    <%
-                        try{
+
                         for (Integer i = 0; i < Invoice.purposeAlias.length; i++) { %>
                     <tr>
                         <td>
@@ -232,11 +234,7 @@
                             <%=Invoice.purposeAlias[i]%>
                         </td>
                     </tr>
-                    <%}
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    %>
+                    <%} %>
 
 
                 </table>
@@ -277,7 +275,7 @@
                 </table>
             </div>
 
-
+            <sec:authorize access="hasRole('ROLE_ECONOMIST')">
             <div id="tabs-7" class="tabdiv">
 
                <div id="users">
@@ -299,6 +297,14 @@
                 </table>
             </div>
             </div>
+            </sec:authorize>
+            <sec:authorize access="!hasRole('ROLE_ECONOMIST')">
+
+
+                <input type="hidden" name="users" value="<%=request.getAttribute("userId")%>" >
+
+                <%--<%}%>--%>
+            </sec:authorize>
 
         </form>
     </div>

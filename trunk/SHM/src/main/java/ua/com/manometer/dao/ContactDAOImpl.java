@@ -14,7 +14,7 @@ public class ContactDAOImpl implements ContactDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public Contact getContact(Long id) {
+    public Contact getContact(Integer id) {
         return (Contact) sessionFactory.getCurrentSession().get(Contact.class, id);
     }
 
@@ -30,7 +30,7 @@ public class ContactDAOImpl implements ContactDAO {
     }
 
     @Override
-    public void removeContact(Long id) {
+    public void removeContact(Integer id) {
         Contact contact = (Contact) sessionFactory.getCurrentSession().load(Contact.class, id);
         if (contact != null) {
             sessionFactory.getCurrentSession().delete(contact);

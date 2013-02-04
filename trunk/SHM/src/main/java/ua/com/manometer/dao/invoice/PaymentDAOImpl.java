@@ -25,7 +25,7 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
 
     @Override
-    public void removePayment(Long id) {
+    public void removePayment(Integer id) {
         Payment payment = (Payment) sessionFactory.getCurrentSession().load(Payment.class, id);
         if (payment != null) {
             sessionFactory.getCurrentSession().delete(payment);

@@ -10,7 +10,7 @@ import java.util.List;
 public class Shipment {
     @Id
     @GeneratedValue()
-    private Long id;
+    private Integer id;
     private Date date;
     private String shipmentNum;
 
@@ -33,11 +33,11 @@ public class Shipment {
         this.invoice = invoice;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

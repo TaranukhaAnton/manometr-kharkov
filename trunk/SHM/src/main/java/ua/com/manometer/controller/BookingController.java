@@ -40,7 +40,7 @@ public class BookingController {
 
 
     @RequestMapping("/view")
-    public String viewInvoice(@RequestParam("invoice_id") Long id, Map<String, Object> map) {
+    public String viewInvoice(@RequestParam("invoice_id") Integer id, Map<String, Object> map) {
         Invoice invoice = invoiceService.getInvoice(id);
         map.put("invoice", invoice);
         return "bookingForm";
@@ -48,7 +48,7 @@ public class BookingController {
 
 
     @RequestMapping("/add")
-    public String addInvoice(@RequestParam("invoice_id") Long id, HttpServletRequest request, Map<String, Object> map) throws ParseException {
+    public String addInvoice(@RequestParam("invoice_id") Integer id, HttpServletRequest request, Map<String, Object> map) throws ParseException {
         Invoice invoice = invoiceService.getInvoice(id);
         Booking booking = new Booking();
         DateFormat f = new SimpleDateFormat("dd.MM.yyyy");
@@ -68,7 +68,7 @@ public class BookingController {
     @RequestMapping("/editBookingParams")
     public
     @ResponseBody
-    Map editBookingParams(@RequestParam("invoice_id") Long invoice_id, @RequestParam("param") String param, @RequestParam("value") String value) throws ParseException {
+    Map editBookingParams(@RequestParam("invoice_id") Integer invoice_id, @RequestParam("param") String param, @RequestParam("value") String value) throws ParseException {
 
 
         Invoice invoice = invoiceService.getInvoice(invoice_id);

@@ -25,7 +25,7 @@ public class ShipmentMediatorDAOImpl implements ShipmentMediatorDAO {
     }
 
     @Override
-    public void removeShipmentMediator(Long id) {
+    public void removeShipmentMediator(Integer id) {
         ShipmentMediator shipmentmediator = (ShipmentMediator) sessionFactory.getCurrentSession().load(ShipmentMediator.class, id);
         if (shipmentmediator != null) {
             sessionFactory.getCurrentSession().delete(shipmentmediator);

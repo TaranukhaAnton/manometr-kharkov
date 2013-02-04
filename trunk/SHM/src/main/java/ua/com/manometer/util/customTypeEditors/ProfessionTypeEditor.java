@@ -18,7 +18,7 @@ public class ProfessionTypeEditor extends PropertyEditorSupport {
     ProfessionService professionService;
 
     public void setAsText(String text) throws IllegalArgumentException {
-        Long id = new Long(text);
+        Integer id = new Integer(text);
         Profession profession = professionService.getProfession(id);
         setValue(profession);
     }

@@ -28,7 +28,7 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	@Transactional
-	public void removePayment(Long id) {
+	public void removePayment(Integer id) {
 		paymentDAO.removePayment(id);
 	}
 

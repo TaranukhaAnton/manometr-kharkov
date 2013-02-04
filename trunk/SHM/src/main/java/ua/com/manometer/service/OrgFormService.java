@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface OrgFormService {
 
-    public OrgForm getOrgForm(Long id);
+    public OrgForm getOrgForm(Integer id);
 
 	public void addOrgForm(OrgForm orgform);
 
 	public List<OrgForm> listOrgForm();
 
-	public void removeOrgForm(Long id);
+	public void removeOrgForm(Integer id);
 
 }

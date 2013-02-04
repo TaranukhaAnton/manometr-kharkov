@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 public class Contact {
-	private Long id;
+	private Integer id;
 	private String customer;
 	private String name;
 	private String patronymic;
@@ -41,7 +41,7 @@ public class Contact {
 
 	@Id
 	@GeneratedValue
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -162,7 +162,7 @@ public class Contact {
 		return oldRecord;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
