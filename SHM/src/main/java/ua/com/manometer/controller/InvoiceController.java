@@ -616,6 +616,7 @@ public class InvoiceController {
 
         String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         path += request.getContextPath() + "/images/reportImages/header_" + language + ".png";
+        logger.info("Imagepath = "+path);
         model.addAttribute("path", path);
 
         model.addAttribute(JRParameter.REPORT_LOCALE, locale);
