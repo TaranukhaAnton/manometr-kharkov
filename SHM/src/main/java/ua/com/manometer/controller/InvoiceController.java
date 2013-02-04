@@ -614,9 +614,10 @@ public class InvoiceController {
         final int currencyId = invoice.getSupplier().getCurrency().getId().intValue();
         model.addAttribute("strTotal", jAmount.getAmount(currencyId, invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
 
-        String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        //String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        String path ="http://localhost:8080";
         path += request.getContextPath() + "/images/reportImages/header_" + language + ".png";
-        logger.info("Imagepath = "+path);
+        logger.info("ImagePath = "+path);
         model.addAttribute("path", path);
 
         model.addAttribute(JRParameter.REPORT_LOCALE, locale);
