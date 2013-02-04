@@ -27,7 +27,7 @@ public class ModelDescriptionDAOImpl implements ModelDescriptionDAO {
     }
 
     @Override
-    public void removeModelDescription(Long id) {
+    public void removeModelDescription(Integer id) {
         ModelDescription modeldescription = (ModelDescription) sessionFactory.getCurrentSession().load(ModelDescription.class, id);
         if (modeldescription != null) {
             sessionFactory.getCurrentSession().delete(modeldescription);
@@ -35,7 +35,7 @@ public class ModelDescriptionDAOImpl implements ModelDescriptionDAO {
     }
 
     @Override
-    public List<ModelDescription> findListByIds(List<Long> modelIds) {
+    public List<ModelDescription> findListByIds(List<Integer> modelIds) {
         return sessionFactory.getCurrentSession().createCriteria(ModelDescription.class).add(Restrictions.in("id", modelIds)).list();
     }
 

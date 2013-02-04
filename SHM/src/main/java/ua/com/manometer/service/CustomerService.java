@@ -10,9 +10,9 @@ public interface CustomerService {
 
 	public List<Customer> listCustomer();
 
-	public void removeCustomer(Long id);
+	public void removeCustomer(Integer id);
 
-    public  Customer getCustomer(Long id);
+    public  Customer getCustomer(Integer id);
 
     public List<String> findByShortNameExample(String customerTemplate);
 

@@ -26,7 +26,7 @@ public class SupplierDAOImpl implements SupplierDAO {
     }
 
     @Override
-    public void removeSupplier(Long id) {
+    public void removeSupplier(Integer id) {
         Supplier supplier = (Supplier) sessionFactory.getCurrentSession().load(Supplier.class, id);
         if (supplier != null) {
             sessionFactory.getCurrentSession().delete(supplier);

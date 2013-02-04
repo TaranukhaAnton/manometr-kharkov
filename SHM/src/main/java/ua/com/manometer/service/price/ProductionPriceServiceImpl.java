@@ -31,14 +31,14 @@ public class ProductionPriceServiceImpl implements ProductionPriceService {
 
     @Override
     @Transactional
-    public void removeProductionPrice(Long id) {
+    public void removeProductionPrice(Integer id) {
         productionpriceDAO.removeProductionPrice(id);
     }
 
     @Override
     @Transactional
 
-    public ProductionPrice getProductionPrice(Long id) {
+    public ProductionPrice getProductionPrice(Integer id) {
         return (ProductionPrice) baseDAO.getById(id,ProductionPrice.class);
     }
 }

@@ -10,7 +10,7 @@ public interface ProfessionDAO {
 
 	public List<Profession> listProfession();
 
-	public void removeProfession(Long id);
+	public void removeProfession(Integer id);
 
-    Profession getProfession(Long id);
+    Profession getProfession(Integer id);
 }

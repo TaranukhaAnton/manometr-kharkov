@@ -22,7 +22,7 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     @Transactional
-    public List<Area> listAreaForCountry(Long countryId) {
+    public List<Area> listAreaForCountry(Integer countryId) {
         return areaDAO.listAreaForCountry(countryId);
     }
 

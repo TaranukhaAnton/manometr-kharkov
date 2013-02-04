@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 @Entity
 public class OrgForm {
-    private Long id;
+    private Integer id;
     private String name;
     private String nameUkr;
     private String nameEng;
@@ -24,7 +24,7 @@ public class OrgForm {
 
     @Id
     @GeneratedValue
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -32,7 +32,7 @@ public class OrgForm {
         return name;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

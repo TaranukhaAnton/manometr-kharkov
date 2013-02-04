@@ -28,7 +28,7 @@ public class ShipmentMediatorServiceImpl implements ShipmentMediatorService {
 
 	@Override
 	@Transactional
-	public void removeShipmentMediator(Long id) {
+	public void removeShipmentMediator(Integer id) {
 		shipmentmediatorDAO.removeShipmentMediator(id);
 	}
 

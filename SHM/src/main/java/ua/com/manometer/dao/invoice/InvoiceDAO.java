@@ -12,9 +12,9 @@ public interface InvoiceDAO {
 	public List<Invoice> listInvoice();
     public List<Invoice> listFilteredInvoice(InvoiceFilter invoiceFilter);
 
-	public void removeInvoice(Long id);
+	public void removeInvoice(Integer id);
 
-    public  Invoice getInvoice(Long id);
+    public  Invoice getInvoice(Integer id);
 
     public Boolean checkPresence(Integer number, String numberModifier, Boolean invoice, Date date);
 }

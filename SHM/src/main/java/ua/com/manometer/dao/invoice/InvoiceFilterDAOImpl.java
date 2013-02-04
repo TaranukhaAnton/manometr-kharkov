@@ -25,7 +25,7 @@ public class InvoiceFilterDAOImpl implements InvoiceFilterDAO {
     }
 
     @Override
-    public void removeInvoiceFilter(Long id) {
+    public void removeInvoiceFilter(Integer id) {
         InvoiceFilter invoicefilter = (InvoiceFilter) sessionFactory.getCurrentSession().load(InvoiceFilter.class, id);
         if (invoicefilter != null) {
             sessionFactory.getCurrentSession().delete(invoicefilter);

@@ -22,6 +22,8 @@ public class SecuredUser implements UserDetails {
     private final boolean credentialsNonExpired;
     private final boolean enabled;
     private InvoiceFilter filter;
+    private Integer userId;
+
     //~ Constructors ===================================================================================================
 
     /**
@@ -158,7 +160,11 @@ public class SecuredUser implements UserDetails {
         return username.hashCode();
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
 
-
-
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 }

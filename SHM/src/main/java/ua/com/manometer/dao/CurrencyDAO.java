@@ -9,6 +9,6 @@ public interface CurrencyDAO {
 
 	public List<Currency> listCurrency();
 
-	public void removeCurrency(Long id);
+	public void removeCurrency(Integer id);
 
 }

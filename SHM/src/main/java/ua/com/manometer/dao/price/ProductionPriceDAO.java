@@ -9,6 +9,6 @@ public interface ProductionPriceDAO {
 
 	public List<ProductionPrice> listProductionPriceByType(Integer type);
 
-	public void removeProductionPrice(Long id);
+	public void removeProductionPrice(Integer id);
 
 }

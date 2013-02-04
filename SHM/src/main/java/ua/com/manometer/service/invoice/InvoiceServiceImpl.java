@@ -21,7 +21,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     @Transactional
-    public Invoice getInvoice(Long id) {
+    public Invoice getInvoice(Integer id) {
         return invoiceDAO.getInvoice(id);  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -47,7 +47,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     @Transactional
-    public void removeInvoice(Long id) {
+    public void removeInvoice(Integer id) {
         invoiceDAO.removeInvoice(id);
     }
 

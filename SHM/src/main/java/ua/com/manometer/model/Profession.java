@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Profession {
     @Id
     @GeneratedValue
-    private Long id;
+    private Integer id;
     private String name;
 
     public Profession() {
@@ -18,7 +18,7 @@ public class Profession {
 
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -26,7 +26,7 @@ public class Profession {
         return name;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

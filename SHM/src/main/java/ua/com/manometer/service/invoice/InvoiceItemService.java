@@ -10,13 +10,13 @@ import java.util.List;
 
 public interface InvoiceItemService {
 
-    public InvoiceItem getInvoiceItem(Long id);
+    public InvoiceItem getInvoiceItem(Integer id);
 
 	public void saveInvoiceItem(InvoiceItem invoiceitem);
 
 	public List<InvoiceItem> listInvoiceItem();
 
-	public void removeInvoiceItem(Long id);
+	public void removeInvoiceItem(Integer id);
 
     public void setupMoneyFields(PressureSensor item ,BigDecimal koef );
 

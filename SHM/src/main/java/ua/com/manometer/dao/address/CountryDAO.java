@@ -9,5 +9,5 @@ public interface CountryDAO {
 
 	public List<Country> listCountry();
 
-    public Country getCountry(Long countryId);
+    public Country getCountry(Integer countryId);
 }

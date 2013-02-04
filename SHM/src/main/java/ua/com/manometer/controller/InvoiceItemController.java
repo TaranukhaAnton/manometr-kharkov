@@ -48,7 +48,7 @@ public class InvoiceItemController {
 
 
     @RequestMapping("/add")
-    public String add(@RequestParam("invoice_id") Long invoice_id, @RequestParam(value = "invoice_item_id", required = false) Long itemId,
+    public String add(@RequestParam("invoice_id") Integer invoice_id, @RequestParam(value = "invoice_item_id", required = false) Integer itemId,
                       @RequestParam("type") String type, Map<String, Object> map) {
         map.put("invoice_id", invoice_id);
         if (itemId != null) {
@@ -58,7 +58,7 @@ public class InvoiceItemController {
     }
 
     @RequestMapping(value = "/add_list", method = RequestMethod.GET)
-    public String addList(@RequestParam("invoice_id") Long invoice_id, @RequestParam("type") Integer type, Map<String, Object> map) {
+    public String addList(@RequestParam("invoice_id") Integer invoice_id, @RequestParam("type") Integer type, Map<String, Object> map) {
         map.put("invoice_id", invoice_id);
         map.put("type", type);
         map.put("list", productionPriceService.listProductionPriceByType(type));
@@ -66,7 +66,7 @@ public class InvoiceItemController {
     }
 
     @RequestMapping(value = "/add_list", method = RequestMethod.POST)
-    public String addListExt(@RequestParam("invoice_id") Long invoice_id,
+    public String addListExt(@RequestParam("invoice_id") Integer invoice_id,
                              @RequestParam("type") Integer type,
                              HttpServletRequest request)     throws Exception {
         printProps(request);
@@ -78,7 +78,7 @@ public class InvoiceItemController {
         String name;
 
         if (productionId != null) {
-            Long id = new Long(productionId);
+            Integer id = new Integer(productionId);
             ProductionPrice productionPrice = productionPriceService.getProductionPrice(id);
             cost = productionPrice.getCost();
             price = productionPrice.getPrice();
@@ -123,17 +123,17 @@ public class InvoiceItemController {
     @RequestMapping("/get_ii")
     public
     @ResponseBody
-    Map getInvoiceItem(@RequestParam("invoice_item_id") Long itemId) {
+    Map getInvoiceItem(@RequestParam("invoice_item_id") Integer itemId) {
         Map result = new HashMap();
         PressureSensor pressureSensor = (PressureSensor) invoiceItemService.getInvoiceItem(itemId);
-        ModelDescription modelDescription = modelDescriptionService.getModelDescription(new Long(pressureSensor.getModel()));
+        ModelDescription modelDescription = modelDescriptionService.getModelDescription(new Integer(pressureSensor.getModel()));
         result.put("pressureSensor", toJsonMap(pressureSensor));
         result.put("modelDescription", modelDescription);
         return result;
     }
 
     @RequestMapping("/del_ii")
-    public String deleteInvoiceItem(@RequestParam("invoice_item_id") Long itemId, @RequestParam("invoice_id") Long invoiceId) {
+    public String deleteInvoiceItem(@RequestParam("invoice_item_id") Integer itemId, @RequestParam("invoice_id") Integer invoiceId) {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         Iterator<InvoiceItem> iterator = invoice.getInvoiceItems().iterator();
         while (iterator.hasNext()) {
@@ -150,8 +150,8 @@ public class InvoiceItemController {
 
 
     @RequestMapping("/add_pressure_sensor")
-    public String addPressureSensor(@RequestParam("invoice_id") Long invoiceId,
-                                    @RequestParam(value = "invoice_item_id", required = false) Long itemId,
+    public String addPressureSensor(@RequestParam("invoice_id") Integer invoiceId,
+                                    @RequestParam(value = "invoice_item_id", required = false) Integer itemId,
                                     HttpServletRequest request) {
 
         PressureSensor pressureSensor;
@@ -225,7 +225,7 @@ public class InvoiceItemController {
 
 
     @RequestMapping("/moveDownItem")
-    public String moveDownItem(@RequestParam("invoice_id") Long invoiceId,
+    public String moveDownItem(@RequestParam("invoice_id") Integer invoiceId,
                                @RequestParam("position") Integer position) {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         List<InvoiceItem> list = invoice.getInvoiceItems();
@@ -239,7 +239,7 @@ public class InvoiceItemController {
     }
 
     @RequestMapping("/moveUpItem")
-    public String moveUpItem(@RequestParam("invoice_id") Long invoiceId,
+    public String moveUpItem(@RequestParam("invoice_id") Integer invoiceId,
                              @RequestParam("position") Integer position) {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         List<InvoiceItem> list = invoice.getInvoiceItems();

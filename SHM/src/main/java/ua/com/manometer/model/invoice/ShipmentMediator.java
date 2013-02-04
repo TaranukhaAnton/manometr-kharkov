@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class ShipmentMediator {
     @Id
     @GeneratedValue()
-    Long id;
+    Integer id;
     @ManyToOne
     @JoinColumn(name = "INVOICE_ITEM_ID", nullable = true)
     InvoiceItem invoiceItem;
@@ -26,11 +26,11 @@ public class ShipmentMediator {
         this.count = count;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

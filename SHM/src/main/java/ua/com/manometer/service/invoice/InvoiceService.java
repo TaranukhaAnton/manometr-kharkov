@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface InvoiceService {
 
-	public Invoice getInvoice(Long id);
+	public Invoice getInvoice(Integer id);
 
     public void saveInvoice(Invoice invoice);
 
@@ -18,7 +18,7 @@ public interface InvoiceService {
 	public List<Invoice> listInvoice();
     public List<Invoice> listFilteredInvoice(InvoiceFilter invoiceFilter);
 
-	public void removeInvoice(Long id);
+	public void removeInvoice(Integer id);
 
     public Boolean checkPresence(Integer number, String numberModifier, Boolean invoice, Date date);
 }

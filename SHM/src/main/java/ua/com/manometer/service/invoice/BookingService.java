@@ -11,9 +11,9 @@ public interface BookingService {
 
 	public List<Booking> listBooking();
 
-	public void removeBooking(Long id);
+	public void removeBooking(Integer id);
 
-    public Booking getBooking(Long id);
+    public Booking getBooking(Integer id);
 
     public Boolean checkPresence(Integer number, String numberModifier, Date date);
 }

@@ -47,7 +47,7 @@ public class DAOGenerator {
                     "\n" +
                     "\tpublic List<" + className + "> list" + className + "();\n" +
                     "\n" +
-                    "\tpublic void remove" + className + "(Long id);\n" +
+                    "\tpublic void remove" + className + "(Integer id);\n" +
                     "\n" +
                     "}");
             out.close(); // We're done writing
@@ -89,7 +89,7 @@ public class DAOGenerator {
                     "    }\n" +
                     "\n" +
                     "    @Override\n" +
-                    "    public void remove" + className + "(Long id) {\n" +
+                    "    public void remove" + className + "(Integer id) {\n" +
                     "        " + className + " " + class_lower + " = (" + className + ") sessionFactory.getCurrentSession().load(" + className + ".class, id);\n" +
                     "        if (" + class_lower + " != null) {\n" +
                     "            sessionFactory.getCurrentSession().delete(" + class_lower + ");\n" +
@@ -117,7 +117,7 @@ public class DAOGenerator {
                     "\n" +
                     "\tpublic List<" + className + "> list" + className + "();\n" +
                     "\n" +
-                    "\tpublic void remove" + className + "(Long id);\n" +
+                    "\tpublic void remove" + className + "(Integer id);\n" +
                     "\n" +
                     "}");
             out.close(); // We're done writing
@@ -157,7 +157,7 @@ public class DAOGenerator {
                     "\n" +
                     "\t@Override\n" +
                     "\t@Transactional\n" +
-                    "\tpublic void remove" + className + "(Long id) {\n" +
+                    "\tpublic void remove" + className + "(Integer id) {\n" +
                     "\t\t" + class_lower + "DAO.remove" + className + "(id);\n" +
                     "\t}\n" +
                     "\n" +

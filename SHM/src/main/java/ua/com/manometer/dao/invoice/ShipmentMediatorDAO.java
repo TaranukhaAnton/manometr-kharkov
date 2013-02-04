@@ -9,6 +9,6 @@ public interface ShipmentMediatorDAO {
 
 	public List<ShipmentMediator> listShipmentMediator();
 
-	public void removeShipmentMediator(Long id);
+	public void removeShipmentMediator(Integer id);
 
 }

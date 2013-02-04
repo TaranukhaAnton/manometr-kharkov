@@ -28,14 +28,14 @@ public class ContactController {
     }
 
     @RequestMapping("/edit")
-    public String setupForm(@RequestParam(value = "id", required = false) Long id, ModelMap model) {
+    public String setupForm(@RequestParam(value = "id", required = false) Integer id, ModelMap model) {
 
         model.put("professions", professionService.listProfession());
 
         if (id == null) {
             final Contact contact = new Contact();
             final Profession profession = new Profession();
-            profession.setId(0L);
+            profession.setId(0);
             contact.setProfession(profession);
             model.put("contact", contact);
         } else {

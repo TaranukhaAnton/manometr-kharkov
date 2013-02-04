@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface ContactService {
 
-    public Contact getContact(Long userId);
+    public Contact getContact(Integer userId);
 
     public void addContact(Contact contact);
 
     public List<Contact> listContact();
 
-    public void removeContact(Long id);
+    public void removeContact(Integer id);
 
 }

@@ -44,7 +44,7 @@ public class ServiceGenerator {
                     "\n" +
                     "\tpublic List<" + className + "> list" + className + "();\n" +
                     "\n" +
-                    "\tpublic void remove" + className + "(Long id);\n" +
+                    "\tpublic void remove" + className + "(Integer id);\n" +
                     "\n" +
                     "}");
             out.close(); // We're done writing
@@ -84,7 +84,7 @@ public class ServiceGenerator {
                     "\n" +
                     "\t@Override\n" +
                     "\t@Transactional\n" +
-                    "\tpublic void remove" + className + "(Long id) {\n" +
+                    "\tpublic void remove" + className + "(Integer id) {\n" +
                     "\t\t" + class_lower + "DAO.remove" + className + "(id);\n" +
                     "\t}\n" +
                     "\n" +

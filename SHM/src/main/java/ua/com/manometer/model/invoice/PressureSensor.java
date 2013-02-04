@@ -354,7 +354,7 @@ public class PressureSensor extends InvoiceItem {
 //     public void setupMoneyFields(BigDecimal koef ) {
 //
 //
-//        PriceFirstPart priceFirstPart = Factory.getPriceFirstDAO().findUniqueByExample(new PriceFirstPart(new Long(model), isp, mat, (klim < 3) ? 0 : (klim < 6) ? 1 : 2, error));
+//        PriceFirstPart priceFirstPart = Factory.getPriceFirstDAO().findUniqueByExample(new PriceFirstPart(new Integer(model), isp, mat, (klim < 3) ? 0 : (klim < 6) ? 1 : 2, error));
 //        GenericHibernateDAO<OptionsPrice> dao = Factory.getOptionsPriceDAO();
 ////        System.out.println("priceFirstPart.getCost() "+);
 ////        System.out.println("model = " + model);

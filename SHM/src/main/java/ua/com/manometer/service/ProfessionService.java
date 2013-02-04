@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface ProfessionService {
 
-    public Profession getProfession(Long professionId);
+    public Profession getProfession(Integer professionId);
 
 	public void addProfession(Profession profession);
 
 	public List<Profession> listProfession();
 
-	public void removeProfession(Long id);
+	public void removeProfession(Integer id);
 
 }

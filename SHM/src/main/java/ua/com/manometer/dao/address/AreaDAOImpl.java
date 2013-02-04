@@ -23,7 +23,7 @@ public class AreaDAOImpl implements AreaDAO {
 
 
     @Override
-    public List<Area> listAreaForCountry(Long countryId) {
+    public List<Area> listAreaForCountry(Integer countryId) {
         return sessionFactory.getCurrentSession().createCriteria(Area.class).
                 add(Restrictions.eq("country.id", countryId)).list();
     }

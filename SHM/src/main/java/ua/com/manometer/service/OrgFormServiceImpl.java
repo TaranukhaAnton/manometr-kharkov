@@ -16,7 +16,7 @@ public class OrgFormServiceImpl implements OrgFormService {
 
 
     @Override
-    public OrgForm getOrgForm(Long id) {
+    public OrgForm getOrgForm(Integer id) {
        return orgformDAO.getOrgForm( id);
     }
 
@@ -34,7 +34,7 @@ public class OrgFormServiceImpl implements OrgFormService {
 
 	@Override
 	@Transactional
-	public void removeOrgForm(Long id) {
+	public void removeOrgForm(Integer id) {
 		orgformDAO.removeOrgForm(id);
 	}
 

@@ -26,7 +26,7 @@ public class InvoiceItemDAOImpl implements InvoiceItemDAO {
     }
 
     @Override
-    public void removeInvoiceItem(Long id) {
+    public void removeInvoiceItem(Integer id) {
         InvoiceItem invoiceitem = (InvoiceItem) sessionFactory.getCurrentSession().load(InvoiceItem.class, id);
         if (invoiceitem != null) {
             sessionFactory.getCurrentSession().delete(invoiceitem);
@@ -34,7 +34,7 @@ public class InvoiceItemDAOImpl implements InvoiceItemDAO {
     }
 
     @Override
-    public InvoiceItem getInvoiceItem(Long id) {
+    public InvoiceItem getInvoiceItem(Integer id) {
         return (InvoiceItem) sessionFactory.getCurrentSession().get(InvoiceItem.class, id);
     }
 

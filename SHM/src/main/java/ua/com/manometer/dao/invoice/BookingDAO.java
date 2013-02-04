@@ -10,7 +10,7 @@ public interface BookingDAO {
 
 	public List<Booking> listBooking();
 
-	public void removeBooking(Long id);
+	public void removeBooking(Integer id);
 
     Boolean checkPresence(Integer number, String numberModifier, Date date);
 }

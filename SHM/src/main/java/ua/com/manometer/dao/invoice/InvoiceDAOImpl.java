@@ -6,6 +6,7 @@ import org.hibernate.classic.Session;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import ua.com.manometer.model.Supplier;
 import ua.com.manometer.model.invoice.Invoice;
 
 import org.hibernate.SessionFactory;
@@ -15,6 +16,7 @@ import ua.com.manometer.model.invoice.InvoiceFilter;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Repository
@@ -49,7 +51,8 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         }
 
         if (!invoiceFilter.getCurrencyFilter().isEmpty()) {
-            conjunction.add(Restrictions.in("supplier.currency.id", invoiceFilter.getCurrencyFilter()));
+            List<Integer> suppliersIdList = getSuppliersByCurrencyIdList(invoiceFilter.getCurrencyFilter());
+            conjunction.add(Restrictions.in("supplier.id",suppliersIdList ));
         }
         if (!invoiceFilter.getPurposeFilter().isEmpty()) {
             conjunction.add(Restrictions.in("purpose", invoiceFilter.getPurposeFilter()));
@@ -61,8 +64,20 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         return criteria.list();
     }
 
+    List<Integer>  getSuppliersByCurrencyIdList( List<Integer> currencies){
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Supplier.class);
+        criteria.add(Restrictions.in("currency.id", currencies));
+        List<Supplier> list = criteria.list();
+        //todo transformer
+        List<Integer> result = new LinkedList<Integer>();
+        for (Supplier supplier : list) {
+            result.add(supplier.getId());
+        }
+        return result;
+    }
+    
     @Override
-    public void removeInvoice(Long id) {
+    public void removeInvoice(Integer id) {
         Invoice invoice = (Invoice) sessionFactory.getCurrentSession().load(Invoice.class, id);
         if (invoice != null) {
             sessionFactory.getCurrentSession().delete(invoice);
@@ -70,7 +85,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     }
 
     @Override
-    public Invoice getInvoice(Long id) {
+    public Invoice getInvoice(Integer id) {
         Invoice invoice = (Invoice) sessionFactory.getCurrentSession().get(Invoice.class, id);
         Hibernate.initialize(invoice.getPayments());
         Hibernate.initialize(invoice.getBooking());

@@ -59,7 +59,7 @@ public class CustomerController {
     }
 
     @RequestMapping("/edit")
-    public String setupForm(@RequestParam(value = "id", required = false) Long id, ModelMap model) {
+    public String setupForm(@RequestParam(value = "id", required = false) Integer id, ModelMap model) {
         model.put("orgForms", orgFormService.listOrgForm());
         model.put("branches", Customer.branchValues);
         model.put("users", userService.listUser());
@@ -77,7 +77,7 @@ public class CustomerController {
             customer.setHeadCustomer(new Customer());
 
             OrgForm orgForm = new OrgForm();
-            orgForm.setId(1L);
+            orgForm.setId(1);
             customer.setOrgForm(orgForm);
             //todo check
             User user = new User();
@@ -116,7 +116,7 @@ public class CustomerController {
     @RequestMapping("/listCity")
     public
     @ResponseBody
-    List<City> listCity(@RequestParam("area") Long areaId) {
+    List<City> listCity(@RequestParam("area") Integer areaId) {
         return cityService.listCityForArea(areaId);
     }
 
@@ -132,7 +132,7 @@ public class CustomerController {
     @RequestMapping("/listArea")
     public
     @ResponseBody
-    List<Area> listArea(@RequestParam("country") Long countryId) {
+    List<Area> listArea(@RequestParam("country") Integer countryId) {
         return areaService.listAreaForCountry(countryId);
     }
 

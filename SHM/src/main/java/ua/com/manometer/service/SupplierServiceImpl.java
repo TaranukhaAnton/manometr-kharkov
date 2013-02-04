@@ -33,13 +33,13 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     @Transactional
-    public void removeSupplier(Long id) {
+    public void removeSupplier(Integer id) {
         supplierDAO.removeSupplier(id);
     }
 
     @Override
     @Transactional
-    public Supplier getSupplier(Long id) {
+    public Supplier getSupplier(Integer id) {
         return (Supplier) baseDAO.getById(id, Supplier.class);
     }
 

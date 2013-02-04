@@ -48,13 +48,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public void removeCustomer(Long id) {
+    public void removeCustomer(Integer id) {
         customerDAO.removeCustomer(id);
     }
 
     @Override
     @Transactional
-    public Customer getCustomer(Long id) {
+    public Customer getCustomer(Integer id) {
         return customerDAO.getCustomer(id);
     }
 

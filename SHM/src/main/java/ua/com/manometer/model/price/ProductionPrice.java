@@ -12,14 +12,14 @@ public class ProductionPrice {
     @Id
     @GeneratedValue
 
-    Long id;
+    Integer id;
     String name;
     Integer type;
     private BigDecimal cost;
     private BigDecimal price;
 
 
-    public ProductionPrice(Long id, String name, Integer type, BigDecimal cost, BigDecimal price) {
+    public ProductionPrice(Integer id, String name, Integer type, BigDecimal cost, BigDecimal price) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -31,11 +31,11 @@ public class ProductionPrice {
 
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

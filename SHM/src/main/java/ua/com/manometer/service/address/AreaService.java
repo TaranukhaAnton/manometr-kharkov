@@ -8,5 +8,5 @@ public interface AreaService {
 
 	public void addArea(Area area);
 
-    public  List<Area> listAreaForCountry(Long countryId);
+    public  List<Area> listAreaForCountry(Integer countryId);
 }

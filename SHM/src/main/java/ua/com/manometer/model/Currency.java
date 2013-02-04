@@ -11,16 +11,16 @@ import java.math.BigDecimal;
 public class Currency {
     @Id
     @GeneratedValue()
+    private Integer id;
 
-    private Long id;
     private String name;
     private BigDecimal exchangeRate;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

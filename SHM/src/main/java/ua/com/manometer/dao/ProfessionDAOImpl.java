@@ -27,7 +27,7 @@ public class ProfessionDAOImpl implements ProfessionDAO {
 	}
 
 	@Override
-	public void removeProfession(Long id) {
+	public void removeProfession(Integer id) {
 		Profession profession = (Profession) sessionFactory.getCurrentSession().load(
 				Profession.class, id);
 		if (profession != null) {
@@ -36,7 +36,7 @@ public class ProfessionDAOImpl implements ProfessionDAO {
 	}
 
     @Override
-    public Profession getProfession(Long id) {
+    public Profession getProfession(Integer id) {
         Profession profession = (Profession) sessionFactory.getCurrentSession().get(Profession.class, id);
         return profession;
     }

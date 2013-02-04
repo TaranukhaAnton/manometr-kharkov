@@ -10,9 +10,9 @@ public interface SupplierService {
 
 	public List<Supplier> listSupplier();
 
-	public void removeSupplier(Long id);
+	public void removeSupplier(Integer id);
 
-    public Supplier getSupplier(Long id);
+    public Supplier getSupplier(Integer id);
     public Supplier getDefSupplier();
 
 

@@ -33,13 +33,13 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     @Transactional
-    public void removeBooking(Long id) {
+    public void removeBooking(Integer id) {
         bookingDAO.removeBooking(id);
     }
 
     @Override
     @Transactional
-    public Booking getBooking(Long id) {
+    public Booking getBooking(Integer id) {
         Booking booking = (Booking) baseDAO.getById(id, Booking.class);
         return booking;
     }

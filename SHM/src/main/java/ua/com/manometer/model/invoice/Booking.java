@@ -19,7 +19,7 @@ public class Booking {
     @Id
     @GeneratedValue()
 
-    private Long id;
+    private Integer id;
     @OneToOne(mappedBy = "booking")
     private Invoice invoice;
 
@@ -37,11 +37,11 @@ public class Booking {
     private Date dateOfDeviveryMade;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

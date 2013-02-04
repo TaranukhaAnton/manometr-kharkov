@@ -10,6 +10,6 @@ public interface PaymentService {
 
 	public List<Payment> listPayment();
 
-	public void removePayment(Long id);
+	public void removePayment(Integer id);
 
 }

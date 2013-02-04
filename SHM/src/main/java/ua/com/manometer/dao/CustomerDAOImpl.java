@@ -27,7 +27,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public void removeCustomer(Long id) {
+    public void removeCustomer(Integer id) {
         Customer customer = (Customer) sessionFactory.getCurrentSession().load(Customer.class, id);
         if (customer != null) {
             sessionFactory.getCurrentSession().delete(customer);
@@ -35,7 +35,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Customer getCustomer(Long id) {
+    public Customer getCustomer(Integer id) {
         Customer customer = (Customer) sessionFactory.getCurrentSession().get(Customer.class, id);
         return customer;
     }

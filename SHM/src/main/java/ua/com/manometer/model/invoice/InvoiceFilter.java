@@ -15,7 +15,7 @@ import java.util.*;
 public class InvoiceFilter  implements Serializable {
     @Id
     @GeneratedValue()
-    private Long id;
+    private Integer id;
 
     Integer f0 = 0;
     Integer f1 = 0;
@@ -72,11 +72,11 @@ public class InvoiceFilter  implements Serializable {
         this.users = users;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -171,24 +171,24 @@ public class InvoiceFilter  implements Serializable {
 
         List<User> u = new LinkedList();
         GenericHibernateDAO<User> dao = Factory.getUserDAO();
-        for (Long id : users) {
+        for (Integer id : users) {
             u.add(dao.findById(id));
         }
         inList.put("executor", u);
 
         List<Integer> p = new LinkedList();
-        for (Long purpose : purposeFilter)
+        for (Integer purpose : purposeFilter)
             p.add(purpose.intValue());
         inList.put("purpose", p);
 
 
         List<Integer> s = new LinkedList();
-        for (Long state : stateFilter)
+        for (Integer state : stateFilter)
             s.add(state.intValue());
         inList.put("currentState", s);
 
         List<application.data.Currency> c = new LinkedList();
-        for (Long id : currencyFilter)
+        for (Integer id : currencyFilter)
             c.add(Factory.getCurrencyDAO().findById(id));
 
         inList.put("supplier.currency", c);

@@ -28,7 +28,7 @@ public class BookingDAOImpl implements BookingDAO {
     }
 
     @Override
-    public void removeBooking(Long id) {
+    public void removeBooking(Integer id) {
         Booking booking = (Booking) sessionFactory.getCurrentSession().load(Booking.class, id);
         if (booking != null) {
             sessionFactory.getCurrentSession().delete(booking);

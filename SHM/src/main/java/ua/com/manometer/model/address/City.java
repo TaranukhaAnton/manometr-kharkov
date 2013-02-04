@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 public class City {
-	private Long id;
+	private Integer id;
 	private String name;
     private String nameUkr;
     private String nameEn;
@@ -20,7 +20,7 @@ public class City {
 
 	@Id
 	@GeneratedValue
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -28,7 +28,7 @@ public class City {
 		return name;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

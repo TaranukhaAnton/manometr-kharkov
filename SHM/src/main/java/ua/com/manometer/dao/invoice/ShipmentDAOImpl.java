@@ -25,7 +25,7 @@ public class ShipmentDAOImpl implements ShipmentDAO {
     }
 
     @Override
-    public void removeShipment(Long id) {
+    public void removeShipment(Integer id) {
         Shipment shipment = (Shipment) sessionFactory.getCurrentSession().load(Shipment.class, id);
         if (shipment != null) {
             sessionFactory.getCurrentSession().delete(shipment);

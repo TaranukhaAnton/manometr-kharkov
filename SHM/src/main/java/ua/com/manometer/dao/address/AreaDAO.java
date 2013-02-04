@@ -8,5 +8,5 @@ public interface AreaDAO {
 	public void addArea(Area area);
 
 
-    public List<Area> listAreaForCountry(Long country);
+    public List<Area> listAreaForCountry(Integer country);
 }

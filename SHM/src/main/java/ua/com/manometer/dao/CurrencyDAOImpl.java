@@ -24,7 +24,7 @@ public class CurrencyDAOImpl implements CurrencyDAO {
     }
 
     @Override
-    public void removeCurrency(Long id) {
+    public void removeCurrency(Integer id) {
         Currency currency = (Currency) sessionFactory.getCurrentSession().load(Currency.class, id);
         if (currency != null) {
             sessionFactory.getCurrentSession().delete(currency);

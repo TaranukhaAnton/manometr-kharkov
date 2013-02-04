@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface ContactDAO {
 
-    public Contact getContact(Long id);
+    public Contact getContact(Integer id);
 
     public void addContact(Contact contact);
 
     public List<Contact> listContact();
 
-    public void removeContact(Long id);
+    public void removeContact(Integer id);
 
 }

@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.manometer.model.SecuredUser;
 import ua.com.manometer.model.User;
+import ua.com.manometer.model.invoice.InvoiceFilter;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -24,11 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService userService;
 
-    /**
-     * Returns a populated {@link UserDetails} object.
-     * The login is first retrieved from the database and then mapped to
-     * a {@link UserDetails} object.
-     */
+
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 
 
@@ -40,6 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             boolean credentialsNonExpired = true;
             boolean accountNonLocked = true;
 
+            Integer powersLevel = user.getPowersLevel();
             SecuredUser securedUser = new SecuredUser(
                     user.getLogin(),
                     user.getPass().toLowerCase(),
@@ -47,8 +46,17 @@ public class CustomUserDetailsService implements UserDetailsService {
                     accountNonExpired,
                     credentialsNonExpired,
                     accountNonLocked,
-                    getAuthorities(user.getPowersLevel()));
-            securedUser.setFilter(user.getInvoiceFilter());
+                    getAuthorities(powersLevel));
+            securedUser.setUserId(user.getId());
+            InvoiceFilter invoiceFilter = user.getInvoiceFilter();
+            if (User.LEVEL_MANAGER.equals(powersLevel) || User.LEVEL_USER.equals(powersLevel)) {
+                LinkedList<Integer> userFilter = new LinkedList<Integer>();
+                userFilter.add(user.getId());
+                invoiceFilter.setUsers(userFilter);
+            }
+
+
+            securedUser.setFilter(invoiceFilter);
 
             return securedUser;
 
@@ -56,8 +64,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new RuntimeException(e);
         }
     }
-
-
 
 
     /**

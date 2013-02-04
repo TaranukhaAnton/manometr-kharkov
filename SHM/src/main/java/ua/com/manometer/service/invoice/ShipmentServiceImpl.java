@@ -28,7 +28,7 @@ public class ShipmentServiceImpl implements ShipmentService {
 
 	@Override
 	@Transactional
-	public void removeShipment(Long id) {
+	public void removeShipment(Integer id) {
 		shipmentDAO.removeShipment(id);
 	}
 

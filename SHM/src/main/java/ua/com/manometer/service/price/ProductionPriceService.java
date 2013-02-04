@@ -10,9 +10,9 @@ public interface ProductionPriceService {
 
 	public List<ProductionPrice> listProductionPriceByType(Integer type);
 
-	public void removeProductionPrice(Long id);
+	public void removeProductionPrice(Integer id);
 
-    public ProductionPrice getProductionPrice(Long id);
+    public ProductionPrice getProductionPrice(Integer id);
 
 
 

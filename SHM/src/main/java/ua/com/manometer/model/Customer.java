@@ -23,7 +23,7 @@ public class Customer {
         return name;
     }
 
-    private Long id;
+    private Integer id;
     private OrgForm orgForm;
     private String name;
     private String nameUkr;
@@ -45,11 +45,13 @@ public class Customer {
     private boolean New;
     private Integer prospect;
 
-    private Long country;
-    private Long city;
-    private Long area;
-    private Long region;
-    private Long localityType;
+
+    //todo почему не хранятся сущности?
+    private Integer country;
+    private Integer city;
+    private Integer area;
+    private Integer region;
+    private Integer localityType;
 
 
     private String address1;
@@ -75,7 +77,7 @@ public class Customer {
 
     @Id
     @GeneratedValue
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -166,19 +168,19 @@ public class Customer {
         return prospect;
     }
 
-    public Long getCountry() {
+    public Integer getCountry() {
         return country;
     }
 
-    public Long getCity() {
+    public Integer getCity() {
         return city;
     }
 
-    public Long getArea() {
+    public Integer getArea() {
         return area;
     }
 
-    public Long getRegion() {
+    public Integer getRegion() {
         return region;
     }
 
@@ -252,7 +254,7 @@ public class Customer {
         return moreInformation;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -320,19 +322,19 @@ public class Customer {
         this.prospect = prospect;
     }
 
-    public void setCountry(Long country) {
+    public void setCountry(Integer country) {
         this.country = country;
     }
 
-    public void setCity(Long city) {
+    public void setCity(Integer city) {
         this.city = city;
     }
 
-    public void setArea(Long area) {
+    public void setArea(Integer area) {
         this.area = area;
     }
 
-    public void setRegion(Long region) {
+    public void setRegion(Integer region) {
         this.region = region;
     }
 
@@ -400,11 +402,11 @@ public class Customer {
         this.moreInformation = moreInformation;
     }
 
-    public Long getLocalityType() {
+    public Integer getLocalityType() {
         return localityType;
     }
 
-    public void setLocalityType(Long localityType) {
+    public void setLocalityType(Integer localityType) {
         this.localityType = localityType;
     }
 

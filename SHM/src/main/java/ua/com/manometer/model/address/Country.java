@@ -5,7 +5,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Country {
-	private Long id;
+	private Integer id;
 	private String name;
 	//private List<City> regions;
 	public Country() {
@@ -18,13 +18,13 @@ public class Country {
 	
 	@Id
 	@GeneratedValue
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 	public String getName() {
 		return name;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public void setName(String name) {
