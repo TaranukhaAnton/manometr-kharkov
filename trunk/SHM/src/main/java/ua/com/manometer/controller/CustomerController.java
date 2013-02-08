@@ -22,6 +22,7 @@ import ua.com.manometer.service.address.CityService;
 import ua.com.manometer.service.address.CountryService;
 import ua.com.manometer.service.address.RegionService;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -124,6 +125,8 @@ public class CustomerController {
     public
     @ResponseBody
     List listCustomer(@RequestParam("term") String customerTemplate) {
+
+        customerTemplate = decode(customerTemplate);
         List<String> result = customerService.findByShortNameExample(customerTemplate);
         return result;
     }
@@ -174,6 +177,21 @@ public class CustomerController {
     OrgForm addOrgForm(OrgForm orgForm) {
         orgFormService.addOrgForm(orgForm);
         return orgForm;
+    }
+
+
+    private String decode(String s) {
+        String result = null;
+        String ENCODING_iso_8859_1 = "ISO-8859-1";
+        String ENCODING_UTF8 = "UTF-8";
+
+        try {
+            result = new String(s.getBytes(ENCODING_iso_8859_1), ENCODING_UTF8);
+        } catch (UnsupportedEncodingException e) {
+
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }
