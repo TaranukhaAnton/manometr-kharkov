@@ -73,8 +73,6 @@ public class InvoiceController {
     private CurrencyService currencyService;
 
 
-
-
     @RequestMapping("/")
     public String populateInvoices(Map<String, Object> map) {
 
@@ -286,7 +284,7 @@ public class InvoiceController {
         NumberFormat df = NumberFormat.getInstance();
         df.setMinimumFractionDigits(2);
         Map map = new HashMap();
-        map.put("sum", df.format(sum));
+        map.put("sum", sum);
         return map;
     }
 
@@ -314,49 +312,38 @@ public class InvoiceController {
             }
         });
 
-        NumberFormat df = NumberFormat.getInstance();
-        df.setMinimumFractionDigits(2);
-        df.setMaximumFractionDigits(2);
-
         if (param.equalsIgnoreCase("quantity")) {
             item.setQuantity(new Integer(value));
         } else if (param.equalsIgnoreCase("additionalCost")) {
-            item.setAdditionalCost(new BigDecimal(value.replace(",", ".")));
+            item.setAdditionalCost(new BigDecimal(value.replace(",", ".")).setScale(2, RoundingMode.HALF_UP));
         } else if (param.equalsIgnoreCase("transportationCost")) {
-            item.setTransportationCost(new BigDecimal(value.replace(",", ".").replace(" ", "")));
+            item.setTransportationCost(new BigDecimal(value.replace(",", ".").replace(" ", "")).setScale(2, RoundingMode.HALF_UP));
         } else if (param.equalsIgnoreCase("percent")) {
-            item.setPercent(new BigDecimal(value.replace(",", ".")));
+            item.setPercent(new BigDecimal(value.replace(",", ".")).setScale(4, RoundingMode.HALF_UP));
         } else if (param.equalsIgnoreCase("sellingPrice")) {
             BigDecimal t = new BigDecimal(value.replace(",", "."));
-            item.setSellingPrice(t);
+            item.setSellingPrice(t.setScale(2, RoundingMode.HALF_UP));
         } else if (param.equalsIgnoreCase("deliveryTime")) {
             item.setDeliveryTime(new Integer(value));
         } else if (param.equalsIgnoreCase("data")) {
             int i = InvoiceItem.daysBetween(item.getInvoice().getBooking().getDate(), (new SimpleDateFormat("dd.MM.yyyy")).parse(value));
             item.setDeliveryTime(i);
         }
-        // NumberFormat df = NumberFormat.getInstance();
+        invoiceService.saveInvoice(invoice);
 
-
-        //Factory.getInvoiceDAO().findById(new Integer(request.getParameter("invoiceId")));
         String res = "{";
-        res += "\"total\":\"" + df.format(invoice.getTotal()) + "\"," +
-                "\"sumTot\":\"" + df.format(invoice.getSum()) + "\"," +
-                "\"nds\":\"" + df.format(invoice.getNdsPayment()) + "\"";
+        res += "\"total\":\"" + invoice.getTotal().toString()+"\"," +
+                "\"sumTot\":\"" + invoice.getSum().toString()+"\"," +
+                "\"nds\":\"" + invoice.getNdsPayment().toString()+"\"";
         res += ",\"quantity\":\"" + item.getQuantity() + "\"";
-        df.setMinimumFractionDigits(4);
-        df.setMaximumFractionDigits(4);
-        res += ",\"percent\":\"" + df.format(item.calculatePercent()) + "\"";
-        df.setMinimumFractionDigits(2);
-        df.setMaximumFractionDigits(2);
-        res += ",\"sellingPrice\":\"" + df.format(item.getSellingPrice()) + "\"";
-        res += ",\"sum\":\"" + df.format(item.getSum()) + "\"";
-        res += ",\"transportationCost\":\"" + df.format(item.getTransportationCost()) + "\"";
-        res += ",\"additionalCost\":\"" + df.format(item.getAdditionalCost()) + "\"";
+        res += ",\"percent\":\"" + item.calculatePercent().toString()+"\"";
+        res += ",\"sellingPrice\":\"" + item.getSellingPrice().toString()+"\"";
+        res += ",\"sum\":\"" + item.getSum().toString()+"\"";
+        res += ",\"transportationCost\":\"" + item.getTransportationCost().toString()+"\"";
+        res += ",\"additionalCost\":\"" + item.getAdditionalCost().toString()+"\"";
         res += ",\"deliveryTime\":\"" + item.getDeliveryTime() + "\"";
         res += "}";
 
-        invoiceService.saveInvoice(invoice);
         return res;
     }
 
@@ -371,12 +358,6 @@ public class InvoiceController {
             //todo      log.error
             return map;
         }
-
-        NumberFormat df = NumberFormat.getInstance();
-        df.setMinimumFractionDigits(2);
-        df.setMaximumFractionDigits(2);
-
-
         if (param.equals("date")) {
             invoice.setDate((new SimpleDateFormat("dd.MM.yyyy")).parse(value));
         } else if (param.equals("daysAfterDelivery")) {
@@ -437,14 +418,16 @@ public class InvoiceController {
             List<Map> items = new LinkedList<Map>();
             for (InvoiceItem invoiceItem : invoice.getInvoiceItems()) {
                 BigDecimal sellingPrice = invoiceItem.getSellingPrice().multiply(oldExchangeRate).divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP);
-                invoiceItem.setSellingPrice(sellingPrice);
+                invoiceItem.setSellingPrice(sellingPrice.setScale(2, RoundingMode.HALF_UP));
                 invoiceItemService.saveInvoiceItem(invoiceItem);
                 items.add(invoiceItemToMap(invoiceItem));
             }
+
+            invoiceService.saveInvoice(invoice);
             map.put("items", items);
-            map.put("total", df.format(invoice.getTotal()));
-            map.put("sum", df.format(invoice.getSum()));
-            map.put("nds", df.format(invoice.getNdsPayment()));
+            map.put("total", invoice.getTotal().toString());
+            map.put("sum", invoice.getSum().toString());
+            map.put("nds", invoice.getNdsPayment().toString());
         } else if (param.equals("commonPercent")) {
             BigDecimal percent = new BigDecimal(value.replace(",", ".").trim());
             List<Map> items = new LinkedList<Map>();
@@ -453,10 +436,12 @@ public class InvoiceController {
                 invoiceItemService.saveInvoiceItem(invoiceItem);
                 items.add(invoiceItemToMap(invoiceItem));
             }
+
+            invoiceService.saveInvoice(invoice);
             map.put("items", items);
-            map.put("total", df.format(invoice.getTotal()));
-            map.put("sum", df.format(invoice.getSum()));
-            map.put("nds", df.format(invoice.getNdsPayment()));
+            map.put("total", invoice.getTotal().toString());
+            map.put("sum", invoice.getSum().toString());
+            map.put("nds", invoice.getNdsPayment().toString());
         } else if (param.equals("commonTransportCost")) {
             BigDecimal transportationCost = new BigDecimal(value.replace(",", ".").trim());
 
@@ -466,10 +451,12 @@ public class InvoiceController {
                 invoiceItemService.saveInvoiceItem(invoiceItem);
                 items.add(invoiceItemToMap(invoiceItem));
             }
+
+            invoiceService.saveInvoice(invoice);
             map.put("items", items);
-            map.put("total", df.format(invoice.getTotal()));
-            map.put("sum", df.format(invoice.getSum()));
-            map.put("nds", df.format(invoice.getNdsPayment()));
+            map.put("total", invoice.getTotal().toString());
+            map.put("sum", invoice.getSum().toString());
+            map.put("nds", invoice.getNdsPayment().toString());
         } else if (param.equals("roundPrice")) {
             Integer roundValue = new Integer(value);
             List<Map> items = new LinkedList<Map>();
@@ -482,18 +469,22 @@ public class InvoiceController {
                 invoiceItemService.saveInvoiceItem(invoiceItem);
                 items.add(invoiceItemToMap(invoiceItem));
             }
+
+            invoiceService.saveInvoice(invoice);
             map.put("items", items);
-            map.put("total", df.format(invoice.getTotal()));
-            map.put("sum", df.format(invoice.getSum()));
-            map.put("nds", df.format(invoice.getNdsPayment()));
+            map.put("total", invoice.getTotal().toString());
+            map.put("sum", invoice.getSum().toString());
+            map.put("nds", invoice.getNdsPayment().toString());
 
         } else if (param.equals("NDS")) {
             invoice.setNDS(new BigDecimal(value.replace(",", ".")));
             List<Map> items = new LinkedList<Map>();
+
+            invoiceService.saveInvoice(invoice);
             map.put("items", items);
-            map.put("total", df.format(invoice.getTotal()));
-            map.put("sum", df.format(invoice.getSum()));
-            map.put("nds", df.format(invoice.getNdsPayment()));
+            map.put("total", invoice.getTotal().toString());
+            map.put("sum", invoice.getSum().toString());
+            map.put("nds", invoice.getNdsPayment().toString());
         } else if (param.equals("exchangeRate")) {
             BigDecimal exchangeRate = new BigDecimal(value.replace(",", "."));
             BigDecimal oldExchangeRate = invoice.getExchangeRate();
@@ -501,14 +492,16 @@ public class InvoiceController {
             List<Map> items = new LinkedList<Map>();
             for (InvoiceItem invoiceItem : invoice.getInvoiceItems()) {
                 BigDecimal sellingPrice = invoiceItem.getSellingPrice().multiply(oldExchangeRate).divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP);
-                invoiceItem.setSellingPrice(sellingPrice);
+                invoiceItem.setSellingPrice(sellingPrice.setScale(2, RoundingMode.HALF_UP));
                 invoiceItemService.saveInvoiceItem(invoiceItem);
                 items.add(invoiceItemToMap(invoiceItem));
             }
+
+            invoiceService.saveInvoice(invoice);
             map.put("items", items);
-            map.put("total", df.format(invoice.getTotal()));
-            map.put("sum", df.format(invoice.getSum()));
-            map.put("nds", df.format(invoice.getNdsPayment()));
+            map.put("total", invoice.getTotal().toString());
+            map.put("sum", invoice.getSum().toString());
+            map.put("nds", invoice.getNdsPayment().toString());
         }
         //#######################################
         invoiceService.saveInvoice(invoice);
@@ -615,9 +608,9 @@ public class InvoiceController {
         model.addAttribute("strTotal", jAmount.getAmount(currencyId, invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
 
         //String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        String path ="http://localhost:8080";
+        String path = "http://localhost:8080";
         path += request.getContextPath() + "/images/reportImages/header_" + language + ".png";
-        logger.info("ImagePath = "+path);
+        logger.info("ImagePath = " + path);
         model.addAttribute("path", path);
 
         model.addAttribute(JRParameter.REPORT_LOCALE, locale);
@@ -644,7 +637,7 @@ public class InvoiceController {
 //
         payment.setExchangeRate(new BigDecimal(request.getParameter("exchangeRate").replaceAll("[^0-9,.]", "").replace(",", ".")));
         BigDecimal paymentSum = new BigDecimal(request.getParameter("paymentSum").replaceAll("[^0-9,.-]", "").replace(",", "."));
-        Boolean otkaz =paymentSum.compareTo(BigDecimal.ZERO)<0;
+        Boolean otkaz = paymentSum.compareTo(BigDecimal.ZERO) < 0;
 
         payment.setPaymentSum(paymentSum);
         payment.setPurpose(new Integer(request.getParameter("purpose")));
@@ -686,7 +679,6 @@ public class InvoiceController {
         }
 
 
-
         invoiceService.saveInvoice(invoice);
 
 
@@ -696,24 +688,19 @@ public class InvoiceController {
 
     private Map invoiceItemToMap(InvoiceItem item) {
         Map result = new HashMap();
-        NumberFormat df = NumberFormat.getInstance();
         result.put("quantity", item.getQuantity());
-        df.setMinimumFractionDigits(4);
-        df.setMaximumFractionDigits(4);
-        result.put("percent", df.format(item.calculatePercent()));
-        df.setMinimumFractionDigits(2);
-        df.setMaximumFractionDigits(2);
-        result.put("sellingPrice", df.format(item.getSellingPrice()));
-        result.put("sum", df.format(item.getSum()));
-        result.put("transportationCost", df.format(item.getTransportationCost()));
-        result.put("additionalCost", df.format(item.getAdditionalCost()));
+        result.put("percent", item.calculatePercent().toString());
+        result.put("sellingPrice", item.getSellingPrice().toString());
+        result.put("sum", item.getSum().toString());
+        result.put("transportationCost", item.getTransportationCost().toString());
+        result.put("additionalCost", item.getAdditionalCost().toString());
         result.put("deliveryTime", item.getDeliveryTime());
         result.put("id", item.getId());
         return result;
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public void doSalesMultiRep(@RequestParam("invoice_id") Integer invoiceId,@RequestParam("lang") String language, HttpServletResponse response, HttpServletRequest request) throws JRException, IOException {
+    public void doSalesMultiRep(@RequestParam("invoice_id") Integer invoiceId, @RequestParam("lang") String language, HttpServletResponse response, HttpServletRequest request) throws JRException, IOException {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         //String language = invoice.getSupplier().getLanguage();
         JasperReport report = JasperCompileManager.compileReport("D:\\projects\\~MANOMETR\\SHM\\src\\main\\resources\\invoice_ru.jrxml");
@@ -745,29 +732,28 @@ public class InvoiceController {
             locale = new Locale("en", "EN");
         }
         parameters.put(JRParameter.REPORT_LOCALE, locale);
-        
-        
+
 
 //        ResourceBundle bundle = ResourceBundle.getBundle("i18n", new UTF8Control());
 //        parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, bundle);
 
 
-      //  Customer employer = customerService.getCustomerByShortName(invoice.getEmployer());
-       // String orgForm = employer.getOrgForm().getName();
+        //  Customer employer = customerService.getCustomerByShortName(invoice.getEmployer());
+        // String orgForm = employer.getOrgForm().getName();
         parameters.put("orgForm", orgForm);
 
-      //  City city = cityService.getCity(employer.getCity());
+        //  City city = cityService.getCity(employer.getCity());
         //String cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
         //cityName += " " + city.getName();
         parameters.put("city", cityName);
 
         parameters.put("invoice", invoice);
         final int currencyId = invoice.getSupplier().getCurrency().getId();
-      //  JAmount jAmount = new JAmountRU();
+        //  JAmount jAmount = new JAmountRU();
         parameters.put("strTotal", jAmount.getAmount(currencyId, invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
 
         String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        path += request.getContextPath() + "/images/reportImages/header_"+language+".png";
+        path += request.getContextPath() + "/images/reportImages/header_" + language + ".png";
         parameters.put("path", path);
 
 

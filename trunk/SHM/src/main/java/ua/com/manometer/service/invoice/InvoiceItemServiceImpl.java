@@ -124,19 +124,19 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
         op = optionsPriceService.getOptionsPrice(type, isp, "GP");
         cost = cost.add(op.getCost());
         price = price.add(op.getPrice());
-        item.setCost(cost);
-        item.setPrice(price);
+        item.setCost(cost.setScale(2, RoundingMode.HALF_UP));
+        item.setPrice(price.setScale(2, RoundingMode.HALF_UP));
 
         BigDecimal  p1 = price.divide(item.getInvoice().getExchangeRate(), 2, RoundingMode.HALF_UP).add(item.getAdditionalCost());
         BigDecimal transportationCost = item.getTransportationCost();
-        item.setSellingPrice(koef.multiply(p1).add(transportationCost));
+        item.setSellingPrice(koef.multiply(p1).add(transportationCost).setScale(2, RoundingMode.HALF_UP));
     }
 
     @Override
     public void setupMoneyFields(Production item, BigDecimal koef) {
         BigDecimal p1 = item.getPrice().divide(item.getInvoice().getExchangeRate(), 2, RoundingMode.HALF_UP).add(item.getAdditionalCost());
         BigDecimal transportationCost = item.getTransportationCost();
-        item.setSellingPrice(koef.multiply(p1).add(transportationCost));
+        item.setSellingPrice(koef.multiply(p1).add(transportationCost).setScale(2, RoundingMode.HALF_UP));
     }
 
 

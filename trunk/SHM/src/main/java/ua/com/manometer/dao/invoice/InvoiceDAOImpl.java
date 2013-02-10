@@ -43,6 +43,22 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Invoice.class);
         Conjunction conjunction = Restrictions.conjunction();
 
+        if (invoiceFilter.getF0()==1){
+            conjunction.add(Restrictions.eq("isInvoice", true));
+        }
+        if (invoiceFilter.getF0()==2){
+            conjunction.add(Restrictions.eq("isInvoice", false));
+        }
+
+        if(invoiceFilter.getF1From()!=null){
+            conjunction.add(Restrictions.gt("number", invoiceFilter.getF1From()));
+        }
+
+        if(invoiceFilter.getF1To()!=null){
+            conjunction.add(Restrictions.lt("number", invoiceFilter.getF1To()));
+        }
+
+
         if (!invoiceFilter.getStateFilter().isEmpty()) {
             conjunction.add(Restrictions.in("currentState", invoiceFilter.getStateFilter()));
         }

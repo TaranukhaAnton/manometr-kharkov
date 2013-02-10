@@ -2,4 +2,10 @@
     width: 75px;
 }
 
+.tabdiv
+{
+    height: 260px;
+    overflow-y: auto;
+}
+
 
