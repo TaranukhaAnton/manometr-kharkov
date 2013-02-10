@@ -136,15 +136,15 @@ public class InvoiceUtils {
         BigDecimal ndsPayment = computeNDSPayment(invoice, sum);
         BigDecimal additionToPrice = computeAdditionToPrice(invoice);
 
-        invoice.setTotalPayments(totalPayments);
-        invoice.setTotal(total);
-        invoice.setSum(sum);
-        invoice.setPaymentPercent(paymentPercent);
+        invoice.setTotalPayments(totalPayments.setScale(2, RoundingMode.HALF_UP));
+        invoice.setTotal(total.setScale(2, RoundingMode.HALF_UP));
+        invoice.setSum(sum.setScale(2, RoundingMode.HALF_UP));
+        invoice.setPaymentPercent(paymentPercent.setScale(2, RoundingMode.HALF_UP));
         invoice.setPaymentMade(paymentMade);
         invoice.setDeliveryMade(deliveryMade);
         invoice.setAnyGoodsShipped(anyGoodsShipped);
-        invoice.setNdsPayment(ndsPayment);
-        invoice.setAdditionToPrice(additionToPrice);
+        invoice.setNdsPayment(ndsPayment.setScale(2, RoundingMode.HALF_UP));
+        invoice.setAdditionToPrice(additionToPrice.setScale(2, RoundingMode.HALF_UP));
     }
 
 

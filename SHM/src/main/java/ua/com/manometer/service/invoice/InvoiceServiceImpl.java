@@ -9,6 +9,7 @@ import ua.com.manometer.model.invoice.InvoiceFilter;
 import ua.com.manometer.model.invoice.InvoiceItem;
 import ua.com.manometer.util.InvoiceUtils;
 
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,23 @@ public class InvoiceServiceImpl implements InvoiceService {
         updateCounters(invoice);
         updateMoneyFields(invoice);
         invoiceDAO.saveInvoice(invoice);
+
+        System.out.println( invoice.getTotalPayments());
+        System.out.println( invoice.getTotal());
+        System.out.println( invoice.getSum());
+        System.out.println(invoice.getPaymentPercent());
+        System.out.println( invoice.isPaymentMade());
+        System.out.println( invoice.isDeliveryMade());
+        System.out.println(invoice.isAnyGoodsShipped());
+        System.out.println(invoice.getNdsPayment());
+        System.out.println( invoice.getAdditionToPrice());
+
+
+        
+        
+        
+        
+        
     }
 
     @Override

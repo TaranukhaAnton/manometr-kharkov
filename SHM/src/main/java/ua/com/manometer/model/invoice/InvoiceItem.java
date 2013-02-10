@@ -88,7 +88,7 @@ public abstract class InvoiceItem {
     }
 
     public void setPrice(BigDecimal price) {
-        this.price = price;
+        this.price = price.setScale(2, RoundingMode.HALF_UP);
     }
 
 
@@ -97,7 +97,7 @@ public abstract class InvoiceItem {
     }
 
     public void setCost(BigDecimal cost) {
-        this.cost = cost;
+        this.cost = cost.setScale(2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getSellingPrice() {
@@ -105,7 +105,7 @@ public abstract class InvoiceItem {
     }
 
     public void setSellingPrice(BigDecimal sellingPrice) {
-        this.sellingPrice = sellingPrice;
+        this.sellingPrice = sellingPrice.setScale(2, RoundingMode.HALF_UP);
     }
 
     public Integer getDeliveryTime() {
@@ -137,26 +137,19 @@ public abstract class InvoiceItem {
 
 
         if (znamenatel.compareTo(BigDecimal.ZERO) != 0) {
-            BigDecimal res = sellingPrice.subtract(transportationCost).divide(znamenatel, 4, RoundingMode.HALF_UP);
+            return sellingPrice.subtract(transportationCost).divide(znamenatel, 4, RoundingMode.HALF_UP);
 
-            return res;
         } else
             return new BigDecimal("-1");
     }
 
     public void setPercent(BigDecimal percent) {
         BigDecimal p1 = price.divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP).add(additionalCost);
-        sellingPrice = percent.multiply(p1).add(transportationCost);
-        sellingPrice = sellingPrice.setScale(2, RoundingMode.HALF_UP);
-        // System.out.println("sellingPrice = " + sellingPrice);
-        //   sellingPrice = sellingPrice.setScale(2, RoundingMode.HALF_UP);
-        // System.out.println("sellingPrice = " + sellingPrice);
-
-
+        sellingPrice = percent.multiply(p1).add(transportationCost).setScale(2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getSum() {
-        return sellingPrice.multiply(new BigDecimal(quantity));
+        return sellingPrice.multiply(new BigDecimal(quantity)).setScale(2, RoundingMode.HALF_UP);
     }
 
     public Invoice getInvoice() {
@@ -199,10 +192,10 @@ public abstract class InvoiceItem {
         if (sellingPrice != null) {
             BigDecimal coef = calculatePercent();
             BigDecimal s1 = price.divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP).add(additionalCost);
-            sellingPrice = coef.multiply(s1).add(transportationCost);
+            sellingPrice = coef.multiply(s1).add(transportationCost).setScale(2, RoundingMode.HALF_UP);
         }
 
-        this.additionalCost = additionalCost;
+        this.additionalCost = additionalCost.setScale(2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getTransportationCost() {
@@ -212,8 +205,8 @@ public abstract class InvoiceItem {
     public void setTransportationCost(BigDecimal transportationCost) {
 
         if (sellingPrice != null)
-            sellingPrice = sellingPrice.subtract(this.transportationCost).add(transportationCost);
+            sellingPrice = sellingPrice.subtract(this.transportationCost).add(transportationCost).setScale(2, RoundingMode.HALF_UP);
 
-        this.transportationCost = transportationCost;
+        this.transportationCost = transportationCost.setScale(2, RoundingMode.HALF_UP);
     }
 }

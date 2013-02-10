@@ -25,6 +25,7 @@ import ua.com.manometer.service.price.ProductionPriceService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 @Controller
@@ -94,8 +95,8 @@ public class InvoiceItemController {
 
         Production production = new Production();
         production.setName(name);
-        production.setCost(cost);
-        production.setPrice(price);
+        production.setCost(cost.setScale(2, RoundingMode.HALF_UP));
+        production.setPrice(price.setScale(2, RoundingMode.HALF_UP));
         production.setQuantity(1);
         production.setDeliveryTime(45);
         production.setType(type);

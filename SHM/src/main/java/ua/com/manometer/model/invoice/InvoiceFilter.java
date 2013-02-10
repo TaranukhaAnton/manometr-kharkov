@@ -20,8 +20,10 @@ public class InvoiceFilter  implements Serializable {
     Integer f0 = 0;
     Integer f1 = 0;
     Integer f2 = 0;
+
     Integer f1From;
     Integer f1To;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date f2From;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
