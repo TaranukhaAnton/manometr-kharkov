@@ -1,0 +1,42 @@
+<script type="text/javascript" src="js/log4javascript.js"></script>
+<script type="text/javascript">
+    function queryString(parameter) {
+        var loc = location.search.substring(1, location.search.length);
+        var param_value = false;
+
+        var params = loc.split("&");
+        for (i = 0; i < params.length; i++) {
+            param_name = params[i].substring(0, params[i].indexOf('='));
+            if (param_name == parameter) {
+                param_value = params[i].substring(params[i].indexOf('=') + 1)
+            }
+        }
+        if (param_value) {
+            return param_value;
+        }
+        else {
+            return null;
+        }
+    }
+    var log;
+    if (typeof(log4javascript) == 'undefined') {
+        log = {
+            debug: function(str) { },
+            error: function(str) { }
+        };
+    } else {
+
+        log = log4javascript.getDefaultLogger();
+        var curLogLevel = log4javascript.Level.ALL;
+//        var curLogLevel = log4javascript.Level.OFF;
+
+        //curLogLevel = queryString("logLevel") == 'ALL' ? log4javascript.Level.ALL : log4javascript.Level.OFF;
+
+        log.setLevel(curLogLevel);
+        // Create a PopUpAppender with default options
+        var popUpAppender = new log4javascript.PopUpAppender();
+        // Change the desired configuration options
+        popUpAppender.setFocusPopUp(true);
+        popUpAppender.setNewestMessageAtTop(true);
+    }
+</script>                                                   
