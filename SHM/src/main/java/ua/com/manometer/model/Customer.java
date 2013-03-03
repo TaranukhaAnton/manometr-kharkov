@@ -29,7 +29,7 @@ public class Customer {
     private String nameUkr;
     private String shortName;
     private String stateProperty;
-    private String branch;
+    private Integer branch;
 
     private boolean purposeForItself;
     private boolean purposeIntermediary;
@@ -89,13 +89,12 @@ public class Customer {
         return shortName;
     }
 
-    public String getBranch() {
+    public Integer getBranch() {
         return branch;
     }
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-
     public OrgForm getOrgForm() {
         return orgForm;
     }
@@ -266,7 +265,7 @@ public class Customer {
         this.shortName = shortName;
     }
 
-    public void setBranch(String branch) {
+    public void setBranch(Integer branch) {
         this.branch = branch;
     }
 
@@ -416,5 +415,10 @@ public class Customer {
 
     public void setNameUkr(String nameUkr) {
         this.nameUkr = nameUkr;
+    }
+
+    @Transient
+    public String  getBranchString(){
+       return branchValues[branch];
     }
 }

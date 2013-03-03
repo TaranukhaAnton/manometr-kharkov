@@ -93,5 +93,9 @@ td.money {
     width:100px;
 }
 
+#result_dialog{
+    overflow-y: auto;
+}
+
 
 

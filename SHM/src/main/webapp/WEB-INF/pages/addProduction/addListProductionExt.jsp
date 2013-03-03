@@ -10,7 +10,7 @@
 
         });
         function cancel() {
-            var str = "invoiceAction.do?method=viewInvoice&id=" + $('#invoice_id').val();
+            var str = "../invoices/view?invoice_id=" + $('#invoice_id').val();
             location.replace(str);
         }
         function checkForm() {
@@ -212,7 +212,7 @@
             </form>
         </div>
         <div id="tabs-2" class="tabdiv">
-            <form action="testAction.do" onsubmit="return checkForm();">
+            <form action="add_list" method="post" onsubmit="return checkForm();">
                 <div id="container">
                     <p class="validateTips">Все поля должны быть заполненны.</p>
                     <fieldset>

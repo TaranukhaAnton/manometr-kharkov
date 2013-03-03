@@ -18,7 +18,7 @@
     <a href="<c:out value="javascript:void(view(${type}))"/>">Добавить</a><br>
     <display:table name="list" requestURI="./"
                    excludedParams="type" keepStatus="true"
-                   requestURIcontext="false" pagesize="5" sort="list" class="simple" id="table${type}">
+                   requestURIcontext="false" pagesize="16" sort="list" class="simple" id="table${type}">
         <display:column title="Обозначение" class="col1">
 
 

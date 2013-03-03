@@ -64,7 +64,7 @@
     </td>
     <td>
         <c:if test="${isNew}">
-            <form:select path="orgForm" cssClass="dropdown">
+            <form:select path="orgForm.id" cssClass="dropdown">
                 <form:options items="${orgForms}" itemValue="id" itemLabel="name"/>
             </form:select>
             <img src="../images/add.gif" width="16" height="16" border="0" onclick="javascript:void($('#OrgFormInput').dialog('open'))"/>
@@ -124,11 +124,11 @@
 <tr>
     <td class="tdLabel">
         Отрасль
-
     </td>
     <td>
         <form:select path="branch" cssClass="dropdown">
             <form:options items="${branches}"/>
+
         </form:select>
     </td>
 </tr>
