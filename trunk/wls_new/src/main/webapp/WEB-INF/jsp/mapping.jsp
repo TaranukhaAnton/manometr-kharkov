@@ -25,32 +25,30 @@
     <script src="../js/jquery.timer.js"></script>
     <script src="../js/jquery.cookies.2.2.0.js"></script>
 
+    <script src="../js/facescroll.js"></script>
+    <script src="../js/jquery.ui.touch-punch.min.js"></script>
+
+
     <script src="../js/local/main.js"></script>
 
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <script src="../js/local/gmaps.js"></script>
 
 
-
-
-
-
-
-
     <%--<jsp:include page="initMap.jsp"/>--%>
 
-<%--    <script type="text/javascript">
+    <%--    <script type="text/javascript">
 
 
 
 
-        //        var source   = "<p>{{lastName}}, {{firstName}}</p>";
-        //        alert(source);
-        //        var template = Handlebars.compile(source);
-        //        var res = template({firstName: "Alan", lastName: "Johnson"});
-        //        alert(res);
-        //        alert(Handlebars.VERSION);
-    </script>--%>
+            //        var source   = "<p>{{lastName}}, {{firstName}}</p>";
+            //        alert(source);
+            //        var template = Handlebars.compile(source);
+            //        var res = template({firstName: "Alan", lastName: "Johnson"});
+            //        alert(res);
+            //        alert(Handlebars.VERSION);
+        </script>--%>
 
 
     <title></title>
@@ -60,25 +58,29 @@
 
 <div clas="head" onclick="">
     <img src="../images/live.whitelabelsaas-new.com/login_header_logo.png" alt="">
+
     <div class="bgmenu"></div>
 </div>
-
 
 
 <table>
     <tr>
         <td>
-            <div class="menu">
+            <div class="menu" id="menu">
                 <div>
                     <a href="javascript:void($('#groupSelectDialog').dialog('open'))">Select Group</a>
+                    <a href="javascript:void(expand())">Expand</a>
+                    <a href="javascript:void(updateDimensions())">updateDimensions</a>
                 </div>
-                <div id="leftMenu"/>
+                <div id="leftMenuSP">
+                    <div id="leftMenu"/>
+                </div>
 
             </div>
 
         </td>
         <td>
-            <div id="map" />
+            <div id="map"/>
             <%--<div id="maparea" />--%>
 
         </td>
@@ -88,12 +90,8 @@
 
 <%--<div id="map" >--%>
 <%--<jsp:include page="IFrameMap.jsp"/>--%>
-    <%--<div id="flex_maparea" ></div>--%>
+<%--<div id="flex_maparea" ></div>--%>
 <%--</div>--%>
-
-
-
-
 
 
 <div id="groupSelectDialog" title="Select Group">
