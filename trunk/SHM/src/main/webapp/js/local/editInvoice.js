@@ -249,8 +249,8 @@ $(function() {
     });
     $("#roundPrice-dialog").dialog({
         autoOpen: false,
-        height: 300,
-        width: 200,
+        height: 330,
+        width: 250,
         modal: true,
         resizable:false,
         buttons: {

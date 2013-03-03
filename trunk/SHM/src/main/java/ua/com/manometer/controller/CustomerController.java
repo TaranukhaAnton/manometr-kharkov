@@ -24,12 +24,24 @@ import ua.com.manometer.service.address.RegionService;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/customers")
 public class CustomerController {
+    static  LinkedHashMap<Integer, String> branches = new LinkedHashMap<Integer, String>();
+
+   static{
+       for (int i = 0; i < Customer.branchValues.length; i++) {
+           branches.put(i, Customer.branchValues[i]);
+       }
+
+   }
+
+
+
 
     @Autowired
     private CustomerService customerService;
@@ -46,13 +58,6 @@ public class CustomerController {
     @Autowired
     private AreaService areaService;
 
-
-
-//    @InitBinder
-//    public void initBinder(WebDataBinder dataBinder){
-//        dataBinder.registerCustomEditor(Profession.class, editor);
-//    }
-
     @RequestMapping("/")
     public String populateCustomers(Map<String, Object> map) {
         map.put("listCustomer", customerService.listCustomer());
@@ -62,7 +67,7 @@ public class CustomerController {
     @RequestMapping("/edit")
     public String setupForm(@RequestParam(value = "id", required = false) Integer id, ModelMap model) {
         model.put("orgForms", orgFormService.listOrgForm());
-        model.put("branches", Customer.branchValues);
+        model.put("branches", branches);
         model.put("users", userService.listUser());
         List<Country> countries = countryService.listCountry();
         model.put("countries", countries);
@@ -105,7 +110,6 @@ public class CustomerController {
         }
         return "editCustomer";
     }
-
 
     @RequestMapping("/add")
     public String processSubmit(@ModelAttribute("customer") Customer customer) {

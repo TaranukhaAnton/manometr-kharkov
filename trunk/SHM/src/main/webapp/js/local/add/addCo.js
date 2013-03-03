@@ -25,9 +25,10 @@ $().ready(
                             $("input[name='err'][value='" + item.error + "']")[0].checked = true;
                             $('input[name="ed_izm"]')[item.ed_izm].checked = true;
                             if (model.staticPressures.length != 0) {
-                                $('input[name="stat"]')[item.stat].checked = true;
+                                $("input[name='stat'][value='" + item.stat + "']")[0].checked = true;
                             }
-                            $('input[name="out"]')[item.outType].checked = true;
+                            $("input[name='out'][value='" + item.outType + "']")[0].checked = true;
+
                             if (model.du.length != 0) {
                                 $('input[name="du"]')[item.du].checked = true;
                             }

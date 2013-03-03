@@ -31,11 +31,11 @@ table.options th.first {
 
 div.tabs div {
     overflow-y: scroll; /* Добавляем полосы прокрутки */
-    height: 850px;
+    height: 650px;
 }
 
 div.tabs {
     /*background: #333;*/
     /*padding: 20px;*/
-    height: 950px;
+    /*height: 650px;*/
 }

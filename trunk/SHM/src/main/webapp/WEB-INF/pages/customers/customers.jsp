@@ -23,7 +23,7 @@
     </display:column>
 
     <display:column property="shortName" title="кор название" url="/customers/edit" paramId="id" paramProperty="id" sortable="true"/>
-    <display:column property="branch" title="отр"/>
+    <display:column property="branchString" title="отр"/>
     <display:column property="person.login" title="спец. OCO"/>
     <display:column property="nomList" title="№ списка"/>
     <display:column property="prospect" title="Потенциал"/>
