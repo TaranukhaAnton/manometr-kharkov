@@ -30,15 +30,21 @@ $(document).ready(function () {
             $('body').css('overflow', 'auto');
         }
     });
-
     updateDimensions();
-
     var groupNum = $.cookies.get('groupNum');
     if (groupNum != null) {
         selectGroup(groupNum);
     }
-    $('#leftMenuSP').alternateScroll({ 'vertical-bar-class': 'styled-v-bar', 'hide-bars': false });
+    $('#leftMenuSP').mCustomScrollbar({
+        scrollButtons:{
+            enable:true
+        },
+        theme:"dark-thick",
+        advanced:{
+            updateOnContentResize: Boolean
+        }
 
+    });
 })
 
 $(window).resize(function () {
