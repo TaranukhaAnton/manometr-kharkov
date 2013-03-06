@@ -17,6 +17,7 @@
     <link href="../css/jquery.treeview.css" rel="stylesheet" type="text/css">
     <link href="../css/mainPage.css" rel="stylesheet" type="text/css">
     <link href="../css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" type="text/css">
+    <link href="../css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css">
 
     <script src="../js/handlebars-1.0.rc.1.min.js"></script>
     <script src="../js/jquery-1.9.0.js"></script>
@@ -25,14 +26,17 @@
     <script src="../js/jquery.timer.js"></script>
     <script src="../js/jquery.cookies.2.2.0.js"></script>
 
-    <script src="../js/facescroll.js"></script>
-    <script src="../js/jquery.ui.touch-punch.min.js"></script>
+    <%--<script src="../js/facescroll.js"></script>--%>
+    <%--<script src="../js/jquery.ui.touch-punch.min.js"></script>--%>
 
 
     <script src="../js/local/main.js"></script>
 
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <script src="../js/local/gmaps.js"></script>
+
+
+    <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
 
 
     <%--<jsp:include page="initMap.jsp"/>--%>
@@ -70,7 +74,6 @@
                 <div>
                     <a href="javascript:void($('#groupSelectDialog').dialog('open'))">Select Group</a>
                     <a href="javascript:void(expand())">Expand</a>
-                    <a href="javascript:void(updateDimensions())">updateDimensions</a>
                 </div>
                 <div id="leftMenuSP">
                     <div id="leftMenu"/>

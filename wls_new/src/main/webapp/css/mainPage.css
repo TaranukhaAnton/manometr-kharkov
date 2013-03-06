@@ -17,7 +17,7 @@ img {
 
 .menu {
     /*background: url(../images/live.whitelabelsaas-new.com/left_bg_img.png)repeat-x;*/
-    width: 355px;
+    width: 365px;
     /*height:761px;*/
     -webkit-border-radius: 10px 10px 20px 20px;
     margin-top: 7px;
@@ -25,7 +25,8 @@ img {
 }
 
 .vehicleDiv {
-    width: 100%;
+    /*width: 100%;*/
+    width: 350px;
     background-color: #d2691e;
     margin-bottom: 5px;
 }
@@ -61,7 +62,7 @@ img {
 }
 
 .regNumDiv {
-    width: 225px;
+    width: 205px;
 }
 
 .vcLeft {
@@ -77,27 +78,31 @@ img {
 
 }
 
-.styled-v-bar {
+#leftMenuSP{
+    overflow-y:  auto;
+}
+
+/*.styled-v-bar {*/
     /* sample CSS class for a different vertical scrollbar look */
-    background: url(../images/custom-scroll-bar.png) center top no-repeat;
-    width: 10px;
-    margin-right: 0;
-    margin-bottom: 4px;
-}
+    /*background: url(../images/custom-scroll-bar.png) center top no-repeat;*/
+    /*width: 10px;*/
+    /*margin-right: 0;*/
+    /*margin-bottom: 4px;*/
+/*}*/
 
-.styled-v-bar ins {
+/*.styled-v-bar ins {*/
     /* Style for the "ins" inner element, or bottom of the scrollbar */
-    display: block;
-    background: url(../images/custom-scroll-bar.png) center bottom no-repeat;
-    width: 10px;
-    height: 4px;
-    position: absolute;
-    top: 100%;
-}
+    /*display: block;*/
+    /*background: url(../images/custom-scroll-bar.png) center bottom no-repeat;*/
+    /*width: 10px;*/
+    /*height: 4px;*/
+    /*position: absolute;*/
+    /*top: 100%;*/
+/*}*/
 
-#leftMenuSP {
-    width: 355px;
-}
+/*#leftMenuSP {*/
+    /*width: 355px;*/
+/*}*/
 
 
 
