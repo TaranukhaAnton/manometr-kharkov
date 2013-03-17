@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
     <link rel="stylesheet" type="text/css" href="../css/invoice.css"/>
-
+    <script type="text/javascript" src="../js/local/editBooking.js"></script>
     <script type="text/javascript">
 
 
@@ -18,7 +18,8 @@
                 mindate: d,
                 onSelect: function(selectedDate) {
                     var id = this.id;
-                    $.post("invoiceAction.do?method=editInvoiceItem", {"param" : "data", "value":selectedDate, "id":id.substr(0, id.indexOf('_'))}, function(data) {
+                    $.post("../invoices/editInvoiceItem", {"param" : "data",
+                        "value":selectedDate, "id":id.substr(0, id.indexOf('_')), "invId":<%=((Invoice) request.getAttribute("invoice")).getId()%> }, function(data) {
 
                     });
                 }
@@ -290,12 +291,10 @@
             <textarea name="notes"
                     <%= changesAllowed ? "" : textFieldDisab %>
                       id="bookingNotes" cols="40" rows="3" onkeypressEn="true"
-                      onkeydown="paramChange('bookingNotes','any');"><%=(booking.getNotes() == null) ? "" : booking.getNotes()%>
-            </textarea>
+                      onkeydown="paramChange('bookingNotes','any');"><%=(booking.getNotes() == null) ? "" : booking.getNotes()%></textarea>
         <td>
             <textarea id="bookingComments" cols="40" rows="3" onkeypressEn="true"
-                      onkeydown="paramChange('bookingComments','any');"><%= (booking.getComments() == null) ? "" : booking.getComments()%>
-            </textarea>
+                      onkeydown="paramChange('bookingComments','any');"><%= (booking.getComments() == null) ? "" : booking.getComments()%></textarea>
         </td>
     </tr>
 </table>

@@ -118,7 +118,7 @@ public class InvoiceController {
     }
 
 
-    // todo для того чтоб полечить индекc следующего и предыдущего надо вытащить все заказы
+    // todo для того, чтоб получить индекc следующего и предыдущего надо вытащить все заказы
     private int getIndex(List<Invoice> invoices, Invoice invoice) {
         Integer id = invoice.getId();
         for (int i = 0; i < invoices.size(); i++) {

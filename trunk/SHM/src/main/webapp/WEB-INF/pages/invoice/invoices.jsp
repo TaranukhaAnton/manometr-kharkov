@@ -50,16 +50,16 @@
         <display:column title="Назн" class="center">
             <%= Invoice.purposeAlias[((Invoice) pageContext.getAttribute("invoice")).getPurpose()]%>
         </display:column>
-        <display:column title="заказчик" maxLength="15" property="employer"/>
+        <display:column url="/customers/get_by_name" title="заказчик" maxLength="15" property="employer" paramId="name" paramProperty="employer"/>
 
         <display:column property="executor" class="center" title="спец <br> ОСО"/>
 
-        <display:column property="t0" class="col30 center" title="ДД" headerClass="dd"/>
-        <display:column property="t1" class="col30 center" title="БП"/>
-        <display:column property="t2" class="col30 center" title="ДКС"/>
-        <display:column property="t3" class="col30 center" title="ИБ"/>
-        <display:column property="t4" class="col30 center" title="пр"/>
-        <display:column property="t5" class="col30 center" title="стор"/>
+        <display:column property="t0" class="col30 right" title="ДД" />
+        <display:column property="t1" class="col30 right" title="БП"/>
+        <display:column property="t2" class="col30 right" title="ДКС"/>
+        <display:column property="t3" class="col30 right" title="ИБ"/>
+        <display:column property="t4" class="col30 right" title="пр"/>
+        <display:column property="t5" class="col30 right" title="стор"/>
 
         <display:column title="Сумма,<br> тыс" class="right">
             <%=((Invoice) pageContext.getAttribute("invoice")).getTotal().divide(new BigDecimal("1000"), 2, RoundingMode.HALF_UP) %>
