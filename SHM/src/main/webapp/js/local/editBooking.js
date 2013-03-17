@@ -10,7 +10,7 @@ function paramChange(param, type, func) {
                     val = val.replace(/\s+/, "").replace(String.fromCharCode(160), "");
                 }
                 var mes = "param=" + param + "&value=" + val + "&invoice_id=" + $("#invoice_id").val();
-                $.post("invoiceAction.do?method=editBookingParams", mes, func);
+                $.post("editBookingParams", mes, func);
             }
         }, 2000);
 

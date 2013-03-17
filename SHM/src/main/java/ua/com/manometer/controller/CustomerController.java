@@ -22,7 +22,6 @@ import ua.com.manometer.service.address.CityService;
 import ua.com.manometer.service.address.CountryService;
 import ua.com.manometer.service.address.RegionService;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -115,6 +114,12 @@ public class CustomerController {
     public String processSubmit(@ModelAttribute("customer") Customer customer) {
         customerService.addCustomer(customer);
         return "redirect:/customers/";
+    }
+
+    @RequestMapping("/get_by_name")
+    public String getByName(String name) {
+        Customer customerByShortName = customerService.getCustomerByShortName(name);
+        return "redirect:/customers/edit?id="+customerByShortName.getId();
     }
 
 

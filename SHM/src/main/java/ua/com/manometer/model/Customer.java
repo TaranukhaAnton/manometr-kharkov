@@ -14,7 +14,7 @@ public class Customer {
     public static String[] localityTypeAliasUkr = {"м.", "смт", "с.", "с."};
     public static String[] localityTypeAliasEn = {"м.", "смт", "с.", "с."};
 
-    public static String[] branchValues = {"про", "аэс", "энр", "мет", "доб", "нгу", "хим", "маш", "стр", "ком"};
+    public static String[] branchValues = {"", "про", "аэс", "энр", "мет", "доб", "нгу", "хим", "маш", "стр", "ком"};
 
 
     @Override
@@ -419,6 +419,16 @@ public class Customer {
 
     @Transient
     public String  getBranchString(){
-       return branchValues[branch];
+
+        try{
+
+            return branchValues[branch];
+        }
+        catch (Throwable t){
+            t.printStackTrace();
+
+        }
+
+        return "";
     }
 }
