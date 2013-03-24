@@ -49,7 +49,8 @@ $(function() {
             selectFirst:false,
             select:function(event, ui) {
                 $.post("editInvoiceParams", { "param":"employer","value" : ui.item.value, "id":$("#id").val()});
-            }
+            },
+            minChars: 3
         });
     $("#consumer").autocomplete(
         {   source:"../customers/listCustomers",
@@ -57,7 +58,8 @@ $(function() {
             selectFirst:false,
             select:function(event, ui) {
                 $.post("editInvoiceParams", { "param":"consumer","value" : ui.item.value, "id":$("#id").val()});
-            }
+            },
+            minChars: 3
         });
 
 //    $("#copyInvoice_form input[name='consumer']").autocomplete("../customers/listCustomers", {

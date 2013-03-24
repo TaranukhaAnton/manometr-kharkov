@@ -19,22 +19,27 @@ public class TraceInterceptor extends CustomizableTraceInterceptor {
     @Override
 	protected void writeToLog(Log logger, String message, Throwable ex) {
        // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-       String name="";
-
-              //test
-               Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-                 if(authentication!=null) {
-                     name   ="["+ authentication.getName()+"] "; //get logged in username
-                 }
+        String name = getName();
 
 		if (ex != null) {
-			logger4J.debug(name+message, ex);
+			logger4J.error(name + message, ex);
 		} else {
 			logger4J.debug(name+message);
 		}
 	}
 
-	@Override
+    private String getName() {
+        String name="";
+
+        //test
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication!=null) {
+            name   ="["+ authentication.getName()+"] "; //get logged in username
+        }
+        return name;
+    }
+
+    @Override
 	protected boolean isInterceptorEnabled(MethodInvocation invocation, Log logger) {
 		return true;
 	}
