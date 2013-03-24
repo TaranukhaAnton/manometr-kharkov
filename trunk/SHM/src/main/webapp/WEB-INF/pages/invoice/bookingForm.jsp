@@ -28,6 +28,27 @@
             var d = new Date();
             d.setTime(Date.parse($("#mindate").val()));
             dates.datepicker("option", "minDate", d);
+            $("#print-dialog").dialog({
+                autoOpen: false,
+                height: 300,
+                width: 200,
+                modal: true,
+                resizable:false,
+                buttons: {
+
+                    'Отмена': function() {
+                        $(this).dialog('close');
+                    }
+                },
+                open: function(event, ui) {
+                    $('body').css('overflow', 'hidden');
+                    $('.ui-widget-overlay').css('width', '100%');
+                },
+                close: function(event, ui) {
+                    $('body').css('overflow', 'auto');
+                }
+            });
+
 
             bodyResize();
         });
@@ -332,9 +353,26 @@
     </sec:authorize>
 
     <input type="button" value="Печать"
-           onclick="location.href='invoiceAction.do?method=bookingPrint&id=<%= ((Long) request.getAttribute("id"))%>'"
+           onclick="javascript:void($('#print-dialog').dialog('open'))"
            class="butt">
 
 </div>
+</div>
+
+
+<div id="print-dialog" title="Печать">
+
+
+    <input type="button" value="PDF"
+           onclick="javascript:void(printBooking('pdf',<%=invoice.getId()%>))"
+           class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only "> <br>
+    <input type="button" value="XLS"
+           onclick="javascript:void(printBooking('xls',<%=invoice.getId()%>))"
+           class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>
+    <%--<input type="button" value="ODT"--%>
+    <%--onclick="javascript:void(printInvoice('odt',<%=invoice.getId()%>))"--%>
+    <%--class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>--%>
+
+
 </div>
 

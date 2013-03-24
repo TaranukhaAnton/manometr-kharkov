@@ -25,4 +25,8 @@
           p:url="classpath:invoice.jrxml" p:reportDataKey="dataSource"
           p:contentDispositionMappings-ref="contentDispositionMappings"/>
 
+    <bean id="bookingReport" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView"
+          p:url="classpath:booking.jrxml" p:reportDataKey="dataSource"
+          p:contentDispositionMappings-ref="contentDispositionMappings"/>
+
 </beans>
