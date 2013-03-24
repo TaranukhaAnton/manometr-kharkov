@@ -245,7 +245,7 @@ $(function () {
             source:"../customers/listCustomers",
             width:460,
             selectFirst:false,
-            minChars: 2
+            minChars: 3
 
 
         });

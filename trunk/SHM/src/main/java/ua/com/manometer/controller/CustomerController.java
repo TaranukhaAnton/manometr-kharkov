@@ -22,24 +22,19 @@ import ua.com.manometer.service.address.CityService;
 import ua.com.manometer.service.address.CountryService;
 import ua.com.manometer.service.address.RegionService;
 
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/customers")
 public class CustomerController {
-    static  LinkedHashMap<Integer, String> branches = new LinkedHashMap<Integer, String>();
+    static LinkedHashMap<Integer, String> branches = new LinkedHashMap<Integer, String>();
 
-   static{
-       for (int i = 0; i < Customer.branchValues.length; i++) {
-           branches.put(i, Customer.branchValues[i]);
-       }
+    static {
+        for (int i = 0; i < Customer.branchValues.length; i++) {
+            branches.put(i, Customer.branchValues[i]);
+        }
 
-   }
-
-
+    }
 
 
     @Autowired
@@ -119,7 +114,7 @@ public class CustomerController {
     @RequestMapping("/get_by_name")
     public String getByName(String name) {
         Customer customerByShortName = customerService.getCustomerByShortName(name);
-        return "redirect:/customers/edit?id="+customerByShortName.getId();
+        return "redirect:/customers/edit?id=" + customerByShortName.getId();
     }
 
 
@@ -134,6 +129,10 @@ public class CustomerController {
     public
     @ResponseBody
     List listCustomer(@RequestParam("term") String customerTemplate) {
+        customerTemplate = customerTemplate.replaceAll("[^a-zA-Zа-я-А-ЯёЁ]", "");
+        if (customerTemplate.length() < 3) {
+            return new ArrayList(0);
+        }
         List<String> result = customerService.findByShortNameExample(customerTemplate);
         return result;
     }

@@ -9,6 +9,7 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,7 +32,6 @@ import ua.com.manometer.service.invoice.InvoiceItemService;
 import ua.com.manometer.service.invoice.InvoiceService;
 import ua.com.manometer.service.invoice.PaymentService;
 import ua.com.manometer.util.InvoiceUtils;
-import ua.com.manometer.util.UTF8Control;
 import ua.com.manometer.util.amount.JAmount;
 import ua.com.manometer.util.amount.JAmountEN;
 import ua.com.manometer.util.amount.JAmountRU;
@@ -51,7 +51,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/invoices")
 public class InvoiceController {
-    private static Logger logger = Logger.getLogger(InvoiceController.class);
+    private static Logger LOGGER = Logger.getLogger(InvoiceController.class);
 
     @Autowired
     InvoiceService invoiceService;
@@ -90,6 +90,9 @@ public class InvoiceController {
 
     @RequestMapping("/view")
     public String viewInvoice(@RequestParam("invoice_id") Integer id, Map<String, Object> map) {
+        ///   LOGGER.info(getName() + " open invoice id = " + id);
+
+
         Invoice invoice = invoiceService.getInvoice(id);
         map.put("invoice", invoice);
         map.put("supplierList", supplierService.listSupplier());
@@ -132,6 +135,8 @@ public class InvoiceController {
 
     @RequestMapping("/view_shipments")
     public String viewShipments(@RequestParam("invoice_id") Integer id, Map<String, Object> map) {
+//        LOGGER.info(getName() + " view shipments for invoice id = " + id);
+
         Invoice invoice = invoiceService.getInvoice(id);
 
         Map<Integer, Map<Integer, Integer>> res = new HashMap<Integer, Map<Integer, Integer>>();
@@ -155,6 +160,7 @@ public class InvoiceController {
 
     @RequestMapping("/delete")
     public String deleteInvoice(@RequestParam("invoice_id") Integer id) {
+        LOGGER.info(getName() + " delete invoice id = " + id);
         invoiceService.removeInvoice(id);
         return "redirect:/invoices/";
     }
@@ -162,21 +168,30 @@ public class InvoiceController {
 
     @RequestMapping("/add")
     public String addInvoice(HttpServletRequest request, Map<String, Object> map) throws ParseException {
+        LOGGER.info(getName() + " add invoice ");
         Invoice invoice = new Invoice();
         String employerShortName = request.getParameter("employer");
+        LOGGER.info(" \"employer\" = " + employerShortName);
         invoice.setEmployer(employerShortName);
-        invoice.setConsumer(request.getParameter("consumer"));
+        String consumer = request.getParameter("consumer");
+        invoice.setConsumer(consumer);
+        LOGGER.info(" \"consumer\" = " + consumer);
         Customer employer = customerService.getCustomerByShortName(employerShortName);
         invoice.setExecutor(employer.getPerson());
         invoice.setNDS(new BigDecimal("20"));
-//            invoice.setExchangeRate(new BigDecimal("1"));
         invoice.setPurpose(Invoice.PURPOSE_POSTAVKA);
         DateFormat f = new SimpleDateFormat("dd.MM.yyyy");
-        invoice.setDate(f.parse(request.getParameter("date")));
+        String date = request.getParameter("date");
+        invoice.setDate(f.parse(date));
+        LOGGER.info("\"date\" = " + date);
         // invoice.setChangeDate(new Date());
         invoice.setInvoice(new Boolean(request.getParameter("isInvoice")));
+        LOGGER.info("\"isInvoice\" = " + request.getParameter("isInvoice"));
         invoice.setNumber(new Integer(request.getParameter("number")));
+        LOGGER.info("\"number\" = " + request.getParameter("number"));
         invoice.setNumberModifier(request.getParameter("numberModifier"));
+        LOGGER.info("\"numberModifier\" = " + request.getParameter("numberModifier"));
+
         invoice.setValidity(10);
         invoice.setPaymentOnTheNotice(new BigDecimal(0));
         invoice.setPrepayment(new BigDecimal(0));
@@ -190,6 +205,7 @@ public class InvoiceController {
         }
         invoice.setInvoiceItems(new LinkedList<InvoiceItem>());
         invoiceService.saveInvoice(invoice);
+        LOGGER.info("Invoice was created. Id = " + invoice.getId());
         return "redirect:/invoices/view?invoice_id=" + invoice.getId();
     }
 
@@ -332,15 +348,15 @@ public class InvoiceController {
         invoiceService.saveInvoice(invoice);
 
         String res = "{";
-        res += "\"total\":\"" + invoice.getTotal().toString()+"\"," +
-                "\"sumTot\":\"" + invoice.getSum().toString()+"\"," +
-                "\"nds\":\"" + invoice.getNdsPayment().toString()+"\"";
+        res += "\"total\":\"" + invoice.getTotal().toString() + "\"," +
+                "\"sumTot\":\"" + invoice.getSum().toString() + "\"," +
+                "\"nds\":\"" + invoice.getNdsPayment().toString() + "\"";
         res += ",\"quantity\":\"" + item.getQuantity() + "\"";
-        res += ",\"percent\":\"" + item.calculatePercent().toString()+"\"";
-        res += ",\"sellingPrice\":\"" + item.getSellingPrice().toString()+"\"";
-        res += ",\"sum\":\"" + item.getSum().toString()+"\"";
-        res += ",\"transportationCost\":\"" + item.getTransportationCost().toString()+"\"";
-        res += ",\"additionalCost\":\"" + item.getAdditionalCost().toString()+"\"";
+        res += ",\"percent\":\"" + item.calculatePercent().toString() + "\"";
+        res += ",\"sellingPrice\":\"" + item.getSellingPrice().toString() + "\"";
+        res += ",\"sum\":\"" + item.getSum().toString() + "\"";
+        res += ",\"transportationCost\":\"" + item.getTransportationCost().toString() + "\"";
+        res += ",\"additionalCost\":\"" + item.getAdditionalCost().toString() + "\"";
         res += ",\"deliveryTime\":\"" + item.getDeliveryTime() + "\"";
         res += "}";
 
@@ -611,7 +627,7 @@ public class InvoiceController {
         //todo надо разобраться: локалхот нехорошо
         String path = "http://localhost:8080";
         path += request.getContextPath() + "/images/reportImages/header_" + language + ".png";
-        logger.info("ImagePath = " + path);
+        LOGGER.info("ImagePath = " + path);
         model.addAttribute("path", path);
 
         model.addAttribute(JRParameter.REPORT_LOCALE, locale);
@@ -773,6 +789,15 @@ public class InvoiceController {
         // JasperViewer.viewReport(jasperPrint);
 
 //        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+    }
+
+    private String getName() {
+        String name = "";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            name = "[" + authentication.getName() + "] ";
+        }
+        return name;
     }
 
 }

@@ -62,14 +62,16 @@ $(function() {
          {
              source:"../customers/listCustomers",
             width:260,
-            selectFirst:false
+            selectFirst:false,
+                minChars: 3
         });
 
     $("#employer").autocomplete(
          {
             source:"../customers/listCustomers",
             width:260,
-            selectFirst:false
+            selectFirst:false,
+             minChars: 3
         });
 
 
