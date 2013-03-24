@@ -19,6 +19,10 @@ function paramChange(param, type, func) {
 
 }
 
+function printBooking(type, id) {
+    location.replace("./export_report?invoice_id=" + id + "&type=" + type);
+    $('#print-dialog').dialog('close');
+}
 
 function checkRegexp(o, regexp, empty) {
     var exp = {float:/^\s*\d+(?:[\.,]\d+)?\s*$/, dig:/^\s*\d+\s*$/, any:/^/, currency:/^[0-9\s]+[\.,]?[0-9]{0,2}$/};

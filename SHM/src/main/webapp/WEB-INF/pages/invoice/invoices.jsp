@@ -72,7 +72,7 @@
             <%=Invoice.curStateAlias[((Invoice) pageContext.getAttribute("invoice")).getCurrentState()]%>
         </display:column>
 
-        <display:column title="з/н">
+        <display:column title="з/н" class="right">
             <%
                 Booking booking = ((Invoice) pageContext.getAttribute("invoice")).getBooking();
                 if (booking != null) {

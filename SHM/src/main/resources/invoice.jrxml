@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="514525b5-14f9-473b-bb6e-09a830ad8725">
 	<property name="ireport.zoom" value="1.464100000000003"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="orgForm" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="strTotal" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="invoice" class="ua.com.manometer.model.invoice.Invoice" isForPrompting="false"/>
@@ -68,7 +68,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Serif" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{orgForm}+" "+$P{invoice}.getEmployer()+"\n"+$P{city}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{orgForm}+" «"+$P{invoice}.getEmployer()+"»\n"+$P{city}]]></textFieldExpression>
 			</textField>
 			<frame>
 				<reportElement uuid="2fdf316a-2106-4d42-b89b-eb0eff538616" positionType="Float" x="0" y="200" width="555" height="20"/>
@@ -134,7 +134,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{param23}+" dd "]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{param23}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="d3474cef-dc64-4a33-9d50-b28e93768974" stretchType="RelativeToTallestObject" mode="Opaque" x="365" y="0" width="45" height="20" backcolor="#CCCCCC"/>
