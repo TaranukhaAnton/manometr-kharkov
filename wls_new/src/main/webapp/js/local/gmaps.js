@@ -564,10 +564,25 @@ if(window.google && window.google.maps){
                 }
             };
 
-            this.removeMarker = function(marker) {
+//            this.removeMarker = function(marker) {
+//                for(var i = 0; i < this.markers.length; i++) {
+//                    if(this.markers[i] === marker) {
+//                        this.markers[i].setMap(null);
+//                        this.markers.splice(i, 1);
+//
+//                        GMaps.fire('marker_removed', marker, this);
+//
+//                        break;
+//                    }
+//                }
+//
+//                return marker;
+//            };
+            this.removeMarker = function(id) {
                 for(var i = 0; i < this.markers.length; i++) {
-                    if(this.markers[i] === marker) {
-                        this.markers[i].setMap(null);
+                    var marker = this.markers[i];
+                    if(this.markers[i].id == id) {
+                        marker.setMap(null);
                         this.markers.splice(i, 1);
 
                         GMaps.fire('marker_removed', marker, this);
@@ -578,6 +593,7 @@ if(window.google && window.google.maps){
 
                 return marker;
             };
+
 
             this.removeMarkers = function(collection) {
                 var collection = (collection || this.markers);

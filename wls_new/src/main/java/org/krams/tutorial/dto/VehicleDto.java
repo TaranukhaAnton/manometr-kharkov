@@ -3,6 +3,7 @@ package org.krams.tutorial.dto;
 
 import org.apache.commons.lang.StringUtils;
 import org.krams.tutorial.domain.Vehicle;
+import org.krams.tutorial.util.Util;
 
 /**
  * Created by Alexander
@@ -50,6 +51,7 @@ public class VehicleDto  {
     private boolean alwaysDisplayDriverName;
     private boolean locked;
     private boolean dotOnMap;
+    private boolean zoomed;
 
     public int getId() {
         return id;
@@ -120,11 +122,12 @@ public class VehicleDto  {
         clientDescr = v.getClientDescr();
         costToDistance = getCostToDistance(v);
         directionOfTravel = v.getDirectionOfTravel();
-              ignitionStatus = v.getIgnitionStatus();
+            ///  ignitionStatus = v.getIgnitionStatus();
 
         imageFileName = v.getType().getImageFileName();
         registrationNumber = v.getRegistrationNumber();
         immobilizationDate = v.getImmobilizationDate() != null ? v.getImmobilizationDate().getTime() : null;
+        ignitionStatus = Util.getIgnitionStatus(ignitionActive, v.getCurSpeed()).toString();
         ignitionActive = v.isIgnitionActive();
         fleetId = v.getFleetId();
         ignitionColor = v.getIgnitionColor();
@@ -457,4 +460,11 @@ public class VehicleDto  {
         this.dotOnMap = dotOnMap;
     }
 
+    public boolean isZoomed() {
+        return zoomed;
+    }
+
+    public void setZoomed(boolean zoomed) {
+        this.zoomed = zoomed;
+    }
 }

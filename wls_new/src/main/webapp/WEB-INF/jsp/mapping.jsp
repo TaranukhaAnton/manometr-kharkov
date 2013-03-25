@@ -39,20 +39,7 @@
     <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
 
 
-    <%--<jsp:include page="initMap.jsp"/>--%>
 
-    <%--    <script type="text/javascript">
-
-
-
-
-            //        var source   = "<p>{{lastName}}, {{firstName}}</p>";
-            //        alert(source);
-            //        var template = Handlebars.compile(source);
-            //        var res = template({firstName: "Alan", lastName: "Johnson"});
-            //        alert(res);
-            //        alert(Handlebars.VERSION);
-        </script>--%>
 
 
     <title></title>
@@ -61,7 +48,7 @@
 
 
 <div clas="head" onclick="">
-    <img src="../images/live.whitelabelsaas-new.com/login_header_logo.png" alt="">
+    <img style=" float: left;" src="../images/live.whitelabelsaas-new.com/login_header_logo.png" alt="">
 
     <div class="bgmenu"></div>
 </div>
@@ -70,10 +57,12 @@
 <table>
     <tr>
         <td>
-            <div class="menu" id="menu">
+            <div class="menu" id="menu" >
                 <div>
                     <a href="javascript:void($('#groupSelectDialog').dialog('open'))">Select Group</a>
                     <a href="javascript:void(expand())">Expand</a>
+                    <a href="javascript:void( timer.toggle())">stop</a>
+                    <%--<a href="javascript:void(timer.start())">start</a>--%>
                 </div>
                 <div id="leftMenuSP">
                     <div id="leftMenu"/>

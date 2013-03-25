@@ -22,7 +22,7 @@ import java.util.Set;
  * Handles and retrieves person request
  */
 @Controller
-@RequestMapping("/mapping")
+@RequestMapping("/")
 public class MainController {
 
     protected static Logger logger = Logger.getLogger("controller");
@@ -43,13 +43,13 @@ public class MainController {
         return "mapping";
     }
 
-    @RequestMapping(value = "/IFrameMap", method = RequestMethod.GET)
-    public String mapPage(Map<String, Object> map) {
-        logger.debug("Received request to show mapping page");
-        BaseTreeNode rootResellerTreeNode = groupService.getRootResellerTreeNode();
-        map.put("baseTreeNode",rootResellerTreeNode);
-        return "IFrameMap";
-    }
+//    @RequestMapping(value = "/IFrameMap", method = RequestMethod.GET)
+//    public String mapPage(Map<String, Object> map) {
+//        logger.debug("Received request to show mapping page");
+//        BaseTreeNode rootResellerTreeNode = groupService.getRootResellerTreeNode();
+//        map.put("baseTreeNode",rootResellerTreeNode);
+//        return "IFrameMap";
+//    }
 
 
     @RequestMapping(value = "/getVehicles", method = RequestMethod.POST)
@@ -59,16 +59,11 @@ public class MainController {
         logger.debug("Received request to get vehiles for groop id =" + groupId);
         Collection<Vehicle> vehicles = vehicleService.getByUnitViewId(groupId);
         Set vehiclesDTOs = new HashSet();
-
         for (Vehicle vehicle : vehicles) {
             VehicleDto e = new VehicleDto(vehicle);
             e.setDirectionOfTravel("e");
             vehiclesDTOs.add(e);
-
-
         }
-
-
         logger.debug("Found " + vehicles.size() +" vehicles.");
         return vehiclesDTOs;
     }
