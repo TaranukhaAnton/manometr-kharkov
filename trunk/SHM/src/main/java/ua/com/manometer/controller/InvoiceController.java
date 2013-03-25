@@ -215,7 +215,7 @@ public class InvoiceController {
     @ResponseBody
     Map addShipment(@RequestParam("invoice_id") Integer invoiceId, HttpServletRequest request) throws ParseException {
         //todo эта операция должна выполняться в одной транзакции
-
+        LOGGER.info(getName() + " add Shipment invoice id = " + invoiceId);
 
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         Shipment shipment = new Shipment();
