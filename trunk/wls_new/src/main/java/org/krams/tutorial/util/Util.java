@@ -111,5 +111,17 @@ public class Util {
         return node;
     }
 
+    public static Constants.IgnitionStatus getIgnitionStatus(boolean ignitionActive, double curSpeed) {
+        if (ignitionActive) {
+            if (curSpeed > 0) {
+                return Constants.IgnitionStatus.On;
+            } else {
+                return Constants.IgnitionStatus.Idling;
+            }
+        } else {
+            return Constants.IgnitionStatus.Off;
+        }
+    }
+
 
 }

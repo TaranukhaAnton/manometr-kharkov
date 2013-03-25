@@ -3,7 +3,7 @@ body {
 }
 
 img {
-    float: left;
+
 }
 
 .bgmenu {
@@ -17,7 +17,7 @@ img {
 
 .menu {
     /*background: url(../images/live.whitelabelsaas-new.com/left_bg_img.png)repeat-x;*/
-    width: 365px;
+    width: 350px;
     /*height:761px;*/
     -webkit-border-radius: 10px 10px 20px 20px;
     margin-top: 7px;
@@ -26,7 +26,7 @@ img {
 
 .vehicleDiv {
     /*width: 100%;*/
-    width: 350px;
+    width: 330px;
     background-color: #d2691e;
     margin-bottom: 5px;
 }
@@ -39,9 +39,9 @@ img {
 
 .vehicleContent {
     /*width: 110px;*/
-    height: 60px;
+    height: 80px;
     background-color: #6495ed;
-    display: none;
+    /*display: none;*/
 }
 
 .zoomDiv, .zoomOutDiv, .ActionDiv, .regNumDiv {
@@ -62,12 +62,12 @@ img {
 }
 
 .regNumDiv {
-    width: 205px;
+    width: 160px;
 }
 
 .vcLeft {
     width: 90px;
-    height: 60px;
+    height: 80px;
     background-color: #00ffff;
 }
 
@@ -103,6 +103,11 @@ img {
 /*#leftMenuSP {*/
     /*width: 355px;*/
 /*}*/
+.ignImg{
+    /*margin-top: 6px;*/
+    /*display: inline-block;*/
+    /*padding-top: 6px;*/
+}
 
 
 
