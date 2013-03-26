@@ -17,15 +17,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-
-/**
- * Handles and retrieves person request
- */
 @Controller
 @RequestMapping("/")
 public class MainController {
 
-    protected static Logger logger = Logger.getLogger("controller");
+    protected static Logger logger = Logger.getLogger(MainController.class);
 
 
     @Autowired
