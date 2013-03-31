@@ -41,6 +41,8 @@ public class CommonUtils {
 
 
     public static void printProps(HttpServletRequest request) {
+
+
         Enumeration<String> en = request.getParameterNames();
         while (en.hasMoreElements()) {
             String param = en.nextElement();

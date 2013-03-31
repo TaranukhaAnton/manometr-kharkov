@@ -6,27 +6,10 @@
 		http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+    <bean id="invoiceReport" class="ua.com.manometer.jasperreports.JasperReportsMultiFormatView"
+          p:url="classpath:invoice.jrxml" p:reportDataKey="dataSource"  p:contentType="text/html;charset=UTF-8" />
 
-    <bean name="contentDispositionMappings" class="org.springframework.beans.factory.config.MapFactoryBean">
-        <property name="targetMapClass">
-            <value>java.util.HashMap</value>
-        </property>
-        <property name="sourceMap">
-            <map>
-                <entry key="xls" value="attachment;filename=invoice.xls"/>
-                <entry key="pdf" value="attachment;filename=invoice.pdf"/>
-            </map>
-        </property>
-    </bean>
-
-
-
-    <bean id="invoiceReport" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView"
-          p:url="classpath:invoice.jrxml" p:reportDataKey="dataSource"
-          p:contentDispositionMappings-ref="contentDispositionMappings"/>
-
-    <bean id="bookingReport" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView"
-          p:url="classpath:booking.jrxml" p:reportDataKey="dataSource"
-          p:contentDispositionMappings-ref="contentDispositionMappings"/>
+    <bean id="bookingReport" class="ua.com.manometer.jasperreports.JasperReportsMultiFormatView"
+          p:url="classpath:booking.jrxml" p:reportDataKey="dataSource"  p:contentType="text/html;charset=UTF-8"  />
 
 </beans>

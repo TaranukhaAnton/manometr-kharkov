@@ -91,7 +91,7 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
         }
         if (item.isI()) {
             op = optionsPriceService.getOptionsPrice(type, isp, "I");
-            System.out.println("I " + op);
+           // System.out.println("I " + op);
             cost = cost.add(op.getCost());
             price = price.add(op.getPrice());
         }

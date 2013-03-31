@@ -35,7 +35,7 @@ public class ListPriceController {
      //todo
     @RequestMapping("/add")
     public String add(ProductionPrice productionPrice, ModelMap model) {
-        System.out.println("ListPriceController.add");
+       // System.out.println("ListPriceController.add");
         productionPriceService.addProductionPrice(productionPrice);
         return  "redirect:/list_price/page?type="+ productionPrice.getType();
     }
@@ -44,7 +44,7 @@ public class ListPriceController {
     @RequestMapping("/delete")
     public String delete(Integer id, Integer type, ModelMap model)
             throws Exception {
-        System.out.println("PriceController.delete");
+       // System.out.println("PriceController.delete");
         productionPriceService.removeProductionPrice(id);
         model.put("type", type);
         model.put("list", productionPriceService.listProductionPriceByType(type));
