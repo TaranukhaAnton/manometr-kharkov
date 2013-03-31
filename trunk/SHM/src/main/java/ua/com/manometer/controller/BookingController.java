@@ -3,6 +3,7 @@ package ua.com.manometer.controller;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -170,73 +171,6 @@ public class BookingController {
 
 
 
-
-
-    /*
-    *
-    *    public ActionForward bookingPrint(ActionMapping mapping, ActionForm form,
-                                      HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
-        response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment;filename=invoice.pdf");
-        Booking booking = Factory.getBookingDAO().findById(new Long(request.getParameter("id")));
-        Invoice invoice = booking.getInvoice();
-
-        ServletContext context = this.getServlet().getServletContext();
-        try {
-
-            JasperReport report = JasperCompileManager.compileReport(context.getRealPath("/disign/booking.jrxml"));
-            Map parameters = new HashMap();
-            parameters.put("invoice", invoice);
-            parameters.put("booking", booking);
-
-            //  parameters.put("path", context.getRealPath("/images/reportImages/"));
-            // parameters.put("city", Factory.getCityDAO().findById(invoice.getEmploer().getCity()).getName());
-
-            List<InvoiceItem> result = new LinkedList<InvoiceItem>();
-            for (InvoiceItem i : invoice.getInvoiceItems()) {
-                if (i.getType() != 9) result.add(i);
-            }
-
-
-            JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(result));
-            OutputStream out = response.getOutputStream();
-
-            JasperExportManager.exportReportToPdfStream(jasperPrint, out);
-
-
-//            response.setHeader("Content-Disposition", "attachment;filename=invoice.xls");
-//            JRXlsExporter jrXlsExporter = new JRXlsExporter();
-//            jrXlsExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-//            jrXlsExporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
-//            jrXlsExporter.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
-//            jrXlsExporter.exportReport();
-
-
-//            response.setHeader("Content-Disposition", "attachment;filename=invoice.docx");
-//            JRDocxExporter exporter = new JRDocxExporter();
-//            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-//            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
-//            exporter.exportReport();
-
-            out.flush();
-            out.close();
-
-
-            // invoice.getNumber()
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
-
-    }
-    *
-    *
-    * */
-
-
     @RequestMapping(value = "/export_report", method = RequestMethod.GET)
     public String exportReport(@RequestParam("invoice_id") Integer invoiceId, @RequestParam("type") String type, ModelMap model, HttpServletRequest request) {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
@@ -247,36 +181,10 @@ public class BookingController {
 
         JRDataSource dataSource = new JRBeanCollectionDataSource(result);
 
-//        Customer employer = customerService.getCustomerByShortName(invoice.getEmployer());
-//        City city = cityService.getCity(employer.getCity());
-//
-//        String orgForm = "";
-//        String cityName = "";
-//        JAmount jAmount = null;
-//        Locale locale = null;
-//
-//        if (language.equals("ru")) {
-//            orgForm = employer.getOrgForm().getName();
-//            cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
-//            cityName += " " + city.getName();
-//            jAmount = new JAmountRU();
-//            locale = new Locale("ru", "RU");
-//        } else if (language.equals("ua")) {
-//            orgForm = employer.getOrgForm().getNameUkr();
-//            cityName = Customer.localityTypeAliasUkr[employer.getLocalityType().intValue()];
-//            cityName += " " + city.getNameUkr();
-//            jAmount = new JAmountUA();
-//            locale = new Locale("ua", "UA");
-//        } else if (language.equals("en")) {
-//            orgForm = employer.getOrgForm().getNameEng();
-//            cityName = Customer.localityTypeAliasEn[employer.getLocalityType().intValue()];
-//            cityName += " " + city.getNameEn();
-//            jAmount = new JAmountEN();
-//            locale = new Locale("en", "EN");
-//        }
 
-//        model.addAttribute("orgForm", orgForm);
-//        model.addAttribute("city", cityName);
+
+        String fileName = "booking_" + invoice.getBooking().getNumber() + ((StringUtils.isBlank(invoice.getBooking().getNumberModifier())) ? "" : ("_"+invoice.getBooking().getNumberModifier()));
+        model.addAttribute("name", fileName);
 
         model.addAttribute("dataSource", dataSource);
         // Add the report format

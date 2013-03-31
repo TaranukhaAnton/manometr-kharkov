@@ -8,95 +8,93 @@
 <%@ page import="ua.com.manometer.util.InvoiceUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-    <link rel="stylesheet" type="text/css" href="../css/invoice.css"/>
-    <script type="text/javascript" src="../js/local/editBooking.js"></script>
-    <script type="text/javascript">
+<link rel="stylesheet" type="text/css" href="../css/invoice.css"/>
+<script type="text/javascript" src="../js/local/editBooking.js"></script>
+<script type="text/javascript">
 
 
-        $(function() {
-            var dates = $(".date").datepicker({
-                mindate: d,
-                onSelect: function(selectedDate) {
-                    var id = this.id;
-                    $.post("../invoices/editInvoiceItem", {"param" : "data",
-                        "value":selectedDate, "id":id.substr(0, id.indexOf('_')), "invId":<%=((Invoice) request.getAttribute("invoice")).getId()%> }, function(data) {
+    $(function () {
+        var dates = $(".date").datepicker({
+            mindate: d,
+            onSelect: function (selectedDate) {
+                var id = this.id;
+                $.post("../invoices/editInvoiceItem", {"param": "data",
+                    "value": selectedDate, "id": id.substr(0, id.indexOf('_')), "invId":<%=((Invoice) request.getAttribute("invoice")).getId()%> }, function (data) {
 
-                    });
-                }
-            });
-
-            var d = new Date();
-            d.setTime(Date.parse($("#mindate").val()));
-            dates.datepicker("option", "minDate", d);
-            $("#print-dialog").dialog({
-                autoOpen: false,
-                height: 300,
-                width: 200,
-                modal: true,
-                resizable:false,
-                buttons: {
-
-                    'Отмена': function() {
-                        $(this).dialog('close');
-                    }
-                },
-                open: function(event, ui) {
-                    $('body').css('overflow', 'hidden');
-                    $('.ui-widget-overlay').css('width', '100%');
-                },
-                close: function(event, ui) {
-                    $('body').css('overflow', 'auto');
-                }
-            });
-
-
-            bodyResize();
+                });
+            }
         });
-        function bodyResize()
-        {
-            var winHeight = $("body").height();
-            var IICheight = (winHeight < 600) ? 197 : winHeight - 315 - $("#toptable").height();
-            var sc = (winHeight < 600) ? "visible" : "hidden";
-            $("body").css("overflow-y", sc);
-            $("#invItemsContent").css("height", IICheight + "px");
-            //            var text = "IICheight = " + IICheight;
-            //            text += "   topTableHeight = " + $("#toptable").height();
-            //            text += "   contentTDHeight = " + $("#contentTD").height();
-            //            text += "  bodyHeight = " + $("body").height();
-            //            text += "  htmlHeight = " + $("html").height();
-            //                 $("#console").text(text);
 
-        }
-        function changeBookingState(state)
-        {
-            $.post("../bookings/editBookingParams", {"param":"currentState", "value":state, "invoice_id":$("#invoice_id").val()},
-                    function (response) {
+        var d = new Date();
+        d.setTime(Date.parse($("#mindate").val()));
+        dates.datepicker("option", "minDate", d);
+        $("#print-dialog").dialog({
+            autoOpen: false,
+            height: 300,
+            width: 200,
+            modal: true,
+            resizable: false,
+            buttons: {
 
-                        if (response.res) {
-                            window.location.reload(true);
-                        } else {
-                            alert(response.message);
-                        }
+                'Отмена': function () {
+                    $(this).dialog('close');
+                }
+            },
+            open: function (event, ui) {
+                $('body').css('overflow', 'hidden');
+                $('.ui-widget-overlay').css('width', '100%');
+            },
+            close: function (event, ui) {
+                $('body').css('overflow', 'auto');
+            }
+        });
 
 
-                    });
-        }
+        bodyResize();
+    });
+    function bodyResize() {
+        var winHeight = $("body").height();
+        var IICheight = (winHeight < 600) ? 197 : winHeight - 315 - $("#toptable").height();
+        var sc = (winHeight < 600) ? "visible" : "hidden";
+        $("body").css("overflow-y", sc);
+        $("#invItemsContent").css("height", IICheight + "px");
+        //            var text = "IICheight = " + IICheight;
+        //            text += "   topTableHeight = " + $("#toptable").height();
+        //            text += "   contentTDHeight = " + $("#contentTD").height();
+        //            text += "  bodyHeight = " + $("body").height();
+        //            text += "  htmlHeight = " + $("html").height();
+        //                 $("#console").text(text);
 
-    </script>
-    <style type="text/css">
-        label, input {
-            display: block;
-        }
+    }
+    function changeBookingState(state) {
+        $.post("../bookings/editBookingParams", {"param": "currentState", "value": state, "invoice_id": $("#invoice_id").val()},
+                function (response) {
 
-        #invItemsContent {
-            overflow-y: auto;
-            height: 405px;
-        }
+                    if (response.res) {
+                        window.location.reload(true);
+                    } else {
+                        alert(response.message);
+                    }
 
-        .topAlign {
-            vertical-align: top;
-        }
-    </style>
+
+                });
+    }
+
+</script>
+<style type="text/css">
+    label, input {
+        display: block;
+    }
+
+    #invItemsContent {
+        overflow-y: auto;
+        height: 405px;
+    }
+
+    .topAlign {
+        vertical-align: top;
+    }
+</style>
 
 
 </head>
@@ -104,7 +102,7 @@
 <%
 
     Invoice invoice = (Invoice) request.getAttribute("invoice");
-    Booking  booking = invoice.getBooking();
+    Booking booking = invoice.getBooking();
 
     String textFieldDisab = "disabled=\"true\"";
     Boolean changesAllowed = true;
@@ -312,10 +310,12 @@
             <textarea name="notes"
                     <%= changesAllowed ? "" : textFieldDisab %>
                       id="bookingNotes" cols="40" rows="3" onkeypressEn="true"
-                      onkeydown="paramChange('bookingNotes','any');"><%=(booking.getNotes() == null) ? "" : booking.getNotes()%></textarea>
+                      onkeydown="paramChange('bookingNotes','any');"><%=(booking.getNotes() == null) ? "" : booking.getNotes()%>
+            </textarea>
         <td>
             <textarea id="bookingComments" cols="40" rows="3" onkeypressEn="true"
-                      onkeydown="paramChange('bookingComments','any');"><%= (booking.getComments() == null) ? "" : booking.getComments()%></textarea>
+                      onkeydown="paramChange('bookingComments','any');"><%= (booking.getComments() == null) ? "" : booking.getComments()%>
+            </textarea>
         </td>
     </tr>
 </table>
@@ -369,9 +369,9 @@
     <input type="button" value="XLS"
            onclick="javascript:void(printBooking('xls',<%=invoice.getId()%>))"
            class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>
-    <%--<input type="button" value="ODT"--%>
-    <%--onclick="javascript:void(printInvoice('odt',<%=invoice.getId()%>))"--%>
-    <%--class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>--%>
+    <input type="button" value="ODT"
+           onclick="javascript:void(printBooking('odt',<%=invoice.getId()%>))"
+           class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>
 
 
 </div>

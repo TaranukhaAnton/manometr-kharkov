@@ -27,7 +27,7 @@ public class MatrixPriceController {
     @RequestMapping("/redact")
     @ResponseBody
     public String redactPrice(HttpServletRequest request) {
-        System.out.println("PriceController.redactPrice");
+       // System.out.println("PriceController.redactPrice");
         List<Integer> models = new LinkedList<Integer>();
         List<Integer> isp = new LinkedList<Integer>();
         List<Integer> mat = new LinkedList<Integer>();
@@ -65,7 +65,7 @@ public class MatrixPriceController {
     @ResponseBody
     public List<PriceFirstPart> getItemsPrice(HttpServletRequest request)
             throws Exception {
-        System.out.println("PriceController.getItemsPrice");
+       // System.out.println("PriceController.getItemsPrice");
         List<Integer> models = new LinkedList<Integer>();
         List<Integer> isp = new LinkedList<Integer>();
         List<Integer> mat = new LinkedList<Integer>();
@@ -98,7 +98,7 @@ public class MatrixPriceController {
     @RequestMapping("/applyTmp")
     @ResponseBody
     public String applyTmpValues() {
-        System.out.println("PriceController.applyTmpValues");
+       // System.out.println("PriceController.applyTmpValues");
         priceFirstPartService.applyTmpValues();
         return null;
     }
@@ -106,7 +106,7 @@ public class MatrixPriceController {
     @RequestMapping("/resetTmp")
     @ResponseBody
     public String resetTmpValues() {
-        System.out.println("PriceController.resetTmpValues");
+       // System.out.println("PriceController.resetTmpValues");
         priceFirstPartService.resetTmpValues();
         return null;
     }
@@ -114,7 +114,7 @@ public class MatrixPriceController {
     @RequestMapping("/priceToTmp")
     @ResponseBody
     public String priceValuesToTmp() {
-        System.out.println("PriceController.priceValuesToTmp");
+       // System.out.println("PriceController.priceValuesToTmp");
         priceFirstPartService.priceValuesToTmp();
         return null;
     }

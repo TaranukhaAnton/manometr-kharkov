@@ -33,15 +33,15 @@ public class InvoiceServiceImpl implements InvoiceService {
         updateMoneyFields(invoice);
         invoiceDAO.saveInvoice(invoice);
 
-        System.out.println( invoice.getTotalPayments());
-        System.out.println( invoice.getTotal());
-        System.out.println( invoice.getSum());
-        System.out.println(invoice.getPaymentPercent());
-        System.out.println( invoice.isPaymentMade());
-        System.out.println( invoice.isDeliveryMade());
-        System.out.println(invoice.isAnyGoodsShipped());
-        System.out.println(invoice.getNdsPayment());
-        System.out.println( invoice.getAdditionToPrice());
+//        System.out.println( invoice.getTotalPayments());
+//        System.out.println( invoice.getTotal());
+//        System.out.println( invoice.getSum());
+//        System.out.println(invoice.getPaymentPercent());
+//        System.out.println( invoice.isPaymentMade());
+//        System.out.println( invoice.isDeliveryMade());
+//        System.out.println(invoice.isAnyGoodsShipped());
+//        System.out.println(invoice.getNdsPayment());
+//        System.out.println( invoice.getAdditionToPrice());
 
 
         

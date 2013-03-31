@@ -181,6 +181,12 @@
 
             </div>
             <div id="tabs-2" class="tabdiv">
+
+                <input type="radio" name="f1" value="0"/> все <Br>
+                <input type="radio" name="f1" value="1"/>
+
+
+
                 с <input type="text" name="f1From">
                 по<input type="text" name="f1To"><Br>
             </div>

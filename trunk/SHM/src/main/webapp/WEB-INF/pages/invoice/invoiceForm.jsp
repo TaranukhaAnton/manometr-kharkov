@@ -687,9 +687,9 @@
     <input type="button" value="XLS"
            onclick="javascript:void(printInvoice('xls',<%=invoice.getId()%>))"
            class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>
-    <%--<input type="button" value="ODT"--%>
-           <%--onclick="javascript:void(printInvoice('odt',<%=invoice.getId()%>))"--%>
-           <%--class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>--%>
+    <input type="button" value="ODT"
+           onclick="javascript:void(printInvoice('odt',<%=invoice.getId()%>))"
+           class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>
 
 
 </div>

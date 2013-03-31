@@ -70,7 +70,7 @@ public class InvoiceItemController {
     public String addListExt(@RequestParam("invoice_id") Integer invoice_id,
                              @RequestParam("type") Integer type,
                              HttpServletRequest request)     throws Exception {
-        printProps(request);
+      //  printProps(request);
         Invoice invoice = invoiceService.getInvoice(invoice_id);
         String productionId = request.getParameter("production_id");
         BigDecimal cost;
@@ -281,15 +281,15 @@ public class InvoiceItemController {
     }
 
 
-    public static void printProps(HttpServletRequest request) {
-        Enumeration<String> en = request.getParameterNames();
-        while (en.hasMoreElements()) {
-            String param = en.nextElement();
-            // System.out.print(param + " -- ");
-            // System.out.println(request.getParameter(param));
-            for (String s : request.getParameterValues(param))
-                System.out.println(param + " = " + s);
-        }
-    }
+//    public static void printProps(HttpServletRequest request) {
+//        Enumeration<String> en = request.getParameterNames();
+//        while (en.hasMoreElements()) {
+//            String param = en.nextElement();
+//            // System.out.print(param + " -- ");
+//            // System.out.println(request.getParameter(param));
+//            for (String s : request.getParameterValues(param))
+//                System.out.println(param + " = " + s);
+//        }
+//    }
 
 }

@@ -622,6 +622,8 @@ public class InvoiceController {
         model.addAttribute("invoice", invoice);
         final int currencyId = invoice.getSupplier().getCurrency().getId().intValue();
         model.addAttribute("strTotal", jAmount.getAmount(currencyId, invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
+        String fileName = "invoice_" + invoice.getNumber() + ((StringUtils.isBlank(invoice.getNumberModifier())) ? "" : ("_"+invoice.getNumberModifier()));
+        model.addAttribute("name", fileName);
 
         //String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         //todo надо разобраться: локалхот нехорошо
