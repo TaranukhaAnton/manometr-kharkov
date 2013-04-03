@@ -16,4 +16,19 @@
      text-align: left;
  }
 
+.currencyWrapper{
+
+}
+
+
+tr.blue > td.currency{
+    background-color: #4682b4;
+}
+tr.green > td.currency{
+    background-color: #2e8b57;
+}
+tr.red > td.currency{
+    background-color: #FF6851;
+}
+
 
