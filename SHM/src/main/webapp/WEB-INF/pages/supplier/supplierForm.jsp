@@ -2,13 +2,26 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<script type="text/javascript" src="../js/local/suppliers.js"></script>
+
+<style type="text/css">
+
+
+#variableHeightDiv {
+    overflow-y: auto;
+}
+#footerButtons {
+    height: 30px;
+}
+</style>
+
 
 <form:form modelAttribute="supplier" action="add" method="post">
 
 <form:hidden path="id"/>
 <form:hidden path="def"/>
 
-<div id="content">
+<div id="variableHeightDiv">
 <table>
 <tr>
     <td>Условное название</td>
@@ -227,8 +240,9 @@
 </table>
 </div>
 
-
-<input type="submit" value="Записать"/>
-<input type="button" value="Отмена" onclick=" window.location.replace( '../suppliers/' );">
+<div id="footerButtons">
+    <input type="submit" value="Записать"/>
+    <input type="button" value="Отмена" onclick=" window.location.replace( '../suppliers/' );">
+</div>
 
 </form:form>

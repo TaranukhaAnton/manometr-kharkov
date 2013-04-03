@@ -32,7 +32,8 @@
 
         <display:table name="listInvoices" requestURI="./" excludedParams="method"
                    requestURIcontext="false" pagesize="20" sort="list"
-                   class="simple" id="invoice">
+                   class="simple" id="invoice"
+                decorator="ua.com.manometer.util.InvoiceTableDecorator">
 
 
         <display:column>
@@ -61,9 +62,7 @@
         <display:column property="t4" class="col30 right" title="пр"/>
         <display:column property="t5" class="col30 right" title="стор"/>
 
-        <display:column title="Сумма,<br> тыс" class="right">
-            <%=((Invoice) pageContext.getAttribute("invoice")).getTotal().divide(new BigDecimal("1000"), 2, RoundingMode.HALF_UP) %>
-        </display:column>
+        <display:column title="Сумма,<br> тыс" class="right currency" property="sum" />
         <display:column title="Нац-ка" class="right">
             <%=((Invoice) pageContext.getAttribute("invoice")).getAdditionToPrice() %>
         </display:column>
