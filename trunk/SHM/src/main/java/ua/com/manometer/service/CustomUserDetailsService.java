@@ -33,6 +33,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         try {
             User user = userService.findByLogin(login);
 
+
+
             boolean enabled = true;
             boolean accountNonExpired = true;
             boolean credentialsNonExpired = true;
@@ -61,7 +63,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             return securedUser;
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new UsernameNotFoundException("User not found");
         }
     }
 

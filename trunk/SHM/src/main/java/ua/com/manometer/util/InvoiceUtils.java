@@ -172,7 +172,7 @@ public class InvoiceUtils {
         return
                 (invoice.getCurrentState() == Invoice.STATE_ACT ||
                         invoice.getCurrentState() == Invoice.STATE_OTGR ||
-                        invoice.getCurrentState() == Invoice.STATE_CH_ISP)&& invoice.getBooking() == null;
+                        invoice.getCurrentState() == Invoice.STATE_CH_ISP)&& (invoice.getBooking() == null)&&(invoice.isInvoice());
     }
     public static boolean isZnAllowed(Invoice invoice) {
         return invoice.getBooking() != null;
@@ -201,12 +201,13 @@ public class InvoiceUtils {
 
     }
     public static boolean isOplatAllowed(Invoice invoice){
-        return  invoice.getCurrentState() == Invoice.STATE_ZAK ||
+        return  (invoice.getCurrentState() == Invoice.STATE_ZAK ||
                 invoice.getCurrentState() == Invoice.STATE_OPLACH ||
                 invoice.getCurrentState() == Invoice.STATE_OTGR ||
                 invoice.getCurrentState() == Invoice.STATE_ISP ||
                 invoice.getCurrentState() == Invoice.STATE_OTKAZ ||
-                invoice.getCurrentState() == Invoice.STATE_CH_ISP;
+                invoice.getCurrentState() == Invoice.STATE_CH_ISP)&&
+                (invoice.getPurpose()==Invoice.PURPOSE_POSTAVKA);
     }
     public static boolean isIspolnAllowed(Invoice invoice){
 //        return invoice.getCurrentState() == Invoice.STATE_ACT ||

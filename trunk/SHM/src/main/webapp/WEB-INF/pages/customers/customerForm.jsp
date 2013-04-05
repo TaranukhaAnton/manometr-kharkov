@@ -63,16 +63,12 @@
         Организационная форма
     </td>
     <td>
-        <c:if test="${isNew}">
+
             <form:select path="orgForm.id" cssClass="dropdown">
                 <form:options items="${orgForms}" itemValue="id" itemLabel="name"/>
             </form:select>
             <img src="../images/add.gif" width="16" height="16" border="0" onclick="javascript:void($('#OrgFormInput').dialog('open'))"/>
-        </c:if>
-        <c:if test="${!isNew}">
-            <form:hidden path="orgForm.id"/>
-            <c:out value="${customer.orgForm.name}"/>
-        </c:if>
+
     </td>
 </tr>
 <tr>
@@ -80,13 +76,9 @@
         Полное название
     </td>
     <td>
-        <c:if test="${isNew}">
+
             <form:input path="name" size="40"/>
-        </c:if>
-        <c:if test="${!isNew}">
-            <form:hidden path="name"/>
-            <c:out value="${customer.name}"/>
-        </c:if>
+
     </td>
 </tr>
 <tr>
@@ -94,13 +86,9 @@
         Полное название укр.
     </td>
     <td>
-        <c:if test="${isNew}">
+
             <form:input path="nameUkr" size="40"/>
-        </c:if>
-        <c:if test="${!isNew}">
-            <form:hidden path="nameUkr"/>
-            <c:out value="${customer.nameUkr}"/>
-        </c:if>
+
 
     </td>
 </tr>
