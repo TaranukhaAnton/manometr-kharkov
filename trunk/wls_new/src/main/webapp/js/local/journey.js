@@ -1,14 +1,7 @@
 $(document).ready(function () {
 
-    leftMenuInit();
-
-
-
+    leftMenuInit(false);
     updateDimensions();
-
-
-
-
 })
 
 $(window).resize(function () {

@@ -102,7 +102,7 @@ function generateDiv(vehicle) {
         '<div class="vehicleHeader" >' +
         '<div class="regNumDiv" onclick="slide(this)">' + vehicle.registrationNumber + '</div>' +
         generateIgnImg(vehicle)+
-        '<div class="ActionDiv">Action</div>' +
+        '<div class="mappingActionDiv">Action</div>' +
         '<div class="zoomDiv" onclick="'+( (vehicle.zoomed)?'zoomOut':'zoomIn') + '(this,' + vehicle.id + ')">' +
        ( (vehicle.zoomed)?'Zoom out':'Zoom') +
         '</div>' +

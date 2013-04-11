@@ -8,7 +8,7 @@ $(document).ready(function () {
     });
 
 
-    leftMenuInit();
+    leftMenuInit(true);
 
 
 
