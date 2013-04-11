@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/")
@@ -54,7 +51,7 @@ public class MainController {
     Object getPersons(Integer groupId) {
         logger.debug("Received request to get vehiles for groop id =" + groupId);
         Collection<Vehicle> vehicles = vehicleService.getByUnitViewId(groupId);
-        Set vehiclesDTOs = new HashSet();
+        List vehiclesDTOs = new LinkedList();
         for (Vehicle vehicle : vehicles) {
             VehicleDto e = new VehicleDto(vehicle);
             e.setDirectionOfTravel("e");
