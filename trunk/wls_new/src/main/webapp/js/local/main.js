@@ -79,7 +79,7 @@ function selectGroup(num) {
                 leftMenu += generateDiv(vehicle);
                 addMarker(vehicle);
             }
-            $.cookies.set('vehicles', vehicles);
+           // $.cookies.set('vehicles', vehicles);
             map.fitZoom();
             $('#leftMenu').html(leftMenu);
             if (!timer.isActive){
@@ -219,7 +219,7 @@ function select(vehicleId){
     }
     vehicle.selected = !vehicle.selected;
     map.fitZoom();
-    $.cookies.set('vehicles', vehicles);
+  //  $.cookies.set('vehicles', vehicles);
 }
 
 function updateVehicles(){
@@ -234,9 +234,16 @@ function updateVehicles(){
             for (var i = 0; i < data.length; i++) {
                 var vehicle = data[i];
                 var oldVeh = vehicles['vehicle' + vehicle.id]
-                vehicle.selected =  oldVeh.selected;
-                vehicle.expanded =  oldVeh.expanded;
-                vehicle.zoomed =  oldVeh.zoomed;
+                if (oldVeh==undefined){
+                    vehicle.selected =  true;
+                    vehicle.expanded =  false;
+                    vehicle.zoomed =  false;
+                }   else{
+                    vehicle.selected =  oldVeh.selected;
+                    vehicle.expanded =  oldVeh.expanded;
+                    vehicle.zoomed =  oldVeh.zoomed;
+                }
+
                 vehiclesLoc['vehicle' + vehicle.id] = vehicle;
                 leftMenu += generateDiv(vehicle);
                 if (vehicle.selected)  {
@@ -244,7 +251,7 @@ function updateVehicles(){
                 }
             }
             vehicles =  vehiclesLoc;
-            $.cookies.set('vehicles', vehicles);
+          //  $.cookies.set('vehicles', vehicles);
             $('#leftMenu').html(leftMenu);
         });
 }
