@@ -44,7 +44,7 @@ img {
     /*display: none;*/
 }
 
-.zoomDiv, .zoomOutDiv, .ActionDiv, .regNumDiv {
+.zoomDiv, .zoomOutDiv, .mappingActionDiv, .regNumDiv {
     height: 25px;
     margin-top: 2px;
     margin-left: 2px;
@@ -57,7 +57,7 @@ img {
     width: 70px;
 }
 
-.ActionDiv {
+.mappingActionDiv {
     width: 50px;
 }
 

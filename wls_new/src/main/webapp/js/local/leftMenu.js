@@ -1,9 +1,11 @@
 var vehicles;
 var groupNum;
 var timer;
+var isMapping;
 
 
-function leftMenuInit(){
+function leftMenuInit(mappingPage){
+    isMapping = mappingPage;
     $("#browser").treeview({
         collapsed:true,
         animated:"medium"
@@ -47,6 +49,24 @@ function leftMenuInit(){
         selectGroup(groupNum);
     }
 
+    $.contextMenu({
+        selector: '.mappingActionDiv',
+        trigger: 'left',
+        callback: function(key, options) {
+            var tr = options.$trigger;
+            var m = "clicked: " + key +" id "+tr.context.id;
+            window.console && console.log(m) || alert(m);
+        },
+        items: {
+            "immobilize": {name: "Immobilize"},
+            "journeys": {name: "Today's Journeys"},
+            "activity": {name: "Activity Log"},
+            "addInfo": {name: "Add Information"},
+            "details": {name: "Details" },
+            "replication": {name: "Add to replication"}
+        }
+    });
+
 
 
 }
@@ -56,14 +76,18 @@ function generateDiv(vehicle) {
     //vehReg
     //imageName
     //heading
+    var zoomDiv = '';
+    if (isMapping){
+        zoomDiv =  '<div class="zoomDiv" onclick="'+( (vehicle.zoomed)?'zoomOut':'zoomIn') + '(this,' + vehicle.id + ')">'+
+            ( (vehicle.zoomed)?'Zoom out':'Zoom') + '</div>';
+    }
+
     var result = ' <div class="vehicleDiv" id="' + vehicle.id + '"  >' +
         '<div class="vehicleHeader" >' +
         '<div class="regNumDiv" onclick="slide(this)">' + vehicle.registrationNumber + '</div>' +
         generateIgnImg(vehicle)+
-        '<div class="ActionDiv">Action</div>' +
-        '<div class="zoomDiv" onclick="'+( (vehicle.zoomed)?'zoomOut':'zoomIn') + '(this,' + vehicle.id + ')">' +
-        ( (vehicle.zoomed)?'Zoom out':'Zoom') +
-        '</div>' +
+        '<div class="mappingActionDiv">Action</div>' +
+                zoomDiv+
         '</div>' +
         '<div class="vehicleContent" ' + style + ' onclick="select('+vehicle.id+')">' +
         '<div class="vcLeft">' +

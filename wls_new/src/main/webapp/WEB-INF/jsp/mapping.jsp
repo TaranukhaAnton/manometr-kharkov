@@ -20,6 +20,7 @@
     <link href="../css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css">
     <link href="../css/jqueryslidemenu.css" rel="stylesheet" type="text/css">
 
+
     <%--<script src="../js/handlebars-1.0.rc.1.min.js"></script>--%>
     <script src="../js/jquery-1.9.0.js"></script>
     <script src="../js/jquery-ui-1.10.0.custom.min.js"></script>
@@ -32,6 +33,9 @@
     <%--<script src="../js/jquery.ui.touch-punch.min.js"></script>--%>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <script src="../js/local/gmaps.js"></script>
+
+    <link href="../css/jquery.contextMenu.css" rel="stylesheet" type="text/css">
+    <script src="../js/jquery.contextMenu.js"></script>
 
 
     <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
