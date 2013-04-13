@@ -191,7 +191,7 @@ public class InvoiceUtils {
         return true;
     }
     public static boolean isOtgrAllowed(Invoice invoice) {
-        return invoice.getCurrentState() == Invoice.STATE_ACT ||
+        return
                 invoice.getCurrentState() == Invoice.STATE_ZAK ||
                 invoice.getCurrentState() == Invoice.STATE_OPLACH ||
                 invoice.getCurrentState() == Invoice.STATE_OTGR ||
@@ -201,7 +201,8 @@ public class InvoiceUtils {
 
     }
     public static boolean isOplatAllowed(Invoice invoice){
-        return  (invoice.getCurrentState() == Invoice.STATE_ZAK ||
+        return  (invoice.getCurrentState() == Invoice.STATE_ACT ||
+                invoice.getCurrentState() == Invoice.STATE_ZAK ||
                 invoice.getCurrentState() == Invoice.STATE_OPLACH ||
                 invoice.getCurrentState() == Invoice.STATE_OTGR ||
                 invoice.getCurrentState() == Invoice.STATE_ISP ||

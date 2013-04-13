@@ -141,6 +141,8 @@ public class Invoice {
     private BigDecimal total;
     private BigDecimal totalPayments;
 
+    private BigDecimal shipmentPercent;
+
     @Column(nullable = false, length = 1)
     @Type(type = "yes_no")
     private boolean paymentMade;
@@ -602,8 +604,18 @@ public class Invoice {
         this.next = next;
     }
 
+    public BigDecimal getShipmentPercent() {
+        return shipmentPercent;
+    }
+
+    public void setShipmentPercent(BigDecimal shipmentPercent) {
+        this.shipmentPercent = shipmentPercent;
+    }
+
+
     @Override
     public String toString() {
         return "i_"+id;    //To change body of overridden methods use File | Settings | File Templates.
     }
+
 }
