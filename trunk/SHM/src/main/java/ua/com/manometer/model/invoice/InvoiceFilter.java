@@ -24,9 +24,10 @@ public class InvoiceFilter  implements Serializable {
     Integer f1From;
     Integer f1To;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     Date f2From;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     Date f2To;
 
     @Type(type = "ua.com.manometer.util.IntegerListCustomType")

@@ -66,7 +66,11 @@
         <display:column title="Нац-ка" class="right">
             <%=((Invoice) pageContext.getAttribute("invoice")).getAdditionToPrice() %>
         </display:column>
-        <display:column property="supplier.currency.name" class="center" title="Вал"/>
+
+
+        <display:column url="/invoices/view_shipments" property="shipmentPercent" class="right" paramId="invoice_id" paramProperty="id" title="Отгрузка <br> %"/>
+
+
         <display:column title="сост.">
             <%=Invoice.curStateAlias[((Invoice) pageContext.getAttribute("invoice")).getCurrentState()]%>
         </display:column>
@@ -84,9 +88,8 @@
             %>
         </display:column>
 
-        <display:column title="Оплата,<br> %" class="right">
-            <%=((Invoice) pageContext.getAttribute("invoice")).getPaymentPercent()%>
-        </display:column>
+        <display:column url="/invoices/view_payments" title="Оплата,<br> %" class="right" property="paymentPercent" paramId="invoice_id" paramProperty="id" />
+
     <sec:authorize access="hasRole('ROLE_ADMIN')">
             <display:column title="" url="/invoices/delete"         paramId="invoice_id" paramProperty="id" >
                 <img src="../images/delete.gif" width="18" height="18" hspace="4"   border="0"/>
@@ -210,11 +213,11 @@
                             <table>
                                 <tr>
                                     <td>с</td>
-                                    <td><input type="text" name="f2_from" id="f2_from"></td>
+                                    <td><input type="text" name="f2From" id="f2_from"></td>
                                 </tr>
                                 <tr>
                                     <td>по</td>
-                                    <td><input type="text" name="f2_to" id="f2_to"></td>
+                                    <td><input type="text" name="f2To" id="f2_to"></td>
                                 </tr>
                             </table>
                         </td>

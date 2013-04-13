@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     var row = $("#invoice tr:eq(0) ");
     $(row).clone().insertAfter($(row));
 
@@ -49,7 +49,7 @@ $(function() {
         showOn: 'button',
         buttonImage: '../images/datepicker.jpg',
         buttonImageOnly: true,
-        onSelect: function(selectedDate) {
+        onSelect: function (selectedDate) {
             var option = this.id == "f2_from" ? "minDate" : "maxDate";
             var instance = $(this).data("datepicker");
             var date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
@@ -59,19 +59,19 @@ $(function() {
 
 
     $("#consumer").autocomplete(
-         {
-             source:"../customers/listCustomers",
-            width:260,
-            selectFirst:false,
-                minChars: 3
+        {
+            source: "../customers/listCustomers",
+            width: 260,
+            selectFirst: false,
+            minChars: 3
         });
 
     $("#employer").autocomplete(
-         {
-            source:"../customers/listCustomers",
-            width:260,
-            selectFirst:false,
-             minChars: 3
+        {
+            source: "../customers/listCustomers",
+            width: 260,
+            selectFirst: false,
+            minChars: 3
         });
 
 
@@ -84,28 +84,28 @@ $(function() {
         height: 400,
         width: 450,
         modal: true,
-        resizable:false,
+        resizable: false,
         buttons: {
-            'Создать': function() {
+            'Создать': function () {
                 $('#number').removeClass("error");
                 $('#numberModifier').removeClass("error");
                 $('#date').removeClass("error");
                 $('#consumer').removeClass("error");
                 $('#employer').removeClass("error");
 
-                         $.post("verifyInvoicePresence", $('#newInvoice_form').serialize(),
-                             function(data) {
-//                $.post("add", $('#newInvoice_form').serialize(), function(data) {
-                  //  if (data.length > 0) {
-                   //     var response = eval("(" + data + ")");
+                $.post("verifyInvoicePresence", $('#newInvoice_form').serialize(),
+                    function (data) {
                         if (data.correct) {
                             location.replace("add?" + $('#newInvoice_form').serialize());
                         } else {
-                            alert(data.mes);
+                            alert(data.mes.join("\n"));
                             if (data.presence) {
                                 $('#number').addClass("error");
                                 $('#numberModifier').addClass("error");
                                 $('#date').addClass("error");
+                            }
+                            if (!data.number) {
+                                $('#number').addClass("error");
                             }
                             if (!data.employer) {
                                 $('#employer').addClass("error");
@@ -114,20 +114,19 @@ $(function() {
                                 $('#consumer').addClass("error");
                             }
                         }
-                   // }
-                });
+                    });
 
 
             },
-            'Отмена': function() {
+            'Отмена': function () {
                 $(this).dialog('close');
             }
         },
-        open: function(event, ui) {
+        open: function (event, ui) {
             $('body').css('overflow', 'hidden');
             $('.ui-widget-overlay').css('width', '100%');
         },
-        close: function(event, ui) {
+        close: function (event, ui) {
             $('body').css('overflow', 'auto');
         }
     });
@@ -138,25 +137,25 @@ $(function() {
         height: 550,
         width: 600,
         modal: true,
-        resizable:false,
+        resizable: false,
         buttons: {
-            'Применить': function() {
+            'Применить': function () {
                 location.replace("../filters/save_filter?" + $('#filterForm').serialize());
             },
-            'Очистить': function() {
+            'Очистить': function () {
                 // alert($('#filterForm').serialize());
 
                 $(this).dialog('close');
             },
-            'Отмена': function() {
+            'Отмена': function () {
                 $(this).dialog('close');
             }
         },
-        open: function(event, ui) {
+        open: function (event, ui) {
             $('body').css('overflow', 'hidden');
             $('.ui-widget-overlay').css('width', '100%');
         },
-        close: function(event, ui) {
+        close: function (event, ui) {
             $('body').css('overflow', 'auto');
         }
     });
@@ -164,16 +163,15 @@ $(function() {
 
 });
 function openFilterWindow() {
-    $.post("../filters/get_filter", "", function(data) {
-      //  alert('R');
-      //  var response = eval("(" + data + ")");
+    $.post("../filters/get_filter", "", function (data) {
+        //  alert('R');
+        //  var response = eval("(" + data + ")");
         $('#filterForm').deserialize(data);
     });
     $('#filter-form').dialog('open');
 }
 
-function removeErrorClass()
-{
+function removeErrorClass() {
     $('#number').removeClass("error");
     $('#numberModifier').removeClass("error");
     $('#date').removeClass("error");

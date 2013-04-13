@@ -9,6 +9,7 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -528,42 +529,54 @@ public class InvoiceController {
     @RequestMapping("/verifyInvoicePresence")
     public
     @ResponseBody
-    Map verifyInvoicePresence(HttpServletRequest request) throws ParseException {
+    Map verifyInvoicePresence(
+
+            @RequestParam(required = false) Boolean isInvoice,
+            @RequestParam(required = false) Integer number,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "dd.MM.yyyy") Date date,
+            @RequestParam(required = false) String numberModifier,
+            @RequestParam(required = false) String employer,
+            @RequestParam(required = false) String consumer) throws ParseException {
+
+
+        Boolean isAlreadyPresent = false;
         Map map = new HashMap();
-
-        DateFormat f = new SimpleDateFormat("dd.MM.yyyy");
-
-        Boolean isInvoice = new Boolean(request.getParameter("isInvoice"));
-        Integer number = new Integer(request.getParameter("number"));
-        String numberModifier = request.getParameter("numberModifier");
-        Date date = f.parse(request.getParameter("date"));
-        Boolean isAlreadyPresent = invoiceService.checkPresence(number, numberModifier, isInvoice, date);
         Boolean correct = true;
-        String mes = "";
+
+        List<String> mes = new LinkedList<String>();
+
+        if (number == null) {
+            correct = false;
+            mes.add("Поле номер не должно быть пустым.");
+            map.put("number", false);
+        } else {
+            isAlreadyPresent = invoiceService.checkPresence(number, numberModifier, isInvoice, date);
+
+        }
+
 
         if (isAlreadyPresent) {
             correct = false;
-            mes += ((isInvoice) ? "Cчет" : "Кп") + " уже существует. \\u0D";
+            mes.add(((isInvoice) ? "Cчет" : "Кп") + " уже существует.");
         }
 
         map.put("presence", isAlreadyPresent);
 
-        String employer = request.getParameter("employer");
+
         Boolean employerCorrect = customerService.isCustomerPresent(employer);
         map.put("employer", employerCorrect);
         if (!employerCorrect) {
             correct = false;
-            mes += "Неверно указан заказчик. \\u0D ";
+            mes.add("Неверно указан заказчик.");
         }
 
 
-        String consumer = request.getParameter("consumer");
         if (StringUtils.isNotBlank(consumer)) {
             Boolean consumerCorrect = customerService.isCustomerPresent(consumer);
             map.put("consumer", !consumerCorrect);
             if (!consumerCorrect) {
                 correct = false;
-                mes += "Неверно указан конечный потребитель. \\u0D ";
+                mes.add("Неверно указан конечный потребитель. \\u0D ");
             }
         } else {
             map.put("consumer", true);
@@ -622,7 +635,7 @@ public class InvoiceController {
         model.addAttribute("invoice", invoice);
         final int currencyId = invoice.getSupplier().getCurrency().getId().intValue();
         model.addAttribute("strTotal", jAmount.getAmount(currencyId, invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
-        String fileName = "invoice_" + invoice.getNumber() + ((StringUtils.isBlank(invoice.getNumberModifier())) ? "" : ("_"+invoice.getNumberModifier()));
+        String fileName = "invoice_" + invoice.getNumber() + ((StringUtils.isBlank(invoice.getNumberModifier())) ? "" : ("_" + invoice.getNumberModifier()));
         model.addAttribute("name", fileName);
 
         //String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();

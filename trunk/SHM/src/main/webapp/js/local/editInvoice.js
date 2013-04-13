@@ -361,7 +361,7 @@ $(function() {
     $("#copyInvoice-dialog").dialog({
         autoOpen: false,
         height: 400,
-        width: 350,
+        width: 450,
         modal: true,
         resizable:false,
         buttons: {
@@ -372,29 +372,35 @@ $(function() {
                 $("#copyInvoice_form input[name='consumer']").removeClass("error");
                 $("#copyInvoice_form input[name='emploer']").removeClass("error");
 
-                //                        $.post("invoiceAction.do?method=verifyInvoicePresence", {"isInvoice" : $('[name=isInvoice]:checked').val(), "number":$('#number').val(), "numberModifier":$('#numberModifier').val(), "date":$('#date').val() }, function(data) {
-                $.post("invoiceAction.do?method=verifyInvoicePresence", $('#copyInvoice_form').serialize(), function(data) {
-                    if (data.length > 0) {
-                        var response = eval("(" + data + ")");
-                        if (response.correct) {
-                          //  alert($('#copyInvoice_form').serialize());
-                            location.replace("invoiceAction.do?method=copyInvoice&" + $('#copyInvoice_form').serialize());
+
+
+
+                $.post("verifyInvoicePresence", $('#copyInvoice_form').serialize(),
+                    function(data) {
+                        if (data.correct) {
+                           // location.replace("add?" + $('#newInvoice_form').serialize());
+                            //location.replace("invoiceAction.do?method=copyInvoice&" + $('#copyInvoice_form').serialize());
+                            alert('ok');
                         } else {
-                            alert(response.mes);
-                            if (!response.presence) {
+                            alert(data.mes.join("\n"));
+                            if (data.presence) {
                                 $("#copyInvoice_form input[name='number']").addClass("error");
                                 $("#copyInvoice_form input[name='numberModifier']").addClass("error");
                                 $("#copyInvoice_form input[name='date']").addClass("error");
                             }
-                            if (!response.emploer) {
+                            if (!data.employer) {
                                 $("#copyInvoice_form input[name='emploer']").addClass("error");
                             }
-                            if (!response.consumer) {
+                            if (!data.consumer) {
                                 $("#copyInvoice_form input[name='consumer']").addClass("error");
                             }
+                            if (!data.number) {
+                                $("#copyInvoice_form input[name='number']").addClass("error");
+                            }
                         }
-                    }
-                });
+                        // }
+                    });
+
 
 
             },
