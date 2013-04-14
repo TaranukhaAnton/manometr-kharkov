@@ -55,11 +55,17 @@ public class Supplier {
     String chief;//6.28
     String FIOChief;//6.29
 
-    String secondChief;//6.28
-    String secondFIOChief;//6.29
+    @Column(name ="second_chief")
+    String secondChief;
+
+    @Column(name ="second_chief_fio")
+    String secondFIOChief;
 
     String NDSPayerNom;   //6.30
     String language;
+
+    @Column(name ="default_row" ,nullable = false, length = 1)
+    @Type(type = "yes_no")
     private boolean def;
 
     public Supplier() {

@@ -8,9 +8,10 @@
 <br>
 <br>
 <display:table name="listCustomer" id="row"
-               requestURI="./"
+               requestURI="./"     keepStatus="true"
                excludedParams="method" requestURIcontext="false" pagesize="24"
                sort="list" class="simple" defaultsort="3">
+
     <display:column title="Ст" sortable="true" class="bool2">
         <c:if test="${row.status}">
             <img src="../images/bullet_done.png" />

@@ -34,7 +34,7 @@ public class User {
     private String login; // логин
     private String pass;// пароль
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "invoicefilter_fk")
+    @JoinColumn(name = "invoice_filter_fk")
     private InvoiceFilter invoiceFilter;
     private String fioUkr;
 

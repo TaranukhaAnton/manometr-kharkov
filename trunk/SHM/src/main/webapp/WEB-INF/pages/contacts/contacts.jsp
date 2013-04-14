@@ -18,7 +18,7 @@
 
 
 <a href="edit" >Добавить	контакт</a>
-		<display:table name="listContact" id="row"
+		<display:table name="listContact" id="row" keepStatus="true"
 			requestURI="./"
 			excludedParams="method" requestURIcontext="false" pagesize="20"
 			sort="list" class="simple">

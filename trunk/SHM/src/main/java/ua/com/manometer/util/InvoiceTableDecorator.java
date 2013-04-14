@@ -36,7 +36,7 @@ public class InvoiceTableDecorator extends TableDecorator {
     }
     public String getPurpose(){
         Invoice invoice = (Invoice) getCurrentRowObject();
-        return   Invoice.purposeAlias[invoice.getPurpose()]+"@@";
+        return   Invoice.purposeAlias[invoice.getPurpose()];
     }
 
 

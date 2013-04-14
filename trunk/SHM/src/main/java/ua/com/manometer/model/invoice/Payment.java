@@ -20,9 +20,11 @@ public class Payment {
     @ManyToOne
     @JoinColumn(name = "INVOICE_ID", nullable = true)
     private Invoice invoice;
+
     @Column ( name="amount", precision = 8, scale = 6 )
     private BigDecimal exchangeRate;
 
+    @Column ( name="payment_sum", precision = 12, scale = 2)
     private BigDecimal paymentSum;
 
 

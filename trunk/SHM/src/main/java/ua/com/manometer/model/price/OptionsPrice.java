@@ -3,14 +3,13 @@ package ua.com.manometer.model.price;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 
 @Entity
 @IdClass(IdOptionsPrice.class)
+@Table(name="options_price")
 public class OptionsPrice {
     @Id
     private Integer type;
@@ -18,8 +17,11 @@ public class OptionsPrice {
     private Integer isp;
     @Id
     private String param;
+
+    @Column( name="cost", precision = 12, scale = 2)
     private BigDecimal cost;
 
+    @Column ( name="price", precision = 12, scale = 2)
     private BigDecimal price;
 
 

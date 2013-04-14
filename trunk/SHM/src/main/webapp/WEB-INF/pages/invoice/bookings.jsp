@@ -102,7 +102,7 @@
 <DIV ID="content">
 
     <display:table name="listBookings" requestURI="suplierAction.do?method=viewBookings" excludedParams="method"
-                   requestURIcontext="false" pagesize="20" sort="list"
+                   requestURIcontext="false" pagesize="20" sort="list" keepStatus="true"
                    class="simple" id="booking">
 
         <display:column property="curStateStr" title="сост" />

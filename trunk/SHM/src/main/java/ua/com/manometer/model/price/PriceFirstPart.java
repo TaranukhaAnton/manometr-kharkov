@@ -1,13 +1,12 @@
 package ua.com.manometer.model.price;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 
 @Entity
 @IdClass(IdPrice.class)
+@Table(name="price_first_part")
 public class PriceFirstPart {
     @Id
     private Integer model;
@@ -20,9 +19,13 @@ public class PriceFirstPart {
     @Id
     private Integer err;
 
+    @Column( name="cost", precision = 12, scale = 2)
     private BigDecimal cost;
+    @Column ( name="price", precision = 12, scale = 2)
     private BigDecimal price;
+    @Column ( name="cost_tmp", precision = 12, scale = 2)
     private BigDecimal costTmp;
+    @Column ( name="price_tmp", precision = 12, scale = 2)
     private BigDecimal priceTmp;
 
     public PriceFirstPart(Integer model, Integer isp, Integer mat, Integer klim, Integer err) {

@@ -5,11 +5,13 @@ import org.hibernate.annotations.Type;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 
 @Entity
 @DiscriminatorValue("PressureSensor")
+@Table(name="pressure_sensor")
 public class PressureSensor extends InvoiceItem {
     private String preamble;
     private Integer series;

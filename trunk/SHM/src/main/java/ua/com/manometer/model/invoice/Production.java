@@ -2,11 +2,13 @@ package ua.com.manometer.model.invoice;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Entity
 @DiscriminatorValue("ProductionPrice")
+@Table(name="production")
 public class Production extends InvoiceItem {
     String name;
 

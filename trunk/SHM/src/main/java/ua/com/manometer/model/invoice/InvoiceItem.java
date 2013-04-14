@@ -13,7 +13,7 @@ import java.util.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "TYPE", discriminatorType = DiscriminatorType.STRING)
 
-@Table(name = "InvoiceItem")
+@Table(name = "invoice_item")
 public abstract class InvoiceItem {
     @Id
     @GeneratedValue()
@@ -23,8 +23,14 @@ public abstract class InvoiceItem {
 
     protected BigDecimal price;
     protected BigDecimal cost;
+
+    @Column(name = "selling_price", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
     protected BigDecimal sellingPrice;
+
+    @Column(name = "additional_cost", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
     protected BigDecimal additionalCost;
+
+    @Column(name = "transportation_cost", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
     protected BigDecimal transportationCost;
 
     private Integer deliveryTime;
