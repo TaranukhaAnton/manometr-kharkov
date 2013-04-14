@@ -32,7 +32,7 @@
 
         <display:table name="listInvoices" requestURI="./" excludedParams="method"
                    requestURIcontext="false" pagesize="20" sort="list"
-                   class="simple" id="invoice"
+                   class="simple" id="invoice" keepStatus="true"
                 decorator="ua.com.manometer.util.InvoiceTableDecorator">
 
 

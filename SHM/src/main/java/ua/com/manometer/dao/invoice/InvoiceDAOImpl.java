@@ -6,6 +6,8 @@ import org.hibernate.classic.Session;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
+import org.joda.time.MutableDateTime;
 import ua.com.manometer.model.Supplier;
 import ua.com.manometer.model.invoice.Invoice;
 
@@ -33,7 +35,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     @SuppressWarnings("unchecked")
     @Override
     public List<Invoice> listInvoice() {
-        return sessionFactory.getCurrentSession().createQuery("from Invoice").list();
+        return sessionFactory.getCurrentSession().createCriteria(Invoice.class).list();
     }
 
     @SuppressWarnings("unchecked")
@@ -43,27 +45,47 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Invoice.class);
         Conjunction conjunction = Restrictions.conjunction();
 
-        if (invoiceFilter.getF0()==1){
+        if (invoiceFilter.getF0() == 1) {
             conjunction.add(Restrictions.eq("isInvoice", true));
         }
-        if (invoiceFilter.getF0()==2){
+        if (invoiceFilter.getF0() == 2) {
             conjunction.add(Restrictions.eq("isInvoice", false));
         }
 
 
-        if (invoiceFilter.getF1() != 0){
+        if (invoiceFilter.getF1() != 0) {
 
-            if(invoiceFilter.getF1From()!=null){
+            if (invoiceFilter.getF1From() != null) {
                 conjunction.add(Restrictions.gt("number", invoiceFilter.getF1From()));
             }
 
-            if(invoiceFilter.getF1To()!=null){
+            if (invoiceFilter.getF1To() != null) {
                 conjunction.add(Restrictions.lt("number", invoiceFilter.getF1To()));
             }
 
         }
 
 
+        if (invoiceFilter.getF2() == 1) {
+            DateTime dateTime = new DateTime();
+            conjunction.add(Restrictions.gt("date", dateTime.dayOfYear().withMinimumValue().millisOfDay().withMinimumValue().toDate()));
+            conjunction.add(Restrictions.lt("date",dateTime.dayOfYear().withMaximumValue().millisOfDay().withMaximumValue().toDate()));
+        }
+
+        if (invoiceFilter.getF2() == 2) {
+            conjunction.add(Restrictions.gt("date", new DateTime().minusMonths(3).millisOfDay().withMinimumValue().toDate()));
+            conjunction.add(Restrictions.lt("date", new DateTime().millisOfDay().withMaximumValue().toDate()));
+        }
+
+        if (invoiceFilter.getF2() == 3) {
+            if (invoiceFilter.getF2From() != null) {
+                conjunction.add(Restrictions.gt("date", new DateTime(invoiceFilter.getF2From().getTime()).millisOfDay().withMinimumValue().toDate() ));
+            }
+
+            if (invoiceFilter.getF2To() != null) {
+                conjunction.add(Restrictions.lt("date", new DateTime(invoiceFilter.getF2To().getTime()).millisOfDay().withMaximumValue().toDate() ));
+            }
+        }
 
 
         if (!invoiceFilter.getStateFilter().isEmpty()) {
@@ -75,7 +97,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
         if (!invoiceFilter.getCurrencyFilter().isEmpty()) {
             List<Integer> suppliersIdList = getSuppliersByCurrencyIdList(invoiceFilter.getCurrencyFilter());
-            conjunction.add(Restrictions.in("supplier.id",suppliersIdList ));
+            conjunction.add(Restrictions.in("supplier.id", suppliersIdList));
         }
         if (!invoiceFilter.getPurposeFilter().isEmpty()) {
             conjunction.add(Restrictions.in("purpose", invoiceFilter.getPurposeFilter()));
@@ -87,7 +109,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         return criteria.list();
     }
 
-    List<Integer>  getSuppliersByCurrencyIdList( List<Integer> currencies){
+    List<Integer> getSuppliersByCurrencyIdList(List<Integer> currencies) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Supplier.class);
         criteria.add(Restrictions.in("currency.id", currencies));
         List<Supplier> list = criteria.list();
@@ -98,7 +120,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         }
         return result;
     }
-    
+
     @Override
     public void removeInvoice(Integer id) {
         Invoice invoice = (Invoice) sessionFactory.getCurrentSession().load(Invoice.class, id);

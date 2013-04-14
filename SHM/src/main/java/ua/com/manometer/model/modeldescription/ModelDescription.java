@@ -5,10 +5,12 @@ import org.hibernate.annotations.Type;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.List;
-import java.util.StringTokenizer;
+
 
 @Entity
+@Table(name="model_description")
 public class ModelDescription {
     public static String[] MAT = {"01", "02", "05", "07", "09", "11", "12"};
     public static String[] ERR = {"0.1", "0.15", "0.25", "0.5", "1"};

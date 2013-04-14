@@ -9,11 +9,13 @@ import ua.com.manometer.util.CustomDateSerializer;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.*;
 
 
 @Entity
+@Table(name="invoice_filter")
 public class InvoiceFilter  implements Serializable {
     @Id
     @GeneratedValue()

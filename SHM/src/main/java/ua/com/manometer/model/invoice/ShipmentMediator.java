@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 
 @Entity
+@Table(name="shipment_mediator")
 public class ShipmentMediator {
     @Id
     @GeneratedValue()
