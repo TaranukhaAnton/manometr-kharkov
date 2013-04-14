@@ -24,9 +24,9 @@ public class User {
     private String patronymic; // отчество
     private String lastName; // фамилия
     private String position; // должность
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="dd.MM.yyyy")
     private Date receptionOnWorkDate; // дата приёма на работу
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="dd.MM.yyyy")
     private Date dischargingDate; // дата увольнения
     private String tel;// телефон
     private String telMob; // телефон мобильный

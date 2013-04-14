@@ -171,13 +171,17 @@ public class InvoiceController {
     public String addInvoice(HttpServletRequest request, Map<String, Object> map) throws ParseException {
         LOGGER.info(getName() + " add invoice ");
         Invoice invoice = new Invoice();
+
         String employerShortName = request.getParameter("employer");
         LOGGER.info(" \"employer\" = " + employerShortName);
-        invoice.setEmployer(employerShortName);
-        String consumer = request.getParameter("consumer");
-        invoice.setConsumer(consumer);
-        LOGGER.info(" \"consumer\" = " + consumer);
         Customer employer = customerService.getCustomerByShortName(employerShortName);
+        invoice.setEmployer(employer);
+
+        String consumerShortName = request.getParameter("consumer");
+        LOGGER.info(" \"consumer\" = " + consumerShortName);
+        Customer consumer = customerService.getCustomerByShortName(consumerShortName);
+        invoice.setConsumer(consumer);
+
         invoice.setExecutor(employer.getPerson());
         invoice.setNDS(new BigDecimal("20"));
         invoice.setPurpose(Invoice.PURPOSE_POSTAVKA);
@@ -409,7 +413,8 @@ public class InvoiceController {
             if (customerService.isCustomerPresent(value)) {
                 map.put("res", "ok");
                 map.put("param", "employer");
-                invoice.setEmployer(value);
+                Customer employer = customerService.getCustomerByShortName(value);
+                invoice.setEmployer(employer);
             } else {
                 map.put("res", "error");
                 map.put("param", "employer");
@@ -418,7 +423,8 @@ public class InvoiceController {
             if (customerService.isCustomerPresent(value)) {
                 map.put("res", "ok");
                 map.put("param", "consumer");
-                invoice.setConsumer(value);
+                Customer consumer = customerService.getCustomerByShortName(value);
+                invoice.setConsumer(consumer);
             } else {
                 map.put("res", "error");
                 map.put("param", "consumer");
@@ -598,7 +604,7 @@ public class InvoiceController {
 
         JRDataSource dataSource = new JRBeanCollectionDataSource(invoice.getInvoiceItems());
 
-        Customer employer = customerService.getCustomerByShortName(invoice.getEmployer());
+        Customer employer = invoice.getEmployer();
         City city = cityService.getCity(employer.getCity());
 
         String orgForm = "";
@@ -737,7 +743,7 @@ public class InvoiceController {
         //String language = invoice.getSupplier().getLanguage();
         JasperReport report = JasperCompileManager.compileReport("D:\\projects\\~MANOMETR\\SHM\\src\\main\\resources\\invoice_ru.jrxml");
         Map<String, Object> parameters = new HashMap<String, Object>();
-        Customer employer = customerService.getCustomerByShortName(invoice.getEmployer());
+        Customer employer = invoice.getEmployer();
         City city = cityService.getCity(employer.getCity());
         String orgForm = "";
         String cityName = "";

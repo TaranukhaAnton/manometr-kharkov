@@ -11,7 +11,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div style="height: 800px;">
+<div style="height: 600px;">
 
     <%String id = (String) request.getParameter("type"); %>
 
