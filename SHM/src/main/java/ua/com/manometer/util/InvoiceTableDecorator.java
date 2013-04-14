@@ -14,6 +14,32 @@ public class InvoiceTableDecorator extends TableDecorator {
         return  invoice.getTotal().divide(new BigDecimal("1000"), 2, RoundingMode.HALF_UP).toString() ;
     }
 
+
+    public String getShipment() {
+        Invoice invoice = (Invoice) getCurrentRowObject();
+
+        if(invoice.getBooking() == null){
+            return "";
+        }       else{
+            return "<a href=\"../invoices/view_shipments?invoice_id="+invoice.getId()+"\">"+invoice.getShipmentPercent()+"</a>";
+        }
+    }
+
+    public String getBooking() {
+        Invoice invoice = (Invoice) getCurrentRowObject();
+
+        if(invoice.getBooking() == null){
+            return "";
+        }       else{
+            return "<a href=\"../bookings/view?invoice_id="+invoice.getId()+"\">"+invoice.getBooking().getNumber()+"</a>";
+        }
+    }
+    public String getPurpose(){
+        Invoice invoice = (Invoice) getCurrentRowObject();
+        return   Invoice.purposeAlias[invoice.getPurpose()]+"@@";
+    }
+
+
     public String addRowClass()
     {
         Invoice invoice = (Invoice) getCurrentRowObject();

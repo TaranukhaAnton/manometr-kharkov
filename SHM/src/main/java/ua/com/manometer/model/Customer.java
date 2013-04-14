@@ -19,8 +19,7 @@ public class Customer {
 
     @Override
     public String toString() {
-
-        return name;
+        return shortName;
     }
 
     private Integer id;
@@ -59,15 +58,15 @@ public class Customer {
     private String address3;
 
     private Customer headCustomer;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="dd.MM.yyyy")
     private Date mergeData;
     private String questionnaire;
     private boolean status;
     private Customer oldRecord;
     private User person;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="dd.MM.yyyy")
     private Date dateOfRecord;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="dd.MM.yyyy")
     private Date dateLastCorrection;
     private String codeOKPO;
     private String requisite;

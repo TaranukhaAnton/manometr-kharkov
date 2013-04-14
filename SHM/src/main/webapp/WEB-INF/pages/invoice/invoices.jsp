@@ -48,9 +48,10 @@
 
         <display:column title="дата" sortable="true" format="{0,date,dd.MM.yyyy}" property="date"  headerClass="dataColumn"    />
 
-        <display:column title="Назн" class="center">
-            <%= Invoice.purposeAlias[((Invoice) pageContext.getAttribute("invoice")).getPurpose()]%>
-        </display:column>
+        <display:column title="Назн" class="center" property="purpose"/>
+
+            <%--<%= Invoice.purposeAlias[((Invoice) pageContext.getAttribute("invoice")).getPurpose()]%>--%>
+        <%--</display:column>--%>
         <display:column url="/customers/get_by_name" title="заказчик" maxLength="15" property="employer" paramId="name" paramProperty="employer"/>
 
         <display:column property="executor" class="center" title="спец <br> ОСО"/>
@@ -63,31 +64,16 @@
         <display:column property="t5" class="col30 right" title="стор"/>
 
         <display:column title="Сумма,<br> тыс" class="right currency" property="sum" />
-        <display:column title="Нац-ка" class="right">
-            <%=((Invoice) pageContext.getAttribute("invoice")).getAdditionToPrice() %>
-        </display:column>
-
-
-        <display:column url="/invoices/view_shipments" property="shipmentPercent" class="right" paramId="invoice_id" paramProperty="id" title="Отгрузка <br> %"/>
+        <display:column title="Нац-ка" class="right" property="additionToPrice"/>
+        <display:column  property="shipment" class="right"  title="Отгрузка <br> %"/>
 
 
         <display:column title="сост.">
             <%=Invoice.curStateAlias[((Invoice) pageContext.getAttribute("invoice")).getCurrentState()]%>
         </display:column>
 
-        <display:column title="з/н" class="right">
-            <%
-                Booking booking = ((Invoice) pageContext.getAttribute("invoice")).getBooking();
-                if (booking != null) {
-            %>
-            <a href="../bookings/view?invoice_id=<%=((Invoice) pageContext.getAttribute("invoice")).getId()%>"><%=booking.getNumber()%> <%= (StringUtils.isBlank(booking.getNumberModifier()) ? "" : ("/" + booking.getNumberModifier()))%>
-            </a>
-            <%
 
-                }
-            %>
-        </display:column>
-
+        <display:column  property="booking" class="right"  title="з/н"/>
         <display:column url="/invoices/view_payments" title="Оплата,<br> %" class="right" property="paymentPercent" paramId="invoice_id" paramProperty="id" />
 
     <sec:authorize access="hasRole('ROLE_ADMIN')">

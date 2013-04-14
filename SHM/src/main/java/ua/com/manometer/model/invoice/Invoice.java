@@ -2,6 +2,7 @@ package ua.com.manometer.model.invoice;
 
 import org.hibernate.annotations.IndexColumn;
 import org.hibernate.annotations.Type;
+import ua.com.manometer.model.Customer;
 import ua.com.manometer.model.Supplier;
 import ua.com.manometer.model.User;
 
@@ -62,8 +63,10 @@ public class Invoice {
 
 
 
-    private String employer;
-    private String consumer;
+    @ManyToOne
+    private Customer employer;
+    @ManyToOne
+    private Customer consumer;
 
     private String notice;
     @Column(length = 5000)
@@ -133,25 +136,37 @@ public class Invoice {
     @Transient
     private BigDecimal debtPercent;
 
-
+    @Column(name = "addition_to_price", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
     private BigDecimal additionToPrice;
+
+    @Column(name = "nds_percent", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
     private BigDecimal ndsPayment;
+
+    @Column(name = "payment_percent", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
     private BigDecimal paymentPercent;
+
+    @Column(name = "sum", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
     private BigDecimal sum;
+
+    @Column(name = "total", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
     private BigDecimal total;
+
+    @Column(name = "total_payments", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
     private BigDecimal totalPayments;
 
+
+    @Column(name = "shipment_percent", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
     private BigDecimal shipmentPercent;
 
-    @Column(nullable = false, length = 1)
+    @Column(name = "is_payment_made" ,nullable = false, columnDefinition = "CHAR(1) NOT NULL DEFAULT N")
     @Type(type = "yes_no")
     private boolean paymentMade;
 
-    @Column(nullable = false, length = 1)
+    @Column(name = "is_delivery_made" ,nullable = false, columnDefinition = "CHAR(1) NOT NULL DEFAULT N")
     @Type(type = "yes_no")
     private boolean deliveryMade;
 
-    @Column(nullable = false, length = 1)
+    @Column(name = "is_any_goods_shipped" ,nullable = false, columnDefinition = "CHAR(1) NOT NULL DEFAULT N")
     @Type(type = "yes_no")
     private boolean  anyGoodsShipped;
 
@@ -230,19 +245,19 @@ public class Invoice {
     }
 
 
-    public String getEmployer() {
+    public Customer getEmployer() {
         return employer;
     }
 
-    public void setEmployer(String employer) {
+    public void setEmployer(Customer employer) {
         this.employer = employer;
     }
 
-    public String getConsumer() {
+    public Customer getConsumer() {
         return consumer;
     }
 
-    public void setConsumer(String consumer) {
+    public void setConsumer(Customer consumer) {
         this.consumer = consumer;
     }
 

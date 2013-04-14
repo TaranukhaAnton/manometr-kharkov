@@ -1,8 +1,10 @@
 package ua.com.manometer.model.invoice;
 
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
+import ua.com.manometer.util.CustomDateSerializer;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,9 +27,9 @@ public class InvoiceFilter  implements Serializable {
     Integer f1To;
 
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="dd.MM.yyyy")
     Date f2From;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="dd.MM.yyyy")
     Date f2To;
 
     @Type(type = "ua.com.manometer.util.IntegerListCustomType")
@@ -123,6 +125,8 @@ public class InvoiceFilter  implements Serializable {
         this.f1To = f1To;
     }
 
+
+    @JsonSerialize(using = CustomDateSerializer.class)
     public Date getF2From() {
         return f2From;
     }
@@ -131,6 +135,7 @@ public class InvoiceFilter  implements Serializable {
         this.f2From = f2From;
     }
 
+    @JsonSerialize(using = CustomDateSerializer.class)
     public Date getF2To() {
         return f2To;
     }
