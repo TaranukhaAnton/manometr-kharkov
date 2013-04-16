@@ -43,3 +43,7 @@ function checkRegexp(o, regexp, empty) {
     }
 
 }
+
+function banChanges() {
+    $("#bunChanges-dialog").dialog('open');
+}

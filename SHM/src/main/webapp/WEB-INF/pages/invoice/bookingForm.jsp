@@ -50,6 +50,46 @@
         });
 
 
+        $("#bunChanges-dialog").dialog({
+            autoOpen: false,
+            height: 200,
+            width: 450,
+            modal: true,
+            resizable:false,
+            buttons: {
+                'Запрет изменений': function() {
+                    //todo проверить верна ли дата
+                    $.post("../bookings/editBookingParams", {"param": "date", "value": $("#newBookingDate").val(), "invoice_id": $("#invoice_id").val()},
+                            function (response) {
+                                if (response.res) {
+                                    changeBookingState(1);
+                                } else {
+                                    alert(response.message);
+                                }
+                            });
+                },
+                'Отмена': function() {
+                    $(this).dialog('close');
+                }
+            },
+            open: function(event, ui) {
+                $('body').css('overflow', 'hidden');
+                $('.ui-widget-overlay').css('width', '100%');
+            },
+            close: function(event, ui) {
+                $("#invDate").datepicker("hide");
+                $('body').css('overflow', 'auto');
+            }
+        });
+
+
+
+        $("#newBookingDate").datepicker({
+            showOn: 'button',
+            buttonImage: '../images/datepicker.jpg',
+            buttonImageOnly: true
+        });
+
         bodyResize();
     });
     function bodyResize() {
@@ -82,9 +122,9 @@
 
 </script>
 <style type="text/css">
-    label, input {
-        display: block;
-    }
+    /*label, input {*/
+        /*display: block;*/
+    /*}*/
 
     #invItemsContent {
         overflow-y: auto;
@@ -309,13 +349,11 @@
         <td>
             <textarea name="notes"
                     <%= changesAllowed ? "" : textFieldDisab %>
-                      id="bookingNotes" cols="40" rows="3" onkeypressEn="true"
-                      onkeydown="paramChange('bookingNotes','any');"><%=(booking.getNotes() == null) ? "" : booking.getNotes()%>
-            </textarea>
+                      id="bookingNotes" cols="40" rows="3" onkeypressEn="true" onkeydown="paramChange('bookingNotes','any');"
+                      rows="3" ><%=(booking.getNotes() == null) ? "" : booking.getNotes()%></textarea>
         <td>
-            <textarea id="bookingComments" cols="40" rows="3" onkeypressEn="true"
-                      onkeydown="paramChange('bookingComments','any');"><%= (booking.getComments() == null) ? "" : booking.getComments()%>
-            </textarea>
+            <textarea id="bookingComments" cols="40"  onkeypressEn="true" onkeydown="paramChange('bookingComments','any');"
+                      rows="3"><%= (booking.getComments() == null) ? "" : booking.getComments()%></textarea>
         </td>
     </tr>
 </table>
@@ -331,7 +369,7 @@
     <sec:authorize access="hasRole('ROLE_ECONOMIST')">
 
         <%if (InvoiceUtils.isBZapIzmAllowed(booking)) {%>
-        <input type="button" value="Запрет изм." onclick="changeBookingState(<%=Booking.STATE_PROIZV%>);" class="butt">
+        <input type="button" value="Запрет изм." onclick="banChanges();" class="butt">
         <% }%>
 
         <%if (InvoiceUtils.isBAnnulAllowed(booking)) {%>
@@ -373,6 +411,21 @@
            onclick="javascript:void(printBooking('odt',<%=invoice.getId()%>))"
            class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"> <br>
 
+
+</div>
+
+<div id="bunChanges-dialog" title="Запрет изменений">
+
+    <table>
+
+        <tr>
+            <td><label for="newBookingDate">Дата &nbsp &nbsp &nbsp &nbsp &nbsp</label></td>
+            <td style="width: 200px;"><input type="text" name="date" id="newBookingDate" readonly="true"
+                       value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(invoice.getDate()) %>"
+                       class="dateInput ui-widget-content ui-corner-all"/>
+            </td>
+        </tr>
+    </table>
 
 </div>
 

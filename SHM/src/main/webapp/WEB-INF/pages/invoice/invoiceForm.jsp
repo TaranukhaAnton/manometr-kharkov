@@ -770,7 +770,7 @@
     <table>
 
         <tr>
-            <td><label for="date">Дата &nbsp &nbsp &nbsp &nbsp &nbsp</label></td>
+            <td><label for="invDate">Дата &nbsp &nbsp &nbsp &nbsp &nbsp</label></td>
             <td><input type="text" name="date" id="invDate" readonly="true"
                        value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(invoice.getDate()) %>"
                        class="dateInput ui-widget-content ui-corner-all"/>
