@@ -58,6 +58,7 @@ public class PriceFirstPartServiceImpl implements PriceFirstPartService {
     }
 
     @Override
+    @Transactional
     public Boolean modelAvailableToSell(IdPrice id) {
         PriceFirstPart item = getItem(id);
         // проверяет что прайс больше нуля
