@@ -98,7 +98,9 @@ public class BookingController {
         Map result = new HashMap();
         Boolean validate = true;
 
-        if (param.equals("bookingNotes")) {
+        if (param.equals("date")) {
+            booking.setDate(new SimpleDateFormat("dd.MM.yyyy").parse(value));
+        }  if (param.equals("bookingNotes")) {
             booking.setNotes(value);
         } else if (param.equals("bookingComments")) {
             booking.setComments(value);
