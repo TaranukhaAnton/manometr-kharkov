@@ -17,8 +17,7 @@ import java.util.*;
 public class Invoice {
     public static final String[] purposeAlias = {"пос", "исп", "гар", "рез", "прч"};
     public static final String[] purposeAliasFull = {"поставка", "испытания", "гарантия", "резерв", "прочее"};
-    public static final String[] curStateAlias = {"черн", "акт", "мод", "отл", "изм", "анн", "зак", "исп" ,"оплач", "отгр", "ч.исп", "отказ"};
-
+    public static final String[] curStateAlias = {"черн", "акт", "мод", "отл", "изм", "анн", "зак", "исп", "оплач", "отгр", "ч.исп", "отказ"};
 
 
     public static final Integer STATE_CHERN = 0;
@@ -34,9 +33,6 @@ public class Invoice {
     public static final Integer STATE_OTGR = 9;
     public static final Integer STATE_CH_ISP = 10;
     public static final Integer STATE_OTKAZ = 11;
-
-
-
 
 
     public static final Integer PURPOSE_POSTAVKA = 0;
@@ -60,7 +56,6 @@ public class Invoice {
     private Integer validity; //    срок действия
     @ManyToOne
     private Supplier supplier;
-
 
 
     @ManyToOne
@@ -137,44 +132,42 @@ public class Invoice {
     private BigDecimal debtPercent;
 
     @Column(name = "addition_to_price", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
-    private BigDecimal additionToPrice;
+    private BigDecimal additionToPrice = BigDecimal.ZERO;
 
     @Column(name = "nds_percent", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
-    private BigDecimal ndsPayment;
+    private BigDecimal ndsPayment = BigDecimal.ZERO;
+
 
     @Column(name = "payment_percent", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
-    private BigDecimal paymentPercent;
+    private BigDecimal paymentPercent = BigDecimal.ZERO;
 
     @Column(name = "sum", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
-    private BigDecimal sum;
+    private BigDecimal sum = BigDecimal.ZERO;
 
     @Column(name = "total", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
-    private BigDecimal total;
+    private BigDecimal total = BigDecimal.ZERO;
 
     @Column(name = "total_payments", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
-    private BigDecimal totalPayments;
+    private BigDecimal totalPayments = BigDecimal.ZERO;
 
 
     @Column(name = "shipment_percent", nullable = false, columnDefinition = "DECIMAL(19,2) NOT NULL DEFAULT 00,00")
-    private BigDecimal shipmentPercent;
+    private BigDecimal shipmentPercent = BigDecimal.ZERO;
 
-    @Column(name = "is_payment_made" ,nullable = false, columnDefinition = "CHAR(1) NOT NULL DEFAULT N")
+    @Column(name = "is_payment_made", nullable = false, columnDefinition = "CHAR(1) NOT NULL DEFAULT N")
     @Type(type = "yes_no")
     private boolean paymentMade;
 
-    @Column(name = "is_delivery_made" ,nullable = false, columnDefinition = "CHAR(1) NOT NULL DEFAULT N")
+    @Column(name = "is_delivery_made", nullable = false, columnDefinition = "CHAR(1) NOT NULL DEFAULT N")
     @Type(type = "yes_no")
     private boolean deliveryMade;
 
-    @Column(name = "is_any_goods_shipped" ,nullable = false, columnDefinition = "CHAR(1) NOT NULL DEFAULT N")
+    @Column(name = "is_any_goods_shipped", nullable = false, columnDefinition = "CHAR(1) NOT NULL DEFAULT N")
     @Type(type = "yes_no")
-    private boolean  anyGoodsShipped;
+    private boolean anyGoodsShipped;
 
 
-
-
-
- //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public Set<Payment> getPayments() {
         return payments;
     }
@@ -384,10 +377,6 @@ public class Invoice {
     }
 
 
-
-
-
-
     public String getNumberModifier() {
         return numberModifier;
     }
@@ -527,7 +516,6 @@ public class Invoice {
     }
 
 
-
     // **** computed fields
 
 
@@ -630,7 +618,7 @@ public class Invoice {
 
     @Override
     public String toString() {
-        return "i_"+id;    //To change body of overridden methods use File | Settings | File Templates.
+        return "i_" + id;    //To change body of overridden methods use File | Settings | File Templates.
     }
 
 }
