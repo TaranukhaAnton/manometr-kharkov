@@ -77,7 +77,7 @@
         Заказчик
     </td>
     <td colspan="3"><input type="text"  <%= changesAllowed ? "" : textFieldDisab %>
-                           value="<%= invoice.getEmployer()%>"
+                           value="<%= (invoice.getEmployer() ==null)?"":invoice.getEmployer().getShortName()%>"
                            id="employer" name="employer" onkeypressEn="true"
                            onblur="paramChange('employer','any',customerSetup);"/>
     </td>
@@ -114,7 +114,7 @@
     <td>Конечный</td>
     <td colspan="3"><input
             type="text"   <%= invoice.getCurrentState().equals(Invoice.STATE_CHERN) ? "" : textFieldDisab %>
-            value="<%= invoice.getConsumer() %>"
+            value="<%= (invoice.getConsumer() ==null)?"":invoice.getConsumer().getShortName()  %>"
             id="consumer" name="consumer" onkeypressEn="true"
             onblur="paramChange('consumer','any',customerSetup);"/></td>
     <td>Срок пост</td>
