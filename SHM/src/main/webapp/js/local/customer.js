@@ -62,161 +62,161 @@
 
 $(function () {
     $("#CountryInput").dialog({
-        autoOpen:false,
-        height:200,
-        width:350,
-        modal:true,
-        resizable:false,
-        buttons:{
-            'Создать':function () {
+        autoOpen: false,
+        height: 200,
+        width: 350,
+        modal: true,
+        resizable: false,
+        buttons: {
+            'Создать': function () {
 
                 var name = $('#newCountry').val();
-                $.post("add_country", { "name":name},
+                $.post("add_country", { "name": name},
                     function (data) {
                         $('#country')
                             .append($("<option></option>")
-                            .attr("value", data.id)
-                            .text(data.name));
+                                .attr("value", data.id)
+                                .text(data.name));
                         $('#CountryInput').dialog('close');
                     });
 
             },
-            'Отмена':function () {
+            'Отмена': function () {
                 $(this).dialog('close');
             }
         },
-        open:function (event, ui) {
+        open: function (event, ui) {
             $('body').css('overflow', 'hidden');
             $('.ui-widget-overlay').css('width', '100%');
         },
-        close:function (event, ui) {
+        close: function (event, ui) {
             $('body').css('overflow', 'auto');
         }
     });
     $("#RegionInput").dialog({
-        autoOpen:false,
-        height:200,
-        width:350,
-        modal:true,
-        resizable:false,
-        buttons:{
-            'Создать':function () {
+        autoOpen: false,
+        height: 200,
+        width: 350,
+        modal: true,
+        resizable: false,
+        buttons: {
+            'Создать': function () {
 
                 var name = $('#newRegion').val();
-                $.post("add_region", {"name":name},
+                $.post("add_region", {"name": name},
                     function (data) {
                         $('#region')
                             .append($("<option></option>")
-                            .attr("value", data.id)
-                            .text(data.name));
+                                .attr("value", data.id)
+                                .text(data.name));
                         $('#RegionInput').dialog('close');
                     });
 
             },
-            'Отмена':function () {
+            'Отмена': function () {
                 $(this).dialog('close');
             }
         },
-        open:function (event, ui) {
+        open: function (event, ui) {
             $('body').css('overflow', 'hidden');
             $('.ui-widget-overlay').css('width', '100%');
         },
-        close:function (event, ui) {
+        close: function (event, ui) {
             $('body').css('overflow', 'auto');
         }     });
     $("#AreaInput").dialog({
-        autoOpen:false,
-        height:200,
-        width:350,
-        modal:true,
-        resizable:false,
-        buttons:{
-            'Создать':function () {
+        autoOpen: false,
+        height: 200,
+        width: 350,
+        modal: true,
+        resizable: false,
+        buttons: {
+            'Создать': function () {
 
                 var country = $('#country>option:selected').val();
                 var name = $('#newArea').val();
-                $.post("add_area", {"country.id":country, "name":name},
+                $.post("add_area", {"country.id": country, "name": name},
                     function (data) {
                         $('#area')
                             .append($("<option></option>")
-                            .attr("value", data.id)
-                            .text(data.name));
+                                .attr("value", data.id)
+                                .text(data.name));
                         $('#AreaInput').dialog('close');
                     });
 
             },
-            'Отмена':function () {
+            'Отмена': function () {
                 $(this).dialog('close');
             }
         },
-        open:function (event, ui) {
+        open: function (event, ui) {
             $('body').css('overflow', 'hidden');
             $('.ui-widget-overlay').css('width', '100%');
         },
-        close:function (event, ui) {
+        close: function (event, ui) {
             $('body').css('overflow', 'auto');
         }     });
     $("#CityInput").dialog({
-        autoOpen:false,
-        height:250,
-        width:400,
-        modal:true,
-        resizable:false,
-        buttons:{
-            'Создать':function () {
+        autoOpen: false,
+        height: 250,
+        width: 400,
+        modal: true,
+        resizable: false,
+        buttons: {
+            'Создать': function () {
                 var area = $('#area>option:selected').val();
                 var name = $('#newCityRus').val();
                 var nameUkr = $('#newCityUkr').val();
-                $.post("add_city", {"area.id":area, "name":name, "nameUkr":nameUkr},
+                $.post("add_city", {"area.id": area, "name": name, "nameUkr": nameUkr},
                     function (data) {
                         $('#city')
                             .append($("<option></option>")
-                            .attr("value", data.id)
-                            .text(data.name));
+                                .attr("value", data.id)
+                                .text(data.name));
                         $('#CityInput').dialog('close');
                     });
 
 
             },
-            'Отмена':function () {
+            'Отмена': function () {
                 $(this).dialog('close');
             }
         },
-        open:function (event, ui) {
+        open: function (event, ui) {
             $('body').css('overflow', 'hidden');
             $('.ui-widget-overlay').css('width', '100%');
         },
-        close:function (event, ui) {
+        close: function (event, ui) {
             $('body').css('overflow', 'auto');
         }     });
     $("#OrgFormInput").dialog({
-        autoOpen:false,
-        height:250,
-        width:400,
-        modal:true,
-        resizable:false,
-        buttons:{
-            'Создать':function () {
+        autoOpen: false,
+        height: 250,
+        width: 400,
+        modal: true,
+        resizable: false,
+        buttons: {
+            'Создать': function () {
                 var name = $('#newOrgFormRus').val();
                 var nameUkr = $('#newOrgFormUkr').val();
-                $.post("add_org_form", { "name":name, "nameUkr":nameUkr },
+                $.post("add_org_form", { "name": name, "nameUkr": nameUkr },
                     function (data) {
                         $('#orgForm')
                             .append($("<option></option>")
-                            .attr("value", data.id)
-                            .text(data.name));
+                                .attr("value", data.id)
+                                .text(data.name));
                         $('#OrgFormInput').dialog('close');
                     });
             },
-            'Отмена':function () {
+            'Отмена': function () {
                 $(this).dialog('close');
             }
         },
-        open:function (event, ui) {
+        open: function (event, ui) {
             $('body').css('overflow', 'hidden');
             $('.ui-widget-overlay').css('width', '100%');
         },
-        close:function (event, ui) {
+        close: function (event, ui) {
             $('body').css('overflow', 'auto');
         }     });
 
@@ -225,26 +225,26 @@ $(function () {
     var city = $('#city');
 
     area.selectChain({
-        target:city,
-        url:'listCity',
-        value:'name',
-        type:'post'
+        target: city,
+        url: 'listCity',
+        value: 'name',
+        type: 'post'
     });
 // note that we're assigning in reverse order
 // to allow the chaining change trigger to work
 
 
     country.selectChain({
-        target:area,
-        url:'listArea',
-        value:'name',
-        type:'post'
+        target: area,
+        url: 'listArea',
+        value: 'name',
+        type: 'post'
     });
     $("#oldRecord").autocomplete(
         {
-            source:"../customers/listCustomers",
-            width:460,
-            selectFirst:false,
+            source: "../customers/listCustomers",
+            width: 460,
+            selectFirst: false,
             minChars: 3
 
 
@@ -289,6 +289,30 @@ function resize() {
     var winHeight = $(window).height() - 170;
     winHeight = (winHeight < 500) ? 500 : winHeight;
     $("#variableHeightDiv").css("height", winHeight + "px");
+
+}
+
+function test(value) {
+    return (/[^а-яА-Яa-zA-Z]+/).test(value);
+}
+
+
+function validateForm() {
+    var shortNameElement = $("#customerForm input[name='shortName']");
+    var val = shortNameElement.val();
+    if (test(val) && !shortNameElement.is(':hidden')) {
+        alert("Недопустимое значение для короткого названия. \n" +
+            "Допустимы только буквы.")
+        return false;
+    }
+
+    if (val.length == 0){
+        alert("Недопустимое значение для короткого названия. \n" +
+            "Поле должно быть заполнено.")
+        return false;
+    }
+
+    return true;
 
 }
 

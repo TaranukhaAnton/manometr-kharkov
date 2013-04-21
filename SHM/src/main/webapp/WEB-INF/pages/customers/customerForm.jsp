@@ -33,7 +33,7 @@
 <c:set var="isNew" value="${empty customer.id}"/>
 
 
-<form:form modelAttribute="customer" action="add" method="post" id="customerForm">
+<form:form modelAttribute="customer" action="add" method="post" onsubmit="return validateForm()"  id="customerForm">
 <form:hidden path="id"/>
 <form:hidden path="oldRecord.id"/>
 <form:hidden path="headCustomer.id"/>
@@ -50,7 +50,7 @@
     </td>
     <td>
         <c:if test="${isNew}">
-            <form:input path="shortName" size="40"/>
+            <form:input path="shortName" id = "shortName"  size="40"/>
         </c:if>
         <c:if test="${!isNew}">
             <form:hidden path="shortName"/>
@@ -64,7 +64,7 @@
     </td>
     <td>
 
-            <form:select path="orgForm.id" cssClass="dropdown">
+            <form:select path="orgForm.id" id="orgForm" cssClass="dropdown">
                 <form:options items="${orgForms}" itemValue="id" itemLabel="name"/>
             </form:select>
             <img src="../images/add.gif" width="16" height="16" border="0" onclick="javascript:void($('#OrgFormInput').dialog('open'))"/>

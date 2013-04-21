@@ -8,7 +8,7 @@
 <div id="parent">
 
 <form action="#">
-    <table cellspacing="0" class="models"> <tbody><tr> <td class="silver_rb">  <img hspace="4" height="18" border="0" width="18" onclick="clearTable();" src="images/delete.gif"></td>
+    <table cellspacing="0" class="models"> <tbody><tr> <td class="silver_rb">  <img hspace="4" height="18" border="0" width="18" onclick="clearTable();" src="../images/delete.gif"></td>
         <td class="silver_b">..30</td>
         <td class="silver_b">..31</td>
         <td class="silver_b">..40</td>

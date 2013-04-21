@@ -21,20 +21,18 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public void addCustomer(Customer customer) {
 
-        if ((customer.getHeadCustomer() != null) && (StringUtils.isNotEmpty(customer.getHeadCustomer().getShortName()))) {
-            Customer headCustomer = customerDAO.getCustomerByShortName(customer.getHeadCustomer().getShortName());
-            customer.setHeadCustomer(headCustomer);
-        } else {
-            customer.setHeadCustomer(null);
-        }
-        if ((customer.getOldRecord() != null) && (StringUtils.isNotEmpty(customer.getOldRecord().getShortName()))) {
-            Customer oldRecord = customerDAO.getCustomerByShortName(customer.getOldRecord().getShortName());
-            customer.setOldRecord(oldRecord);
-        } else {
-            customer.setOldRecord(null);
-        }
-
-
+//        if ((customer.getHeadCustomer() != null) && (StringUtils.isNotEmpty(customer.getHeadCustomer().getShortName()))) {
+//            Customer headCustomer = customerDAO.getCustomerByShortName(customer.getHeadCustomer().getShortName());
+//            customer.setHeadCustomer(headCustomer);
+//        } else {
+        customer.setHeadCustomer(null);
+//        }
+//        if ((customer.getOldRecord() != null) && (StringUtils.isNotEmpty(customer.getOldRecord().getShortName()))) {
+//            Customer oldRecord = customerDAO.getCustomerByShortName(customer.getOldRecord().getShortName());
+//            customer.setOldRecord(oldRecord);
+//        } else {
+        customer.setOldRecord(null);
+//        }
 
 
         customerDAO.addCustomer(customer);

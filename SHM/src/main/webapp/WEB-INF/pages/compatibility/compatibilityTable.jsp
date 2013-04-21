@@ -388,7 +388,7 @@
 
 
         for (int i = 0; i < 2; i++)
-            out.println("<td class=\"" + (md.getDU().contains(i) ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 1) ? "_r" : "") + "\">&nbsp;</td>");
+            out.println("<td class=\"" + (md.getDU().contains(i+1) ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 1) ? "_r" : "") + "\">&nbsp;</td>");
 
 
         for (int i = 1; i < 43; i++)
