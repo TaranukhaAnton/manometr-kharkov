@@ -86,6 +86,7 @@ public class CustomerController {
             customer.setDateLastCorrection(new Date());
             customer.setDateOfRecord(new Date());
             customer.setMergeData(new Date());
+          //  customer.is
             model.put("customer", customer);
         } else {
 

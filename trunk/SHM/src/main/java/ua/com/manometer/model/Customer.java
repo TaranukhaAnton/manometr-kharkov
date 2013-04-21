@@ -61,7 +61,7 @@ public class Customer {
     @DateTimeFormat(pattern="dd.MM.yyyy")
     private Date mergeData;
     private String questionnaire;
-    private boolean status;
+    private boolean status = true;
     private Customer oldRecord;
     private User person;
     @DateTimeFormat(pattern="dd.MM.yyyy")

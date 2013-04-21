@@ -3,11 +3,11 @@
 	<property name="net.sf.jasperreports.awt.ignore.missing.font" value="true"/>
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<property name="ireport.zoom" value="1.4641000000000008"/>
+	<property name="ireport.zoom" value="2.5937424601000028"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<import value="net.sf.jasperreports.engine.*"/>
+	<property name="ireport.y" value="78"/>
 	<import value="ua.com.manometer.model.invoice.*"/>
+	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="currency" class="java.lang.String" isForPrompting="false"/>
@@ -22,9 +22,9 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="215" splitType="Stretch">
+		<band height="111" splitType="Stretch">
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="af1798df-fd74-4394-a5bc-edfa7ab6c923" key="textField-37" x="0" y="14" width="120" height="13"/>
+				<reportElement uuid="af1798df-fd74-4394-a5bc-edfa7ab6c923" key="textField-37" x="0" y="14" width="139" height="14"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="10"/>
 				</textElement>
@@ -38,67 +38,81 @@
 				<text><![CDATA[ЧАО "Манометр-Харьков"]]></text>
 			</staticText>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="4d803507-cf7e-49ac-867f-d344b0a8c062" key="textField-38" x="0" y="0" width="120" height="14"/>
+				<reportElement uuid="4d803507-cf7e-49ac-867f-d344b0a8c062" key="textField-38" x="0" y="0" width="139" height="14"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Заказ-наряд №"+$P{booking}.getNumber().toString()+(($P{booking}.getNumberModifier().isEmpty()) ? "" : ("/" + $P{booking}.getNumberModifier()))]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="318dde8c-382f-4705-ac07-a42ea67f7cb9" key="textField-39" x="120" y="0" width="235" height="14"/>
+				<reportElement uuid="318dde8c-382f-4705-ac07-a42ea67f7cb9" key="textField-39" x="139" y="0" width="235" height="14"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["от "+(new SimpleDateFormat("dd.MM.yyyy")).format($P{invoice}.getDate())]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="f077b01f-22eb-4320-b4d6-7adb406b9b61" key="textField-40" x="120" y="14" width="235" height="13"/>
+				<reportElement uuid="f077b01f-22eb-4320-b4d6-7adb406b9b61" key="textField-40" mode="Transparent" x="139" y="14" width="235" height="14"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["от "+(new SimpleDateFormat("dd.MM.yyyy")).format($P{booking}.getDate())]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="8784b274-2eff-4932-b819-5b31e99f66aa" key="textField-41" x="0" y="43" width="120" height="16"/>
+				<reportElement uuid="8784b274-2eff-4932-b819-5b31e99f66aa" key="textField-41" x="0" y="43" width="139" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Плательщик:"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="08be2858-1ac2-4418-ae5d-6b33bc9580dd" key="textField-42" x="0" y="59" width="120" height="16"/>
+				<reportElement uuid="08be2858-1ac2-4418-ae5d-6b33bc9580dd" key="textField-42" x="0" y="59" width="139" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Конечный потребитель:"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="4a8cfd92-4808-4531-97b3-f55c71847759" key="textField-43" x="0" y="75" width="120" height="16"/>
+				<reportElement uuid="4a8cfd92-4808-4531-97b3-f55c71847759" key="textField-43" x="0" y="75" width="139" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Назначение з/н:"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="fedc5c8c-2470-4fb2-99f1-062418c41748" key="textField-44" x="120" y="43" width="235" height="16"/>
+				<reportElement uuid="fedc5c8c-2470-4fb2-99f1-062418c41748" key="textField-44" x="139" y="43" width="376" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{invoice}.getEmployer()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{invoice}.getEmployer().getName()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="7f581c5a-76f8-4bd5-a0ad-b957ce38d7d5" key="textField-45" x="120" y="59" width="235" height="16"/>
+				<reportElement uuid="7f581c5a-76f8-4bd5-a0ad-b957ce38d7d5" key="textField-45" x="139" y="59" width="376" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{invoice}.getConsumer()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{invoice}.getConsumer().getName()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="a22ee530-49bf-491f-b8b2-886b45647e59" key="textField-46" x="120" y="75" width="235" height="16"/>
+				<reportElement uuid="a22ee530-49bf-491f-b8b2-886b45647e59" key="textField-46" x="139" y="75" width="376" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[Invoice.purposeAliasFull[$P{invoice}.getPurpose()]]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="3f0c0eaf-982e-49cd-ab32-a6f197e16b6c" key="textField-43" x="0" y="91" width="139" height="16"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Оплата %:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="7f696250-da80-41fe-bdee-47713fe68844" key="textField-46" x="139" y="91" width="376" height="16"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.getPaymentPercent()]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
