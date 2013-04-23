@@ -180,13 +180,8 @@ function setStat() {
             it += frm.elements[i].value + "|";
     }
 
-    if (it == "")
-    {
-        alert("Должно быть выбрано хотя бы одно давление или НП.");
-        return;
-    } else {
         queryString += it;
-    }
+
     $.post("edit",queryString);
 }
 
@@ -240,13 +235,9 @@ function setDU() {
             it += frm.elements[i].value + "|";
     }
 
-    if (it == "")
-    {
-        alert("Должно быть выбрано хотя бы одно давление или НП.");
-        return;
-    } else {
+
         queryString += it;
-    }
+
     $.post("edit",queryString);
 }
 function setKMCH() {
