@@ -376,7 +376,7 @@
             if
                     (md.getStaticPressures().isEmpty()) {   out.println("<td class=\"np" + lr + "\">Н</td>");
             } else {
-                if (md.getStaticPressures().contains(i))
+                if (md.getStaticPressures().contains(i+1))
                     out.println("<td class=\"yes" + lr + "\">&nbsp;</td>");
                 else
                     out.println("<td class=\"no" + lr + "\">&nbsp;</td>");
@@ -387,8 +387,17 @@
             out.println("<td class=\"" + (md.getOutputs().contains(i) ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 5) ? "_r" : "") + "\">&nbsp;</td>");
 
 
-        for (int i = 0; i < 2; i++)
-            out.println("<td class=\"" + (md.getDU().contains(i+1) ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 1) ? "_r" : "") + "\">&nbsp;</td>");
+        for (int i = 0; i < 2; i++) {
+            lr = (i == 0) ? "_l" : "";
+            lr += (i == 1) ? "_r" : "";
+            if (md.getDU().isEmpty()){
+                out.println("<td class=\"np" + lr + "\">Н</td>");
+            }
+            else{
+                out.println("<td class=\"" + (md.getDU().contains(i+1) ? "yes" : "no") + ((i == 0) ? "_l" : "") + ((i == 1) ? "_r" : "") + "\">&nbsp;</td>");
+            }
+
+        }
 
 
         for (int i = 1; i < 43; i++)

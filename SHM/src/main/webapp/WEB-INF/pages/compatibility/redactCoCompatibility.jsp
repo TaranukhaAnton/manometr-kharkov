@@ -393,7 +393,7 @@
             <legend>
                 Статика
             </legend>
-            <input type="checkbox" id="STnp"  value="0"> &nbsp; - НП <br/>
+
             <input type="checkbox" id="s0.16" value="1"> &nbsp; - 0,16 <br/>
             <input type="checkbox" id="s0.25" value="2"> &nbsp; - 0,25 <br/>
             <input type="checkbox" id="s1.6" value="3"> &nbsp; - 1,6 <br/>
@@ -435,7 +435,7 @@
             <legend>
                 ДУ
             </legend>
-            <input type="checkbox" id="DUnp"  value="0"> &nbsp; - НП <br/>
+
             <input type="checkbox" id="DU50" value="1"> &nbsp; - 50 <br/>
             <input type="checkbox" id="DU80" value="2"> &nbsp; - 80 <br/>
             <input type="button" id="okDU" value="Применить" class="okbut" onclick="setDU();"/>

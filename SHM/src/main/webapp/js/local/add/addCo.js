@@ -30,7 +30,7 @@ $().ready(
                             $("input[name='out'][value='" + item.outType + "']")[0].checked = true;
 
                             if (model.du.length != 0) {
-                                $('input[name="du"]')[item.du].checked = true;
+                                $("input[name='du'][value='" + item.du + "']")[0].checked = true;
                             }
                             $("#kmch").find("option[value='" + item.kmch + "']").attr("selected", "selected");
 
@@ -221,7 +221,7 @@ function parseResults(data) {
    var MAT = new Array("01", "02", "05", "07", "09", "11", "12");
    var ERR = new Array("0.1", "0.15", "0.25", "0.5", "1");
    var STAT = new Array("", "0.16", "0.25", "1.6", "2.5", "4.0", "10", "16", "25", "32", "40");
-   var DU = new  Array("50", "80");
+   var DU = new  Array("", "50", "80");
    var OUT = new Array("42", "24", "&#8730 42", "05", "50", "&#8730 05");
    var ISP = new Array("общ.", "вн", "Ex", "AC", "К");
    var KLIM3 = new Array("УХЛ3.1*", "У2*", "Т3*");
