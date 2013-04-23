@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.manometer.dao.invoice.InvoiceDAO;
-import ua.com.manometer.model.invoice.Invoice;
-import ua.com.manometer.model.invoice.InvoiceFilter;
-import ua.com.manometer.model.invoice.InvoiceItem;
+import ua.com.manometer.model.invoice.*;
 import ua.com.manometer.util.InvoiceUtils;
 
-import java.math.RoundingMode;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
@@ -31,7 +30,9 @@ public class InvoiceServiceImpl implements InvoiceService {
     public void saveInvoice(Invoice invoice) {
         updateCounters(invoice);
         updateMoneyFields(invoice);
+        updateInvoiceShipmentsPercent(invoice);
         invoiceDAO.saveInvoice(invoice);
+
 
 //        System.out.println( invoice.getTotalPayments());
 //        System.out.println( invoice.getTotal());
@@ -42,14 +43,34 @@ public class InvoiceServiceImpl implements InvoiceService {
 //        System.out.println(invoice.isAnyGoodsShipped());
 //        System.out.println(invoice.getNdsPayment());
 //        System.out.println( invoice.getAdditionToPrice());
-
-
-        
-        
-        
-        
-        
     }
+
+
+    @Override
+    @Transactional
+    public void updateInvoice(Integer id) {
+        Invoice invoice = invoiceDAO.getInvoice(id);
+
+        try {
+            updateCounters(invoice);
+        } catch (Throwable t) {
+            System.out.println("t.getLocalizedMessage() = " + t.getLocalizedMessage());
+        }
+        try {
+            updateMoneyFields(invoice);
+        } catch (Throwable t) {
+            System.out.println("t.getLocalizedMessage() = " + t.getLocalizedMessage());
+        }
+        try {
+            updateInvoiceShipmentsPercent(invoice);
+        } catch (Throwable t) {
+            System.out.println("t.getLocalizedMessage() = " + t.getLocalizedMessage());
+        }
+
+
+        invoiceDAO.saveInvoice(invoice);
+    }
+
 
     @Override
     @Transactional
@@ -122,6 +143,29 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
 
 
+    }
+
+    private void updateInvoiceShipmentsPercent(Invoice invoice) {
+
+        int count = 0;
+        int shippedCount = 0;
+
+        for (Shipment shipment : invoice.getShipments()) {
+            for (ShipmentMediator shippingMediator : shipment.getShippingMediators()) {
+                shippedCount += shippingMediator.getCount();
+            }
+        }
+
+        for (InvoiceItem invoiceItem : invoice.getInvoiceItems()) {
+            count += invoiceItem.getQuantity();
+        }
+
+        if (count != 0) {
+            BigDecimal shipmentPercent = (new BigDecimal(shippedCount)).multiply(new BigDecimal(100)).divide(new BigDecimal(count), 2, BigDecimal.ROUND_HALF_UP);
+            invoice.setShipmentPercent(shipmentPercent);
+        } else {
+            invoice.setShipmentPercent(BigDecimal.ZERO);
+        }
     }
 
     void updateMoneyFields(Invoice invoice) {
