@@ -12,7 +12,7 @@ public interface InvoiceService {
 
     public void saveInvoice(Invoice invoice);
 
-
+    public void updateInvoice(Integer id);
 
 
 	public List<Invoice> listInvoice();
