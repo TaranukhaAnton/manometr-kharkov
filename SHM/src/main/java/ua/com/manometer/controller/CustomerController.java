@@ -131,7 +131,7 @@ public class CustomerController {
     @ResponseBody
     List listCustomer(@RequestParam("term") String customerTemplate) {
         customerTemplate = customerTemplate.replaceAll("[^a-zA-Zа-я-А-ЯёЁ]", "");
-        if (customerTemplate.length() < 3) {
+        if (customerTemplate.length() == 0) {
             return new ArrayList(0);
         }
         List<String> result = customerService.findByShortNameExample(customerTemplate);
