@@ -208,6 +208,8 @@ public class InvoiceController {
             invoice.setSupplier(suppliers.get(0));
             invoice.setExchangeRate(suppliers.get(0).getCurrency().getExchangeRate());
         }
+        invoice.setShipments(new HashSet<Shipment>());
+        invoice.setPayments(new HashSet<Payment>());
         invoice.setInvoiceItems(new LinkedList<InvoiceItem>());
         invoiceService.saveInvoice(invoice);
         LOGGER.info("Invoice was created. Id = " + invoice.getId());

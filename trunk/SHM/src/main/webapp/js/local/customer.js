@@ -293,24 +293,26 @@ function resize() {
 }
 
 function test(value) {
-    return (/[^а-яА-Яa-zA-Z]+/).test(value);
+    return (/[^а-яА-Яa-zA-Z0-9_-]+/).test(value);
 }
 
 
 function validateForm() {
     var shortNameElement = $("#customerForm input[name='shortName']");
-    var val = shortNameElement.val();
+    var val = $.trim(shortNameElement.val());
+
     if (test(val) && !shortNameElement.is(':hidden')) {
         alert("Недопустимое значение для короткого названия. \n" +
-            "Допустимы только буквы.")
+            "Допустимы только буквы, цифры и символы _ -.")
         return false;
     }
 
-    if (val.length == 0){
+    if (val.length == 0) {
         alert("Недопустимое значение для короткого названия. \n" +
             "Поле должно быть заполнено.")
         return false;
     }
+
 
     return true;
 
