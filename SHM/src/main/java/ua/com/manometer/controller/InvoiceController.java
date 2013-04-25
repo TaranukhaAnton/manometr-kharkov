@@ -613,19 +613,22 @@ public class InvoiceController {
         String cityName = "";
         JAmount jAmount = null;
         Locale locale = null;
-
+        String executorName = "";
         if (language.equals("ru")) {
             orgForm = employer.getOrgForm().getName();
             cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
             cityName += " " + city.getName();
             jAmount = new JAmountRU();
             locale = new Locale("ru", "RU");
+            executorName = invoice.getExecutor().getLastName() + " " + invoice.getExecutor().getName() + " " + invoice.getExecutor().getPatronymic();
         } else if (language.equals("ua")) {
             orgForm = employer.getOrgForm().getNameUkr();
             cityName = Customer.localityTypeAliasUkr[employer.getLocalityType().intValue()];
             cityName += " " + city.getNameUkr();
             jAmount = new JAmountUA();
             locale = new Locale("ua", "UA");
+            executorName = invoice.getExecutor().getFioUkr();
+
         } else if (language.equals("en")) {
             orgForm = employer.getOrgForm().getNameEng();
             cityName = Customer.localityTypeAliasEn[employer.getLocalityType().intValue()];
@@ -636,6 +639,7 @@ public class InvoiceController {
 
         model.addAttribute("orgForm", orgForm);
         model.addAttribute("city", cityName);
+        model.addAttribute("executorName", executorName);
 
         model.addAttribute("dataSource", dataSource);
         // Add the report format

@@ -2,12 +2,13 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="514525b5-14f9-473b-bb6e-09a830ad8725">
 	<property name="ireport.zoom" value="1.464100000000003"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="38"/>
 	<parameter name="orgForm" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="strTotal" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="invoice" class="ua.com.manometer.model.invoice.Invoice" isForPrompting="false"/>
 	<parameter name="path" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="city" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="executorName" class="java.lang.String" isForPrompting="false"/>
 	<field name="name" class="java.lang.String"/>
 	<field name="quantity" class="java.lang.Integer"/>
 	<field name="sum" class="java.math.BigDecimal"/>
@@ -399,10 +400,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{param38}+": "
-
-+$P{invoice}.getExecutor().getLastName()+" "+$P{invoice}.getExecutor().getName()+" "
-+$P{invoice}.getExecutor().getPatronymic()+    (($P{invoice}.isInvoice())?( ", "+$R{param39}+". "+$P{invoice}.getExecutor().getTel()):"")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{param38}+": " + $P{executorName}+    (($P{invoice}.isInvoice())?( ", "+$R{param39}+". "+$P{invoice}.getExecutor().getTel()):"")]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
