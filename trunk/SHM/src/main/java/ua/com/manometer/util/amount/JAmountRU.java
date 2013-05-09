@@ -91,7 +91,7 @@ public class JAmountRU implements JAmount {
         curParam = new jAmCurrency(Currency).curParam;
 //        s = s.replaceAll(",", ".");
         try {
-          //  BigDecimal decimal = new BigDecimal(s);
+            //  BigDecimal decimal = new BigDecimal(s);
             // Преобразуем в копейки (центы, пфенниги и т.д.),
             // одним словом - убираем дробную часть
             decimal = decimal.multiply(new BigDecimal(100.00));
@@ -306,9 +306,11 @@ public class JAmountRU implements JAmount {
                 default:
                     break;
                 case 1:
-                    if (group == 1) // Тысячи
+                    if (group == 1) { // Тысячи
                         result = result.append("одна ");
-                    else {
+                    } else if (group == 2 || group == 3) {
+                        result = result.append("один ");
+                    } else {
                         // Учесть род валюты (поле "Sex" настроечной информации)
                         if (curParam.Sex.equals("M")) result = result.append("один ");
                         if (curParam.Sex.equals("F")) result = result.append("одна ");
@@ -317,7 +319,9 @@ public class JAmountRU implements JAmount {
                 case 2:
                     if (group == 1) // Тысячи
                         result = result.append("две ");
-                    else {
+                    else if (group == 2 || group == 3) {
+                        result = result.append("два ");
+                    } else {
                         // Учесть род валюты (поле "Sex" настроечной информации)
                         if (curParam.Sex.equals("M")) result = result.append("два ");
                         if (curParam.Sex.equals("F")) result = result.append("две ");

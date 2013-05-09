@@ -312,7 +312,9 @@ public class JAmountUA implements JAmount {
                 case 1:
                     if (group == 1) // Тысячи
                         result = result.append("одна ");
-                    else {
+                    else  if (group == 2 || group == 3) { //милионы и миллиарды
+                        result = result.append("один ");
+                    } else {
                         // Учесть род валюты (поле "Sex" настроечной информации)
                         if (curParam.Sex.equals("M")) result = result.append("один ");
                         if (curParam.Sex.equals("F")) result = result.append("одна ");
@@ -321,7 +323,9 @@ public class JAmountUA implements JAmount {
                 case 2:
                     if (group == 1) // Тысячи
                         result = result.append("дві ");
-                    else {
+                    else  if (group == 2 || group == 3) { //милионы и миллиарды
+                        result = result.append("два ");
+                    } else{
                         // Учесть род валюты (поле "Sex" настроечной информации)
                         if (curParam.Sex.equals("M")) result = result.append("два ");
                         if (curParam.Sex.equals("F")) result = result.append("дві ");

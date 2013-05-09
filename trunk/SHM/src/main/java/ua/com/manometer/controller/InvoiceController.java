@@ -658,7 +658,7 @@ public class InvoiceController {
         model.addAttribute("path", path);
 
         model.addAttribute(JRParameter.REPORT_LOCALE, locale);
-//        ResourceBundle bundle = ResourceBundle.getBundle("i18n", new UTF8Control());
+//        ResourceBundle bundle = ResourceBundle .getBundle("i18n", new UTF8Control());
 //        model.addAttribute(JRParameter.REPORT_RESOURCE_BUNDLE, bundle);
         return "invoiceReport";
     }
