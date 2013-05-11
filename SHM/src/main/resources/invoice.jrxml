@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="514525b5-14f9-473b-bb6e-09a830ad8725">
 	<property name="ireport.zoom" value="1.464100000000003"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="38"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="orgForm" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="strTotal" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="invoice" class="ua.com.manometer.model.invoice.Invoice" isForPrompting="false"/>
@@ -76,14 +76,14 @@
 				<textField pattern="">
 					<reportElement uuid="39497a67-a153-4a8b-a78d-58a233e6c930" x="410" y="0" width="145" height="20"/>
 					<textElement>
-						<font fontName="DejaVu Serif" isItalic="false"/>
+						<font fontName="DejaVu Serif" isBold="true" isItalic="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new SimpleDateFormat($R{param17}).format($P{invoice}.getDate())]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement uuid="f5e88da6-3285-4d5d-bbb7-169a98ab142a" x="0" y="0" width="410" height="20"/>
 					<textElement>
-						<font fontName="DejaVu Serif" isUnderline="false"/>
+						<font fontName="DejaVu Serif" isBold="true" isUnderline="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[(($P{invoice}.isInvoice())? ($R{param18}+" ") : ($R{param19}+" "))+$P{invoice}.getNumber()+(($P{invoice}.getNumberModifier().isEmpty()) ? "" : ("/" + $P{invoice}.getNumberModifier()))]]></textFieldExpression>
 				</textField>
@@ -301,14 +301,14 @@
 			<frame>
 				<reportElement uuid="a6f0ac50-4ce0-45b0-907f-10b7e163a0f1" positionType="Float" x="0" y="83" width="555" height="20"/>
 				<textField>
-					<reportElement uuid="fa5ca4be-ea34-4275-abf1-dab608d2be12" positionType="Float" mode="Opaque" x="0" y="0" width="105" height="20" backcolor="#FFFFFF"/>
+					<reportElement uuid="fa5ca4be-ea34-4275-abf1-dab608d2be12" positionType="Float" mode="Opaque" x="0" y="0" width="155" height="20" backcolor="#FFFFFF"/>
 					<textElement verticalAlignment="Top">
 						<font fontName="DejaVu Serif" isBold="true" isItalic="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$R{param31}+":"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="c4510e85-6001-4021-9d64-240d89fa877b" positionType="Float" mode="Opaque" x="105" y="0" width="450" height="20" backcolor="#FFFFFF"/>
+					<reportElement uuid="c4510e85-6001-4021-9d64-240d89fa877b" positionType="Float" mode="Opaque" x="155" y="0" width="400" height="20" backcolor="#FFFFFF"/>
 					<textElement verticalAlignment="Top">
 						<font fontName="DejaVu Serif" isItalic="false"/>
 					</textElement>
@@ -322,14 +322,14 @@
 			<frame>
 				<reportElement uuid="a0e58975-70f8-4e94-b47a-0211929f6bf4" positionType="Float" x="0" y="103" width="555" height="20"/>
 				<textField>
-					<reportElement uuid="16172e36-60ff-48f1-bead-b84ca74c6910" positionType="Float" mode="Opaque" x="0" y="0" width="105" height="20" backcolor="#FFFFFF"/>
+					<reportElement uuid="16172e36-60ff-48f1-bead-b84ca74c6910" positionType="Float" mode="Opaque" x="0" y="0" width="155" height="20" backcolor="#FFFFFF"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="DejaVu Serif" isBold="true" isItalic="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$R{param36}+":"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="378cf61f-06cd-4789-8836-13fa8eaf5540" positionType="Float" mode="Opaque" x="105" y="0" width="450" height="20" backcolor="#FFFFFF"/>
+					<reportElement uuid="378cf61f-06cd-4789-8836-13fa8eaf5540" positionType="Float" mode="Opaque" x="155" y="0" width="400" height="20" backcolor="#FFFFFF"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="DejaVu Serif" isItalic="false"/>
 					</textElement>

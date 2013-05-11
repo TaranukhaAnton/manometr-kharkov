@@ -290,7 +290,10 @@
                     >Цена
             </TH>
             <TH class="width90">Сумма</TH>
-            <TH class="width70">дней</TH>
+            <TH class="width70  <%if (changesAllowed){%>selectOnHover<%}%>"
+                <%if (changesAllowed){%>onclick="$('#commonDelivery-dialog').dialog('open')"  <%}%> >
+                дней
+            </TH>
             <TH class="width20"></TH>
             <TH class="width20"></TH>
             <TH class="width20"></TH>
@@ -717,6 +720,16 @@
 
     <input type="text" value=""
            onclick="" id="commonPercent" onkeypress='sendOnEnter(event, this)'
+           class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only "> <br>
+
+
+</div>
+
+<div id="commonDelivery-dialog" title="Установить срок поставки">
+
+
+    <input type="text" value=""
+           onclick="" id="commonDelivery"
            class="butt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only "> <br>
 
 

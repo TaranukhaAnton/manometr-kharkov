@@ -467,6 +467,19 @@ public class InvoiceController {
             map.put("total", invoice.getTotal().toString());
             map.put("sum", invoice.getSum().toString());
             map.put("nds", invoice.getNdsPayment().toString());
+        } else if (param.equals("commonDelivery")) {
+            Integer  deliveryTime = Integer.parseInt(value);
+            List<Map> items = new LinkedList<Map>();
+            for (InvoiceItem invoiceItem : invoice.getInvoiceItems()) {
+                invoiceItem.setDeliveryTime(deliveryTime);
+                invoiceItemService.saveInvoiceItem(invoiceItem);
+                items.add(invoiceItemToMap(invoiceItem));
+            }
+            invoiceService.saveInvoice(invoice);
+            map.put("items", items);
+            map.put("total", invoice.getTotal().toString());
+            map.put("sum", invoice.getSum().toString());
+            map.put("nds", invoice.getNdsPayment().toString());
         } else if (param.equals("commonTransportCost")) {
             BigDecimal transportationCost = new BigDecimal(value.replace(",", ".").trim());
 
@@ -646,7 +659,7 @@ public class InvoiceController {
         model.addAttribute("format", type);
         model.addAttribute("invoice", invoice);
         final int currencyId = invoice.getSupplier().getCurrency().getId().intValue();
-        model.addAttribute("strTotal", jAmount.getAmount(currencyId, invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
+        model.addAttribute("strTotal", jAmount.getAmount(currencyId, invoice.getTotal()));
         String fileName = "invoice_" + invoice.getNumber() + ((StringUtils.isBlank(invoice.getNumberModifier())) ? "" : ("_" + invoice.getNumberModifier()));
         model.addAttribute("name", fileName);
 

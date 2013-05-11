@@ -166,7 +166,7 @@ public class InvoiceUtils {
         return invoice.getCurrentState() == Invoice.STATE_ACT || invoice.getCurrentState() == Invoice.STATE_ZAK;
     }
     public static boolean isInvIzKpAllowed(Invoice invoice) {
-        return invoice.getCurrentState() == Invoice.STATE_ACT;
+        return invoice.getCurrentState() == Invoice.STATE_ACT && !invoice.isInvoice();
     }
     public static boolean isOpenZNAllowed(Invoice invoice) {
         return
