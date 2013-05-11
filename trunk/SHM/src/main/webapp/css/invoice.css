@@ -137,7 +137,8 @@
 }
 
 .selectOnHover:hover {
-    background-color: #999; /*background-color: red;*/
+    background-color: #ccc;
+    /*background-color: red;*/
 }
 
 table.invItemsTab {

@@ -313,8 +313,30 @@ function validateForm() {
         return false;
     }
 
+    if ( isShortNameUnique(val) ){
+       return true;
+    } else{
+        alert("Короткое название должно быть уникальным.");
+        return false;
+    };
 
-    return true;
+
+
 
 }
+
+
+function isShortNameUnique(name) {
+    var result;
+    $.ajax({
+        url: "check_customer_presence",
+        data: { "name": name},
+        async: false,
+        cache: false,
+        success: function (data) {
+            result =    data;
+        } });
+    return   result;
+}
+
 

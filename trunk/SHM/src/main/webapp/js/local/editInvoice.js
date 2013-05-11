@@ -221,6 +221,37 @@ $(function() {
             $('body').css('overflow', 'auto');
         }
     });
+
+    $("#commonDelivery-dialog").dialog({
+        autoOpen: false,
+        height: 200,
+        width: 350,
+        modal: true,
+        resizable:false,
+        buttons: {
+            'Применить': function() {
+
+                if (checkRegexp($("#commonDelivery"), 'dig', true)) {
+                    $.post("editInvoiceParams", {"param":"commonDelivery", "value":$("#commonDelivery").val(), "id":$("#id").val()}, function (response) {
+                        updateTotalAndItems(response);
+                        $("#commonDelivery-dialog").dialog('close');
+                    });
+                }
+            },
+            'Отмена': function() {
+                $(this).dialog('close');
+            }
+        },
+        open: function(event, ui) {
+
+            document.getElementById("commonPercent").focus();
+            $('body').css('overflow', 'hidden');
+            $('.ui-widget-overlay').css('width', '100%');
+        },
+        close: function(event, ui) {
+            $('body').css('overflow', 'auto');
+        }
+    });
     $("#commonTransportCost-dialog").dialog({
         autoOpen: false,
         height: 200,

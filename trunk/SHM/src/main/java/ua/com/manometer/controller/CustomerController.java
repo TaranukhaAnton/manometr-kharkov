@@ -26,7 +26,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/customers")
-public class CustomerController {
+public class  CustomerController {
     static LinkedHashMap<Integer, String> branches = new LinkedHashMap<Integer, String>();
 
     static {
@@ -117,6 +117,14 @@ public class CustomerController {
         Customer customerByShortName = customerService.getCustomerByShortName(name);
         return "redirect:/customers/edit?id=" + customerByShortName.getId();
     }
+
+    @RequestMapping("/check_customer_presence")
+    public  @ResponseBody Boolean isCustomerPresence(String name) {
+        Customer customerByShortName = customerService.getCustomerByShortName(name);
+        return customerByShortName == null  ;
+    }
+
+
 
 
     @RequestMapping("/listCity")
