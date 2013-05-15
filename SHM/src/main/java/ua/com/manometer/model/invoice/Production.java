@@ -12,24 +12,24 @@ import java.math.RoundingMode;
 public class Production extends InvoiceItem {
     String name;
 
-//    @Override
-//    public InvoiceItem getClone() {
-//        Production clone = new Production();
-//
-//        clone.setType(getType());
-//        clone.price = price;
-//        clone.cost = cost;
-//        clone.sellingPrice = sellingPrice;
-//        clone.additionalCost = additionalCost;
-//        clone.transportationCost = transportationCost;
-//        clone.setDeliveryTime(getDeliveryTime());
-//        clone.setQuantity(getQuantity());
-//        clone.setManufacturedDate(getManufacturedDate());
-//        clone.setName(name);
-//
-//        return clone;
-//
-//    }
+    @Override
+    public InvoiceItem getClone() {
+        Production clone = new Production();
+
+        clone.setType(getType());
+        clone.price = price;
+        clone.cost = cost;
+        clone.sellingPrice = sellingPrice;
+        clone.additionalCost = additionalCost;
+        clone.transportationCost = transportationCost;
+        clone.setDeliveryTime(getDeliveryTime());
+        clone.setQuantity(getQuantity());
+        clone.setManufacturedDate(getManufacturedDate());
+        clone.setName(name);
+
+        return clone;
+
+    }
 
 
     public Production() {

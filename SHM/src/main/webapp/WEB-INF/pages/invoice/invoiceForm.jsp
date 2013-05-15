@@ -309,9 +309,9 @@
 
 
             <%
-                NumberFormat df = NumberFormat.getInstance();
-                df.setMinimumFractionDigits(2);
-                df.setMaximumFractionDigits(2);
+                NumberFormat numberFormat = NumberFormat.getInstance();
+                numberFormat.setMinimumFractionDigits(2);
+                numberFormat.setMaximumFractionDigits(2);
 
 
                 String[] url = {"co", "ao", "op"};
@@ -345,22 +345,22 @@
                 </TD>
                 <TD class="width70 topAlign">
                     <%
-                        df.setMinimumFractionDigits(4);
-                        df.setMaximumFractionDigits(4);
+                        numberFormat.setMinimumFractionDigits(4);
+                        numberFormat.setMaximumFractionDigits(4);
                     %>
-                    <input type="text" class="inp" value="<%= df.format(item.calculatePercent())%>"
+                    <input type="text" class="inp" value="<%= numberFormat.format(item.calculatePercent())%>"
                            onkeypressEn="true"   <%= changesAllowed?"":"readonly=\"true\"" %>
                            id="percent<%=item.getId() %>" onkeypress='return digInput(event)'
                            onkeydown="invoiceItemChange('percent',<%= item.getId() %>,'float',<%= invoice.getId()%>);">
                     <%
-                        df.setMinimumFractionDigits(2);
-                        df.setMaximumFractionDigits(2);
+                        numberFormat.setMinimumFractionDigits(2);
+                        numberFormat.setMaximumFractionDigits(2);
                     %>
 
                 </TD>
                 <TD class="width70 topAlign">
                     <input type="text" class="inp"
-                           value="<%= df.format(item.getTransportationCost()) %>"
+                           value="<%= numberFormat.format(item.getTransportationCost()) %>"
                            onkeypressEn="true" <%= changesAllowed?"":"readonly=\"true\"" %>
                            id="transportationCost<%=item.getId()%>" onkeypress='return digInput(event)'
                            onkeydown="invoiceItemChange('transportationCost',<%=item.getId() %>,'currency',<%= invoice.getId()%>);">
@@ -369,7 +369,7 @@
                 </TD>
                 <TD class="width70 topAlign">
                     <input type="text" class="inp"
-                           value="<%= df.format(item.getAdditionalCost()) %>"
+                           value="<%= numberFormat.format(item.getAdditionalCost()) %>"
                            onkeypressEn="true" <%= changesAllowed?"":"readonly=\"true\"" %>
                            id="additionalCost<%=item.getId()%>" onkeypress='return digInput(event)'
                            onkeydown="invoiceItemChange('additionalCost',<%=item.getId() %>,'currency',<%= invoice.getId()%>);">
@@ -380,7 +380,7 @@
 
                 <TD class="width70 topAlign">
                     <input type="text" class="inp"
-                           value="<%= df.format(item.getSellingPrice()) %>"
+                           value="<%= numberFormat.format(item.getSellingPrice()) %>"
                            onkeypressEn="true" <%= changesAllowed?"":"readonly=\"true\"" %>
                            id="sellingPrice<%=item.getId()%>" onkeypress='return digInput(event)'
                            onkeydown="invoiceItemChange('sellingPrice',<%=item.getId() %>,'currency',<%= invoice.getId()%>);">
@@ -389,7 +389,7 @@
                 </TD>
                 <TD class="width90 topAlign">
                     <input type="text" class="inp"
-                           value="<%= df.format(item.getSum()) %>"
+                           value="<%= numberFormat.format(item.getSum()) %>"
 
                            id="sum<%=item.getId() %>" readonly="true">
 
@@ -445,8 +445,8 @@
 </div>
 
 <%
-    df.setMinimumFractionDigits(2);
-    df.setMaximumFractionDigits(2);
+    numberFormat.setMinimumFractionDigits(2);
+    numberFormat.setMaximumFractionDigits(2);
 %>
 <div id="invItemsFooter">
     <TABLE>
@@ -457,7 +457,7 @@
             <Td class="width70"></Td>
             <%--<Td class="middle70"></Td>--%>
             <Td class="width90">
-                <div id="sum" style="text-align:right;"><%=df.format(invoice.getSum())%>
+                <div id="sum" style="text-align:right;"><%=numberFormat.format(invoice.getSum())%>
                 </div>
             </Td>
             <Td class="width70"></Td>
@@ -471,7 +471,7 @@
             <Td class="width70"></Td>
             <%--<Td class="middle70"></Td>--%>
             <Td class="width90">
-                <div id="NDSPayment" style="text-align:right;"><%= df.format(invoice.getNdsPayment())%>
+                <div id="NDSPayment" style="text-align:right;"><%= numberFormat.format(invoice.getNdsPayment())%>
                 </div>
             </Td>
             <Td class="width70"></Td>
@@ -485,7 +485,7 @@
             <Td class="width70"></Td>
             <%--<Td class="middle70"></Td>--%>
             <Td class="width90">
-                <div id="total" style="text-align:right;"><%= df.format(invoice.getTotal())%>
+                <div id="total" style="text-align:right;"><%= numberFormat.format(invoice.getTotal())%>
                 </div>
             </Td>
             <Td class="width70"></Td>
@@ -757,17 +757,17 @@
             <tr>
                 <td><label for="number">Номер</label></td>
                 <td><input type="text" name="number" id="number_invFromKP" class="text ui-widget-content ui-corner-all"
-                           onclick="removeErrorClass()"/></td>
+                           onclick="removeErrorClass(this)"/></td>
 
             </tr>
             <tr>
                 <td><label for="numberModifier">Модификатор</label></td>
                 <td><input type="text" name="numberModifier" id="numberModifier_invFromKP"
-                           class="text ui-widget-content ui-corner-all" onclick="removeErrorClass()"/></td>
+                           class="text ui-widget-content ui-corner-all" onclick="removeErrorClass(this)"/></td>
             </tr>
             <tr>
                 <td><label for="date">Дата &nbsp &nbsp &nbsp &nbsp &nbsp</label></td>
-                <td><input type="text" name="date" id="date_invFromKP" readonly="true" onclick="removeErrorClass()"
+                <td><input type="text" name="date" id="date_invFromKP" readonly="true" onclick="removeErrorClass(this)"
                            value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(new Date()) %>"
                            class="text ui-widget-content ui-corner-all"/></td>
             </tr>
@@ -797,39 +797,39 @@
     <Br>
 
     <form action="#" id="copyInvoice_form">
-         <input type="hidden" name="parentID" value="<%=invoice.getId()%>"/>
+         <input type="hidden" name="parent_id" value="<%=invoice.getId()%>"/>
         <table>
             <tr>
-                <td><input type="radio" name="isInvoice" id="isInv" value="true" checked onclick="removeErrorClass()">
+                <td><input type="radio" name="isInvoice" id="isInv" value="true" checked onclick="removeErrorClass(this)">
                 </td>
 
                 <td><label for="isInv">Счет</label></td>
             </tr>
             <tr>
-                <td><input type="radio" name="isInvoice" id="isKp" value="false" onclick="removeErrorClass()"></td>
+                <td><input type="radio" name="isInvoice" id="isKp" value="false" onclick="removeErrorClass(this)"></td>
                 <td><label for="isKp">КП</label></td>
             </tr>
             <tr>
                 <td><label for="number">Номер</label></td>
                 <td><input type="text" name="number"  class="text ui-widget-content ui-corner-all"
-                           onclick="removeErrorClass()"/></td>
+                           onclick="removeErrorClass(this)"/></td>
 
             </tr>
             <tr>
                 <td><label for="numberModifier">Модификатор</label></td>
                 <td><input type="text" name="numberModifier"
-                           class="text ui-widget-content ui-corner-all" onclick="removeErrorClass()"/></td>
+                           class="text ui-widget-content ui-corner-all" onclick="removeErrorClass(this)"/></td>
             </tr>
             <tr>
                 <td><label for="date">Дата &nbsp &nbsp &nbsp &nbsp &nbsp</label></td>
-                <td><input type="text" name="date"  readonly="true" onclick="removeErrorClass()"
+                <td><input type="text" name="date"  readonly="true" onclick="removeErrorClass(this)"
                            value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(new Date()) %>"
                            class="text ui-widget-content ui-corner-all"/></td>
             </tr>
 
             <tr>
                 <td><label for="employer">Заказчик</label></td>
-                <td><input type="text"  name="employer" onclick="removeErrorClass()"
+                <td><input type="text"  name="employer" onclick="removeErrorClass(this)"
                            class="text ui-widget-content ui-corner-all"/>
                 </td>
             </tr>
@@ -837,7 +837,7 @@
             <tr>
                 <td><label for="consumer">Конечный</label></td>
                 <td>
-                    <input type="text" name="consumer" onclick="removeErrorClass()"
+                    <input type="text" name="consumer" onclick="removeErrorClass(this)"
                            class="text ui-widget-content ui-corner-all"/>
                 </td>
             </tr>

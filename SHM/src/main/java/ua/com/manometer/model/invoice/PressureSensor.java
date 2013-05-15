@@ -62,46 +62,46 @@ public class PressureSensor extends InvoiceItem {
     private static String[] duArr = {"", "50", "80"};
     private static Integer[] koef = {1000, 1, 10, 100000, 1000, 1, 10, 100000, 10, 10000};
 
-//    @Override
-//    public InvoiceItem getClone() {
-//        PressureSensor clone = new PressureSensor();
-//
-//        clone.setType(getType());
-//        clone.price = price;
-//        clone.cost = cost;
-//        clone.sellingPrice = sellingPrice;
-//        clone.additionalCost = additionalCost;
-//        clone.transportationCost = transportationCost;
-//        clone.setDeliveryTime(getDeliveryTime());
-//        clone.setQuantity(getQuantity());
-//        clone.setManufacturedDate(getManufacturedDate());
-//
-//        clone.setPreamble(preamble);
-//        clone.setSeries(series);
-//        clone.setIsp(isp);
-//        clone.setModel(model);
-//        clone.setP(P);
-//        clone.setVM(VM);
-//        clone.setMat(mat);
-//        clone.setKlim(klim);
-//        clone.setError(error);
-//        clone.setLowLimit(lowLimit);
-//        clone.setHiLimit(hiLimit);
-//        clone.setEd_izm(ed_izm);
-//        clone.setStat(stat);
-//        clone.setOutType(outType);
-//        clone.setKmch(kmch);
-//        clone.setDu(du);
-//        clone.setR(R);
-//        clone.setI(I);
-//        clone.setPI(PI);
-//        clone.setHIM(HIM);
-//        clone.setTU(TU);
-//        clone.setAfterSpec(afterSpec);
-//
-//
-//        return clone;  //To change body of implemented methods use File | Settings | File Templates.
-//    }
+    @Override
+    public InvoiceItem getClone() {
+        PressureSensor clone = new PressureSensor();
+
+        clone.setType(getType());
+        clone.price = price;
+        clone.cost = cost;
+        clone.sellingPrice = sellingPrice;
+        clone.additionalCost = additionalCost;
+        clone.transportationCost = transportationCost;
+        clone.setDeliveryTime(getDeliveryTime());
+        clone.setQuantity(getQuantity());
+        clone.setManufacturedDate(getManufacturedDate());
+
+        clone.setPreamble(preamble);
+        clone.setSeries(series);
+        clone.setIsp(isp);
+        clone.setModel(model);
+        clone.setP(P);
+        clone.setVM(VM);
+        clone.setMat(mat);
+        clone.setKlim(klim);
+        clone.setError(error);
+        clone.setLowLimit(lowLimit);
+        clone.setHiLimit(hiLimit);
+        clone.setEd_izm(ed_izm);
+        clone.setStat(stat);
+        clone.setOutType(outType);
+        clone.setKmch(kmch);
+        clone.setDu(du);
+        clone.setR(R);
+        clone.setI(I);
+        clone.setPI(PI);
+        clone.setHIM(HIM);
+        clone.setTU(TU);
+        clone.setAfterSpec(afterSpec);
+
+
+        return clone;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 
     public String getName() {
 

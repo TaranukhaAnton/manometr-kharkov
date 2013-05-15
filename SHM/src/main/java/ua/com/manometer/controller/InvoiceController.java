@@ -203,6 +203,8 @@ public class InvoiceController {
         invoice.setPostPay(new BigDecimal(0));
         invoice.setCurrentState(Invoice.STATE_CHERN);
         invoice.setDeliveryTime("45-60 дней с момента предоплаты.");
+
+        //todo заказчик по умолчанию нужно сдулать
         List<Supplier> suppliers = supplierService.listSupplier();
         if (!suppliers.isEmpty()) {
             invoice.setSupplier(suppliers.get(0));
@@ -214,6 +216,25 @@ public class InvoiceController {
         invoiceService.saveInvoice(invoice);
         LOGGER.info("Invoice was created. Id = " + invoice.getId());
         return "redirect:/invoices/view?invoice_id=" + invoice.getId();
+    }
+
+
+    @RequestMapping("/copy")
+    public String copyInvoice(HttpServletRequest request, Map<String, Object> map) throws ParseException {
+
+        Invoice parent = invoiceService.getInvoice(new Integer(request.getParameter("parent_id")));
+        final String employerShortName = request.getParameter("employer");
+        final String consumerShortName = request.getParameter("consumer");
+        DateFormat f = new SimpleDateFormat("dd.MM.yyyy");
+        final Date date = f.parse(request.getParameter("date"));
+        final Boolean isInvoice = new Boolean(request.getParameter("isInvoice"));
+        final Integer number = new Integer(request.getParameter("number"));
+        final String numberModifier = request.getParameter("numberModifier");
+
+        Invoice newInvoice = createCopyOfInvoice(parent, employerShortName, consumerShortName, date, isInvoice, number, numberModifier);
+
+        LOGGER.info("copy of Invoice was created. Id = " + newInvoice.getId());
+        return "redirect:/invoices/view?invoice_id=" + newInvoice.getId();
     }
 
 
@@ -377,6 +398,12 @@ public class InvoiceController {
     Map editInvoiceParams(@RequestParam("id") Integer id, @RequestParam("param") String param, @RequestParam("value") String value) throws ParseException {
         Map<String, Object> map = new HashMap<String, Object>();
         Invoice invoice = invoiceService.getInvoice(id);
+
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMinimumFractionDigits(2);
+        numberFormat.setMaximumFractionDigits(2);
+        
+        
         if (invoice == null) {
             //todo      log.error
             return map;
@@ -450,9 +477,9 @@ public class InvoiceController {
 
             invoiceService.saveInvoice(invoice);
             map.put("items", items);
-            map.put("total", invoice.getTotal().toString());
-            map.put("sum", invoice.getSum().toString());
-            map.put("nds", invoice.getNdsPayment().toString());
+            map.put("total",numberFormat.format( invoice.getTotal()));
+            map.put("sum",numberFormat.format( invoice.getSum()));
+            map.put("nds",numberFormat.format( invoice.getNdsPayment()));
         } else if (param.equals("commonPercent")) {
             BigDecimal percent = new BigDecimal(value.replace(",", ".").trim());
             List<Map> items = new LinkedList<Map>();
@@ -464,9 +491,9 @@ public class InvoiceController {
 
             invoiceService.saveInvoice(invoice);
             map.put("items", items);
-            map.put("total", invoice.getTotal().toString());
-            map.put("sum", invoice.getSum().toString());
-            map.put("nds", invoice.getNdsPayment().toString());
+            map.put("total",numberFormat.format( invoice.getTotal()));
+            map.put("sum",numberFormat.format( invoice.getSum()));
+            map.put("nds",numberFormat.format( invoice.getNdsPayment()));
         } else if (param.equals("commonDelivery")) {
             Integer  deliveryTime = Integer.parseInt(value);
             List<Map> items = new LinkedList<Map>();
@@ -477,9 +504,9 @@ public class InvoiceController {
             }
             invoiceService.saveInvoice(invoice);
             map.put("items", items);
-            map.put("total", invoice.getTotal().toString());
-            map.put("sum", invoice.getSum().toString());
-            map.put("nds", invoice.getNdsPayment().toString());
+            map.put("total",numberFormat.format( invoice.getTotal()));
+            map.put("sum",numberFormat.format( invoice.getSum()));
+            map.put("nds",numberFormat.format( invoice.getNdsPayment()));
         } else if (param.equals("commonTransportCost")) {
             BigDecimal transportationCost = new BigDecimal(value.replace(",", ".").trim());
 
@@ -492,9 +519,9 @@ public class InvoiceController {
 
             invoiceService.saveInvoice(invoice);
             map.put("items", items);
-            map.put("total", invoice.getTotal().toString());
-            map.put("sum", invoice.getSum().toString());
-            map.put("nds", invoice.getNdsPayment().toString());
+            map.put("total",numberFormat.format( invoice.getTotal()));
+            map.put("sum",numberFormat.format( invoice.getSum()));
+            map.put("nds",numberFormat.format( invoice.getNdsPayment()));
         } else if (param.equals("roundPrice")) {
             Integer roundValue = new Integer(value);
             List<Map> items = new LinkedList<Map>();
@@ -510,9 +537,9 @@ public class InvoiceController {
 
             invoiceService.saveInvoice(invoice);
             map.put("items", items);
-            map.put("total", invoice.getTotal().toString());
-            map.put("sum", invoice.getSum().toString());
-            map.put("nds", invoice.getNdsPayment().toString());
+            map.put("total",numberFormat.format( invoice.getTotal()));
+            map.put("sum",numberFormat.format( invoice.getSum()));
+            map.put("nds",numberFormat.format( invoice.getNdsPayment()));
 
         } else if (param.equals("NDS")) {
             invoice.setNDS(new BigDecimal(value.replace(",", ".")));
@@ -520,9 +547,9 @@ public class InvoiceController {
 
             invoiceService.saveInvoice(invoice);
             map.put("items", items);
-            map.put("total", invoice.getTotal().toString());
-            map.put("sum", invoice.getSum().toString());
-            map.put("nds", invoice.getNdsPayment().toString());
+            map.put("total",numberFormat.format( invoice.getTotal()));
+            map.put("sum",numberFormat.format( invoice.getSum()));
+            map.put("nds",numberFormat.format( invoice.getNdsPayment()));
         } else if (param.equals("exchangeRate")) {
             BigDecimal exchangeRate = new BigDecimal(value.replace(",", "."));
             BigDecimal oldExchangeRate = invoice.getExchangeRate();
@@ -537,9 +564,9 @@ public class InvoiceController {
 
             invoiceService.saveInvoice(invoice);
             map.put("items", items);
-            map.put("total", invoice.getTotal().toString());
-            map.put("sum", invoice.getSum().toString());
-            map.put("nds", invoice.getNdsPayment().toString());
+            map.put("total",numberFormat.format( invoice.getTotal()));
+            map.put("sum",numberFormat.format( invoice.getSum()));
+            map.put("nds",numberFormat.format( invoice.getNdsPayment()));
         }
         //#######################################
         invoiceService.saveInvoice(invoice);
@@ -839,5 +866,48 @@ public class InvoiceController {
         }
         return name;
     }
+
+
+    private Invoice createCopyOfInvoice(Invoice parent, String employerShortName, String consumerShortName, Date date, Boolean invoice, Integer number, String numberModifier) {
+        Invoice newInvoice = new Invoice();
+        Customer employer = customerService.getCustomerByShortName(employerShortName);
+        Customer consumer = customerService.getCustomerByShortName(consumerShortName);
+        newInvoice.setEmployer(employer);
+        newInvoice.setConsumer(consumer);
+        newInvoice.setExecutor(employer.getPerson());
+        newInvoice.setNDS(new BigDecimal("20"));
+        newInvoice.setPurpose(Invoice.PURPOSE_POSTAVKA);
+        newInvoice.setDate(date);
+        newInvoice.setInvoice(invoice);
+        newInvoice.setNumber(number);
+        newInvoice.setNumberModifier(numberModifier);
+        newInvoice.setValidity(10);
+        newInvoice.setPaymentOnTheNotice(new BigDecimal(0));
+        newInvoice.setPrepayment(new BigDecimal(0));
+        newInvoice.setPostPay(  new BigDecimal(0));
+        newInvoice.setCurrentState(Invoice.STATE_CHERN);
+        newInvoice.setDeliveryTime("45-60 дней с момента предоплаты.");
+        //todo заказчик по умолчанию нужно сделать
+        List<Supplier> suppliers = supplierService.listSupplier();
+        if (!suppliers.isEmpty()) {
+            newInvoice.setSupplier(suppliers.get(0));
+            newInvoice.setExchangeRate(suppliers.get(0).getCurrency().getExchangeRate());
+        }
+        newInvoice.setInvoiceItems(new LinkedList<InvoiceItem>());
+
+
+
+        newInvoice.setNotes(parent.getNotes());
+        invoiceService.saveInvoice(newInvoice);
+        for (InvoiceItem item : parent.getInvoiceItems()) {
+            InvoiceItem clone = item.getClone();
+            clone.setInvoice(newInvoice);
+            invoiceItemService.saveInvoiceItem(clone);
+            newInvoice.addInvoiceItems(clone);
+        }
+       invoiceService.saveInvoice(newInvoice);
+        return newInvoice;
+    }
+
 
 }
