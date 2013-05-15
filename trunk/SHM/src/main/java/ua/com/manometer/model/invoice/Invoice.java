@@ -96,7 +96,7 @@ public class Invoice {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "INVOICE_ID")
     @IndexColumn(name = "orders_index", base = 0)
-    private List<InvoiceItem> invoiceItems;
+    private List<InvoiceItem> invoiceItems = new LinkedList<InvoiceItem>();
 
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -105,11 +105,11 @@ public class Invoice {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "INVOICE_ID")
-    private Set<Shipment> shipments;
+    private Set<Shipment> shipments = new HashSet<Shipment>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "INVOICE_ID")
-    private Set<Payment> payments;
+    private Set<Payment> payments = new HashSet<Payment>();
 
 
     private Integer t0;

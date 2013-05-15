@@ -215,4 +215,6 @@ public abstract class InvoiceItem {
 
         this.transportationCost = transportationCost.setScale(2, RoundingMode.HALF_UP);
     }
+
+    public abstract InvoiceItem getClone();
 }

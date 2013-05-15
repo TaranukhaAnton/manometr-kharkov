@@ -49,8 +49,8 @@ $(function() {
             selectFirst:false,
             select:function(event, ui) {
                 $.post("editInvoiceParams", { "param":"employer","value" : ui.item.value, "id":$("#id").val()});
-            },
-            minChars: 3
+            }
+
         });
     $("#consumer").autocomplete(
         {   source:"../customers/listCustomers",
@@ -58,18 +58,38 @@ $(function() {
             selectFirst:false,
             select:function(event, ui) {
                 $.post("editInvoiceParams", { "param":"consumer","value" : ui.item.value, "id":$("#id").val()});
-            },
-            minChars: 3
+            }
+
         });
 
-//    $("#copyInvoice_form input[name='consumer']").autocomplete("../customers/listCustomers", {
-//        width :260,
-//        selectFirst :false
-//    });
-//    $("#copyInvoice_form input[name='emploer']").autocomplete("../customers/listCustomers", {
-//        width :260,
-//        selectFirst :false
-//    });
+    $("#copyInvoice_form input[name='consumer']").autocomplete(
+        {   source:"../customers/listCustomers",
+            width:260,
+            selectFirst:false,
+            open: function() {
+
+                $(this).autocomplete("widget").css({
+                    "width": 400,
+                    "height": 200,
+                    "overflow-y": "auto"
+                });
+            }
+        });
+
+    $("#copyInvoice_form input[name='employer']").autocomplete(
+        {   source:"../customers/listCustomers",
+            width:400,
+            selectFirst:false,
+            open: function() {
+
+                $(this).autocomplete("widget").css({
+                    "width": 400,
+                    "height": 200,
+                    "overflow-y": "auto"
+                });
+            }
+        });
+
     $("#copyInvoice_form input[name='date']").datepicker({
         showOn: 'button',
         buttonImage: '../images/datepicker.jpg',
@@ -410,8 +430,8 @@ $(function() {
                     function(data) {
                         if (data.correct) {
                            // location.replace("add?" + $('#newInvoice_form').serialize());
-                            //location.replace("invoiceAction.do?method=copyInvoice&" + $('#copyInvoice_form').serialize());
-                            alert('ok');
+                            location.replace("copy?" + $('#copyInvoice_form').serialize());
+
                         } else {
                             alert(data.mes.join("\n"));
                             if (data.presence) {
@@ -954,4 +974,7 @@ function bodyResize() {
 
 }
 
+function removeErrorClass(element) {
+    $(element).removeClass("error");
+}
 
