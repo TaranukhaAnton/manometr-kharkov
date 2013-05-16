@@ -7,6 +7,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 
 @Entity
@@ -63,13 +64,13 @@ public class PressureSensor extends InvoiceItem {
     private static Integer[] koef = {1000, 1, 10, 100000, 1000, 1, 10, 100000, 10, 10000};
 
     @Override
-    public InvoiceItem getClone() {
+    public InvoiceItem getClone(BigDecimal oldExchangeRate, BigDecimal newExchangeRate) {
         PressureSensor clone = new PressureSensor();
 
         clone.setType(getType());
         clone.price = price;
         clone.cost = cost;
-        clone.sellingPrice = sellingPrice;
+        clone.sellingPrice = sellingPrice.subtract(transportationCost).multiply(oldExchangeRate).divide(newExchangeRate, 2, RoundingMode.HALF_UP).add(transportationCost);
         clone.additionalCost = additionalCost;
         clone.transportationCost = transportationCost;
         clone.setDeliveryTime(getDeliveryTime());
