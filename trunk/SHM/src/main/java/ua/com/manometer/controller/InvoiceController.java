@@ -893,6 +893,10 @@ public class InvoiceController {
             newInvoice.setSupplier(suppliers.get(0));
             newInvoice.setExchangeRate(suppliers.get(0).getCurrency().getExchangeRate());
         }
+
+
+        BigDecimal oldExchangeRate = parent.getExchangeRate();
+        BigDecimal newExchangeRate = newInvoice.getExchangeRate();
         newInvoice.setInvoiceItems(new LinkedList<InvoiceItem>());
 
 
@@ -900,7 +904,7 @@ public class InvoiceController {
         newInvoice.setNotes(parent.getNotes());
         invoiceService.saveInvoice(newInvoice);
         for (InvoiceItem item : parent.getInvoiceItems()) {
-            InvoiceItem clone = item.getClone();
+            InvoiceItem clone = item.getClone(oldExchangeRate, newExchangeRate);
             clone.setInvoice(newInvoice);
             invoiceItemService.saveInvoiceItem(clone);
             newInvoice.addInvoiceItems(clone);

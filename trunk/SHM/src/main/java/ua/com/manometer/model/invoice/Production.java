@@ -13,13 +13,13 @@ public class Production extends InvoiceItem {
     String name;
 
     @Override
-    public InvoiceItem getClone() {
+    public InvoiceItem getClone(BigDecimal oldExchangeRate, BigDecimal newExchangeRate) {
         Production clone = new Production();
 
         clone.setType(getType());
         clone.price = price;
         clone.cost = cost;
-        clone.sellingPrice = sellingPrice;
+        clone.sellingPrice =  sellingPrice.subtract(transportationCost).multiply(oldExchangeRate).divide(newExchangeRate, 2, RoundingMode.HALF_UP).add(transportationCost);
         clone.additionalCost = additionalCost;
         clone.transportationCost = transportationCost;
         clone.setDeliveryTime(getDeliveryTime());

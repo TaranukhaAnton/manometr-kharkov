@@ -239,7 +239,7 @@ ALTER TABLE `options_price`
 CHANGE COLUMN `cost` `cost` DECIMAL(19,2) NOT NULL DEFAULT '00.00';
 
 ALTER TABLE `payment`
-CHANGE COLUMN `exchangeRate` `amount` DECIMAL(8,6) NOT NULL DEFAULT '1.00';
+CHANGE COLUMN `exchangeRate` `amount` DECIMAL(12,6) NOT NULL DEFAULT '1.00';
 
 
 
