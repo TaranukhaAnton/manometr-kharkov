@@ -8,12 +8,12 @@
         </layout>
     </appender>
     <appender name="R" class="org.apache.log4j.RollingFileAppender">
-        <param name="file" value="example.log"/>
+        <param name="file" value="../logs/manometer.log"/>
         <param name="MaxFileSize" value="10MB"/>
         <!-- Keep one backup file -->
         <param name="MaxBackupIndex" value="1"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{yy MMM dd HH:mm} %c{1} - %m%n"/>
+            <param name="ConversionPattern" value="%d{yy MMM dd HH:mm}[%p] %c{1} - %m%n"/>
         </layout>
     </appender>
 

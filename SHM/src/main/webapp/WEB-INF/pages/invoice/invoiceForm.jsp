@@ -336,11 +336,16 @@
 
                 </TD>
                 <TD class="width70 topAlign">
+                    <%if(changesAllowed){ %>
+
                     <input type="text" class="inp" value="<%= item.getQuantity() %>"
-                           onkeypressEn="true"  <%= changesAllowed?"":"readonly=\"true\"" %>
-                           id="quantity<%= item.getId() %>"
+                           onkeypressEn="true"    id="quantity<%= item.getId() %>"
                            onkeypress='return digInput(event)'
                            onkeydown="invoiceItemChange('quantity',<%= item.getId() %>,'dig',<%= invoice.getId()%>);">
+
+                    <%}else{%>
+                    <%= item.getQuantity() %>
+                    <%}%>
 
                 </TD>
                 <TD class="width70 topAlign">

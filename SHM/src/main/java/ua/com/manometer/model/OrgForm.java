@@ -4,6 +4,7 @@ package ua.com.manometer.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Locale;
 
 @Entity
 public class OrgForm {
@@ -62,5 +63,20 @@ public class OrgForm {
 
         return name;
     }
+
+    public String getLocalizedName(Locale locale) {
+
+        if ((new Locale("ru", "RU")).equals(locale)) {
+            return name;
+        } else if ((new Locale("ua", "UA")).equals(locale)) {
+            return nameUkr;
+        } else if ((new Locale("en", "EN")).equals(locale)) {
+            return nameEng;
+        } else {
+            return "error. Locale not found!!!";
+        }
+
+    }
+
 
 }
