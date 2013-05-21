@@ -28,6 +28,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     @Transactional
     public void saveInvoice(Invoice invoice) {
+        System.out.println("InvoiceServiceImpl.saveInvoice");
+
         updateCounters(invoice);
         updateMoneyFields(invoice);
         updateInvoiceShipmentsPercent(invoice);

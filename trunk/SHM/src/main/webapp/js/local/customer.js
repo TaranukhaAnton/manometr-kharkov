@@ -298,30 +298,35 @@ function test(value) {
 
 
 function validateForm() {
-    var shortNameElement = $("#customerForm input[name='shortName']");
-    var val = $.trim(shortNameElement.val());
 
-    if (test(val) && !shortNameElement.is(':hidden')) {
-        alert("Недопустимое значение для короткого названия. \n" +
-            "Допустимы только буквы, цифры и символы _ -.")
-        return false;
+
+
+    if (isNewCustomer()) {
+
+        var shortNameElement = $("#customerForm input[name='shortName']");
+        var val = $.trim(shortNameElement.val());
+
+        if (test(val) && !shortNameElement.is(':hidden')) {
+            alert("Недопустимое значение для короткого названия. \n" +
+                "Допустимы только буквы, цифры и символы _ -.")
+            return false;
+        }
+
+        if (val.length == 0) {
+            alert("Недопустимое значение для короткого названия. \n" +
+                "Поле должно быть заполнено.")
+            return false;
+        }
+
+        if (isShortNameUnique(val)) {
+            return true;
+        } else {
+            alert("Короткое название должно быть уникальным.");
+            return false;
+        }
+
     }
-
-    if (val.length == 0) {
-        alert("Недопустимое значение для короткого названия. \n" +
-            "Поле должно быть заполнено.")
-        return false;
-    }
-
-    if ( isShortNameUnique(val) ){
-       return true;
-    } else{
-        alert("Короткое название должно быть уникальным.");
-        return false;
-    };
-
-
-
+     return  true;
 
 }
 
@@ -337,6 +342,12 @@ function isShortNameUnique(name) {
             result =    data;
         } });
     return   result;
+}
+
+function isNewCustomer() {
+    var idElement = $("#customerForm input[name='id']");
+    var val = $.trim(idElement.val());
+    return val =='';
 }
 
 

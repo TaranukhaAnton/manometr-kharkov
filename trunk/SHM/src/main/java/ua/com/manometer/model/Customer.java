@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Locale;
 
 
 @Entity
@@ -58,15 +59,15 @@ public class Customer {
     private String address3;
 
     private Customer headCustomer;
-    @DateTimeFormat(pattern="dd.MM.yyyy")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date mergeData;
     private String questionnaire;
     private boolean status = true;
     private Customer oldRecord;
     private User person;
-    @DateTimeFormat(pattern="dd.MM.yyyy")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateOfRecord;
-    @DateTimeFormat(pattern="dd.MM.yyyy")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateLastCorrection;
     private String codeOKPO;
     private String requisite;
@@ -417,17 +418,31 @@ public class Customer {
     }
 
     @Transient
-    public String  getBranchString(){
+    public String getBranchString() {
 
-        try{
+        try {
 
             return branchValues[branch];
-        }
-        catch (Throwable t){
+        } catch (Throwable t) {
             t.printStackTrace();
 
         }
 
         return "";
+    }
+
+
+    public String getLocalizedName(Locale locale) {
+
+        if ((new Locale("ru", "RU")).equals(locale)) {
+            return name;
+        } else if ((new Locale("ua", "UA")).equals(locale)) {
+            return nameUkr;
+        } else if ((new Locale("en", "EN")).equals(locale)) {
+            return name;
+        } else {
+            return "error. Locale not found!!!";
+        }
+
     }
 }
