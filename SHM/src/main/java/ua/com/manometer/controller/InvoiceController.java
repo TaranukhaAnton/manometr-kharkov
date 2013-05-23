@@ -649,20 +649,20 @@ public class InvoiceController {
         Customer employer = invoice.getEmployer();
         City city = cityService.getCity(employer.getCity());
 
-        String orgForm = "";
+      //  String orgForm = "";
         String cityName = "";
         JAmount jAmount = null;
         Locale locale = null;
         String executorName = "";
         if (language.equals("ru")) {
-            orgForm = employer.getOrgForm().getName();
+            //orgForm = employer.getOrgForm().getName();
             cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
             cityName += " " + city.getName();
             jAmount = new JAmountRU();
             locale = new Locale("ru", "RU");
             executorName = invoice.getExecutor().getLastName() + " " + invoice.getExecutor().getName() + " " + invoice.getExecutor().getPatronymic();
         } else if (language.equals("ua")) {
-            orgForm = employer.getOrgForm().getNameUkr();
+       //     orgForm = employer.getOrgForm().getNameUkr();
             cityName = Customer.localityTypeAliasUkr[employer.getLocalityType().intValue()];
             cityName += " " + city.getNameUkr();
             jAmount = new JAmountUA();
@@ -670,14 +670,14 @@ public class InvoiceController {
             executorName = invoice.getExecutor().getFioUkr();
 
         } else if (language.equals("en")) {
-            orgForm = employer.getOrgForm().getNameEng();
+         //   orgForm = employer.getOrgForm().getNameEng();
             cityName = Customer.localityTypeAliasEn[employer.getLocalityType().intValue()];
             cityName += " " + city.getNameEn();
             jAmount = new JAmountEN();
             locale = new Locale("en", "EN");
         }
 
-        model.addAttribute("orgForm", orgForm);
+      //  model.addAttribute("orgForm", orgForm);
         model.addAttribute("city", cityName);
         model.addAttribute("executorName", executorName);
 
@@ -783,6 +783,7 @@ public class InvoiceController {
         return result;
     }
 
+/*
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public void doSalesMultiRep(@RequestParam("invoice_id") Integer invoiceId, @RequestParam("lang") String language, HttpServletResponse response, HttpServletRequest request) throws JRException, IOException {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
@@ -854,6 +855,7 @@ public class InvoiceController {
 //        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
     }
 
+*/
     private String getName() {
         String name = "";
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
