@@ -59,7 +59,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
             securedUser.setFilter(invoiceFilter);
-
+            securedUser.setPowerLevel(powersLevel);
             return securedUser;
 
         } catch (Exception e) {

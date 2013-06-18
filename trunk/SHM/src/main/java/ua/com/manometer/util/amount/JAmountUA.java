@@ -221,7 +221,7 @@ public class JAmountUA implements JAmount {
                 result = result.append("триста ");
                 break;
             case 4:
-                result = result.append("чотиреста ");
+                result = result.append("чотириста ");
                 break;
             case 5:
                 result = result.append("п'ятсот ");
@@ -254,10 +254,10 @@ public class JAmountUA implements JAmount {
                 result = result.append("сорок ");
                 break;
             case 5:
-                result = result.append("п'ятьдесят ");
+                result = result.append("п'ятдесят ");
                 break;
             case 6:
-                result = result.append("шістьдесят ");
+                result = result.append("шістдесят ");
                 break;
             case 7:
                 result = result.append("сімдесят ");

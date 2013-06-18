@@ -64,8 +64,8 @@
                     (($P{invoice}.getSupplier().getKs().isEmpty())?"":($R{param15}+" "+$P{invoice}.getSupplier().getKs()+"\n"))):"")+
 (($P{invoice}.getSupplier().getTaxationScheme().isEmpty())?"":($R{param16}+" "+$P{invoice}.getSupplier().getTaxationScheme()+"\n"))]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="a36c36bf-7f60-42b0-978f-11ba1d96ac3d" x="265" y="160" width="290" height="20"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="a36c36bf-7f60-42b0-978f-11ba1d96ac3d" x="265" y="160" width="290" height="40"/>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Serif" isItalic="false"/>
 				</textElement>
@@ -101,19 +101,12 @@ $P{invoice}.getEmployer().getLocalizedName($P{REPORT_LOCALE})+" \n"+$P{city}]]><
 				<reportElement uuid="9e2351e9-1bac-497a-ac01-5a99af6f41fc" x="0" y="0" width="555" height="102"/>
 				<imageExpression><![CDATA[$P{path}]]></imageExpression>
 			</image>
-			<textField>
-				<reportElement uuid="adf9cb42-acd8-4a5b-ad31-6ec074d650c2" x="265" y="180" width="290" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif" isStrikeThrough="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{city}]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<columnHeader>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="3fadb572-02bd-4415-b6fd-b82ee6b4c02e" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="20" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="3fadb572-02bd-4415-b6fd-b82ee6b4c02e" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="20" height="20" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -126,7 +119,7 @@ $P{invoice}.getEmployer().getLocalizedName($P{REPORT_LOCALE})+" \n"+$P{city}]]><
 				<text><![CDATA[№]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="87796d40-44c3-4606-b186-80b4d5ce960b" stretchType="RelativeToTallestObject" mode="Opaque" x="20" y="0" width="345" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="87796d40-44c3-4606-b186-80b4d5ce960b" stretchType="RelativeToTallestObject" mode="Opaque" x="20" y="0" width="345" height="20" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -139,7 +132,7 @@ $P{invoice}.getEmployer().getLocalizedName($P{REPORT_LOCALE})+" \n"+$P{city}]]><
 				<textFieldExpression><![CDATA[$R{param23}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="d3474cef-dc64-4a33-9d50-b28e93768974" stretchType="RelativeToTallestObject" mode="Opaque" x="365" y="0" width="45" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="d3474cef-dc64-4a33-9d50-b28e93768974" stretchType="RelativeToTallestObject" mode="Opaque" x="365" y="0" width="45" height="20" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -152,7 +145,7 @@ $P{invoice}.getEmployer().getLocalizedName($P{REPORT_LOCALE})+" \n"+$P{city}]]><
 				<textFieldExpression><![CDATA[$R{param24}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="62ba4e93-1c54-4baa-8039-f86df505f0db" stretchType="RelativeToTallestObject" mode="Opaque" x="410" y="0" width="65" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="62ba4e93-1c54-4baa-8039-f86df505f0db" stretchType="RelativeToTallestObject" mode="Opaque" x="410" y="0" width="65" height="20" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -165,7 +158,7 @@ $P{invoice}.getEmployer().getLocalizedName($P{REPORT_LOCALE})+" \n"+$P{city}]]><
 				<textFieldExpression><![CDATA[$R{param25}+ ", "+$P{invoice}.getSupplier().getCurrency().getName()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="b18e54fe-e2de-456a-b5ca-b2662eea994e" stretchType="RelativeToTallestObject" mode="Opaque" x="475" y="0" width="80" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="b18e54fe-e2de-456a-b5ca-b2662eea994e" stretchType="RelativeToTallestObject" mode="Opaque" x="475" y="0" width="80" height="20" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>

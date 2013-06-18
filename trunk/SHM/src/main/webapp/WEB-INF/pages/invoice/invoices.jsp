@@ -23,7 +23,9 @@
 
 <div ID="content">
 
+    <c:if test="${userLevel > 2}">
     <a href="javascript:void($('#newInvoice-div').dialog('open'))">Добавить</a><br>
+    </c:if>
 
     <a href="javascript:void(openFilterWindow())">Фильтр</a><br>
 
@@ -77,9 +79,13 @@
         <display:column url="/invoices/view_payments" title="Оплата,<br> %" class="right" property="paymentPercent" paramId="invoice_id" paramProperty="id" />
 
     <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <display:column title="" url="/invoices/delete"         paramId="invoice_id" paramProperty="id" >
-                <img src="../images/delete.gif" width="18" height="18" hspace="4"   border="0"/>
-            </display:column>
+
+        <display:column title="">
+            <a href="javascript:  if (confirm('Удалить позицию?'))  self.location.href='../invoices/delete?invoice_id=${invoice.id}'">
+                <img src="../images/delete.gif" width="18" height="18" hspace="4" border="0"/>
+            </a>
+        </display:column>
+
     </sec:authorize>
 
 
