@@ -23,6 +23,7 @@ public class SecuredUser implements UserDetails {
     private final boolean enabled;
     private InvoiceFilter filter;
     private Integer userId;
+    private Integer powerLevel;
 
     //~ Constructors ===================================================================================================
 
@@ -142,6 +143,14 @@ public class SecuredUser implements UserDetails {
 
     public void setFilter(InvoiceFilter filter) {
         this.filter = filter;
+    }
+
+    public Integer getPowerLevel() {
+        return powerLevel;
+    }
+
+    public void setPowerLevel(Integer powerLevel) {
+        this.powerLevel = powerLevel;
     }
 
     @Override

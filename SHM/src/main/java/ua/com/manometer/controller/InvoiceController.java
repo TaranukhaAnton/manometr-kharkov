@@ -85,6 +85,7 @@ public class InvoiceController {
         map.put("listInvoices", invoiceService.listFilteredInvoice(filter));
         map.put("currencies", currencyService.listCurrency());
         map.put("userList", userService.listUser());
+        map.put("userLevel", securedUser.getPowerLevel());
 
         return "invoices";
     }
