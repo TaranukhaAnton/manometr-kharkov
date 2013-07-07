@@ -569,7 +569,7 @@
                 <% }%>
 
                 <%if (InvoiceUtils.isIzmRazbAllowed(invoice)) {%>
-                <input type="button" value="Изм./разбить" onclick="" class="butt">
+                <input type="button" value="Изм./разбить" onclick="javascript:void($('#divideInvoice-dialog').dialog('open'))" class="butt">
                 <% }%>
 
                 <%if (InvoiceUtils.isAnalizAllowed(invoice)) {%>
@@ -843,6 +843,114 @@
                 <td><label for="consumer">Конечный</label></td>
                 <td>
                     <input type="text" name="consumer" onclick="removeErrorClass(this)"
+                           class="text ui-widget-content ui-corner-all"/>
+                </td>
+            </tr>
+
+
+        </table>
+    </form>
+
+</div>
+
+<div id="divideInvoice-dialog" title="Разделить счета/кп">
+    <Br>
+
+    <form action="#" id="divideInvoice_form">
+        <input type="hidden" name="parent_id" value="<%=invoice.getId()%>"/>
+
+        <table>
+
+            <tr>
+                <td></td>
+                <td>Счет 1</td>
+                <td style="width: 10px;"></td>
+
+                <td>Счет 2</td>
+            </tr>
+
+            <tr>
+                <td style="height: 20px;"></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>
+                </td>
+                <td>
+
+                    <input type="radio" name="isInvoice1" id="isInv1" value="true" checked onclick="removeErrorClass()">
+                    <label for="isInv1">Счет</label>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <input type="radio" name="isInvoice2" id="isInv2" value="true" checked onclick="removeErrorClass()">
+                    <label for="isInv2">Счет</label>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+                <td><input type="radio" name="isInvoice1" id="isKp1" value="false" onclick="removeErrorClass()">
+                    <label for="isKp1">КП</label>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <input type="radio" name="isInvoice2" id="isKp2" value="false" onclick="removeErrorClass()">
+                    <label for="isKp2">КП</label></td>
+            </tr>
+
+
+            <tr>
+                <td><label for="number1">Номер</label></td>
+                <td><input type="text" name="number1" class="text ui-widget-content ui-corner-all" onkeypress='return intInput(event)' id="number1"/>   </td>
+                <td></td>
+                <td><input type="text" name="number2" class="text ui-widget-content ui-corner-all" onkeypress='return intInput(event)' />   </td>
+
+            </tr>
+
+            <tr>
+                <td><label for="numberModifier1">Модификатор</label></td>
+                <td><input type="text" name="numberModifier1"       class="text ui-widget-content ui-corner-all"  id="numberModifier1" /></td>
+                <td></td>
+                <td><input type="text" name="numberModifier2"       class="text ui-widget-content ui-corner-all" /></td>
+            </tr>
+            <tr>
+                <td><label for="date1">Дата &nbsp &nbsp &nbsp &nbsp &nbsp</label></td>
+                <td><input type="text" name="date1" readonly="true"  value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(new Date()) %>"  id="date1"
+                           class="text ui-widget-content ui-corner-all"/></td>
+                <td></td>
+                <td><input type="text" name="date2" readonly="true"  value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(new Date()) %>"
+                           class="text ui-widget-content ui-corner-all"/></td>
+            </tr>
+
+            <tr>
+                <td><label for="employer1">Заказчик</label></td>
+                <td><input type="text" name="employer1"   id="employer1"
+                           class="text ui-widget-content ui-corner-all"/>
+                </td>
+                <td></td>
+                <td><input type="text" name="employer2"
+                           class="text ui-widget-content ui-corner-all"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="consumer1">Конечный</label></td>
+                <td>
+                    <input type="text" name="consumer1"   id="consumer1"
+                           class="text ui-widget-content ui-corner-all"/>
+                </td>
+                <td></td>
+                <td>
+                    <input type="text" name="consumer2"
                            class="text ui-widget-content ui-corner-all"/>
                 </td>
             </tr>
