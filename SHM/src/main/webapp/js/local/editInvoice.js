@@ -101,8 +101,18 @@ $(function() {
 
     $("#divideInvoice_form input[name='number1']").click(function(){$(this).removeClass("error"); });
     $("#divideInvoice_form input[name='number2']").click(function(){$(this).removeClass("error"); });
+
     $("#divideInvoice_form input[name='numberModifier1']").click(function(){$(this).removeClass("error"); });
     $("#divideInvoice_form input[name='numberModifier2']").click(function(){$(this).removeClass("error"); });
+
+    $("#divideInvoice_form input[name='date1']").click(function(){$(this).removeClass("error"); });
+    $("#divideInvoice_form input[name='date2']").click(function(){$(this).removeClass("error"); });
+
+    $("#divideInvoice_form input[name='consumer1']").click(function(){$(this).removeClass("error"); });
+    $("#divideInvoice_form input[name='consumer2']").click(function(){$(this).removeClass("error"); });
+
+    $("#divideInvoice_form input[name='employer1']").click(function(){$(this).removeClass("error"); });
+    $("#divideInvoice_form input[name='employer2']").click(function(){$(this).removeClass("error"); });
 
 //    $("#divideInvoice_form input[name='consumer1']").autocomplete("../customers/listCustomers", {
 //        width :260,
@@ -467,10 +477,67 @@ $(function() {
             $('body').css('overflow', 'auto');
         }
     });
+
+
+
+    $("#divideInvoice_form input[name='consumer1']").autocomplete(
+        {   source:"../customers/listCustomers",
+            width:260,
+            selectFirst:false,
+            open: function() {
+
+                $(this).autocomplete("widget").css({
+                    "width": 400,
+                    "height": 200,
+                    "overflow-y": "auto"
+                });
+            }
+        });
+    $("#divideInvoice_form input[name='consumer2']").autocomplete(
+        {   source:"../customers/listCustomers",
+            width:260,
+            selectFirst:false,
+            open: function() {
+
+                $(this).autocomplete("widget").css({
+                    "width": 400,
+                    "height": 200,
+                    "overflow-y": "auto"
+                });
+            }
+        });
+    $("#divideInvoice_form input[name='employer1']").autocomplete(
+        {   source:"../customers/listCustomers",
+            width:260,
+            selectFirst:false,
+            open: function() {
+
+                $(this).autocomplete("widget").css({
+                    "width": 400,
+                    "height": 200,
+                    "overflow-y": "auto"
+                });
+            }
+        });
+    $("#divideInvoice_form input[name='employer2']").autocomplete(
+        {   source:"../customers/listCustomers",
+            width:260,
+            selectFirst:false,
+            open: function() {
+
+                $(this).autocomplete("widget").css({
+                    "width": 400,
+                    "height": 200,
+                    "overflow-y": "auto"
+                });
+            }
+        });
+
+
     $("#divideInvoice-dialog").dialog({
         autoOpen: false,
-        height: 400,
-        width: 600,
+        height: 500,
+        width: 700,
         modal: true,
         resizable:false,
         buttons: {
@@ -479,42 +546,55 @@ $(function() {
                 $("#divideInvoice_form input[name='numberModifier1']").removeClass("error");
                 $("#divideInvoice_form input[name='date1']").removeClass("error");
                 $("#divideInvoice_form input[name='employer1']").removeClass("error");
+                $("#divideInvoice_form input[name='consumer1']").removeClass("error");
 
-                $("#divideInvoice_form input[name='number1']").removeClass("error");
-                $("#divideInvoice_form input[name='numberModifier1']").removeClass("error");
-                $("#divideInvoice_form input[name='date1']").removeClass("error");
-                $("#divideInvoice_form input[name='employer1']").removeClass("error");
 
-                $.post("invoiceAction.do?method=verifyDivideInvoiceForm", $('#divideInvoice_form').serialize(), function (data) {
-                    if (data.length > 0) {
-                        var response = eval("(" + data + ")");
-                        if (response.correct) {
+                $("#divideInvoice_form input[name='number2']").removeClass("error");
+                $("#divideInvoice_form input[name='numberModifier2']").removeClass("error");
+                $("#divideInvoice_form input[name='date2']").removeClass("error");
+                $("#divideInvoice_form input[name='employer2']").removeClass("error");
+                $("#divideInvoice_form input[name='consumer2']").removeClass("error");
+
+
+                $.post("verifyDivideInvoiceForm", $('#divideInvoice_form').serialize(), function (data) {
+
+                        if (data.correct) {
 //                            alert('ok');
-                              location.replace("invoiceAction.do?method=divideInvoice&" + $('#divideInvoice_form').serialize());
+                              location.replace("divideInvoice?" + $('#divideInvoice_form').serialize());
                         } else {
-                            if (!response.number1) {
+                            if (!data.number1) {
                                 $("#divideInvoice_form input[name='number1']").addClass("error");
                             }
-                            if (!response.presence1) {
+                            if (!data.number2) {
+                                $("#divideInvoice_form input[name='number2']").addClass("error");
+                            }
+                            if (data.presence1) {
                                 $("#divideInvoice_form input[name='number1']").addClass("error");
                                 $("#divideInvoice_form input[name='numberModifier1']").addClass("error");
                                 $("#divideInvoice_form input[name='date1']").addClass("error");
                             }
-                            if (!response.presence2) {
+                            if (data.presence2) {
                                 $("#divideInvoice_form input[name='number2']").addClass("error");
                                 $("#divideInvoice_form input[name='numberModifier2']").addClass("error");
                                 $("#divideInvoice_form input[name='date2']").addClass("error");
                             }
-                            if (!response.employer1) {
+                            if (!data.employer1) {
                                 $("#divideInvoice_form input[name='employer1']").addClass("error");
                             }
 
-                            if (!response.employer2) {
+                            if (!data.employer2) {
                                 $("#divideInvoice_form input[name='employer2']").addClass("error");
                             }
-                            alert(response.mes);
+
+                            if (!data.consumer1) {
+                                $("#divideInvoice_form input[name='consumer1']").addClass("error");
+                            }
+
+                            if (!data.consumer2) {
+                                $("#divideInvoice_form input[name='consumer2']").addClass("error");
+                            }
+                            alert(data.mes.join("\n"));
                         }
-                    }
                 });
 
 
@@ -527,9 +607,29 @@ $(function() {
             $('body').css('overflow', 'hidden');
             $('.ui-widget-overlay').css('width', '100%');
 
-                var consumerName = $("#consumer").val()
+            $("#divideInvoice_form input[name='number1']").removeClass("error");
+            $("#divideInvoice_form input[name='numberModifier1']").removeClass("error");
+            $("#divideInvoice_form input[name='date1']").removeClass("error");
+            $("#divideInvoice_form input[name='employer1']").removeClass("error");
+            $("#divideInvoice_form input[name='consumer1']").removeClass("error");
+
+
+            $("#divideInvoice_form input[name='number2']").removeClass("error");
+            $("#divideInvoice_form input[name='numberModifier2']").removeClass("error");
+            $("#divideInvoice_form input[name='date2']").removeClass("error");
+            $("#divideInvoice_form input[name='employer2']").removeClass("error");
+            $("#divideInvoice_form input[name='consumer2']").removeClass("error");
+
+
+
+
+            var consumerName = $("#consumer").val()
                 $("#divideInvoice_form input[name='consumer1']").val(consumerName);
                 $("#divideInvoice_form input[name='consumer2']").val(consumerName);
+
+                var employerName = $("#employer").val()
+                $("#divideInvoice_form input[name='employer1']").val(employerName);
+                $("#divideInvoice_form input[name='employer2']").val(employerName);
 
 
                     },

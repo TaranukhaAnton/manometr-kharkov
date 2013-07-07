@@ -4,10 +4,10 @@
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="2.5937424601000028"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="29"/>
 	<property name="ireport.y" value="0"/>
-	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="ua.com.manometer.model.invoice.*"/>
+	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="currency" class="java.lang.String" isForPrompting="false"/>
@@ -24,7 +24,7 @@
 	<title>
 		<band height="111" splitType="Stretch">
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="af1798df-fd74-4394-a5bc-edfa7ab6c923" key="textField-37" x="0" y="14" width="139" height="14"/>
+				<reportElement uuid="af1798df-fd74-4394-a5bc-edfa7ab6c923" key="textField-37" x="0" y="18" width="139" height="14"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="10"/>
 				</textElement>
@@ -38,21 +38,21 @@
 				<text><![CDATA[ЧАО "Манометр-Харьков"]]></text>
 			</staticText>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="4d803507-cf7e-49ac-867f-d344b0a8c062" key="textField-38" x="0" y="0" width="139" height="14"/>
+				<reportElement uuid="4d803507-cf7e-49ac-867f-d344b0a8c062" key="textField-38" x="0" y="0" width="139" height="18"/>
 				<textElement>
-					<font fontName="DejaVu Serif" size="10"/>
+					<font fontName="DejaVu Serif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Заказ-наряд №"+$P{booking}.getNumber().toString()+(($P{booking}.getNumberModifier().isEmpty()) ? "" : ("/" + $P{booking}.getNumberModifier()))]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="318dde8c-382f-4705-ac07-a42ea67f7cb9" key="textField-39" x="139" y="14" width="235" height="14"/>
+				<reportElement uuid="318dde8c-382f-4705-ac07-a42ea67f7cb9" key="textField-39" x="139" y="18" width="235" height="14"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["от "+(new SimpleDateFormat("dd.MM.yyyy")).format($P{invoice}.getDate())]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="f077b01f-22eb-4320-b4d6-7adb406b9b61" key="textField-40" mode="Transparent" x="139" y="0" width="235" height="14"/>
+				<reportElement uuid="f077b01f-22eb-4320-b4d6-7adb406b9b61" key="textField-40" mode="Transparent" x="139" y="0" width="235" height="18"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="10"/>
 				</textElement>
@@ -119,7 +119,7 @@
 	<columnHeader>
 		<band height="30" splitType="Stretch">
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="6ad5de17-7e89-484d-9547-719dae4a2493" key="textField-19" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="20" height="30" backcolor="#CCCCCC"/>
+				<reportElement uuid="6ad5de17-7e89-484d-9547-719dae4a2493" key="textField-19" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="20" height="30" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -132,7 +132,7 @@
 				<textFieldExpression><![CDATA["№"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="e9948726-ea4d-451c-9cfa-783e1fc853ff" key="staticText" stretchType="RelativeToBandHeight" mode="Opaque" x="20" y="0" width="304" height="30" forecolor="#000000" backcolor="#CCCCCC"/>
+				<reportElement uuid="e9948726-ea4d-451c-9cfa-783e1fc853ff" key="staticText" stretchType="RelativeToBandHeight" mode="Opaque" x="20" y="0" width="304" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -145,7 +145,7 @@
 				<text><![CDATA[Наименование продукции]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-				<reportElement uuid="7ef5102a-904e-41f3-8ed9-77a82595379d" key="textField-3" stretchType="RelativeToTallestObject" mode="Opaque" x="324" y="0" width="50" height="30" forecolor="#000000" backcolor="#CCCCCC"/>
+				<reportElement uuid="7ef5102a-904e-41f3-8ed9-77a82595379d" key="textField-3" stretchType="RelativeToTallestObject" mode="Opaque" x="324" y="0" width="50" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -158,7 +158,7 @@
 				<textFieldExpression><![CDATA["Кол-во, шт."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-				<reportElement uuid="478eec66-c96b-4b40-bcda-440a92454590" key="textField-52" stretchType="RelativeToBandHeight" mode="Opaque" x="374" y="0" width="80" height="30" forecolor="#000000" backcolor="#CCCCCC"/>
+				<reportElement uuid="478eec66-c96b-4b40-bcda-440a92454590" key="textField-52" stretchType="RelativeToBandHeight" mode="Opaque" x="374" y="0" width="80" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box leftPadding="10" rightPadding="10">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -171,7 +171,7 @@
 				<textFieldExpression><![CDATA["Дата отгрузки"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-				<reportElement uuid="3bfe3f47-f5a3-463e-9ca9-e9abed26ba9e" key="textField-52" stretchType="RelativeToBandHeight" mode="Opaque" x="454" y="0" width="61" height="30" forecolor="#000000" backcolor="#CCCCCC"/>
+				<reportElement uuid="3bfe3f47-f5a3-463e-9ca9-e9abed26ba9e" key="textField-52" stretchType="RelativeToBandHeight" mode="Opaque" x="454" y="0" width="61" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box leftPadding="10" rightPadding="10">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -189,7 +189,7 @@
 		<band height="16" splitType="Prevent">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false" bookmarkLevel="2">
 				<reportElement uuid="d9b4ca69-194d-4e21-bb37-a32fc5f5a357" key="textField" stretchType="RelativeToBandHeight" x="20" y="0" width="304" height="16"/>
-				<box>
+				<box leftPadding="4" rightPadding="4">
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.0"/>
@@ -279,7 +279,7 @@
 				<textFieldExpression><![CDATA["Гныря В.Н."]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement uuid="c078dca6-0349-444c-ba5b-993a5caa2b52" positionType="Float" x="0" y="0" width="555" height="40" isRemoveLineWhenBlank="true">
+				<reportElement uuid="c078dca6-0349-444c-ba5b-993a5caa2b52" positionType="Float" x="0" y="10" width="515" height="40" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[org.apache.commons.lang.StringUtils.isNotBlank($P{booking}.getNotes())]]></printWhenExpression>
 				</reportElement>
 				<textField>
@@ -292,7 +292,7 @@
 					<textFieldExpression><![CDATA["Примечания:"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="">
-					<reportElement uuid="28758543-f8e9-469b-8c1c-fb034390d714" positionType="Float" mode="Opaque" x="0" y="20" width="555" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+					<reportElement uuid="28758543-f8e9-469b-8c1c-fb034390d714" positionType="Float" mode="Opaque" x="0" y="20" width="515" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="DejaVu Serif" isItalic="false"/>
 					</textElement>

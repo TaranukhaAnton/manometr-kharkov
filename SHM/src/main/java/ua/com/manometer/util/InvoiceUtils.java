@@ -182,7 +182,11 @@ public class InvoiceUtils {
         return true;
     }
     public static boolean isIzmRazbAllowed(Invoice invoice) {
-        return false;
+        return
+                invoice.getCurrentState() == Invoice.STATE_ACT ||
+                invoice.getCurrentState() == Invoice.STATE_OTL ||
+                invoice.getCurrentState() == Invoice.STATE_OTKAZ ||
+                invoice.getCurrentState() == Invoice.STATE_ANN;
     }
     public static boolean isAnalizAllowed(Invoice invoice) {
         return true;

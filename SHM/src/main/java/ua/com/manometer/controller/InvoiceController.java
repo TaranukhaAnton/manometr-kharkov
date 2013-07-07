@@ -239,6 +239,35 @@ public class InvoiceController {
     }
 
 
+    @RequestMapping("/divideInvoice")
+    public String divideInvoice(@RequestParam(required = false) Integer parent_id,
+                                @RequestParam(required = false) Boolean isInvoice1,
+                                @RequestParam(required = false) Boolean isInvoice2,
+                                @RequestParam(required = false) Integer number1,
+                                @RequestParam(required = false) Integer number2,
+                                @RequestParam(required = false) @DateTimeFormat(pattern = "dd.MM.yyyy") Date date1,
+                                @RequestParam(required = false) @DateTimeFormat(pattern = "dd.MM.yyyy") Date date2,
+                                @RequestParam(required = false) String numberModifier1,
+                                @RequestParam(required = false) String numberModifier2,
+                                @RequestParam(required = false) String employer1,
+                                @RequestParam(required = false) String employer2,
+                                @RequestParam(required = false) String consumer1,
+                                @RequestParam(required = false) String consumer2) throws ParseException {
+        Invoice parent = invoiceService.getInvoice(parent_id);
+
+        Invoice newInvoice1 = createCopyOfInvoice(parent, employer1, consumer1, date1, isInvoice1, number1, numberModifier1);
+        Invoice newInvoice2 = createCopyOfInvoice(parent, employer2, consumer2, date2, isInvoice2, number2, numberModifier2);
+        parent.setCurrentState(Invoice.STATE_IZM);
+        invoiceService.saveInvoice(parent);
+
+
+        LOGGER.info("Two copies of Invoice id " + parent.getId() + "  was created. Id 1= " + newInvoice1.getId() + ". Id 2= " + newInvoice2.getId());
+
+
+        return "redirect:/invoices/view?invoice_id=" + newInvoice1.getId();
+    }
+
+
     @RequestMapping("/add_shipment")
     public
     @ResponseBody
@@ -639,6 +668,118 @@ public class InvoiceController {
     }
 
 
+    @RequestMapping("/verifyDivideInvoiceForm")
+    public
+    @ResponseBody
+    Map verifyDivideInvoiceForm(
+
+            @RequestParam(required = false) Boolean isInvoice1,
+            @RequestParam(required = false) Boolean isInvoice2,
+            @RequestParam(required = false) Integer number1,
+            @RequestParam(required = false) Integer number2,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "dd.MM.yyyy") Date date1,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "dd.MM.yyyy") Date date2,
+            @RequestParam(required = false) String numberModifier1,
+            @RequestParam(required = false) String numberModifier2,
+            @RequestParam(required = false) String employer1,
+            @RequestParam(required = false) String employer2,
+            @RequestParam(required = false) String consumer1,
+            @RequestParam(required = false) String consumer2
+    ) throws ParseException {
+
+
+        Boolean isAlreadyPresent1 = false;
+        Boolean isAlreadyPresent2 = false;
+        Map map = new HashMap();
+        Boolean correct = true;
+
+        List<String> mes = new LinkedList<String>();
+
+        if (number1 == null) {
+            correct = false;
+            mes.add("Поле номер 1 не должно быть пустым.");
+            map.put("number1", false);
+        } else {
+            map.put("number1", true);
+            isAlreadyPresent1 = invoiceService.checkPresence(number1, numberModifier1, isInvoice1, date1);
+
+        }
+
+
+        if (isAlreadyPresent1) {
+            correct = false;
+            mes.add(((isInvoice1) ? "Cчет" : "Кп") + " уже существует.");
+        }
+
+        map.put("presence1", isAlreadyPresent1);
+
+
+        Boolean employerCorrect1 = customerService.isCustomerPresent(employer1);
+        map.put("employer1", employerCorrect1);
+        if (!employerCorrect1) {
+            correct = false;
+            mes.add("Неверно указан заказчик 1.");
+        }
+
+
+        if (StringUtils.isNotBlank(consumer1)) {
+            Boolean consumerCorrect1 = customerService.isCustomerPresent(consumer1);
+            map.put("consumer1", consumerCorrect1);
+            if (!consumerCorrect1) {
+                correct = false;
+                mes.add("Неверно указан конечный потребитель 1. ");
+            }
+        } else {
+            map.put("consumer1", true);
+        }
+
+
+        if (number2 == null) {
+            correct = false;
+            mes.add("Поле номер 2 не должно быть пустым.");
+            map.put("number2", false);
+        } else {
+            map.put("number2", true);
+            isAlreadyPresent2 = invoiceService.checkPresence(number2, numberModifier2, isInvoice2, date2);
+
+        }
+
+
+        if (isAlreadyPresent2) {
+            correct = false;
+            mes.add(((isInvoice2) ? "Cчет" : "Кп") + " уже существует.");
+        }
+
+        map.put("presence2", isAlreadyPresent2);
+
+
+        Boolean employerCorrect2 = customerService.isCustomerPresent(employer2);
+        map.put("employer2", employerCorrect2);
+        if (!employerCorrect2) {
+            correct = false;
+            mes.add("Неверно указан заказчик 2.");
+        }
+
+
+        if (StringUtils.isNotBlank(consumer2)) {
+            Boolean consumerCorrect2 = customerService.isCustomerPresent(consumer2);
+            map.put("consumer2", consumerCorrect2);
+            if (!consumerCorrect2) {
+                correct = false;
+                mes.add("Неверно указан конечный потребитель 2.");
+            }
+        } else {
+            map.put("consumer2", true);
+        }
+
+
+        map.put("correct", correct);
+        map.put("mes", mes);
+
+        return map;
+    }
+
+
     @RequestMapping(value = "/export_report", method = RequestMethod.GET)
     public String exportReport(@RequestParam("invoice_id") Integer invoiceId, @RequestParam("type") String type, ModelMap model, HttpServletRequest request) {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
@@ -650,7 +791,7 @@ public class InvoiceController {
         Customer employer = invoice.getEmployer();
         City city = cityService.getCity(employer.getCity());
 
-      //  String orgForm = "";
+        //  String orgForm = "";
         String cityName = "";
         JAmount jAmount = null;
         Locale locale = null;
@@ -663,7 +804,7 @@ public class InvoiceController {
             locale = new Locale("ru", "RU");
             executorName = invoice.getExecutor().getLastName() + " " + invoice.getExecutor().getName() + " " + invoice.getExecutor().getPatronymic();
         } else if (language.equals("ua")) {
-       //     orgForm = employer.getOrgForm().getNameUkr();
+            //     orgForm = employer.getOrgForm().getNameUkr();
             cityName = Customer.localityTypeAliasUkr[employer.getLocalityType().intValue()];
             cityName += " " + city.getNameUkr();
             jAmount = new JAmountUA();
@@ -671,14 +812,14 @@ public class InvoiceController {
             executorName = invoice.getExecutor().getFioUkr();
 
         } else if (language.equals("en")) {
-         //   orgForm = employer.getOrgForm().getNameEng();
+            //   orgForm = employer.getOrgForm().getNameEng();
             cityName = Customer.localityTypeAliasEn[employer.getLocalityType().intValue()];
             cityName += " " + city.getNameEn();
             jAmount = new JAmountEN();
             locale = new Locale("en", "EN");
         }
 
-      //  model.addAttribute("orgForm", orgForm);
+        //  model.addAttribute("orgForm", orgForm);
         model.addAttribute("city", cityName);
         model.addAttribute("executorName", executorName);
 
@@ -784,79 +925,79 @@ public class InvoiceController {
         return result;
     }
 
-/*
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public void doSalesMultiRep(@RequestParam("invoice_id") Integer invoiceId, @RequestParam("lang") String language, HttpServletResponse response, HttpServletRequest request) throws JRException, IOException {
-        Invoice invoice = invoiceService.getInvoice(invoiceId);
+    /*
+        @RequestMapping(value = "/new", method = RequestMethod.GET)
+        public void doSalesMultiRep(@RequestParam("invoice_id") Integer invoiceId, @RequestParam("lang") String language, HttpServletResponse response, HttpServletRequest request) throws JRException, IOException {
+            Invoice invoice = invoiceService.getInvoice(invoiceId);
 
-        JasperReport report = JasperCompileManager.compileReport("D:\\projects\\~MANOMETR\\SHM\\src\\main\\resources\\invoice_ru.jrxml");
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        Customer employer = invoice.getEmployer();
-        City city = cityService.getCity(employer.getCity());
-        String cityName = "";
-        JAmount jAmount = null;
-        Locale locale = null;
+            JasperReport report = JasperCompileManager.compileReport("D:\\projects\\~MANOMETR\\SHM\\src\\main\\resources\\invoice_ru.jrxml");
+            Map<String, Object> parameters = new HashMap<String, Object>();
+            Customer employer = invoice.getEmployer();
+            City city = cityService.getCity(employer.getCity());
+            String cityName = "";
+            JAmount jAmount = null;
+            Locale locale = null;
 
-        if (language.equals("ru")) {
-            cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
-            cityName += " " + city.getName();
-            jAmount = new JAmountRU();
-            locale = new Locale("ru", "RU");
-        } else if (language.equals("ua")) {
-            cityName = Customer.localityTypeAliasUkr[employer.getLocalityType().intValue()];
-            cityName += " " + city.getNameUkr();
-            jAmount = new JAmountUA();
-            locale = new Locale("ua", "UA");
-        } else if (language.equals("en")) {
-            cityName = Customer.localityTypeAliasEn[employer.getLocalityType().intValue()];
-            cityName += " " + city.getNameEn();
-            jAmount = new JAmountEN();
-            locale = new Locale("en", "EN");
+            if (language.equals("ru")) {
+                cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
+                cityName += " " + city.getName();
+                jAmount = new JAmountRU();
+                locale = new Locale("ru", "RU");
+            } else if (language.equals("ua")) {
+                cityName = Customer.localityTypeAliasUkr[employer.getLocalityType().intValue()];
+                cityName += " " + city.getNameUkr();
+                jAmount = new JAmountUA();
+                locale = new Locale("ua", "UA");
+            } else if (language.equals("en")) {
+                cityName = Customer.localityTypeAliasEn[employer.getLocalityType().intValue()];
+                cityName += " " + city.getNameEn();
+                jAmount = new JAmountEN();
+                locale = new Locale("en", "EN");
+            }
+            parameters.put(JRParameter.REPORT_LOCALE, locale);
+
+
+    //        ResourceBundle bundle = ResourceBundle.getBundle("i18n", new UTF8Control());
+    //        parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, bundle);
+
+
+            //  Customer employer = customerService.getCustomerByShortName(invoice.getEmployer());
+            // String orgForm = employer.getOrgForm().getName();
+           // parameters.put("orgForm", orgForm);
+
+            //  City city = cityService.getCity(employer.getCity());
+            //String cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
+            //cityName += " " + city.getName();
+            parameters.put("city", cityName);
+
+            parameters.put("invoice", invoice);
+            final int currencyId = invoice.getSupplier().getCurrency().getId();
+            //  JAmount jAmount = new JAmountRU();
+            parameters.put("strTotal", jAmount.getAmount(currencyId, invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
+
+            String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+            path += request.getContextPath() + "/images/reportImages/header_" + language + ".png";
+            parameters.put("path", path);
+
+
+            List<InvoiceItem> invoiceItems = invoice.getInvoiceItems();
+            JRDataSource dataSource = new JRBeanCollectionDataSource(invoiceItems);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, dataSource);
+
+
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, response.getOutputStream());
+            exporter.exportReport();
+
+
+            // JasperViewer.viewReport(jasperPrint);
+
+    //        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         }
-        parameters.put(JRParameter.REPORT_LOCALE, locale);
 
-
-//        ResourceBundle bundle = ResourceBundle.getBundle("i18n", new UTF8Control());
-//        parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, bundle);
-
-
-        //  Customer employer = customerService.getCustomerByShortName(invoice.getEmployer());
-        // String orgForm = employer.getOrgForm().getName();
-       // parameters.put("orgForm", orgForm);
-
-        //  City city = cityService.getCity(employer.getCity());
-        //String cityName = Customer.localityTypeAlias[employer.getLocalityType().intValue()];
-        //cityName += " " + city.getName();
-        parameters.put("city", cityName);
-
-        parameters.put("invoice", invoice);
-        final int currencyId = invoice.getSupplier().getCurrency().getId();
-        //  JAmount jAmount = new JAmountRU();
-        parameters.put("strTotal", jAmount.getAmount(currencyId, invoice.getTotal().divide(invoice.getExchangeRate(), 2, RoundingMode.HALF_UP)));
-
-        String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        path += request.getContextPath() + "/images/reportImages/header_" + language + ".png";
-        parameters.put("path", path);
-
-
-        List<InvoiceItem> invoiceItems = invoice.getInvoiceItems();
-        JRDataSource dataSource = new JRBeanCollectionDataSource(invoiceItems);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, dataSource);
-
-
-        JRExporter exporter = new JRPdfExporter();
-        exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, response.getOutputStream());
-        exporter.exportReport();
-
-
-        // JasperViewer.viewReport(jasperPrint);
-
-//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-    }
-
-*/
+    */
     private String getName() {
         String name = "";
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
