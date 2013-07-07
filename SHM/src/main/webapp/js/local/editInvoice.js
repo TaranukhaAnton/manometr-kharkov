@@ -536,8 +536,8 @@ $(function() {
 
     $("#divideInvoice-dialog").dialog({
         autoOpen: false,
-        height: 500,
-        width: 700,
+        height: 600,
+        width: 750,
         modal: true,
         resizable:false,
         buttons: {
