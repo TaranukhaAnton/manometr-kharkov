@@ -1022,28 +1022,29 @@ public class InvoiceController {
         newInvoice.setNumber(number);
         newInvoice.setNumberModifier(numberModifier);
         newInvoice.setValidity(10);
-        newInvoice.setPaymentOnTheNotice(new BigDecimal(0));
-        newInvoice.setPrepayment(new BigDecimal(0));
-        newInvoice.setPostPay(new BigDecimal(0));
+        newInvoice.setPaymentOnTheNotice(parent.getPaymentOnTheNotice());
+        newInvoice.setPrepayment(parent.getPrepayment());
+        newInvoice.setPostPay(parent.getPostPay());
+        newInvoice.setDaysAfterDelivery(parent.getDaysAfterDelivery());
+
         newInvoice.setCurrentState(Invoice.STATE_CHERN);
         newInvoice.setDeliveryTime("45 - 60 днів з моменту передоплати.");
-        //todo заказчик по умолчанию нужно сделать
-        List<Supplier> suppliers = supplierService.listSupplier();
-        if (!suppliers.isEmpty()) {
-            newInvoice.setSupplier(suppliers.get(0));
-            newInvoice.setExchangeRate(suppliers.get(0).getCurrency().getExchangeRate());
-        }
+
+
+            newInvoice.setSupplier(parent.getSupplier());
+            newInvoice.setExchangeRate(parent.getExchangeRate());
+
 
 
         BigDecimal oldExchangeRate = parent.getExchangeRate();
-        BigDecimal newExchangeRate = newInvoice.getExchangeRate();
+       // BigDecimal newExchangeRate = newInvoice.getExchangeRate();
         newInvoice.setInvoiceItems(new LinkedList<InvoiceItem>());
 
 
         newInvoice.setNotes(parent.getNotes());
         invoiceService.saveInvoice(newInvoice);
         for (InvoiceItem item : parent.getInvoiceItems()) {
-            InvoiceItem clone = item.getClone(oldExchangeRate, newExchangeRate);
+            InvoiceItem clone = item.getClone(oldExchangeRate, oldExchangeRate);
             clone.setInvoice(newInvoice);
             invoiceItemService.saveInvoiceItem(clone);
             newInvoice.addInvoiceItems(clone);
