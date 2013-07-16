@@ -177,9 +177,19 @@ public class BookingController {
     public String exportReport(@RequestParam("invoice_id") Integer invoiceId, @RequestParam("type") String type, ModelMap model, HttpServletRequest request) {
         Invoice invoice = invoiceService.getInvoice(invoiceId);
         List<InvoiceItem> result = new LinkedList<InvoiceItem>();
+        Set<Date> dates = new TreeSet<Date>();
         for (InvoiceItem i : invoice.getInvoiceItems()) {
             if (i.getType() != 9) result.add(i);
+            Date date = InvoiceItem.dateBeforeNDays(invoice.getBooking().getDate(), i.getDeliveryTime());
+            dates.add(date);
         }
+        Date start = null;
+        Date end = null;
+        if (!dates.isEmpty()){
+            start  = Collections.min(dates);
+            end  = Collections.max(dates);
+        }
+
 
         JRDataSource dataSource = new JRBeanCollectionDataSource(result);
 
@@ -193,6 +203,10 @@ public class BookingController {
         model.addAttribute("format", type);
         model.addAttribute("invoice", invoice);
         model.addAttribute("booking", invoice.getBooking());
+        model.addAttribute("end", end);
+        model.addAttribute("start", start);
+
+
         return "bookingReport";
     }
 

@@ -4,8 +4,8 @@
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="2.5937424601000028"/>
-	<property name="ireport.x" value="29"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="123"/>
+	<property name="ireport.y" value="52"/>
 	<import value="ua.com.manometer.model.invoice.*"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
@@ -13,6 +13,8 @@
 	<parameter name="currency" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="invoice" class="ua.com.manometer.model.invoice.Invoice" isForPrompting="false"/>
 	<parameter name="booking" class="ua.com.manometer.model.invoice.Booking" isForPrompting="false"/>
+	<parameter name="start" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="end" class="java.util.Date" isForPrompting="false"/>
 	<field name="name" class="java.lang.String"/>
 	<field name="quantity" class="java.lang.Integer"/>
 	<field name="sum" class="java.math.BigDecimal"/>
@@ -24,7 +26,7 @@
 	<title>
 		<band height="111" splitType="Stretch">
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="af1798df-fd74-4394-a5bc-edfa7ab6c923" key="textField-37" x="0" y="18" width="139" height="14"/>
+				<reportElement uuid="af1798df-fd74-4394-a5bc-edfa7ab6c923" key="textField-37" x="259" y="0" width="96" height="18"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="10"/>
 				</textElement>
@@ -45,70 +47,70 @@
 				<textFieldExpression><![CDATA["Заказ-наряд №"+$P{booking}.getNumber().toString()+(($P{booking}.getNumberModifier().isEmpty()) ? "" : ("/" + $P{booking}.getNumberModifier()))]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="318dde8c-382f-4705-ac07-a42ea67f7cb9" key="textField-39" x="139" y="18" width="235" height="14"/>
+				<reportElement uuid="318dde8c-382f-4705-ac07-a42ea67f7cb9" key="textField-39" mode="Transparent" x="355" y="0" width="160" height="18" backcolor="#FFFFFF"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["от "+(new SimpleDateFormat("dd.MM.yyyy")).format($P{invoice}.getDate())]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="f077b01f-22eb-4320-b4d6-7adb406b9b61" key="textField-40" mode="Transparent" x="139" y="0" width="235" height="18"/>
+				<reportElement uuid="f077b01f-22eb-4320-b4d6-7adb406b9b61" key="textField-40" mode="Transparent" x="139" y="0" width="120" height="18" backcolor="#FFFFFF"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["от "+(new SimpleDateFormat("dd.MM.yyyy")).format($P{booking}.getDate())]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="8784b274-2eff-4932-b819-5b31e99f66aa" key="textField-41" x="0" y="43" width="139" height="16"/>
+				<reportElement uuid="8784b274-2eff-4932-b819-5b31e99f66aa" key="textField-41" x="259" y="18" width="96" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Плательщик:"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="08be2858-1ac2-4418-ae5d-6b33bc9580dd" key="textField-42" x="0" y="59" width="139" height="16"/>
+				<reportElement uuid="08be2858-1ac2-4418-ae5d-6b33bc9580dd" key="textField-42" x="0" y="18" width="139" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Конечный потребитель:"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="4a8cfd92-4808-4531-97b3-f55c71847759" key="textField-43" x="0" y="75" width="139" height="16"/>
+				<reportElement uuid="4a8cfd92-4808-4531-97b3-f55c71847759" key="textField-43" x="259" y="34" width="96" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Назначение з/н:"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="fedc5c8c-2470-4fb2-99f1-062418c41748" key="textField-44" x="139" y="43" width="376" height="16"/>
+				<reportElement uuid="fedc5c8c-2470-4fb2-99f1-062418c41748" key="textField-44" x="355" y="18" width="160" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{invoice}.getEmployer().getName()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="7f581c5a-76f8-4bd5-a0ad-b957ce38d7d5" key="textField-45" x="139" y="59" width="376" height="16"/>
+				<reportElement uuid="7f581c5a-76f8-4bd5-a0ad-b957ce38d7d5" key="textField-45" x="139" y="18" width="120" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{invoice}.getConsumer().getName()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="a22ee530-49bf-491f-b8b2-886b45647e59" key="textField-46" x="139" y="75" width="376" height="16"/>
+				<reportElement uuid="a22ee530-49bf-491f-b8b2-886b45647e59" key="textField-46" x="355" y="34" width="160" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[Invoice.purposeAliasFull[$P{invoice}.getPurpose()]]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="3f0c0eaf-982e-49cd-ab32-a6f197e16b6c" key="textField-43" x="0" y="91" width="139" height="16"/>
+				<reportElement uuid="3f0c0eaf-982e-49cd-ab32-a6f197e16b6c" key="textField-43" x="0" y="34" width="139" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Оплата %:"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="7f696250-da80-41fe-bdee-47713fe68844" key="textField-46" x="139" y="91" width="376" height="16"/>
+				<reportElement uuid="7f696250-da80-41fe-bdee-47713fe68844" key="textField-46" x="139" y="34" width="120" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif"/>
 				</textElement>
@@ -132,7 +134,7 @@
 				<textFieldExpression><![CDATA["№"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="e9948726-ea4d-451c-9cfa-783e1fc853ff" key="staticText" stretchType="RelativeToBandHeight" mode="Opaque" x="20" y="0" width="304" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="e9948726-ea4d-451c-9cfa-783e1fc853ff" key="staticText" stretchType="RelativeToBandHeight" mode="Opaque" x="20" y="0" width="335" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -145,7 +147,7 @@
 				<text><![CDATA[Наименование продукции]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-				<reportElement uuid="7ef5102a-904e-41f3-8ed9-77a82595379d" key="textField-3" stretchType="RelativeToTallestObject" mode="Opaque" x="324" y="0" width="50" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="7ef5102a-904e-41f3-8ed9-77a82595379d" key="textField-3" stretchType="RelativeToTallestObject" mode="Opaque" x="355" y="0" width="50" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -158,20 +160,7 @@
 				<textFieldExpression><![CDATA["Кол-во, шт."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-				<reportElement uuid="478eec66-c96b-4b40-bcda-440a92454590" key="textField-52" stretchType="RelativeToBandHeight" mode="Opaque" x="374" y="0" width="80" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
-				<box leftPadding="10" rightPadding="10">
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font fontName="DejaVu Serif" size="12" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Дата отгрузки"]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-				<reportElement uuid="3bfe3f47-f5a3-463e-9ca9-e9abed26ba9e" key="textField-52" stretchType="RelativeToBandHeight" mode="Opaque" x="454" y="0" width="61" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="3bfe3f47-f5a3-463e-9ca9-e9abed26ba9e" key="textField-52" stretchType="RelativeToBandHeight" mode="Opaque" x="405" y="0" width="110" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box leftPadding="10" rightPadding="10">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -186,23 +175,22 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="16" splitType="Prevent">
+		<band height="20" splitType="Prevent">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false" bookmarkLevel="2">
-				<reportElement uuid="d9b4ca69-194d-4e21-bb37-a32fc5f5a357" key="textField" stretchType="RelativeToBandHeight" x="20" y="0" width="304" height="16"/>
-				<box leftPadding="4" rightPadding="4">
+				<reportElement uuid="d9b4ca69-194d-4e21-bb37-a32fc5f5a357" key="textField" stretchType="RelativeToBandHeight" x="20" y="0" width="335" height="20"/>
+				<box topPadding="2" bottomPadding="2">
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" isBold="false"/>
+					<font fontName="DejaVu Serif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 				<anchorNameExpression><![CDATA[$F{quantity} + " (" + $F{name} + ")"]]></anchorNameExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="703f513f-3111-466a-8420-bc9791007505" key="textField" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="324" y="0" width="50" height="16"/>
-				<box leftPadding="10" rightPadding="10">
+				<reportElement uuid="703f513f-3111-466a-8420-bc9791007505" key="textField" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="355" y="0" width="50" height="20"/>
+				<box topPadding="2" bottomPadding="2">
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -212,31 +200,19 @@
 				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="9110fa96-3714-4040-80fa-75a575166eb2" key="textField-20" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="16"/>
-				<box>
+				<reportElement uuid="9110fa96-3714-4040-80fa-75a575166eb2" key="textField-20" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="20"/>
+				<box topPadding="2" bottomPadding="2">
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" isBold="false"/>
+					<font fontName="DejaVu Serif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="5ffe1b8d-0067-48c1-bcf0-5717a09531f1" key="textField-53" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="374" y="0" width="80" height="16"/>
-				<box leftPadding="10" rightPadding="10">
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="DejaVu Serif" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[(new SimpleDateFormat("dd.MM.yyyy")).format(InvoiceItem.dateBeforeNDays($P{booking}.getDate(),$F{deliveryTime}))]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="284d94b7-c8ed-40fe-9fce-82489118d322" key="textField-53" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="454" y="0" width="61" height="16"/>
-				<box leftPadding="10" rightPadding="10">
+				<reportElement uuid="284d94b7-c8ed-40fe-9fce-82489118d322" key="textField-53" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="405" y="0" width="110" height="20"/>
+				<box topPadding="2" bottomPadding="2">
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
@@ -279,7 +255,7 @@
 				<textFieldExpression><![CDATA["Гныря В.Н."]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement uuid="c078dca6-0349-444c-ba5b-993a5caa2b52" positionType="Float" x="0" y="10" width="515" height="40" isRemoveLineWhenBlank="true">
+				<reportElement uuid="c078dca6-0349-444c-ba5b-993a5caa2b52" positionType="Float" x="0" y="34" width="515" height="40" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[org.apache.commons.lang.StringUtils.isNotBlank($P{booking}.getNotes())]]></printWhenExpression>
 				</reportElement>
 				<textField>
@@ -299,6 +275,34 @@
 					<textFieldExpression><![CDATA[$P{booking}.getNotes()]]></textFieldExpression>
 				</textField>
 			</frame>
+			<textField>
+				<reportElement uuid="0059ac47-6270-4ad4-92b5-d13799176df2" x="0" y="0" width="139" height="16"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Начало отгрузки"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="df4fdeca-23f5-4950-825e-0083602fb03f" x="0" y="16" width="139" height="16"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Завершение отгрузки"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="33bed62e-c143-4730-8897-2e9ed8cc6b3a" x="139" y="0" width="100" height="16"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new SimpleDateFormat("dd.MM.yyyy")).format($P{start})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b0b022ee-ea86-456b-9a78-d44765e30097" x="139" y="16" width="100" height="16"/>
+				<textElement>
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new SimpleDateFormat("dd.MM.yyyy")).format($P{end})]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
