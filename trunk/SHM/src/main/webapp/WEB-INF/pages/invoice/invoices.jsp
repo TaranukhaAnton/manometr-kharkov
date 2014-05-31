@@ -24,50 +24,50 @@
 <div ID="content">
 
     <c:if test="${userLevel > 2}">
-    <a href="javascript:void($('#newInvoice-div').dialog('open'))">Добавить</a><br>
+        <a href="javascript:void($('#newInvoice-div').dialog('open'))">Добавить</a><br>
     </c:if>
 
     <a href="javascript:void(openFilterWindow())">Фильтр</a><br>
 
 
-
-
-        <display:table name="listInvoices" requestURI="./" excludedParams="method"
+    <display:table name="listInvoices" requestURI="./" excludedParams="method"
                    requestURIcontext="false" pagesize="20" sort="list"
                    class="simple" id="invoice" keepStatus="true"
-                decorator="ua.com.manometer.util.InvoiceTableDecorator">
+                   decorator="ua.com.manometer.util.InvoiceTableDecorator">
 
 
         <display:column>
             <c:if test="${not invoice.invoice}">
-               <c:out value="к"/>
+                <c:out value="к"/>
             </c:if>
         </display:column>
 
-        <display:column url="/invoices/view"  title="№" class="right" paramId="invoice_id" paramProperty="id" property="number" sortable="true"/>
+        <display:column url="/invoices/view" title="№" class="right" paramId="invoice_id" paramProperty="id"
+                        property="number" sortable="true"/>
 
         <display:column property="numberModifier" title="м" class="left"/>
 
-        <display:column title="дата" sortable="true" format="{0,date,dd.MM.yyyy}" property="date"  headerClass="dataColumn"    />
+        <display:column title="дата" sortable="true" format="{0,date,dd.MM.yyyy}" property="date"
+                        headerClass="dataColumn"/>
 
         <display:column title="Назн" class="center" property="purpose"/>
 
-            <%--<%= Invoice.purposeAlias[((Invoice) pageContext.getAttribute("invoice")).getPurpose()]%>--%>
+        <%--<%= Invoice.purposeAlias[((Invoice) pageContext.getAttribute("invoice")).getPurpose()]%>--%>
         <%--</display:column>--%>
-        <display:column url="/customers/get_by_name" title="заказчик" maxLength="15" property="employer" paramId="name" paramProperty="employer"/>
+        <display:column url="/customers/get_by_name" title="заказчик" maxLength="15" property="employer" paramId="name"
+                        paramProperty="employer"/>
 
         <display:column property="executor" class="center" title="спец <br> ОСО"/>
 
-        <display:column property="t0" class="col30 right" title="ДД" />
+        <display:column property="t0" class="col30 right" title="ДД"/>
         <display:column property="t1" class="col30 right" title="БП"/>
         <display:column property="t2" class="col30 right" title="ДКС"/>
         <display:column property="t3" class="col30 right" title="ИБ"/>
         <display:column property="t4" class="col30 right" title="пр"/>
         <display:column property="t5" class="col30 right" title="стор"/>
 
-        <display:column title="Сумма,<br> тыс" class="right currency" property="sum" />
-        <display:column title="Нац-ка" class="right" property="additionToPrice"/>
-        <display:column  property="shipment" class="right"  title="Отгрузка <br> %"/>
+        <display:column title="Сумма,<br> тыс" class="right currency" property="sum"/>
+        <display:column title="к-т" class="right" property="additionToPrice"/>
 
 
         <display:column title="сост.">
@@ -75,18 +75,20 @@
         </display:column>
 
 
-        <display:column  property="booking" class="right"  title="з/н"/>
-        <display:column url="/invoices/view_payments" title="Оплата,<br> %" class="right" property="paymentPercent" paramId="invoice_id" paramProperty="id" />
+        <display:column property="booking" class="right" title="з/н"/>
+        <display:column url="/invoices/view_payments" title="Опл,<br> %" class="right" property="paymentPercent"
+                        paramId="invoice_id" paramProperty="id"/>
+        <display:column property="shipment" class="right" title="Отгр <br> %"/>
 
-    <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
 
-        <display:column title="">
-            <a href="javascript:  if (confirm('Удалить позицию?'))  self.location.href='../invoices/delete?invoice_id=${invoice.id}'">
-                <img src="../images/delete.gif" width="18" height="18" hspace="4" border="0"/>
-            </a>
-        </display:column>
+            <display:column title="">
+                <a href="javascript:  if (confirm('Удалить позицию?'))  self.location.href='../invoices/delete?invoice_id=${invoice.id}'">
+                    <img src="../images/delete.gif" width="18" height="18" hspace="4" border="0"/>
+                </a>
+            </display:column>
 
-    </sec:authorize>
+        </sec:authorize>
 
 
     </display:table>
@@ -118,12 +120,6 @@
                 <td><label for="numberModifier">Модификатор</label></td>
                 <td><input type="text" name="numberModifier" id="numberModifier"
                            class="text ui-widget-content ui-corner-all" onclick="removeErrorClass()"/></td>
-            </tr>
-            <tr>
-                <td><label for="date">Дата &nbsp &nbsp &nbsp &nbsp &nbsp</label></td>
-                <td><input type="text" name="date" id="date" readonly="true" onclick="removeErrorClass()"
-                           value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(new Date()) %>"
-                           class="text ui-widget-content ui-corner-all"/></td>
             </tr>
 
             <tr>
@@ -157,16 +153,15 @@
             <li><a href="#tabs-4">Назначение</a></li>
             <li><a href="#tabs-5">Состояние</a></li>
             <li><a href="#tabs-6">Валюта</a></li>
-            <%--<% if (((Integer) session.getAttribute("livel")) > 2) {%>--%>
             <sec:authorize access="hasRole('ROLE_ECONOMIST')">
-            <li><a href="#tabs-7">Спец. ОСО</a></li>
+                <li><a href="#tabs-7">Спец. ОСО</a></li>
             </sec:authorize>
-            <%--<% } %>--%>
         </ul>
 
 
         <form id="filterForm">
             <input type="hidden" name="id">
+
             <div id="tabs-1" class="tabdiv">
 
                 <input type="radio" name="f0" value="0"/> все <Br>
@@ -178,7 +173,6 @@
 
                 <input type="radio" name="f1" value="0"/> все <Br>
                 <input type="radio" name="f1" value="1"/>
-
 
 
                 с <input type="text" name="f1From">
@@ -222,7 +216,7 @@
 
                 <table>
 
-                   <%
+                    <%
 
                         for (Integer i = 0; i < Invoice.purposeAlias.length; i++) { %>
                     <tr>
@@ -258,9 +252,9 @@
             </div>
 
             <div id="tabs-6" class="tabdiv">
-               <table>
+                <table>
                     <%
-                        List<Currency> currencies =    (List<Currency>) request.getAttribute("currencies");
+                        List<Currency> currencies = (List<Currency>) request.getAttribute("currencies");
                         for (Currency currency : currencies) {
                     %>
                     <tr>
@@ -275,32 +269,32 @@
             </div>
 
             <sec:authorize access="hasRole('ROLE_ECONOMIST')">
-            <div id="tabs-7" class="tabdiv">
+                <div id="tabs-7" class="tabdiv">
 
-               <div id="users">
-
-
-                <table>
-                    <%
-                        List<User> users =     (List<User>) request.getAttribute("userList");
-                        for (User user : users) {
-                    %>
-                    <tr>
-                        <td><input type="checkbox" name="users" value="<%=user.getId()%>"></td>
-                        <td>&nbsp;<%=user.getLogin()%>
-                        </td>
-                    </tr>
-                    <%}%>
+                    <div id="users">
 
 
-                </table>
-            </div>
-            </div>
+                        <table>
+                            <%
+                                List<User> users = (List<User>) request.getAttribute("userList");
+                                for (User user : users) {
+                            %>
+                            <tr>
+                                <td><input type="checkbox" name="users" value="<%=user.getId()%>"></td>
+                                <td>&nbsp;<%=user.getLogin()%>
+                                </td>
+                            </tr>
+                            <%}%>
+
+
+                        </table>
+                    </div>
+                </div>
             </sec:authorize>
             <sec:authorize access="!hasRole('ROLE_ECONOMIST')">
 
 
-                <input type="hidden" name="users" value="<%=request.getAttribute("userId")%>" >
+                <input type="hidden" name="users" value="<%=request.getAttribute("userId")%>">
 
                 <%--<%}%>--%>
             </sec:authorize>
