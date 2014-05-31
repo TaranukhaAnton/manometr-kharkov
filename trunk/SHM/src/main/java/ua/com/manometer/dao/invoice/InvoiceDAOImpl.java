@@ -56,11 +56,11 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         if (invoiceFilter.getF1() != 0) {
 
             if (invoiceFilter.getF1From() != null) {
-                conjunction.add(Restrictions.gt("number", invoiceFilter.getF1From()));
+                conjunction.add(Restrictions.ge("number", invoiceFilter.getF1From()));
             }
 
             if (invoiceFilter.getF1To() != null) {
-                conjunction.add(Restrictions.lt("number", invoiceFilter.getF1To()));
+                conjunction.add(Restrictions.le("number", invoiceFilter.getF1To()));
             }
 
         }

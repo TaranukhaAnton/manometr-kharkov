@@ -14,8 +14,8 @@ public interface InvoiceService {
 
     public void updateInvoice(Integer id);
 
-
 	public List<Invoice> listInvoice();
+
     public List<Invoice> listFilteredInvoice(InvoiceFilter invoiceFilter);
 
 	public void removeInvoice(Integer id);
