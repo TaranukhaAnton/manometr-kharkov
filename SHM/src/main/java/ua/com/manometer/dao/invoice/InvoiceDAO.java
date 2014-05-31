@@ -10,6 +10,7 @@ public interface InvoiceDAO {
 	public void saveInvoice(Invoice invoice);
 
 	public List<Invoice> listInvoice();
+
     public List<Invoice> listFilteredInvoice(InvoiceFilter invoiceFilter);
 
 	public void removeInvoice(Integer id);
