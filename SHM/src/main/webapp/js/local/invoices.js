@@ -24,6 +24,7 @@ $(function () {
     $('#invoice tr:eq(1) th:eq(6)').remove();
     $('#invoice tr:eq(1) th:eq(6)').remove();
     $('#invoice tr:eq(1) th:eq(6)').remove();
+    $('#invoice tr:eq(1) th:eq(6)').remove();
 
     $('#invoice tr:eq(0) th:eq(0)').attr("rowspan", 2);
     $('#invoice tr:eq(0) th:eq(1)').attr("rowspan", 2);
@@ -38,6 +39,7 @@ $(function () {
     $('#invoice tr:eq(0) th:eq(11)').attr("rowspan", 2);
     $('#invoice tr:eq(0) th:eq(12)').attr("rowspan", 2);
     $('#invoice tr:eq(0) th:eq(13)').attr("rowspan", 2);
+    $('#invoice tr:eq(0) th:eq(14)').attr("rowspan", 2);
 
 
     $("#date").datepicker({
@@ -102,7 +104,6 @@ $(function () {
                             if (data.presence) {
                                 $('#number').addClass("error");
                                 $('#numberModifier').addClass("error");
-                                $('#date').addClass("error");
                             }
                             if (!data.number) {
                                 $('#number').addClass("error");

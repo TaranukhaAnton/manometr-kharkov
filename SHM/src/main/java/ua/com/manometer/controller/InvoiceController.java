@@ -187,10 +187,7 @@ public class InvoiceController {
         invoice.setNDS(new BigDecimal("20"));
         invoice.setPurpose(Invoice.PURPOSE_POSTAVKA);
         DateFormat f = new SimpleDateFormat("dd.MM.yyyy");
-        String date = request.getParameter("date");
-        invoice.setDate(f.parse(date));
-        LOGGER.info("\"date\" = " + date);
-        // invoice.setChangeDate(new Date());
+        invoice.setDate(new Date());
         invoice.setInvoice(new Boolean(request.getParameter("isInvoice")));
         LOGGER.info("\"isInvoice\" = " + request.getParameter("isInvoice"));
         invoice.setNumber(new Integer(request.getParameter("number")));
@@ -611,7 +608,7 @@ public class InvoiceController {
 
             @RequestParam(required = false) Boolean isInvoice,
             @RequestParam(required = false) Integer number,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "dd.MM.yyyy") Date date,
+
             @RequestParam(required = false) String numberModifier,
             @RequestParam(required = false) String employer,
             @RequestParam(required = false) String consumer) throws ParseException {
@@ -628,7 +625,7 @@ public class InvoiceController {
             mes.add("Поле номер не должно быть пустым.");
             map.put("number", false);
         } else {
-            isAlreadyPresent = invoiceService.checkPresence(number, numberModifier, isInvoice, date);
+            isAlreadyPresent = invoiceService.checkPresence(number, numberModifier, isInvoice, new Date());
 
         }
 

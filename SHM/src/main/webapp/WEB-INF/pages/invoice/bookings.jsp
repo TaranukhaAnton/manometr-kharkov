@@ -35,12 +35,14 @@
             $('#booking tr:eq(0) th:eq(7)').remove();
             $('#booking tr:eq(0) th:eq(7)').remove();
             $('#booking tr:eq(0) th:eq(7)').remove();
-            $('#booking tr:eq(0) th:eq(6)').attr("colspan", 6);
-            $('#booking tr:eq(0) th:eq(6)').text("продукция");
-            $('#booking tr:eq(0) th:eq(8)').remove();
-            $('#booking tr:eq(0) th:eq(7)').attr("colspan", 2);
-            $('#booking tr:eq(0) th:eq(7)').text("обязательства");
 
+            $('#booking tr:eq(0) th:eq(7)').attr("colspan", 6);
+            $('#booking tr:eq(0) th:eq(7)').text("продукция");
+            $('#booking tr:eq(0) th:eq(9)').remove();
+            $('#booking tr:eq(0) th:eq(8)').attr("colspan", 2);
+            $('#booking tr:eq(0) th:eq(8)').text("обязательства");
+
+            $('#booking tr:eq(1) th:eq(0)').remove();
             $('#booking tr:eq(1) th:eq(0)').remove();
             $('#booking tr:eq(1) th:eq(0)').remove();
             $('#booking tr:eq(1) th:eq(0)').remove();
@@ -53,7 +55,8 @@
             $('#booking tr:eq(0) th:eq(2)').attr("rowspan", 2);
             $('#booking tr:eq(0) th:eq(4)').attr("rowspan", 2);
             $('#booking tr:eq(0) th:eq(5)').attr("rowspan", 2);
-            $('#booking tr:eq(0) th:eq(8)').attr("rowspan", 2);
+            $('#booking tr:eq(0) th:eq(6)').attr("rowspan", 2);
+            $('#booking tr:eq(0) th:eq(9)').attr("rowspan", 2);
         });
 
 
@@ -101,15 +104,21 @@
 
 <DIV ID="content">
 
-    <display:table name="listBookings" requestURI="suplierAction.do?method=viewBookings" excludedParams="method"
+    <display:table name="listBookings" requestURI="./" excludedParams="method"
                    requestURIcontext="false" pagesize="20" sort="list" keepStatus="true"
                    class="simple" id="booking">
 
         <display:column property="curStateStr" title="сост" />
 
-        <display:column url="/bookings/view" title="№"  paramId="invoice_id" paramProperty="invoice.id" >
-        ${booking.number}${(booking.numberModifier!="")? "/":""}${booking.numberModifier}
-        </display:column>
+        <%--<display:column url="/bookings/view" title="№"  paramId="invoice_id" paramProperty="invoice.id" sortable="true" property="number"   >--%>
+        <%--${booking.number}${(booking.numberModifier!="")? "/":""}${booking.numberModifier}--%>
+        <%--</display:column>--%>
+
+
+
+        <display:column url="/bookings/view" title="№" sortable="true"   property="number" paramId="invoice_id" paramProperty="invoice.id"/>
+        <display:column  title="#" property="numberModifier"/>
+
 
         <display:column title="открыт" sortable="true" format="{0,date,dd.MM.yyyy}" property="date"  headerClass="dataColumn"    />
 
