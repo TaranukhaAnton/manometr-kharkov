@@ -152,7 +152,7 @@ $(function() {
     $("#invFromKP").dialog({
         autoOpen: false,
         height: 400,
-        width: 350,
+        width: 400,
         modal: true,
         resizable:false,
         buttons: {
@@ -162,30 +162,32 @@ $(function() {
                 $('#numberModifier').removeClass("error");
                 $('#date').removeClass("error");
                 $('#consumer_invFromKP').val($('#consumer').val());
-                $('#emploer_invFromKP').val($('#emploer').val());
+                $('#emploer_invFromKP').val($('#employer').val());
 
-                //                        $.post("invoiceAction.do?method=verifyInvoicePresence", {"isInvoice" : $('[name=isInvoice]:checked').val(), "number":$('#number').val(), "numberModifier":$('#numberModifier').val(), "date":$('#date').val() }, function(data) {
-                $.post("invoiceAction.do?method=verifyInvoicePresence", $('#invFromKP_form').serialize(), function(data) {
-                    //  alert(data);
 
-                    if (data.length > 0) {
-
-                        var response = eval("(" + data + ")");
-                        if (response.correct) {
-                            // alert("invoiceAction.do?method=copyInvoice&" + $('#invFromKP_form').serialize());
-                            location.replace("invoiceAction.do?method=invFromKp&" + $('#invFromKP_form').serialize());
+                $.post("verifyInvoicePresence", $('#invFromKP_form').serialize(),
+                    function (data) {
+                        if (data.correct) {
+//                            alert("готово!");
+                            location.replace("copy?" + $('#invFromKP_form').serialize());
                         } else {
-                            alert(response.mes);
-                            if (!response.presence) {
-
+                            alert(data.mes.join("\n"));
+                            if (data.presence) {
                                 $('#number_invFromKP').addClass("error");
                                 $('#numberModifier_invFromKP').addClass("error");
-                                $('#date_invFromKP').addClass("error");
                             }
-
+                            if (!data.number) {
+                                $('#number_invFromKP').addClass("error");
+                            }
                         }
                     }
-                });
+
+
+
+
+
+
+                );
 
 
             },
