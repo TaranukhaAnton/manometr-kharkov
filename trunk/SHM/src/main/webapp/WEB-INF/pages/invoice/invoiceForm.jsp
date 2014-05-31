@@ -758,7 +758,7 @@
             <input type="hidden" name="isInvoice" value="true"/>
             <input type="hidden" id="emploer_invFromKP" name="employer"/>
             <input type="hidden" id="consumer_invFromKP" name="consumer"/>
-            <input type="hidden" name="parentID" value="<%=invoice.getId()%>"/>
+            <input type="hidden" name="parent_id" value="<%=invoice.getId()%>"/>
             <tr>
                 <td><label for="number">Номер</label></td>
                 <td><input type="text" name="number" id="number_invFromKP" class="text ui-widget-content ui-corner-all"

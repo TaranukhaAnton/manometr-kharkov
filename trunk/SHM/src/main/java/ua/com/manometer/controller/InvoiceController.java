@@ -186,8 +186,7 @@ public class InvoiceController {
         invoice.setExecutor(employer.getPerson());
         invoice.setNDS(new BigDecimal("20"));
         invoice.setPurpose(Invoice.PURPOSE_POSTAVKA);
-        DateFormat f = new SimpleDateFormat("dd.MM.yyyy");
-        invoice.setDate(new Date());
+        invoice.setDate(getCurrentDate());
         invoice.setInvoice(new Boolean(request.getParameter("isInvoice")));
         LOGGER.info("\"isInvoice\" = " + request.getParameter("isInvoice"));
         invoice.setNumber(new Integer(request.getParameter("number")));
