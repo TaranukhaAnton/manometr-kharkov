@@ -64,7 +64,7 @@
                 <version>1.1</version>
                 <configuration>
                     <warFile>target\manometer.war</warFile>
-                    <url>http://192.168.1.12:8080/manager/html</url>
+                    <url>http://192.168.0.50:8080/manager/html</url>
                     <username>anton</username>
                     <password>2405</password>
                     <!--<server>mytomcat</server>-->
