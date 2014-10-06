@@ -44,6 +44,12 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     @Transactional
+    public List<Contact> listContact(String customer) {
+        return contactDAO.listContact(customer);
+    }
+
+    @Override
+    @Transactional
     public void removeContact(Integer id) {
         contactDAO.removeContact(id);
     }

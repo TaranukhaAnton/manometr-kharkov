@@ -1,7 +1,6 @@
 package ua.com.manometer.controller;
 
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ua.com.manometer.model.Customer;
-import ua.com.manometer.model.address.City;
 import ua.com.manometer.model.invoice.Booking;
 import ua.com.manometer.model.invoice.Invoice;
 import ua.com.manometer.model.invoice.InvoiceItem;
@@ -20,15 +17,10 @@ import ua.com.manometer.service.CustomerService;
 import ua.com.manometer.service.address.CityService;
 import ua.com.manometer.service.invoice.BookingService;
 import ua.com.manometer.service.invoice.InvoiceService;
-import ua.com.manometer.util.amount.JAmount;
-import ua.com.manometer.util.amount.JAmountEN;
-import ua.com.manometer.util.amount.JAmountRU;
-import ua.com.manometer.util.amount.JAmountUA;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -80,7 +72,9 @@ public class BookingController {
         booking.setCurrentState(0);
         booking.setInvoice(invoice);
         invoice.setBooking(booking);
-        invoice.setCurrentState(Invoice.STATE_ZAK);
+        if(invoice.getCurrentState()==Invoice.STATE_ACT){
+            invoice.setCurrentState(Invoice.STATE_ZAK);
+        }
         bookingService.saveBooking(booking);
         invoiceService.saveInvoice(invoice);
         return "redirect:/bookings/view?invoice_id=" + invoice.getId();

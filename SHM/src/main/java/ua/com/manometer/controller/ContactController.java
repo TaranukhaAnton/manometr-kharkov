@@ -11,6 +11,7 @@ import ua.com.manometer.model.Profession;
 import ua.com.manometer.service.ContactService;
 import ua.com.manometer.service.ProfessionService;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -22,8 +23,17 @@ public class ContactController {
     private ProfessionService professionService;
 
     @RequestMapping("/")
-    public String populateContacts(Map<String, Object> map) {
-        map.put("listContact", contactService.listContact());
+    public String populateContacts(Map<String, Object> map, @RequestParam(value = "customer", required = false) String customer) {
+        System.out.println("customerId = " + customer);
+
+        List<Contact> contacts;
+        if (customer==null){
+            contacts  = contactService.listContact();
+        }       else {
+            contacts  = contactService.listContact(customer);
+        }
+        map.put("listContact", contacts);
+        map.put("customer", customer);
         return "contacts";
     }
 

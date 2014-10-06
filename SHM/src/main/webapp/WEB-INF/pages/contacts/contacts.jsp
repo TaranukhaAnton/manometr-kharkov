@@ -5,15 +5,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<%--<c:if test="${!empty customer}">
+<c:if test="${!empty customer}">
 <h2 align="center">Контактные лица предприятия&nbsp;&nbsp;&nbsp;
-<c:out value='${customer.name}' />	<br />	<br />
+<c:out value='${customer}' />	<br />	<br />
 </h2>
 
 
 
 
-</c:if>--%>
+</c:if>
 
 
 
