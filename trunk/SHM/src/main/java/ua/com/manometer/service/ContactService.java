@@ -12,6 +12,8 @@ public interface ContactService {
 
     public List<Contact> listContact();
 
+    public List<Contact> listContact(String customer);
+
     public void removeContact(Integer id);
 
 }

@@ -14,4 +14,5 @@ public interface ContactDAO {
 
     public void removeContact(Integer id);
 
+    List<Contact> listContact(String customer);
 }

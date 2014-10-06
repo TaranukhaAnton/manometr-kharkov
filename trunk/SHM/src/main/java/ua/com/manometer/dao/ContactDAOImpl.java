@@ -1,6 +1,8 @@
 package ua.com.manometer.dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.com.manometer.model.Contact;
@@ -37,5 +39,11 @@ public class ContactDAOImpl implements ContactDAO {
         }
     }
 
+    @Override
+    public List<Contact> listContact(String customer) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Contact.class);
+        criteria.add(Restrictions.eq("customer", customer));
+        return criteria.list();
+    }
 }
 

@@ -272,14 +272,7 @@
         <form:input path="address3" size="40" cssClass="fillone"/>
     </td>
 </tr>
-    <%--<tr>--%>
-    <%--<td class="tdLabel">--%>
 
-    <%--</td>--%>
-    <%--<td>--%>
-    <%--<form:input path="headCustomer" size="40"/>--%>
-    <%--</td>--%>
-    <%--</tr>--%>
 <tr>
     <td class="tdLabel">
         Дата поглощения
@@ -288,14 +281,7 @@
         <form:input path="mergeData" size="40"/>
     </td>
 </tr>
-    <%--<tr>--%>
-    <%--<td class="tdLabel">--%>
 
-    <%--</td>--%>
-    <%--<td>--%>
-    <%--<form:input path="questionnaire" size="40"/>--%>
-    <%--</td>--%>
-    <%--</tr>--%>
 <tr>
     <td class="tdLabel">
         Актуальность записи
@@ -360,6 +346,13 @@
 <div id="footerButtons">
     <input type="submit" value="Применить"/>
     <input type="button" value="Отмена" onclick="javascript:void(location.replace('./'))" >
+
+    <c:if test="${!isNew}">
+        <input type="button" value="Контактные лица" onclick="javascript:void(location.replace('../contacts/?customer=${customer.shortName}'))" >
+    </c:if>
+
+
+
 </div>
 </form:form>
 </div>

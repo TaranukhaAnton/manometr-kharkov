@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page import="java.text.NumberFormat" %>
@@ -13,7 +12,6 @@
 <%@ page import="ua.com.manometer.util.InvoiceUtils" %>
 <%@ page import="static ua.com.manometer.util.InvoiceUtils.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 
 
 <script type="text/javascript" src="../js/local/editInvoice.js"></script>
@@ -44,7 +42,7 @@
         <%= ((invoice.getNumberModifier() == null) || (invoice.getNumberModifier().isEmpty())) ? "" : ("/" + invoice.getNumberModifier())%>
     </td>
     <td colspan="3"> от <%= (new SimpleDateFormat("dd.MM.yy")).format(invoice.getDate()) %>
-        <%if (invoice.getChangeDate()!=null){%>
+        <%if (invoice.getChangeDate() != null) {%>
         &nbsp;изм.<%= (new SimpleDateFormat("dd.MM.yy")).format(invoice.getChangeDate()) %>
         <%}%>
     </td>
@@ -336,14 +334,14 @@
 
                 </TD>
                 <TD class="width70 topAlign">
-                    <%if(changesAllowed){ %>
+                    <%if (changesAllowed) { %>
 
                     <input type="text" class="inp" value="<%= item.getQuantity() %>"
-                           onkeypressEn="true"    id="quantity<%= item.getId() %>"
+                           onkeypressEn="true" id="quantity<%= item.getId() %>"
                            onkeypress='return digInput(event)'
                            onkeydown="invoiceItemChange('quantity',<%= item.getId() %>,'dig',<%= invoice.getId()%>);">
 
-                    <%}else{%>
+                    <%} else {%>
                     <%= item.getQuantity() %>
                     <%}%>
 
@@ -511,118 +509,123 @@
     <tr>
         <td>
             <textarea name="notes" class="width520"
-                    <%--<%= changesAllowed ? "" : textFieldDisab %>--%>
+            <%--<%= changesAllowed ? "" : textFieldDisab %>--%>
                     <%= changesAllowed ? "" : "readonly=\"true\"" %>
                       id="notes" cols="40" rows="3" onkeypressEn="true"
-                      onkeydown="paramChange('notes','any');"><%=(invoice.getNotes() == null) ? "" : invoice.getNotes()%></textarea>
+                      onkeydown="paramChange('notes','any');"><%=(invoice.getNotes() == null) ? "" : invoice.getNotes()%>
+            </textarea>
         <td>
             <textarea name="comments" id="comments" cols="40" rows="3" onkeypressEn="true" class="width520"
-                      onkeydown="paramChange('comments','any');"><%= (invoice.getComments() == null) ? "" : invoice.getComments()%></textarea>
+                      onkeydown="paramChange('comments','any');"><%= (invoice.getComments() == null) ? "" : invoice.getComments()%>
+            </textarea>
         </td>
     </tr>
 </table>
 
 
 </div>
-    <div id="downButtons">
-        <table style="width: 100%;">
-            <tr>
-                <td>
-            <div >
-                <%if (InvoiceUtils.isAddProdAllowed(invoice)) {%>
-                <input type="button" value="+ Продукция" onclick="javascript:void($('#addProduction-dialog').dialog('open'))" class="butt">
-                <%} %>
+<div id="downButtons">
+    <table style="width: 100%;">
+        <tr>
+            <td>
+                <div>
+                    <%if (InvoiceUtils.isAddProdAllowed(invoice)) {%>
+                    <input type="button" value="+ Продукция"
+                           onclick="javascript:void($('#addProduction-dialog').dialog('open'))" class="butt">
+                    <%} %>
 
-                <%if (InvoiceUtils.isZapIzmAllowed(invoice)) {%>
-                <input type="button" value="Запрет изм." onclick="banChanges();" class="butt">
-                <%} %>
+                    <%if (InvoiceUtils.isZapIzmAllowed(invoice)) {%>
+                    <input type="button" value="Запрет изм." onclick="banChanges();" class="butt">
+                    <%} %>
 
-                <% if (InvoiceUtils.isAktivirAllowed(invoice)) {%>
-                <input type="button" value="Активировать" onclick="setActive()" class="butt">
-                <% }%>
+                    <% if (InvoiceUtils.isAktivirAllowed(invoice)) {%>
+                    <input type="button" value="Активировать" onclick="setActive()" class="butt">
+                    <% }%>
 
-                <%if (InvoiceUtils.isAnnulirovatAllowed(invoice)) {%>
-                <input type="button" value="Аннулировать" onclick="setAnn()" class="butt">
-                <% }  %>
-
-
-                <%if (InvoiceUtils.isOtlAllowed(invoice)) {%>
-                <input type="button" value="Отложить" onclick="setOtl()" class="butt">
-                <% }%>
-
-                <%if (InvoiceUtils.isInvIzKpAllowed(invoice)) {%>
-                <input type="button" value="Счет из кп" onclick="$('#invFromKP').dialog('open')" class="butt">
-                <% }%>
-
-                <%if (InvoiceUtils.isOpenZNAllowed(invoice)) {%>
-                <input type="button" value="Открыть З.Н." onclick="$('#order-dialog').dialog('open')" class="butt">
-                <% }%>
-
-                <%if (InvoiceUtils.isZnAllowed(invoice)) {%>
-                <input type="button" value="заказ-наряд"
-                       onclick="location.href='../bookings/view?invoice_id=<%=invoice.getId()%>'"
-                       class="butt">
-                <% }%>
-
-                <%if (InvoiceUtils.isCopyAllowed(invoice)) {%>
-                <input type="button" value="Копия" onclick="javascript:void($('#copyInvoice-dialog').dialog('open'))" class="butt">
-                <% }%>
-
-                <%if (InvoiceUtils.isIzmRazbAllowed(invoice)) {%>
-                <input type="button" value="Изм./разбить" onclick="javascript:void($('#divideInvoice-dialog').dialog('open'))" class="butt">
-                <% }%>
-
-                <%if (InvoiceUtils.isAnalizAllowed(invoice)) {%>
-                <input type="button" value="Анализ" onclick="" class="butt">
-                <% }%>
-
-                <%if (InvoiceUtils.isPrintAllowed(invoice)) {%>
-                <input type="button" value="Печать"
-                       onclick="javascript:void($('#print-dialog').dialog('open'))"
-                       class="butt">
-                <% }%>
-
-                <%if (InvoiceUtils.isOtgrAllowed(invoice)) {%>
-                <input type="button" value="Отгрузки"
-                       onclick="location.href='../invoices/view_shipments?invoice_id=<%=invoice.getId()%>'"
-                       class="butt">
-                <% }%>
-
-                <%if (InvoiceUtils.isOplatAllowed(invoice)) {%>
-                <input type="button" value="Оплаты"
-                       onclick="location.href='./view_payments?invoice_id=<%=invoice.getId()%>'"
-                       class="butt">
-                <% }%>
-
-                <%if (InvoiceUtils.isIspolnAllowed(invoice)) {%>
-                <input type="button" value="Исполнен"
-                       onclick="setIsp()"
-                       class="butt">
-                <%} %>
-            </div>
-                </td>
-                <td style="width: 50px;">
-                    <div>
-                        <%
-                            if (invoice.getPrev() != null) {
-                        %>
-                        <a href="./view?invoice_id=<%=((Invoice) request.getAttribute("invoice")).getPrev()%>"><img
-                                src="../images/back.png"></a>
-                        <%
-                            }
-                            if (invoice.getNext() != null) {
-                        %>
-                        <a href="./view?invoice_id=<%=((Invoice) request.getAttribute("invoice")).getNext()%>"><img
-                                src="../images/forward.png"></a>
-                        <%
-                            } %>
+                    <%if (InvoiceUtils.isAnnulirovatAllowed(invoice)) {%>
+                    <input type="button" value="Аннулировать" onclick="setAnn()" class="butt">
+                    <% } %>
 
 
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
+                    <%if (InvoiceUtils.isOtlAllowed(invoice)) {%>
+                    <input type="button" value="Отложить" onclick="setOtl()" class="butt">
+                    <% }%>
+
+                    <%if (InvoiceUtils.isInvIzKpAllowed(invoice)) {%>
+                    <input type="button" value="Счет из кп" onclick="$('#invFromKP').dialog('open')" class="butt">
+                    <% }%>
+
+                    <%if (InvoiceUtils.isOpenZNAllowed(invoice)) {%>
+                    <input type="button" value="Открыть З.Н." onclick="$('#order-dialog').dialog('open')" class="butt">
+                    <% }%>
+
+                    <%if (InvoiceUtils.isZnAllowed(invoice)) {%>
+                    <input type="button" value="заказ-наряд"
+                           onclick="location.href='../bookings/view?invoice_id=<%=invoice.getId()%>'"
+                           class="butt">
+                    <% }%>
+
+                    <%if (InvoiceUtils.isCopyAllowed(invoice)) {%>
+                    <input type="button" value="Копия"
+                           onclick="javascript:void($('#copyInvoice-dialog').dialog('open'))" class="butt">
+                    <% }%>
+
+                    <%if (InvoiceUtils.isIzmRazbAllowed(invoice)) {%>
+                    <input type="button" value="Изм./разбить"
+                           onclick="javascript:void($('#divideInvoice-dialog').dialog('open'))" class="butt">
+                    <% }%>
+
+                    <%if (InvoiceUtils.isAnalizAllowed(invoice)) {%>
+                    <input type="button" value="Анализ" onclick="" class="butt">
+                    <% }%>
+
+                    <%if (InvoiceUtils.isPrintAllowed(invoice)) {%>
+                    <input type="button" value="Печать"
+                           onclick="javascript:void($('#print-dialog').dialog('open'))"
+                           class="butt">
+                    <% }%>
+
+                    <%if (InvoiceUtils.isOtgrAllowed(invoice)) {%>
+                    <input type="button" value="Отгрузки"
+                           onclick="location.href='../invoices/view_shipments?invoice_id=<%=invoice.getId()%>'"
+                           class="butt">
+                    <% }%>
+
+                    <%if (InvoiceUtils.isOplatAllowed(invoice)) {%>
+                    <input type="button" value="Оплаты"
+                           onclick="location.href='./view_payments?invoice_id=<%=invoice.getId()%>'"
+                           class="butt">
+                    <% }%>
+
+                    <%if (InvoiceUtils.isIspolnAllowed(invoice)) {%>
+                    <input type="button" value="Исполнен"
+                           onclick="setIsp()"
+                           class="butt">
+                    <%} %>
+                </div>
+            </td>
+            <td style="width: 50px;">
+                <div>
+                    <%
+                        if (invoice.getPrev() != null) {
+                    %>
+                    <a href="./view?invoice_id=<%=((Invoice) request.getAttribute("invoice")).getPrev()%>"><img
+                            src="../images/back.png"></a>
+                    <%
+                        }
+                        if (invoice.getNext() != null) {
+                    %>
+                    <a href="./view?invoice_id=<%=((Invoice) request.getAttribute("invoice")).getNext()%>"><img
+                            src="../images/forward.png"></a>
+                    <%
+                        } %>
+
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
 
 </div>
 <%-- content--%>
@@ -790,7 +793,7 @@
         <tr>
             <td><label for="invDate">Дата &nbsp &nbsp &nbsp &nbsp &nbsp</label></td>
             <td><input type="text" name="date" id="invDate" readonly="true"
-                       value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(invoice.getDate()) %>"
+                       value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(new Date()) %>"
                        class="dateInput ui-widget-content ui-corner-all"/>
             </td>
         </tr>
@@ -802,10 +805,11 @@
     <Br>
 
     <form action="#" id="copyInvoice_form">
-         <input type="hidden" name="parent_id" value="<%=invoice.getId()%>"/>
+        <input type="hidden" name="parent_id" value="<%=invoice.getId()%>"/>
         <table>
             <tr>
-                <td><input type="radio" name="isInvoice" id="isInv" value="true" checked onclick="removeErrorClass(this)">
+                <td><input type="radio" name="isInvoice" id="isInv" value="true" checked
+                           onclick="removeErrorClass(this)">
                 </td>
 
                 <td><label for="isInv">Счет</label></td>
@@ -816,7 +820,7 @@
             </tr>
             <tr>
                 <td><label for="number">Номер</label></td>
-                <td><input type="text" name="number"  class="text ui-widget-content ui-corner-all"
+                <td><input type="text" name="number" class="text ui-widget-content ui-corner-all"
                            onclick="removeErrorClass(this)"/></td>
 
             </tr>
@@ -827,14 +831,14 @@
             </tr>
             <tr>
                 <td><label for="date">Дата &nbsp &nbsp &nbsp &nbsp &nbsp</label></td>
-                <td><input type="text" name="date"  readonly="true" onclick="removeErrorClass(this)"
+                <td><input type="text" name="date" readonly="true" onclick="removeErrorClass(this)"
                            value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(new Date()) %>"
                            class="text ui-widget-content ui-corner-all"/></td>
             </tr>
 
             <tr>
                 <td><label for="employer">Заказчик</label></td>
-                <td><input type="text"  name="employer" onclick="removeErrorClass(this)"
+                <td><input type="text" name="employer" onclick="removeErrorClass(this)"
                            class="text ui-widget-content ui-corner-all"/>
                 </td>
             </tr>
@@ -910,30 +914,35 @@
 
             <tr>
                 <td><label for="number1">Номер</label></td>
-                <td><input type="text" name="number1" class="text ui-widget-content ui-corner-all" onkeypress='return intInput(event)' id="number1"/>   </td>
+                <td><input type="text" name="number1" class="text ui-widget-content ui-corner-all"
+                           onkeypress='return intInput(event)' id="number1"/></td>
                 <td></td>
-                <td><input type="text" name="number2" class="text ui-widget-content ui-corner-all" onkeypress='return intInput(event)' />   </td>
+                <td><input type="text" name="number2" class="text ui-widget-content ui-corner-all"
+                           onkeypress='return intInput(event)'/></td>
 
             </tr>
 
             <tr>
                 <td><label for="numberModifier1">Модификатор</label></td>
-                <td><input type="text" name="numberModifier1"       class="text ui-widget-content ui-corner-all"  id="numberModifier1" /></td>
+                <td><input type="text" name="numberModifier1" class="text ui-widget-content ui-corner-all"
+                           id="numberModifier1"/></td>
                 <td></td>
-                <td><input type="text" name="numberModifier2"       class="text ui-widget-content ui-corner-all" /></td>
+                <td><input type="text" name="numberModifier2" class="text ui-widget-content ui-corner-all"/></td>
             </tr>
             <tr>
                 <td><label for="date1">Дата &nbsp &nbsp &nbsp &nbsp &nbsp</label></td>
-                <td><input type="text" name="date1" readonly="true"  value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(new Date()) %>"  id="date1"
+                <td><input type="text" name="date1" readonly="true"
+                           value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(new Date()) %>" id="date1"
                            class="text ui-widget-content ui-corner-all"/></td>
                 <td></td>
-                <td><input type="text" name="date2" readonly="true"  value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(new Date()) %>"
+                <td><input type="text" name="date2" readonly="true"
+                           value="<%= (new SimpleDateFormat("dd.MM.yyyy")).format(new Date()) %>"
                            class="text ui-widget-content ui-corner-all"/></td>
             </tr>
 
             <tr>
                 <td><label for="employer1">Заказчик</label></td>
-                <td><input type="text" name="employer1"   id="employer1"
+                <td><input type="text" name="employer1" id="employer1"
                            class="text ui-widget-content ui-corner-all"/>
                 </td>
                 <td></td>
@@ -945,7 +954,7 @@
             <tr>
                 <td><label for="consumer1">Конечный</label></td>
                 <td>
-                    <input type="text" name="consumer1"   id="consumer1"
+                    <input type="text" name="consumer1" id="consumer1"
                            class="text ui-widget-content ui-corner-all"/>
                 </td>
                 <td></td>

@@ -149,17 +149,20 @@ public class InvoiceUtils {
 
 
     public static boolean isAddProdAllowed(Invoice invoice) {
-        return invoice.getCurrentState() == Invoice.STATE_CHERN || invoice.getCurrentState() == Invoice.STATE_MOD;
+        return invoice.getCurrentState() == Invoice.STATE_CHERN ||
+                invoice.getCurrentState() == Invoice.STATE_MOD;
     }
     public static boolean isZapIzmAllowed(Invoice invoice) {
-        return invoice.getCurrentState() == Invoice.STATE_CHERN || invoice.getCurrentState() == Invoice.STATE_MOD;
+        return invoice.getCurrentState() == Invoice.STATE_CHERN ||
+                invoice.getCurrentState() == Invoice.STATE_MOD;
     }
     public static boolean isAktivirAllowed(Invoice invoice) {
         return invoice.getCurrentState() == Invoice.STATE_OTL;
 
     }
     public static boolean isAnnulirovatAllowed(Invoice invoice) {
-        return invoice.getCurrentState() == Invoice.STATE_ACT || invoice.getCurrentState() == Invoice.STATE_ZAK;
+        return invoice.getCurrentState() == Invoice.STATE_ACT ||
+                invoice.getCurrentState() == Invoice.STATE_ZAK;
 
     }
     public static boolean isOtlAllowed(Invoice invoice) {
@@ -172,7 +175,11 @@ public class InvoiceUtils {
         return
                 (invoice.getCurrentState() == Invoice.STATE_ACT ||
                         invoice.getCurrentState() == Invoice.STATE_OTGR ||
-                        invoice.getCurrentState() == Invoice.STATE_CH_ISP)&& (invoice.getBooking() == null)&&(invoice.isInvoice());
+                        invoice.getCurrentState() == Invoice.STATE_CH_ISP||
+                        invoice.getCurrentState() == Invoice.STATE_OPLACH
+                )&&
+                        (invoice.getBooking() == null)&&
+                        (invoice.isInvoice());
     }
     public static boolean isZnAllowed(Invoice invoice) {
         return invoice.getBooking() != null;
